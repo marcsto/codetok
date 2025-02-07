@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeTok</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+  <style>
+    /* Basic reset and full-screen layout */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: sans-serif;
+    }
+    /* The fixed wrapper hides overflow so only one page is visible */
+    a {
+      color: #3794ff;
+    }
+
+    welcome {
+      background-color: #1e1e1e;
+    }
+
+    /* Improve the appearance of code blocks */
+    pre {
+      background-color: #1e1e1e !important;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.95em;
+
+      white-space: pre-wrap;      /* CSS3: preserves newlines and wraps text */
+      word-wrap: break-word;      /* Legacy IE support */
+      word-break: break-all;      /* Breaks long words at arbitrary points if needed */
+    }
+
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      user-select: none;              /* Prevent text selection during drag */
+      -webkit-user-select: none;
+    }
+    /* The pages container holds all the pages stacked vertically */
+    .pages {
+      width: 100%;
+      /* For 3 pages, the total height is 300vh (3 × 100vh). 
+         Adjust this value if you add/remove pages. */
+      /* height: 300vh; */
+      transition: transform 0.3s ease;
+    }
+    /* Each page fills the viewport */
+    .page {
+      width: 100%;
+      height: 100dvh;    
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1em;
+      color: #fff;
+      overflow: hidden;
+      background: #252526;
+    }
+
+    .example {
+      /* border: 1px solid #3c3c3c; */
+      /* border: 1px solid pink; */
+      /* background: #252526; */
+      border-radius: 4px;
+      /* Ensure the example never exceeds the viewport width and add some padding */
+      box-sizing: border-box;
+      padding: 16px;
+      margin: 0 auto;
+
+      /* Initially no transform; will be adjusted by JS. Center it */
+      transform-origin: center;
+      
+    }
+    .example h2 {
+      margin-top: 0;
+      color: #569cd6;
+    }
+    
+  </style>
+</head>
+<body>
+
+    <!-- <button id="fs-button">Go Fullscreen</button> -->
+  <div class="wrapper">
+    <div class="pages" id="pages">
+        
+
+    </div>
+  </div>
+
+  <!-- Include marked.js for Markdown conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
+  <!-- Include highlight.js for code syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+
+    
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedLanguage = urlParams.get('lang');
+
+    //const fsButton = document.getElementById('fs-button');
+
+    // Function to toggle fullscreen mode
+    function toggleFullscreen() {
+      // Check if the document is already in fullscreen mode
+      if (!document.fullscreenElement &&
+          !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        // Request fullscreen on the root element (document.documentElement)
+        const element = document.documentElement;
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+          element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari, Opera
+          element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+          element.msRequestFullscreen();
+        }
+      } else {
+        // If already in fullscreen, exit it
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    // Attach the function to the button click
+    //fsButton.addEventListener('click', toggleFullscreen);
+  </script>
+
+  <script>
+    
+    /**
+     * Renders each example into its own div.
+     * @param {Object} data - JSON data with an "examples" array.
+     */
+    function renderExamples(data) {
+      const container = document.getElementById('pages');
+
+      data.examples.forEach(example => {
+        // Create the container for the example
+        const page = document.createElement('div');
+        page.classList.add('page');
+        
+        const exampleDiv = document.createElement('div');
+        exampleDiv.classList.add('example');
+        // exampleDiv.classList.add('page');
+        page.appendChild(exampleDiv);
+
+        // Create and append the heading for the example name
+        const heading = document.createElement('h2');
+        heading.textContent = example.name;
+        exampleDiv.appendChild(heading);
+
+        // Convert the markdown to HTML using marked
+        const htmlContent = marked.parse(example.example, {
+          // Use highlight.js for code block highlighting
+          highlight: function(code, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+              return hljs.highlight(code, { language: lang }).value;
+            }
+            return hljs.highlightAuto(code).value;
+          }
+        });
+
+        // Create a div to hold the rendered HTML content and append it
+        const contentDiv = document.createElement('div');
+        contentDiv.innerHTML = htmlContent;
+        exampleDiv.appendChild(contentDiv);
+
+        // Append the complete example div to the container
+        container.appendChild(page);
+        scaleContent(exampleDiv);
+        
+      });
+    }
+
+   
+  </script>
+
+  <script>
+    const pagesContainer = document.querySelector('.pages');
+
+    function getInitialPage() {
+      // Get the page from the URL, or local store, or 0 if not set
+      const urlParams = new URLSearchParams(window.location.search);
+      const page = parseInt(urlParams.get('page')) || parseInt(localStorage.getItem(selectedLanguage + "_page")) || 0;
+      return page;
+    }
+
+    function showCurrentPage(disableTransition = false) {
+      // Print the call stack
+      console.trace();
+      console.log("showCurrentPage " + currentPage);
+      if (disableTransition) {
+        pagesContainer.style.transition = 'none';
+      } else {
+          pagesContainer.style.transition = 'transform 0.3s ease';
+      }
+      pagesContainer.style.transform = `translateY(-${currentPage * window.innerHeight}px)`;
+
+      // Scale the content to fit the page by finding the correct example div based on the currentPage
+      const content = document.querySelectorAll('.example')[currentPage];
+      
+      // Store the current page in the URL (keep other URL params the same). Don't change the URL history so back button works.
+      const url = new URL(window.location);
+      url.searchParams.set('page', currentPage);
+      window.history.replaceState({}, '', url);
+      
+      // Store the current page for this language in localStorage
+      localStorage.setItem(selectedLanguage + "_page", currentPage);
+
+    }
+
+    
+      
+    const wrapper = document.querySelector('.wrapper');
+    totalPages = document.querySelectorAll('.page').length;
+    let currentPage = 0;
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    const threshold = 50; // Minimum vertical distance (in pixels) to trigger a page change
+
+    /* ---------------------- */
+    /* --- Touch Handlers --- */
+    /* ---------------------- */
+    pagesContainer.addEventListener('touchstart', handleTouchStart, {passive: false});
+    pagesContainer.addEventListener('touchmove', handleTouchMove, {passive: false});
+    pagesContainer.addEventListener('touchend', handleTouchEnd);
+
+    function handleTouchStart(e) {
+      // Only consider a single touch
+      if (e.touches.length !== 1) return;
+      startY = e.touches[0].clientY;
+      isDragging = true;
+      // Remove any transition so the container follows the finger immediately
+      pagesContainer.style.transition = 'none';
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging) return;
+      // Prevent the default scroll behavior
+      e.preventDefault();
+      currentY = e.touches[0].clientY;
+      const diff = currentY - startY;
+      // Calculate the new translateY value: start from the current page position plus drag offset
+      const translateY = -currentPage * window.innerHeight + diff;
+      pagesContainer.style.transform = `translateY(${translateY}px)`;
+    }
+
+    function handleTouchEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = currentY - startY;
+      // If dragged upward enough and not on the last page, go to next page
+      if (diff < -threshold && currentPage < totalPages - 1) {
+        currentPage++;
+      }
+      // If dragged downward enough and not on the first page, go to previous page
+      else if (diff > threshold && currentPage > 0) {
+        currentPage--;
+      }
+      showCurrentPage();
+    }
+
+    /* ---------------------- */
+    /* --- Mouse Handlers --- */
+    /* ---------------------- */
+    // These allow you to test the swipe on desktop using click and drag.
+    wrapper.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    function handleMouseDown(e) {
+      startY = e.clientY;
+      isDragging = true;
+      pagesContainer.style.transition = 'none';
+    }
+
+    function handleMouseMove(e) {
+      if (!isDragging) return;
+      currentY = e.clientY;
+      const diff = currentY - startY;
+      const translateY = -currentPage * window.innerHeight + diff;
+      pagesContainer.style.transform = `translateY(${translateY}px)`;
+    }
+
+    function handleMouseUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = currentY - startY;
+      if (diff < -threshold && currentPage < totalPages - 1) {
+        currentPage++;
+      }
+      else if (diff > threshold && currentPage > 0) {
+        currentPage--;
+      }
+      showCurrentPage();
+    }
+
+    /* ---------------------- */
+    /* --- Keyboard Handler - */
+    /* ---------------------- */
+    // Allow navigation with the up and down arrow keys.
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "ArrowDown" && currentPage < totalPages - 1) {
+        currentPage++;
+        showCurrentPage();
+        e.preventDefault();
+      }
+      else if (e.key === "ArrowUp" && currentPage > 0) {
+        currentPage--;
+        showCurrentPage();
+        e.preventDefault();
+      }
+    });
+
+    /* ---------------------------- */
+    /* --- Window Resize Handler --- */
+    /* ---------------------------- */
+    // Adjust the container position when the window is resized.
+    window.addEventListener('resize', () => {
+      showCurrentPage(true); // TODO: Maybe set transition to none
+      // pagesContainer.style.transition = 'none';
+      // pagesContainer.style.transform = `translateY(-${currentPage * window.innerHeight}px)`;
+    });
+    
+
+    var shown = false;
+    function getDynamicViewportHeight() {
+        if (window.visualViewport) {
+            if (!shown) {
+                //alert ("visualViewport.height: " + window.visualViewport.height + " window.innerHeight: " + window.innerHeight + " ---- " + window.visualViewport.offsetTop);
+                shown = true;
+            }
+            return window.visualViewport.height;
+        }
+        // Fallback: window.innerHeight might not be as accurate on mobile.
+        
+        return window.innerHeight;
+    }
+
+
+    function scaleContent(content) {
+        const page = document.querySelector('.page');
+        
+        
+        // Get available dimensions in the container
+        const availableWidth = page.clientWidth;
+        const availableHeight = getDynamicViewportHeight(); //page.clientHeight;
+        
+        // Get the natural size of the content
+        const contentRect = content.getBoundingClientRect();
+        const contentWidth = contentRect.width;
+        const contentHeight = contentRect.height;
+        
+        console.log("cwh", contentWidth, contentHeight);
+        console.log("awh",availableWidth, availableHeight);
+
+        // Calculate the scale factor needed on each axis
+        const scaleX = availableWidth / contentWidth;
+        const scaleY = availableHeight / contentHeight;
+        
+        // Use the smaller scale so that both width and height fit
+        var scale = Math.min(scaleX, scaleY); // The 1 prevents scaling up beyond natural size
+        console.log("scale", scale);
+        
+        if (scale >= 1) {
+          scale = 1;
+        } else {
+            scale = scale - 0.1;
+        }
+        
+
+        // Apply the scale transform to the content
+        content.style.transform = `scale(${scale})`;
+        }
+
+        // Run on load and whenever the window is resized
+        //window.addEventListener('resize', scaleContent);
+        //document.addEventListener('DOMContentLoaded', scaleContent);
+
+       // When the DOM is fully loaded, fetch the JSON data and render the examples
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      fetch('data/' + selectedLanguage + '.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          renderExamples(data);
+          // Optionally, ensure any remaining code blocks are highlighted
+          document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+          });
+          totalPages = document.querySelectorAll('.page').length;
+          currentPage = getInitialPage();
+          showCurrentPage(true);
+        })
+        .catch(error => {
+          console.error('Error loading JSON data:', error);
+        });
+    });
+  </script>
+</body>
+</html>
+

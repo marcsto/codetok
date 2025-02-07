@@ -1,0 +1,376 @@
+{
+    "examples": [
+    {
+      "name": "Null Safety",
+      "example": "Kotlin handles nulls differently than Java.  It distinguishes between nullable and non-nullable types. Use `?` to indicate a nullable type.\n\n**Kotlin:**\n```kotlin\nvar name: String? = \"Alice\"  // 'name' can be null\nname = null\n\n// Safe call operator ?. prevents NullPointerException\nprintln(name?.length)\n\n// Elvis operator ?: provides a default value if null\nval length = name?.length ?: 0\nprintln(length)\n```\n\n**Java (for comparison - Kotlin avoids this):**\n```java\nString name = \"Alice\";\nname = null;\nSystem.out.println(name.length()); // NullPointerException!\n```"
+    },
+    {
+      "name": "Data Classes",
+      "example": "Data classes automatically generate `equals()`, `hashCode()`, `toString()`, `copy()` etc.\n\n**Kotlin:**\n```kotlin\ndata class User(val name: String, val age: Int)\n\nfun main() {\n    val user1 = User(\"Bob\", 30)\n    val user2 = User(\"Bob\", 30)\n\n    println(user1 == user2) // true (structural equality)\n    println(user1.toString()) // User(name=Bob, age=30)\n    val user3 = user1.copy(age = 31)\n    println(user3)\n}\n```\n\n**Java (would require boilerplate):**\n(Imagine manually writing `equals`, `hashCode`, `toString` for a class like User in Java)"
+    },
+    {
+      "name": "Extension Functions",
+      "example": "Add functions to existing classes without inheriting from them.\n\n**Kotlin:**\n```kotlin\nfun String.addExclamation(): String {\n    return this + \"!\"\n}\n\nfun main() {\n    val message = \"Hello\"\n    println(message.addExclamation()) // Hello!\n}\n```\n\n**Java (not directly possible):**\nIn Java, you'd typically need a utility class with static methods."
+    },
+    {
+      "name": "String Templates",
+      "example": "Easily embed variables and expressions directly within strings.\n\n**Kotlin:**\n```kotlin\nval name = \"Charlie\"\nval age = 25\n\nval message = \"My name is $name and I am $age years old.\"\nprintln(message) // My name is Charlie and I am 25 years old.\n\nval expression = \"The sum of 2 and 3 is ${2 + 3}\"\nprintln(expression) // The sum of 2 and 3 is 5\n```\n\n**Java:**\n```java\nString name = \"Charlie\";\nint age = 25;\nString message = \"My name is \" + name + \" and I am \" + age + \" years old.\";\nSystem.out.println(message);\n```"
+    },
+    {
+      "name": "Concise Function Syntax",
+      "example": "Single-expression functions can be written more concisely.\n\n**Kotlin:**\n```kotlin\nfun square(x: Int): Int = x * x\n\nfun greet(name: String) = \"Hello, $name!\"\n\nfun main() {\n    println(square(5)) // 25\n    println(greet(\"David\")) // Hello, David!\n}\n```\n\n**Java:**\n```java\nint square(int x) {\n    return x * x;\n}\n\nString greet(String name) {\n    return \"Hello, \" + name + \"!\";\n}\n```"
+    },
+    
+        
+      {
+          "name": "Immutability by Default",
+          "example": "Kotlin encourages immutability. `val` declares a read-only property (like `final` in Java).\n\n**Kotlin:**\n```kotlin\nval x: Int = 10 // Immutable\n// x = 20 // Error: Val cannot be reassigned\nvar y: Int = 10 // Mutable\ny = 20 // OK\n```\n\n**Java:**\n```java\nfinal int x = 10; // Immutable\n//x = 20; // Error\nint y = 10; //Mutable\ny = 20; //OK\n```"
+        },
+        {
+          "name": "Named Arguments",
+          "example": "Pass arguments to functions by name for clarity.\n\n**Kotlin:**\n```kotlin\nfun formatName(firstName: String, lastName: String, middleName: String = \"\"):\n        String {\n    return \"$firstName $middleName $lastName\"\n}\n\nfun main() {\n    println(formatName(firstName = \"John\", lastName = \"Doe\")) // John  Doe\n    println(formatName(firstName = \"Jane\", lastName = \"Smith\", middleName = \"Q\")) // Jane Q Smith\n}\n```\n\n**Java:**\n```java\n// Java doesn't have named arguments.\n// Requires specific ordering\n```"
+        },
+          {
+          "name": "Default Argument Values",
+          "example": "Functions can define default values for parameters.\n\n**Kotlin:**\n```kotlin\nfun greet(name: String = \"World\") {\n    println(\"Hello, $name!\")\n}\n\nfun main() {\n    greet() // Hello, World!\n    greet(\"Alice\") // Hello, Alice!\n}\n```\n\n**Java:**\n```java\n// Java requires overloading to achieve the same effect.\n```"
+        },
+        {
+          "name": "When Expression",
+          "example": "A more powerful `switch` statement.\n\n**Kotlin:**\n```kotlin\nfun describe(obj: Any): String = when (obj) {\n    1 -> \"One\"\n    \"Hello\" -> \"Greeting\"\n    is Long -> \"Long\"\n    !is String -> \"Not a string\"\n    else -> \"Unknown\"\n}\n\nfun main() {\n    println(describe(1))\n    println(describe(\"Hello\"))\n    println(describe(2L))\n    println(describe(3))\n}\n```\n\n**Java:**\n```java\n// Requires multiple if-else or a switch statement, less flexible\n```"
+        },
+        {
+          "name": "Smart Casts",
+          "example": "The compiler automatically casts a variable after a type check.\n\n**Kotlin:**\n```kotlin\nfun demo(x: Any) {\n    if (x is String) {\n        println(x.length) // x is automatically cast to String here\n    }\n}\n\nfun main() {\n    demo(\"Kotlin\")\n    demo(10)\n}\n```\n\n**Java:**\n```java\n// Requires explicit casting\n```"
+        },
+        {
+          "name": "Properties",
+          "example": "Kotlin's properties are a shorthand for fields with getter/setter methods.\n\n**Kotlin:**\n```kotlin\nclass Person(val name: String, var age: Int)\n\nfun main() {\n    val person = Person(\"Eve\", 28)\n    println(person.name) // Getter\n    person.age = 29 // Setter\n    println(person.age)\n}\n```\n\n**Java:**\n```java\nclass Person {\n    private String name;\n    private int age;\n\n    public String getName() { return name; }\n    public int getAge() { return age; }\n    public void setAge(int age) { this.age = age; }\n}\n```"
+        },
+        {
+          "name": "Range Expressions",
+          "example": "Easily create ranges of numbers or characters.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    for (i in 1..5) { // 1 to 5 inclusive\n        print(\"$i \")\n    }\n    println()\n\n    for (i in 5 downTo 1) {\n        print(\"$i \")\n    }\n    println()\n\n    for (i in 1 until 5) { // 1 to 4\n        print(\"$i \")\n    }\n    println()\n\n    for (i in 1..10 step 2) {\n        print(\"$i \")\n    }\n    println()\n}\n```\n\n**Java:**\n```java\n// Requires loops and manual incrementing/decrementing.\n```"
+        },
+        {
+          "name": "Delegated Properties",
+          "example": "Delegate property access to another class. Useful for lazy initialization or observable properties.\n\n**Kotlin:**\n```kotlin\nimport kotlin.properties.Delegates\n\nclass Example {\n    var p: String by Delegates.observable(\"<no name>\") {\n        property, oldValue, newValue ->\n        println(\"$property: $oldValue -> $newValue\")\n    }\n}\n\nfun main() {\n    val example = Example()\n    example.p = \"First\"\n    example.p = \"Second\"\n}\n```\n\n**Java:**\n```java\n// Requires manual implementation.\n```"
+        },
+        {
+          "name": "Lambdas and Higher-Order Functions",
+          "example": "Functions can be treated as first-class citizens.\n\n**Kotlin:**\n```kotlin\nfun operate(x: Int, y: Int, operation: (Int, Int) -> Int): Int {\n    return operation(x, y)\n}\n\nfun main() {\n    val sum = operate(5, 3) { a, b -> a + b }\n    println(sum)\n\n    val multiply = operate(5, 3) { a, b -> a * b }\n    println(multiply)\n}\n```\n\n**Java (requires Java 8+):**\n```java\n// Similar functionality with lambda expressions\n```"
+        },
+        {
+          "name": "Sealed Classes",
+          "example": "Represents restricted class hierarchies. When used in a `when` expression, the compiler knows all possible subclasses.\n\n**Kotlin:**\n```kotlin\nsealed class Result {\n    data class Success(val data: String) : Result()\n    data class Error(val message: String) : Result()\n}\n\nfun processResult(result: Result) = when (result) {\n    is Result.Success -> \"Success: ${result.data}\"\n    is Result.Error -> \"Error: ${result.message}\"\n}\n\nfun main() {\n    println(processResult(Result.Success(\"Data\")))\n    println(processResult(Result.Error(\"Failed\")))\n}\n```\n\n**Java:**\n```java\n// Can be simulated with abstract classes and private constructors but is less concise.\n```"
+        },
+        {
+          "name": "Singletons (Object Declarations)",
+          "example": "Easily create singleton instances.\n\n**Kotlin:**\n```kotlin\nobject Database {\n    init {\n        println(\"Database initialized\")\n    }\n\n    fun query(sql: String): String {\n        return \"Result for: $sql\"\n    }\n}\n\nfun main() {\n    println(Database.query(\"SELECT * FROM users\"))\n}\n```\n\n**Java:**\n```java\n// Requires more boilerplate.\n```"
+        },
+        {
+          "name": "Operator Overloading",
+          "example": "Define the behavior of operators (+, -, *, /, etc.) for your own classes.\n\n**Kotlin:**\n```kotlin\ndata class Point(val x: Int, val y: Int) {\n    operator fun plus(other: Point): Point {\n        return Point(x + other.x, y + other.y)\n    }\n}\n\nfun main() {\n    val p1 = Point(1, 2)\n    val p2 = Point(3, 4)\n    val p3 = p1 + p2\n    println(p3) // Point(x=4, y=6)\n}\n```\n\n**Java:**\n```java\n// Not directly supported.\n```"
+        },
+        {
+          "name": "Collection Literals",
+          "example": "Easily create lists, sets, and maps.\n\n**Kotlin:**\n```kotlin\nval numbers = listOf(1, 2, 3)\nval names = mutableListOf(\"Alice\", \"Bob\")\nval map = mapOf(\"a\" to 1, \"b\" to 2)\n\nfun main() {\n    println(numbers)\n    println(names)\n    println(map)\n}\n```\n\n**Java:**\n```java\n// More verbose.\nList<Integer> numbers = Arrays.asList(1, 2, 3);\n```"
+        },
+        {
+          "name": "Inline Functions",
+          "example": "Instruct the compiler to copy the body of a function directly into the call site. Can improve performance, especially for higher-order functions.\n\n**Kotlin:**\n```kotlin\ninline fun measureTimeMillis(block: () -> Unit): Long {\n    val start = System.currentTimeMillis()\n    block()\n    return System.currentTimeMillis() - start\n}\n\nfun main() {\n    val time = measureTimeMillis { \n        Thread.sleep(100)\n    }\n    println(\"Execution time: $time ms\")\n}\n```\n\n**Java:**\n```java\n// Equivalent optimization performed by the JVM, but not directly controllable by the programmer.\n```"
+        },
+        {
+          "name": "Destructuring Declarations",
+          "example": "Extract values from data classes or other objects into separate variables.\n\n**Kotlin:**\n```kotlin\ndata class Point(val x: Int, val y: Int)\n\nfun main() {\n    val point = Point(10, 20)\n    val (a, b) = point\n    println(\"x = $a, y = $b\")\n\n    val map = mapOf(\"a\" to 1, \"b\" to 2)\n    for ((key, value) in map) {\n        println(\"$key -> $value\")\n    }\n}\n```\n\n**Java:**\n```java\n// Requires manual accessors.\n```"
+        },
+        {
+          "name": "Type Aliases",
+          "example": "Give a new name to an existing type.\n\n**Kotlin:**\n```kotlin\ntypealias Name = String\ntypealias Age = Int\n\nfun greet(name: Name, age: Age) {\n    println(\"Hello, $name! You are $age years old.\")\n}\n\nfun main() {\n    greet(\"Alice\", 30)\n}\n```\n\n**Java:**\n```java\n// Not directly supported.\n```"
+        },
+        {
+          "name": "Coroutines (Simplified Asynchronous Programming)",
+          "example": "Kotlin provides lightweight concurrency using coroutines, making asynchronous programming easier.\n\n**Kotlin (Simplified Example):**\n```kotlin\nimport kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    launch {\n        delay(1000L) // non-blocking delay\n        println(\"World!\")\n    }\n    println(\"Hello,\") // main thread continues\n}\n```\n\n**Java:**\n```java\n// Requires more complex thread management or reactive libraries.\n```"
+        },
+        {
+          "name": "Extension Properties",
+          "example": "Similar to extension functions, but for properties.\n\n**Kotlin:**\n```kotlin\nval String.isLong: Boolean\n    get() = this.length > 10\n\nfun main() {\n    println(\"Hello\".isLong) // false\n    println(\"ThisIsALongString\".isLong) // true\n}\n```\n\n**Java:**\n```java\n// Not directly supported.\n```"
+        },
+        {
+          "name": "Triple and Pair",
+          "example": "Convenient classes to hold two or three values.\n\n**Kotlin:**\n```kotlin\nfun getCoordinates(): Pair<Int, Int> {\n    return Pair(10, 20)\n}\n\nfun getColor(): Triple<Int, Int, Int> {\n    return Triple(255, 0, 0)\n}\n\nfun main() {\n    val (x, y) = getCoordinates()\n    println(\"x = $x, y = $y\")\n\n    val (red, green, blue) = getColor()\n    println(\"Red = $red, Green = $green, Blue = $blue\")\n}\n```\n\n**Java:**\n```java\n// Requires custom class or library use.\n```"
+        },
+        {
+          "name": "Scope Functions (let, run, with, apply, also)",
+          "example": "Functions that execute a block of code within the context of an object. Enhance code readability.\n\n**Kotlin:**\n```kotlin\ndata class Person(var name: String, var age: Int)\n\nfun main() {\n    val person = Person(\"John\", 30)\n\n    person.let {\n        println(\"Name: ${it.name}, Age: ${it.age}\")\n    }\n\n    person.run {\n        age += 1\n        println(\"Updated age: $age\")\n    }\n\n    with(person) {\n        name = \"Jane\"\n        println(\"Updated name: $name\")\n    }\n\n    person.apply {\n        age += 1\n    }.also {\n        println(\"Age incremented to: ${it.age}\")\n    }\n}\n```\n\n**Java:**\n```java\n// Requires more verbose object manipulation.\n```"
+        },
+        {
+          "name": "Destructuring in Lambdas",
+          "example": "Destructure data class instances directly within lambda parameters.\n\n**Kotlin:**\n```kotlin\ndata class Point(val x: Int, val y: Int)\n\nfun processPoints(points: List<Point>, processor: (Int, Int) -> Unit) {\n    points.forEach { (x, y) -> processor(x, y) }\n}\n\nfun main() {\n    val points = listOf(Point(1, 2), Point(3, 4))\n    processPoints(points) { x, y -> println(\"x = $x, y = $y\") }\n}\n```\n\n**Java (requires manual extraction inside lambda):**\n```java\n// In Java, you would need to manually extract the values within the lambda\n```"
+        },
+        {
+          "name": "Local Functions",
+          "example": "Define a function inside another function.\n\n**Kotlin:**\n```kotlin\nfun outerFunction(x: Int): Int {\n    fun innerFunction(y: Int): Int {\n        return x + y\n    }\n    return innerFunction(5)\n}\n\nfun main() {\n    println(outerFunction(10)) // 15\n}\n```\n\n**Java:**\n```java\n// Not directly supported. Requires separate methods.\n```"
+        },
+          {
+          "name": "Nullable Receivers",
+          "example": "Extension functions can be defined for nullable receiver types.\n\n**Kotlin:**\n```kotlin\nfun String?.isNullOrEmpty(): Boolean {\n    return this == null || this.isEmpty()\n}\n\nfun main() {\n    val str1: String? = null\n    val str2: String? = \"\"\n    val str3: String? = \"Hello\"\n\n    println(str1.isNullOrEmpty()) // true\n    println(str2.isNullOrEmpty()) // true\n    println(str3.isNullOrEmpty()) // false\n}\n```\n\n**Java:**\n```java\n// Requires static utility method with null check\n```"
+        },
+        {
+          "name": "Higher-Order Functions with Receiver",
+          "example": "Combine the concepts of scope functions and higher-order functions.\n\n**Kotlin:**\n```kotlin\nfun Int.applyOperation(operation: Int.() -> Int): Int {\n    return operation()\n}\n\nfun main() {\n    val result = 5.applyOperation {\n        this * 2 + 1\n    }\n    println(result) // 11\n}\n```\n\n**Java:**\n```java\n//More Verbose and less expressive.\n```"
+        },
+        {
+          "name": "Nothing Type",
+          "example": "Represents a value that never exists. Useful for functions that always throw an exception or loop infinitely.\n\n**Kotlin:**\n```kotlin\nfun fail(message: String): Nothing {\n    throw IllegalArgumentException(message)\n}\n\nfun main() {\n    // val result = fail(\"Error\") // Program will terminate with exception\n}\n```\n\n**Java:**\n```java\n// Usually represented by void or a custom exception type.\n```"
+        },
+        {
+          "name": "Enum Classes",
+          "example": "Enums with properties and methods.\n\n**Kotlin:**\n```kotlin\nenum class Color(val rgb: Int) {\n    RED(0xFF0000),\n    GREEN(0x00FF00),\n    BLUE(0x0000FF)\n}\n\nfun main() {\n    println(Color.RED.rgb)\n}\n```\n\n**Java:**\n```java\n// Similar, but Kotlin's enums can also implement interfaces.\n```"
+        },
+        {
+          "name": "Inline Classes (Value Classes)",
+          "example": "Represent a value without the overhead of a wrapper object.\n\n**Kotlin:**\n```kotlin\n@JvmInline\nvalue class Password(val value: String)\n\nfun main() {\n    val password = Password(\"secret\")\n    println(password.value)\n}\n```\n\n**Java:**\n```java\n// Requires manual optimization techniques.\n```"
+        },
+        {
+          "name": "Annotations",
+          "example": "Metadata about code. Kotlin annotations can have retention and target options.\n\n**Kotlin:**\n```kotlin\nannotation class MyAnnotation(val message: String)\n\n@MyAnnotation(\"Example\")\nclass MyClass\n\nfun main(){\n   val annotation = MyClass::class.java.getAnnotation(MyAnnotation::class.java)\n   println(annotation.message)\n}\n```\n\n**Java:**\n```java\n// Similar concept. Kotlin's `@file:` target allows file-level annotations.\n```"
+        },
+        {
+          "name": "Type Variance (Covariance and Contravariance)",
+          "example": "Specifies relationships between generic types.\n\n**Kotlin:**\n```kotlin\nopen class Animal\nclass Dog : Animal()\n\n// Covariance (out keyword)\ninterface Producer<out T> {\n    fun produce(): T\n}\n\nfun main() {\n    val animalProducer: Producer<Animal> = object : Producer<Dog> {\n            override fun produce(): Dog {\n                return Dog()\n            }\n        }\n}\n```\n\n**Java:**\n```java\n//Uses ? extends and ? super.\n```"
+        },
+        {
+          "name": "Reified Type Parameters",
+          "example": "Access type information at runtime in inline functions.\n\n**Kotlin:**\n```kotlin\ninline fun <reified T> isType(value: Any): Boolean {\n    return value is T\n}\n\nfun main() {\n    println(isType<String>(\"Hello\"))\n    println(isType<Int>(10))\n}\n```\n\n**Java:**\n```java\n// Requires passing the Class object explicitly.\n```"
+        },
+        {
+          "name": "Contract System",
+          "example": "Allows specifying contracts for functions, such as post-conditions, helping the compiler with smart casts and nullability checks.\n\n**Kotlin:**\n```kotlin\nimport kotlin.contracts.*\n\nfun String?.isValidEmail(): Boolean {\n    contract {\n        returns(true) implies (this@isValidEmail != null)\n    }\n    return this != null && \"@\" in this\n}\n\nfun main() {\n    val email: String? = \"test@example.com\"\n    if (email.isValidEmail()) {\n        println(email.length)\n    }\n}\n```\n\n**Java:**\n```java\n//No direct equivalent.\n```"
+        },
+        {
+          "name": "Context Receivers (Experimental)",
+          "example": "Functions can have implicit receiver parameters, specified using `context`.\n\n**Kotlin:**\n```kotlin\ncontext(Logger) fun logMessage(message: String) {\n    log(message)\n}\n\nclass Logger {\n    fun log(message: String) {\n        println(\"Log: $message\")\n    }\n}\n\nfun main() {\n    val logger = Logger()\n    with(logger) {\n       logMessage(\"Hello, world!\")\n    }\n\n}\n```\n\n**Java:**\n```java\n// No direct equivalent.\n```"
+        },
+        {
+          "name": "SAM Conversions",
+          "example": "Automatically convert a lambda expression to a single-abstract-method (SAM) interface.\n\n**Kotlin:**\n```kotlin\nfun interface IntPredicate {\n    fun accept(i: Int): Boolean\n}\n\nfun process(numbers: List<Int>, predicate: IntPredicate) {\n    numbers.forEach { if (predicate.accept(it)) println(it) }\n}\n\nfun main() {\n    val numbers = listOf(1, 2, 3, 4, 5)\n    process(numbers) { it % 2 == 0 } // SAM conversion\n}\n```\n\n**Java:**\n```java\n//SAM conversions are also available in Java using Functional Interfaces.\n```"
+        },
+        {
+            "name": "Properties with custom getter and setter",
+            "example": "Customize the behavior of getters and setters for properties.\n\n**Kotlin:**\n```kotlin\nclass Rectangle(val width: Int, val height: Int) {\n    val area: Int\n        get() = width * height\n    var perimeter: Int = 2 * (width + height)\n        set(value) {\n            println(\"Perimeter is being set to $value\")\n            field = value\n        }\n}\n\nfun main() {\n    val rect = Rectangle(5, 10)\n    println(\"Area: ${rect.area}\")\n    rect.perimeter = 40\n    println(\"Perimeter: ${rect.perimeter}\")\n}\n```\n\n**Java:**\n```java\n// This functionality exists in Java, but it's more verbose to write.\n```"
+        },
+        {
+          "name": "Backing Fields",
+          "example": "Access the underlying field of a property within custom getter/setter implementations using the `field` identifier.\n\n**Kotlin:**\n```kotlin\nclass Person(val name: String) {\n    var age: Int = 0\n        set(value) {\n            if (value >= 0) {\n                field = value  // Backing field\n            } else {\n                println(\"Age cannot be negative\")\n            }\n        }\n}\n\nfun main() {\n    val person = Person(\"Alice\")\n    person.age = 25\n    println(person.age)\n    person.age = -5 // Age cannot be negative\n}\n```\n\n**Java:**\n```java\n// Equivalent behavior can be achieved by directly manipulating private fields within setter methods in Java.\n```"
+        },
+        {
+          "name": "Type inference",
+          "example": "Kotlin can often infer the type of a variable from its initialization, reducing boilerplate.\n\n**Kotlin:**\n```kotlin\nval message = \"Hello, World!\"  // Type inferred as String\nval number = 42                // Type inferred as Int\n\nfun main() {\n    println(message)\n    println(number)\n}\n```\n\n**Java:**\n```java\n// Explicit type declarations are generally required in Java.\n```"
+        },
+        {
+          "name": "Using `use` for resource management",
+          "example": "The `use` function automatically closes resources after use, simplifying resource management.\n\n**Kotlin:**\n```kotlin\nimport java.io.FileReader\nimport java.io.BufferedReader\n\nfun main() {\n    BufferedReader(FileReader(\"myFile.txt\")).use {\n        val line = it.readLine()\n        println(line)\n    }\n    // BufferedReader and FileReader will be closed automatically\n}\n```\n\n**Java:**\n```java\n//Requires a try-with-resources block, which can be more verbose.\n```"
+        },
+        {
+          "name": "Delegated properties with `Lazy`",
+          "example": "Lazy initialization of properties using delegation. The property is initialized only when accessed for the first time.\n\n**Kotlin:**\n```kotlin\nval lazyValue: String by lazy {\n    println(\"Computing...\")\n    \"Hello\"\n}\n\nfun main() {\n    println(\"Not computed yet\")\n    println(lazyValue)  // Computing...\n                         // Hello\n    println(lazyValue)  // Hello\n}\n```\n\n**Java:**\n```java\n//Requires manual implementation of lazy initialization using double-checked locking or similar techniques.\n```"
+        },
+        {
+          "name": "Delegated properties with `vetoable`",
+          "example": "Observe and potentially prevent property changes using the `vetoable` delegate.\n\n**Kotlin:**\n```kotlin\nimport kotlin.properties.Delegates\n\nvar maxAge: Int by Delegates.vetoable(18) {\n        property, oldValue, newValue ->\n    newValue <= 100 // Allow only ages up to 100\n}\n\nfun main() {\n    maxAge = 25\n    println(maxAge)  // 25\n    maxAge = 150\n    println(maxAge)  // 25 (vetoed)\n}\n```\n\n**Java:**\n```java\n// Requires manual implementation using custom setter methods and checks.\n```"
+        },
+        {
+          "name": "Sequences for lazy collection processing",
+          "example": "Sequences provide lazy evaluation of collection operations, improving performance for large datasets.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = (1..1000).asSequence()\n        .filter { it % 2 == 0 }\n        .map { it * 2 }\n        .take(5)\n        .toList()\n\n    println(numbers)\n}\n```\n\n**Java:**\n```java\n// Similar functionality can be achieved using streams in Java 8+.\n```"
+        },
+        {
+          "name": "Companion Objects",
+          "example": "Provide static-like members within a class.\n\n**Kotlin:**\n```kotlin\nclass MyClass {\n    companion object {\n        const val CONSTANT = 10\n        fun create(): MyClass {\n            return MyClass()\n        }\n    }\n}\n\nfun main() {\n    println(MyClass.CONSTANT)\n    val instance = MyClass.create()\n}\n```\n\n**Java:**\n```java\n//Requires static fields and methods.\n```"
+        },
+  {
+    "name": "Const Keyword",
+    "example": "Used for compile-time constants. Similar to `static final` primitives or strings in Java.\n\n**Kotlin:**\n```kotlin\nconst val API_KEY = \"your_api_key\"\n\nfun main() {\n    println(API_KEY)\n}\n```\n\n**Java:**\n```java\npublic static final String API_KEY = \"your_api_key\";\n```"
+  },
+   {
+    "name": "isInitialized Check",
+    "example": "Checking if lateinit property is initialized.\n\n**Kotlin:**\n```kotlin\nclass MyClass {\n    lateinit var message: String\n\n    fun initializeMessage(msg: String) {\n        message = msg\n    }\n\n    fun printMessage() {\n        if (::message.isInitialized) {\n            println(message)\n        } else {\n            println(\"Message not initialized\")\n        }\n    }\n}\n\nfun main() {\n    val obj = MyClass()\n    obj.printMessage()\n    obj.initializeMessage(\"Hello\")\n    obj.printMessage()\n}\n```\n\n**Java:**\n```java\n//Similar results can be achieved, but requires manual null checks or wrapper.\n```"
+  },
+  {
+    "name": "Type Projections",
+    "example": "Using `in` and `out` variance to define how generic types can be used in functions.\n\n**Kotlin:**\n```kotlin\nfun copyData(source: Array<out Number>, destination: Array<Number>) {\n    for (i in source.indices) {\n        destination[i] = source[i]\n    }\n}\n\nfun main() {\n    val ints = arrayOf(1, 2, 3)\n    val doubles = Array<Number>(3) { 0.0 }\n    copyData(ints, doubles)\n    println(doubles.contentToString())\n}\n```\n\n**Java:**\n```java\n//Java uses wildcard types (? extends and ? super) for similar variance operations.\n```"
+  },
+  {
+    "name": "Crossinline",
+    "example": "Ensuring lambda passed as parameter cannot use non-local returns (return from the outer function).\n\n**Kotlin:**\n```kotlin\ninline fun myInlineFunction(crossinline action: () -> Unit) {\n    val runnable = Runnable {\n        action()\n    }\n    runnable.run()\n}\n\nfun main() {\n    myInlineFunction {\n        println(\"Executing action\")\n        //return // Compile error:  'return' is not allowed here\n    }\n    println(\"After inline function\")\n}\n```\n\n**Java:**\n```java\n//No direct equivalent, but using Runnable prevents non-local returns.\n```"
+  },
+  {
+    "name": "Noinline",
+    "example": "Preventing a lambda from being inlined by the compiler.\n\n**Kotlin:**\n```kotlin\ninline fun myInlineFunction(noinline action: () -> Unit) {\n    println(\"Before action\")\n    action()\n    println(\"After action\")\n}\n\nfun main() {\n    myInlineFunction {\n        println(\"Executing action\")\n    }\n}\n```\n\n**Java:**\n```java\n//Functions are not automatically inlined, so this is not needed.\n```"
+  },
+  {
+    "name": "Array Literals",
+    "example": "Creating arrays with specific types and values.\n\n**Kotlin:**\n```kotlin\nval intArray = intArrayOf(1, 2, 3)\nval stringArray = arrayOf(\"a\", \"b\", \"c\")\n\nfun main() {\n    println(intArray.contentToString())\n    println(stringArray.contentToString())\n}\n```\n\n**Java:**\n```java\nint[] intArray = {1, 2, 3};\nString[] stringArray = {\"a\", \"b\", \"c\"};\n```"
+  },
+  {
+    "name": "Array Operations",
+    "example": "Performing operations on arrays such as mapping and filtering.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = intArrayOf(1, 2, 3, 4, 5)\n    val evenNumbers = numbers.filter { it % 2 == 0 }\n    val squaredNumbers = numbers.map { it * it }\n\n    println(evenNumbers)\n    println(squaredNumbers)\n}\n```\n\n**Java:**\n```java\n//Manual loops or stream API are used in Java.\n```"
+  },
+  {
+    "name": "Also scope function",
+    "example": "Executes a block and returns the original object.\n\n**Kotlin:**\n```kotlin\ndata class Person(var name: String, var age: Int)\n\nfun main() {\n    val person = Person(\"Alice\", 30)\n        .also { it.age += 1 }\n        .also { println(\"Age is now ${it.age}\") }\n\n    println(person)\n}\n```\n\n**Java:**\n```java //Requires a separate method call to perform operations and return the object.\n```"
+  },
+  {
+    "name": "TakeIf",
+    "example": "Executes a block and returns the object or null based on a condition.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val number: Int? = 42\n    val evenNumber = number?.takeIf { it % 2 == 0 }\n    println(evenNumber)\n\n    val oddNumber = number?.takeIf { it % 2 != 0 }\n    println(oddNumber)\n}\n```\n\n**Java:**\n```java\n//Requires an if statement and manual null checks.\n```"
+  },
+  {
+    "name": "TakeUnless",
+    "example": "Returns the receiver object if it doesn't satisfy the predicate.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val number = 5\n    val result = number.takeUnless { it > 10 } ?: 100\n    println(result)\n\n    val number2 = 15\n    val result2 = number2.takeUnless { it > 10 } ?: 100\n    println(result2)\n}\n```\n\n**Java:**\n```java\n// Requires an if statement and explicit assignment.\n```"
+  },
+  {
+    "name": "Oneshot Flows (Experimental)",
+    "example": "Creating and using simple flows.\n\n**Kotlin:**\n```kotlin\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.runBlocking\n\nfun main() = runBlocking {\n    val flow = flow {\n        emit(1)\n        emit(2)\n        emit(3)\n    }\n    flow.collect { println(it) }\n}\n```\n\n**Java:**\n```java\n//Use Reactive Streams libraries like RxJava or Project Reactor to implement similar asynchronous data streams.\n```"
+  },
+  {
+    "name": "Class Delegation",
+    "example": "Delegating behavior of a class to another instance.\n\n**Kotlin:**\n```kotlin\ninterface SoundBehavior {\n    fun makeSound()\n}\n\nclass DogSound : SoundBehavior {\n    override fun makeSound() {\n        println(\"Woof!\")\n    }\n}\n\nclass Robot(soundBehavior: SoundBehavior) : SoundBehavior by soundBehavior\n\nfun main() {\n    val dogSound = DogSound()\n    val robot = Robot(dogSound)\n    robot.makeSound() // Output: Woof!\n}\n```\n\n**Java:**\n```java\n//Requires manual forwarding of method calls.\n```"
+  },
+  {
+    "name": "Member References",
+    "example": "Referencing class members (properties or functions) without executing them.\n\n**Kotlin:**\n```kotlin\ndata class Person(val name: String, val age: Int)\n\nfun main() {\n    val person = Person(\"Alice\", 30)\n    val nameReference = Person::name\n    val ageReference = Person::age\n\n    println(nameReference.get(person))\n    println(ageReference.get(person))\n}\n```\n\n**Java:**\n```java\n//Requires reflection or method handles (Java 8+).\n```"
+  },
+  {
+    "name": "Function References",
+    "example": "Treating a function as a value. Useful for passing functions as arguments to other functions.\n\n**Kotlin:**\n```kotlin\nfun add(a: Int, b: Int): Int {\n    return a + b\n}\n\nfun operate(a: Int, b: Int, operation: (Int, Int) -> Int): Int {\n    return operation(a, b)\n}\n\nfun main() {\n    val sum = operate(5, 3, ::add)\n    println(sum)\n}\n```\n\n**Java (Java 8+):**\n```java\n//Similar functionality available using method references (::) and lambda expressions.\n```"
+  },
+  {
+    "name": "Try-Catch Expressions",
+    "example": "Handling exceptions. `try-catch` is an expression in Kotlin, allowing you to assign its result to a variable.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val result = try {\n        Integer.parseInt(\"abc\")\n    } catch (e: NumberFormatException) {\n        0\n    }\n    println(result)\n}\n```\n\n**Java:**\n```java\n//Requires explicit variable assignment and cannot directly assign the result of the try-catch block.\n```"
+  },
+  {
+    "name": "Inline if expressions",
+    "example": "Using if statements as expressions.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val x = 10\n    val y = 5\n    val max = if (x > y) x else y\n    println(\"Max is $max\")\n}\n```\n\n**Java:**\n```java\n//Ternary operator can achieve the same result\n```"
+  },
+   {
+    "name": "Elvis operator with a throw expression",
+    "example": "Using elvis operator to throw exceptions if a variable is null.\n\n**Kotlin:**\n```kotlin\nfun getLength(str: String?): Int {\n    val length = str?.length ?: throw IllegalArgumentException(\"String must not be null\")\n    return length\n}\n\nfun main() {\n    try {\n        getLength(null)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n```\n\n**Java:**\n```java\n//Java requires explicit null checks and throw statements\n```"
+  },
+  {
+    "name": "Function Types as Parameters",
+    "example": "Passing functions as arguments to other functions. Demonstrates function types in parameter lists.\n\n**Kotlin:**\n```kotlin\nfun calculate(x: Int, y: Int, operation: (Int, Int) -> Int): Int {\n    return operation(x, y)\n}\n\nfun main() {\n    val sum = calculate(10, 5) { a, b -> a + b }\n    println(sum)\n}\n```\n\n**Java:**\n```java\n//Can be achieved using Functional Interfaces and Lambda Expressions (Java 8+).\n```"
+  },
+  {
+    "name": "Object Expressions",
+    "example": "Creating anonymous objects.\n\n**Kotlin:**\n```kotlin\ninterface ClickListener {\n    fun onClick()\n}\n\nfun main() {\n    val listener = object : ClickListener {\n        override fun onClick() {\n            println(\"Clicked!\")\n        }\n    }\n    listener.onClick()\n}\n```\n\n**Java:**\n```java\n// Achieved via anonymous inner classes.\n```"
+  },
+  {
+    "name": "Suspend Modifier",
+    "example": "Marks a function as a coroutine, allowing it to be paused and resumed.\n\n**Kotlin:**\n```kotlin\nimport kotlinx.coroutines.*\n\nsuspend fun fetchData(): String {\n    delay(1000)\n    return \"Data\"\n}\n\nfun main() = runBlocking {\n    val data = fetchData()\n    println(data)\n}\n```\n\n**Java:**\n```java\n//Requires callbacks, Futures, or Reactive Programming libraries to achieve asynchronous programming.\n```"
+  },
+  {
+    "name": "Flow Builder",
+    "example": "Creating a Flow using the `flow` builder function.\n\n**Kotlin:**\n```kotlin\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.runBlocking\n\nfun main() = runBlocking {\n    val numbers = flow {\n        for (i in 1..5) {\n            emit(i)\n            delay(100)\n        }\n    }\n    numbers.collect { println(it) }\n}\n```\n\n**Java:**\n```java\n//Requires reactive libraries like RxJava or Reactor to create and manage asynchronous data streams.\n```"
+  },
+  {
+    "name": "Flow Operators",
+    "example": "Transforming flows using operators like `map`, `filter`, and `collect`.\n\n**Kotlin:**\n```kotlin\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.runBlocking\n\nfun main() = runBlocking {\n    val numbers = flowOf(1, 2, 3, 4, 5)\n        .filter { it % 2 == 0 }\n        .map { it * 2 }\n\n    numbers.collect { println(it) }\n}\n```\n\n**Java:**\n```java\n//Similar operations are available in Java using Streams and Reactive Streams libraries.\n```"
+  },
+  {
+    "name": "StateFlow",
+    "example": "A state-holding observable flow.\n\n**Kotlin:**\n```kotlin\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.runBlocking\nimport kotlinx.coroutines.delay\n\nfun main() = runBlocking {\n    val stateFlow = MutableStateFlow(0)\n\n    launch {\n        for (i in 1..5) {\n            delay(500)\n            stateFlow.value = i\n        }\n    }\n\n    stateFlow.collect { println(\"Value: $it\") }\n}\n```\n\n**Java:**\n```java\n//Libraries like RxJava's BehaviorSubject or Reactor's StateProvider offer similar stateful reactive streams.\n```"
+  },
+  {
+    "name": "SharedFlow",
+    "example": "A broadcast flow that emits values to multiple collectors.\n\n**Kotlin:**\n```kotlin\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.runBlocking\nimport kotlinx.coroutines.launch\nimport kotlinx.coroutines.delay\n\nfun main() = runBlocking {\n    val sharedFlow = MutableSharedFlow<Int>()\n\n    launch {\n        sharedFlow.collect { println(\"Collector 1: $it\") }\n    }\n\n    launch {\n        sharedFlow.collect { println(\"Collector 2: $it\") }\n    }\n\n    launch {\n        for (i in 1..5) {\n            delay(300)\n            sharedFlow.emit(i)\n        }\n    }\n}\n```\n\n**Java:**\n```java\n//Libraries like RxJava's PublishSubject or Reactor's Flux with publish() operator enable broadcasting streams.\n```"
+  },
+  {
+    "name": "Sealed Interfaces",
+    "example": "Similar to sealed classes, but using interfaces.\n\n**Kotlin:**\n```kotlin\nsealed interface Result {\n    data class Success(val data: String) : Result\n    data class Error(val message: String) : Result\n}\n\nfun handleResult(result: Result) = when (result) {\n    is Result.Success -> \"Success: ${result.data}\"\n    is Result.Error -> \"Error: ${result.message}\"\n}\n\nfun main() {\n    println(handleResult(Result.Success(\"Data loaded\")))\n    println(handleResult(Result.Error(\"Failed to load data\")))\n}\n```\n\n**Java:**\n```java\n//Similar structure cannot be created\n```"
+  },
+  {
+    "name": "Explicit type declaration",
+    "example": "Declaring type explicitly for variables.\n\n**Kotlin:**\n```kotlin\nval message: String = \"Hello\"\nval number: Int = 10\nval list: List<String> = listOf(\"a\", \"b\")\n\nfun main() {\n    println(message)\n    println(number)\n    println(list)\n}\n```\n\n**Java:**\n```java\nString message = \"Hello\";\nint number = 10;\nList<String> list = Arrays.asList(\"a\", \"b\");\n```"
+  },
+  {
+    "name": "Inner Class",
+    "example": "Inner class with access to the outer class's members.\n\n**Kotlin:**\n```kotlin\nclass Outer {\n    val outerValue = 10\n\n    inner class Inner {\n        fun accessOuter(): Int {\n            return outerValue\n        }\n    }\n}\n\nfun main() {\n    val outer = Outer()\n    val inner = outer.Inner()\n    println(inner.accessOuter())\n}\n```\n\n**Java:**\n```java\n//Inner classes can also access outer class members in Java.\n```"
+  },
+  {
+    "name": "Nested Class",
+    "example": "Nested class that doesn't have access to the outer class's instance.\n\n**Kotlin:**\n```kotlin\nclass Outer {\n    val outerValue = 10\n\n    class Nested {\n        fun accessOuter(): Int {\n          return 0 //Cannot access outerValue\n        }\n    }\n}\n\nfun main() {\n    val nested = Outer.Nested()\n    println(nested.accessOuter())\n}\n```\n\n**Java:**\n```java\n//Static nested classes in Java behave similarly.\n```"
+  },
+  {
+    "name": "Filtering Collections",
+    "example": "Filtering elements from a list based on a predicate.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3, 4, 5)\n    val evenNumbers = numbers.filter { it % 2 == 0 }\n    println(evenNumbers)\n}\n```\n\n**Java:**\n```java\n//Manual loops, or Streams can be used in Java.\n```"
+  },
+  {
+    "name": "Mapping Collections",
+    "example": "Transforming elements from a list using a mapping function.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3, 4, 5)\n    val squaredNumbers = numbers.map { it * it }\n    println(squaredNumbers)\n}\n```\n\n**Java:**\n```java\n//Java 8+: Use Streams to map collections.\n```"
+  },
+  
+    {
+      "name": "Reducing Collections",
+      "example": "Combining elements of a collection into a single value using a reduction function.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3, 4, 5)\n    val sum = numbers.reduce { acc, i -> acc + i }\n    println(sum)\n}\n```\n\n**Java:**\n\n```java\n\n//Java 8+ offers the reduce() method on streams for similar functionalities.\n\n```"
+    },
+    {
+      "name": "Folding Collections",
+      "example": "Combining elements of a collection into a single value, starting with an initial value.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3, 4, 5)\n    val product = numbers.fold(1) { acc, i -> acc * i }\n    println(product)\n}\n```\n\n**Java:**\n\n```java\n\n//Java 8+ streams also offer fold() which is similar to reduce with starting value.\n\n```"
+    },
+    {
+      "name": "Grouping Collections",
+      "example": "Grouping elements of a collection based on a grouping function.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val words = listOf(\"apple\", \"banana\", \"apricot\", \"avocado\")\n    val groupedWords = words.groupBy { it.first() }\n    println(groupedWords)\n}\n```\n\n**Java:**\n\n```java\n\n//Java 8+ has the groupingBy collector to group collection items.\n\n```"
+    },
+    {
+      "name": "associateBy function",
+      "example": "Creating a map where the key is derived from collection elements.\n\n**Kotlin:**\n```kotlin\ndata class Person(val name: String, val age: Int)\n\nfun main() {\n    val people = listOf(\n        Person(\\\"Alice\\\", 30),\n        Person(\\\"Bob\\\", 25),\n        Person(\\\"Charlie\\\", 35)\n    )\n    val nameToPerson = people.associateBy { it.name }\n    println(nameToPerson)\n}\n```\n\n**Java:**\n\n```java\n\n//Use streams and Collectors.toMap()\n\n```"
+    },
+    {
+      "name": "associate function",
+      "example": "Creating a map where both the key and the value are derived from collection elements.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3)\n    val numberToString = numbers.associate { it to it.toString() }\n    println(numberToString)\n}\n```\n\n**Java:**\n\n```java\n\n//Use streams and Collectors.toMap() for similar results\n\n```"
+    },
+    {
+      "name": "getOrElse Function",
+      "example": "Getting an element from a list or providing a default if the index is out of bounds.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3)\n    val element = numbers.getOrElse(5) { 0 }\n    println(element)\n}\n```\n\n**Java:**\n\n```java\n\n//Requires manual check of the list size\n\n```"
+    },
+    {
+      "name": "getOrNull Function",
+      "example": "Getting an element from a list or returning null if the index is out of bounds.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val numbers = listOf(1, 2, 3)\n    val element = numbers.getOrNull(5)\n    println(element)\n}\n```\n\n**Java:**\n\n```java\n\n//Requires manual check of the list size to avoid IndexOutOfBoundsException\n\n```"
+    },
+    {
+      "name": "require Function",
+      "example": "Throwing IllegalArgumentException if a condition is false.\n\n**Kotlin:**\n```kotlin\nfun processAge(age: Int) {\n    require(age >= 0) { \\\"Age must be non-negative\\\" }\n    println(\\\"Processing age: $age\\\")\n}\n\nfun main() {\n    processAge(30)\n    try {\n        processAge(-5)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n```\n\n**Java:**\n\n```java\n\n//Requires a manual if statement to check arguments\n\n```"
+    },
+    {
+      "name": "requireNotNull Function",
+      "example": "Throwing IllegalArgumentException if a value is null.\n\n**Kotlin:**\n```kotlin\nfun processName(name: String?) {\n    val validName = requireNotNull(name) { \\\"Name must not be null\\\" }\n    println(\\\"Processing name: $validName\\\")\n}\n\nfun main() {\n    processName(\\\"Alice\\\")\n    try {\n        processName(null)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n```\n\n**Java:**\n\n```java\n\n//Requires manual if statement and null checks\n\n```"
+    },
+    {
+      "name": "check Function",
+      "example": "Throwing IllegalStateException if a condition is false.\n\n**Kotlin:**\n```kotlin\nvar state = 0\n\nfun changeState(newState: Int) {\n    check(newState > state) { \\\"New state must be greater than current state\\\" }\n    state = newState\n    println(\\\"State changed to: $state\\\")\n}\n\nfun main() {\n    changeState(10)\n    try {\n        changeState(5)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n```\n\n**Java:**\n\n```java\n\n//Requires manual if statement and state checks\n\n```"
+    },
+    {
+      "name": "checkNotNull Function",
+      "example": "Throwing IllegalStateException if a value is null.\n\n**Kotlin:**\n```kotlin\nvar data: String? = null\n\nfun processData() {\n    val validData = checkNotNull(data) { \\\"Data must not be null\\\" }\n    println(\\\"Processing data: $validData\\\")\n}\n\nfun main() {\n    data = \\\"Some data\\\"\n    processData()\n    data = null\n    try {\n        processData()\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n```\n\n**Java:**\n\n```java\n\n//Requires manual null checks with if statement\n\n```"
+    },
+    {
+      "name": "TakeIf Function",
+      "example": "Return this object if it satisfies the condition.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val number = 5\n    val evenNumber = number.takeIf { it % 2 == 0 }\n    println(evenNumber)\n\n    val number2 = 4\n    val evenNumber2 = number2.takeIf { it % 2 == 0 }\n    println(evenNumber2)\n}\n```\n\n**Java:**\n\n```java\n\n//Manual check with if statement and assignment\n\n```"
+    },
+    {
+      "name": "TakeUnless Function",
+      "example": "Return this object if it does not satisfy the condition.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    val number = 5\n    val evenNumber = number.takeUnless { it % 2 == 0 }\n    println(evenNumber)\n\n    val number2 = 4\n    val evenNumber2 = number2.takeUnless { it % 2 == 0 }\n    println(evenNumber2)\n}\n```\n\n**Java:**\n\n```java\n\n//Manual check with if statement and assignment\n\n```"
+    },
+    {
+      "name": "Range operator",
+      "example": "Creating number and character ranges.\n\n**Kotlin:**\n```kotlin\nfun main() {\n    for (i in 1..5) {\n        print(\\\"$i \\\")\n    }\n    println()\n\n    for (c in 'a'..'c') {\n        print(\\\"$c \\\")\n    }\n    println()\n}\n```\n\n**Java:**\n\n```java\n\n//Must create range manually\n\n```"
+    },
+    {
+      "name": "Null Check Function",
+      "example": "Implementing Null Check function on String class\n\n**Kotlin:**\n```kotlin\nfun String?.isNullOrEmpty(): Boolean {\n    return this == null || this.isEmpty()\n}\nfun main() {\n    var str1:String? = null\n    var str2:String? = \\\"abc\\\"\n    println(str1.isNullOrEmpty())\n    println(str2.isNullOrEmpty())\n\n}\n```\n\n**Java:**\n\n```java\n\n//Implementing null check on string with static check\n\n```"
+    },
+    {
+      "name": "Custom Exception",
+      "example": "Implementing exception and throw\n\n**Kotlin:**\n```kotlin\nclass CustomException(message: String) : Exception(message)\n\nfun process(value: Int) {\n    if (value < 0) {\n        throw CustomException(\\\"Value cannot be negative\\\")\n    }\n    println(\\\"Processing: $value\\\")\n}\n\nfun main() {\n    try {\n        process(-5)\n    } catch (e: CustomException) {\n        println(e.message)\n    }\n}\n```\n\n**Java:**\n\n```java\n\n//Creating custom exceptions\n\n```"
+    }
+  ]
+  
+  }

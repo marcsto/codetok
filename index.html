@@ -1,1 +1,198 @@
-<h1>CodeTok</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeTok</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #121212;
+      --bg-gradient: linear-gradient(135deg, #121212, #1a1a1a);
+      --card-bg: #1e1e1e;
+      --card-bg-hover: #272727;
+      --selected-bg: #303030;
+      --accent-color: #03a9f4;
+      --text-color: #e0e0e0;
+      --shadow-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Sticky header with subtle shadow */
+    header {
+      padding: 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0px auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      animation: fadeIn 1s ease-out;
+    }
+    
+    h2 {
+      text-align: center;
+      
+      font-size: 2rem;
+      border-bottom: 2px solid var(--accent-color);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    
+    .section {
+      margin-bottom: 20px;
+    }
+    
+    /* Responsive grid layout for language options */
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    
+    .option {
+      background-color: var(--card-bg);
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px var(--shadow-color);
+    }
+    
+    .option:hover {
+      background-color: var(--card-bg-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px var(--shadow-color);
+    }
+    
+    .option.selected {
+      background-color: var(--selected-bg);
+      border: 2px solid var(--accent-color);
+      transform: translateY(0);
+    }
+    
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Mobile adjustments: force 2 columns for language options */
+    @media (max-width: 600px) {
+      .options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .option {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CodeTok</h1>
+  </header>
+  <div class="container">
+    
+    <!-- For Beginners Section -->
+    <div class="section" id="beginners">
+      <h2>For Beginners</h2>
+      <div class="options">
+        <div class="option" onclick="selectLanguage(this, 'Python')">Python</div>
+        <div class="option" onclick="selectLanguage(this, 'Java')">Java</div>
+        <div class="option" onclick="selectLanguage(this, 'Kotlin')">Kotlin</div>
+        <div class="option" onclick="selectLanguage(this, 'Swift')">Swift</div>
+        <!-- Additional beginner languages -->
+      </div>
+    </div>
+    
+    <!-- Language Crossover Section -->
+    <div class="section" id="transition">
+      <h2>Language Crossover</h2>
+      <div class="options">
+        <div class="option" onclick="selectLanguage(this, 'kotlin-java')">Kotlin for Java Developers</div>
+        <div class="option" onclick="selectLanguage(this, 'TypeScript for JavaScript Developers')">TypeScript for JavaScript Developers</div>
+        <!-- Additional crossover options -->
+      </div>
+    </div>
+    
+    <!-- Advanced Topics Section -->
+    <div class="section" id="advanced">
+      <h2>Advanced Topics</h2>
+      <div class="options">
+        <div class="option" onclick="selectLanguage(this, 'Deep Learning with Python')">Deep Learning with Python</div>
+        <div class="option" onclick="selectLanguage(this, 'TensorFlow')">TensorFlow</div>
+        <!-- Additional advanced topics -->
+      </div>
+    </div>
+    
+  </div>
+  
+  <script>
+    let selectedLanguage = null;
+    /**
+     * Handles the selection of a programming language.
+     * Ensures only one language is selected at a time.
+     *
+     * @param {HTMLElement} element - The clicked language option element.
+     * @param {string} language - The language or course name.
+     */
+    function selectLanguage(element, language) {
+      // Remove any existing selection
+      document.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      // Mark this option as selected
+      element.classList.add('selected');
+      selectedLanguage = language;
+
+      console.log("Selected language:", language);
+      // Go to view.html?lang=selectedLanguage
+      window.location.href = `view.html?lang=${selectedLanguage}`;
+
+
+      // Additional actions (like redirection or updating content) can be added here.
+    }
+  </script>
+</body>
+</html>

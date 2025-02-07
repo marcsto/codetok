@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kotlin-Java JSON Data Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .pass {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+    .test {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kotlin-Java JSON Data Test Results</h1>
+  <div id="results"></div>
+
+  <script>
+    // When the DOM is loaded, fetch the JSON and run our tests.
+    document.addEventListener("DOMContentLoaded", function() {
+      fetch('data/kotlin-java.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+          }
+          return response.json();
+        })
+        .then(data => runTests(data))
+        .catch(error => {
+          displayResult("Error loading JSON: " + error.message, false);
+        });
+    });
+
+    // Utility function to append a test result to the page.
+    function displayResult(message, passed) {
+      const resultsDiv = document.getElementById('results');
+      const p = document.createElement('p');
+      p.className = 'test ' + (passed ? 'pass' : 'fail');
+      p.textContent = message;
+      resultsDiv.appendChild(p);
+    }
+
+    // Main test function.
+    function runTests(data) {
+      let allPassed = true;
+
+      // Test 0: Data must be an object.
+      if (!data || typeof data !== "object") {
+        displayResult("Data is not a valid object.", false);
+        return;
+      } else {
+        displayResult("Data loaded successfully.", true);
+      }
+
+      // Test 1: Check that data has an 'examples' property that is an array.
+      if (!data.hasOwnProperty("examples") || !Array.isArray(data.examples)) {
+        displayResult("Data does not have a valid 'examples' array.", false);
+        allPassed = false;
+      } else {
+        displayResult("Data has a valid 'examples' array.", true);
+      }
+
+      // Test 2: Check the number of examples.
+      // (Adjust the expected count if necessary.)
+      
+      const actualCount = data.examples.length;
+      
+      displayResult(`Number of examples : ${actualCount}.`, true);
+      
+
+      // Test 3: Check each example for required fields and valid content.
+      const namesSet = new Set();
+      data.examples.forEach((ex, index) => {
+        let validExample = true;
+
+        // Check that 'name' exists, is a string, and is not empty.
+        if (!ex.hasOwnProperty("name") || typeof ex.name !== "string" || ex.name.trim() === "") {
+          displayResult(`Example at index ${index} is missing a valid 'name'.`, false);
+          validExample = false;
+          allPassed = false;
+        }
+
+        // Check that 'example' exists, is a string, and is not empty.
+        if (!ex.hasOwnProperty("example") || typeof ex.example !== "string" || ex.example.trim() === "") {
+          displayResult(`Example at index ${index} is missing a valid 'example' field.`, false);
+          validExample = false;
+          allPassed = false;
+        }
+
+        // Check that the example's name is unique.
+        if (ex.hasOwnProperty("name") && typeof ex.name === "string") {
+          if (namesSet.has(ex.name)) {
+            displayResult(`Duplicate example name found: "${ex.name}".`, false);
+            validExample = false;
+            allPassed = false;
+          } else {
+            namesSet.add(ex.name);
+          }
+        }
+
+        // Optionally, check that the 'example' field contains at least one code block
+        // (we assume that a valid example should include some code indicated by triple backticks).
+        if (ex.hasOwnProperty("example") && typeof ex.example === "string") {
+          if (!ex.example.includes("```")) {
+            displayResult(`Example "${ex.name}" does not appear to contain any code blocks.`, false);
+            validExample = false;
+            allPassed = false;
+          }
+        }
+
+        if (validExample) {
+          displayResult(`Example "${ex.name}" passed format tests.`, true);
+        }
+      });
+
+      // Additional test: Check that each example's text is long enough to be meaningful.
+      data.examples.forEach((ex) => {
+        if (ex.hasOwnProperty("example") && typeof ex.example === "string") {
+          if (ex.example.trim().length < 50) { // Arbitrary threshold for "completeness"
+            displayResult(`Example "${ex.name}" seems too short and might be incomplete.`, false);
+            allPassed = false;
+          }
+        }
+      });
+
+      // Summary of all tests.
+      if (allPassed) {
+        displayResult("All tests passed successfully!", true);
+      } else {
+        displayResult("Some tests failed. Please review the issues above.", false);
+      }
+    }
+  </script>
+</body>
+</html>
