@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Variables: let vs var",
+        "example": "Swift uses **let** for constants and **var** for variables.\n\n```swift\nlet constantValue = 10  // constant, cannot be changed\nvar mutableValue = 20   // variable, can be modified\n```"
+      },
+      {
+        "name": "Type Inference",
+        "example": "Swift infers types from assigned values, reducing explicit annotations.\n\n```swift\nlet inferredInt = 42         // inferred as Int\nlet inferredDouble = 3.14      // inferred as Double\n```"
+      },
+      {
+        "name": "Optionals Declaration",
+        "example": "Optionals indicate a variable may hold a value or nil.\n\n```swift\nvar optionalString: String? = \"Hello\"  // may be nil\n```"
+      },
+      {
+        "name": "Forced Unwrapping",
+        "example": "Force unwrap an optional with `!` when you're sure it has a value.\n\n```swift\nlet nonOptionalString = optionalString!  // force unwrapping\n```"
+      },
+      {
+        "name": "Optional Binding (if let)",
+        "example": "Safely unwrap an optional using `if let`.\n\n```swift\nif let safeString = optionalString {\n    // safeString is non-optional here\n}\n```"
+      },
+      {
+        "name": "Optional Chaining",
+        "example": "Access properties or methods on an optional using `?`.\n\n```swift\nlet textLength = optionalString?.count  // returns nil if optionalString is nil\n```"
+      },
+      {
+        "name": "Arrays",
+        "example": "Create arrays with inferred types.\n\n```swift\nvar numbers = [1, 2, 3, 4]  // [Int]\n```"
+      },
+      {
+        "name": "Dictionaries",
+        "example": "Create dictionaries with key-value pairs.\n\n```swift\nvar capitals = [\"France\": \"Paris\", \"Japan\": \"Tokyo\"]\n```"
+      },
+      {
+        "name": "Sets",
+        "example": "Use sets to store unique values.\n\n```swift\nvar uniqueNumbers: Set<Int> = [1, 2, 3, 2]  // duplicate values are removed\n```"
+      },
+      {
+        "name": "For-in Loop",
+        "example": "Iterate over collections with a for-in loop.\n\n```swift\nfor number in numbers {\n    // process each number\n}\n```"
+      },
+      {
+        "name": "Switch Statement",
+        "example": "Switch statements support pattern matching and multiple matching values.\n\n```swift\nlet value = 2\nswitch value {\ncase 1:\n    // handle 1\ncase 2, 3:\n    // handle 2 and 3\ndefault:\n    // handle other cases\n}\n```"
+      },
+      {
+        "name": "Functions",
+        "example": "Define functions with parameters and return types.\n\n```swift\nfunc greet(name: String) -> String {\n    return \"Hello, \\(name)!\"\n}\n```"
+      },
+      {
+        "name": "Closures",
+        "example": "Closures are self-contained blocks of functionality.\n\n```swift\nlet add = { (a: Int, b: Int) -> Int in\n    return a + b\n}\n```"
+      },
+      {
+        "name": "Trailing Closures",
+        "example": "Use trailing closures when the last parameter is a closure for cleaner syntax.\n\n```swift\nfunc perform(action: () -> Void) {\n    action()\n}\n\nperform {\n    // trailing closure syntax\n}\n```"
+      },
+      {
+        "name": "Enumerations",
+        "example": "Enums define a common type for a group of related values.\n\n```swift\nenum Direction {\n    case north, south, east, west\n}\n```"
+      },
+      {
+        "name": "Structures",
+        "example": "Structs are value types used to encapsulate related data.\n\n```swift\nstruct Point {\n    var x: Double\n    var y: Double\n}\n```"
+      },
+      {
+        "name": "Classes",
+        "example": "Classes are reference types that support inheritance.\n\n```swift\nclass Person {\n    var name: String\n    init(name: String) {\n        self.name = name\n    }\n}\n```"
+      },
+      {
+        "name": "Inheritance & Override",
+        "example": "Override methods or properties in subclasses using the `override` keyword.\n\n```swift\nclass Employee: Person {\n    var employeeID: Int\n    init(name: String, employeeID: Int) {\n        self.employeeID = employeeID\n        super.init(name: name)\n    }\n    override var description: String {\n        return \"\\(name) with ID \\(employeeID)\"\n    }\n}\n```"
+      },
+      {
+        "name": "Protocols",
+        "example": "Protocols define a blueprint of methods or properties for conforming types.\n\n```swift\nprotocol Drivable {\n    func drive()\n}\n\nstruct Car: Drivable {\n    func drive() {\n        // implementation\n    }\n}\n```"
+      },
+      {
+        "name": "Extensions",
+        "example": "Extensions add new functionality to existing types.\n\n```swift\nextension Int {\n    func squared() -> Int {\n        return self * self\n    }\n}\n```"
+      },
+      {
+        "name": "Generics",
+        "example": "Generics let you write flexible, reusable functions and types.\n\n```swift\nfunc swapValues<T>(_ a: inout T, _ b: inout T) {\n    let temp = a\n    a = b\n    b = temp\n}\n```"
+      },
+      {
+        "name": "Error Handling: do-catch",
+        "example": "Handle errors using a do-catch block.\n\n```swift\ndo {\n    try someRiskyOperation()\n} catch {\n    // handle error\n}\n```\n// someRiskyOperation() is a throwing function"
+      },
+      {
+        "name": "Throwing Functions",
+        "example": "Mark functions with `throws` to indicate they can throw errors.\n\n```swift\nenum FileError: Error {\n    case notFound\n}\n\nfunc readFile() throws -> String {\n    throw FileError.notFound\n}\n```"
+      },
+      {
+        "name": "Type Aliases",
+        "example": "Use typealias to create a more readable name for an existing type.\n\n```swift\ntypealias CompletionHandler = (Bool) -> Void\n```"
+      },
+      {
+        "name": "Guard Statement",
+        "example": "Use guard to exit a function early if conditions are not met.\n\n```swift\nfunc process(value: Int?) {\n    guard let value = value else { return }  // exit if nil\n    // use non-optional value\n}\n```"
+      },
+      {
+        "name": "Defer Statement",
+        "example": "Defer executes code just before leaving the current scope.\n\n```swift\nfunc performTask() {\n    defer {\n        // cleanup code\n    }\n    // task execution\n}\n```"
+      },
+      {
+        "name": "Tuples",
+        "example": "Tuples group multiple values into a single compound value.\n\n```swift\nlet httpResponse = (statusCode: 200, message: \"OK\")\n```"
+      },
+      {
+        "name": "Pattern Matching with Tuples in Switch",
+        "example": "Switch statements can pattern match tuple values.\n\n```swift\nlet point = (x: 0, y: 0)\n\nswitch point {\ncase (0, 0):\n    // at origin\ncase (_, 0):\n    // on x-axis\ncase (0, _):\n    // on y-axis\ndefault:\n    // elsewhere\n}\n```"
+      },
+      {
+        "name": "Computed Properties",
+        "example": "Computed properties calculate a value rather than store it.\n\n```swift\nstruct Circle {\n    var radius: Double\n    var area: Double {\n        return .pi * radius * radius\n    }\n}\n```"
+      },
+      {
+        "name": "Property Observers",
+        "example": "Use willSet and didSet to observe changes to a property.\n\n```swift\nvar score: Int = 0 {\n    didSet {\n        // code to run after score changes\n    }\n}\n```"
+      },
+      {
+        "name": "Lazy Properties",
+        "example": "Lazy properties are initialized only when they are first accessed.\n\n```swift\nclass DataManager {\n    lazy var data: [String] = {\n        return loadData()\n    }()\n}\n```"
+      },
+      {
+        "name": "Access Control",
+        "example": "Swift supports access levels like private, fileprivate, internal, public, and open.\n\n```swift\npublic class PublicClass {}\nprivate class PrivateClass {}\n```"
+      },
+      {
+        "name": "Namespacing with Enums",
+        "example": "Use enums without cases to create namespaces for constants.\n\n```swift\nenum Constants {\n    static let pi = 3.14159\n}\n```"
+      },
+      {
+        "name": "Static Members",
+        "example": "Use static to define type-level properties and methods.\n\n```swift\nstruct Math {\n    static func square(_ x: Int) -> Int {\n        return x * x\n    }\n}\n```"
+      },
+      {
+        "name": "Final Keyword",
+        "example": "Mark a class or method as final to prevent subclassing or overriding.\n\n```swift\nfinal class FinalClass {}\n```"
+      },
+      {
+        "name": "Mutating Functions",
+        "example": "In structs, mark methods as mutating to allow modifications to self.\n\n```swift\nstruct Counter {\n    var count: Int = 0\n    mutating func increment() {\n        count += 1\n    }\n}\n```"
+      },
+      {
+        "name": "Value vs Reference Types",
+        "example": "Structs are value types (copied on assignment) while classes are reference types.\n\n```swift\nstruct ValueType { var value: Int }\nclass ReferenceType { var value: Int = 0 }\n```"
+      },
+      {
+        "name": "ARC & Weak References",
+        "example": "Use weak to prevent strong reference cycles in class instances.\n\n```swift\nclass Person {\n    var pet: Pet?\n}\n\nclass Pet {\n    weak var owner: Person?  // avoids retain cycle\n}\n```"
+      },
+      {
+        "name": "Closure Capture List",
+        "example": "Explicitly capture external variables in closures to manage reference semantics.\n\n```swift\nclass Counter {\n    var count = 0\n    func incrementer() -> () -> Void {\n        return { [weak self] in\n            self?.count += 1\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Subscripts",
+        "example": "Define subscripts to access elements in a collection-like syntax.\n\n```swift\nstruct TimesTable {\n    let multiplier: Int\n    subscript(index: Int) -> Int {\n        return multiplier * index\n    }\n}\n```"
+      },
+      {
+        "name": "Enumerations with Raw Values",
+        "example": "Assign raw values to enum cases for easier initialization and comparison.\n\n```swift\nenum Planet: Int {\n    case mercury = 1, venus, earth\n}\n```"
+      },
+      {
+        "name": "Recursive Enumerations",
+        "example": "Use the indirect keyword to define recursive enumerations.\n\n```swift\nenum BinaryTree {\n    case leaf(Int)\n    indirect case node(BinaryTree, BinaryTree)\n}\n```"
+      },
+      {
+        "name": "Failable Initializers",
+        "example": "Define initializers that can return nil if initialization fails.\n\n```swift\nstruct Person {\n    let name: String\n    init?(name: String) {\n        guard !name.isEmpty else { return nil }\n        self.name = name\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Operators",
+        "example": "Define custom operators to extend functionality.\n\n```swift\ninfix operator **\nfunc ** (lhs: Int, rhs: Int) -> Int {\n    return Int(pow(Double(lhs), Double(rhs)))\n}\n```"
+      },
+      {
+        "name": "Key Paths",
+        "example": "Use key paths to reference properties in a type-safe way.\n\n```swift\nstruct Person {\n    var name: String\n}\nlet nameKeyPath = \\Person.name\n```"
+      },
+      {
+        "name": "Protocol Extensions",
+        "example": "Provide default implementations for protocol methods using extensions.\n\n```swift\nprotocol Greetable {\n    func greet()\n}\n\nextension Greetable {\n    func greet() {\n        // default greeting\n    }\n}\n```"
+      },
+      {
+        "name": "Value Binding in Case Let",
+        "example": "Use value binding in switch cases for more expressive pattern matching.\n\n```swift\nlet point = (x: 3, y: 0)\n\nswitch point {\ncase let (x, 0):\n    // y is 0, x is bound\n    break\ndefault:\n    break\n}\n```"
+      },
+      {
+        "name": "String Interpolation",
+        "example": "Embed values into strings using the \\(variable) syntax.\n\n```swift\nlet name = \"Swift\"\nlet greeting = \"Hello, \\(name)!\"\n```"
+      },
+      {
+        "name": "Implicit Returns in Single-Expression Closures",
+        "example": "Single-expression closures can omit the return keyword for brevity.\n\n```swift\nlet multiply: (Int, Int) -> Int = { $0 * $1 }\n```"
+      },
+      {
+        "name": "Nil Coalescing Operator",
+        "example": "Use ?? to provide a default value when an optional is nil.\n\n```swift\nlet optionalName: String? = nil\nlet nameToUse = optionalName ?? \"Default Name\"\n```"
+      },
+      {
+        "name": "Modules and Import Statements",
+        "example": "Swift uses modules with `import` instead of header files.\n\n```swift\nimport Foundation\n```"
+      },
+      {
+        "name": "Bridging Header for Objective-C",
+        "example": "Use a bridging header to expose Objective-C code to Swift.\n\n```swift\n// In YourProject-Bridging-Header.h\n#import \"SomeObjectiveCClass.h\"\n```"
+      },
+      {
+        "name": "Implicitly Unwrapped Optionals",
+        "example": "Declare implicitly unwrapped optionals when you know a value will be set before use.\n\n```swift\nvar text: String! = \"Hello\"\n// Use 'text' without explicit unwrapping later\n```"
+      },
+      {
+        "name": "Swift String vs NSString",
+        "example": "Swift's `String` is a value type, while `NSString` is a reference type from Objective-C.\n\n```swift\nlet swiftString: String = \"Hello\"\nlet nsString: NSString = \"Hello\"\n```"
+      },
+      {
+        "name": "String Interpolation vs Format Specifiers",
+        "example": "Swift uses string interpolation, replacing the need for cumbersome format specifiers.\n\n```swift\nlet name = \"Swift\"\nlet greeting = \"Hello, \\(name)!\"\n```"
+      },
+      {
+        "name": "Enumerated Loop",
+        "example": "Use `enumerated()` to loop over items with their index.\n\n```swift\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"]\nfor (index, fruit) in fruits.enumerated() {\n    // index is the position, fruit is the element\n}\n```"
+      },
+      {
+        "name": "Map Function",
+        "example": "Transform a collection using the `map` function.\n\n```swift\nlet numbers = [1, 2, 3]\nlet squares = numbers.map { $0 * $0 }\n```"
+      },
+      {
+        "name": "Filter Function",
+        "example": "Filter elements in a collection based on a condition.\n\n```swift\nlet numbers = [1, 2, 3, 4, 5]\nlet evenNumbers = numbers.filter { $0 % 2 == 0 }\n```"
+      },
+      {
+        "name": "Reduce Function",
+        "example": "Combine collection elements into a single value using `reduce`.\n\n```swift\nlet numbers = [1, 2, 3, 4]\nlet sum = numbers.reduce(0, +)\n```"
+      },
+      {
+        "name": "CompactMap Function",
+        "example": "Transform and remove nil values with `compactMap`.\n\n```swift\nlet strings = [\"1\", \"two\", \"3\"]\nlet numbers = strings.compactMap { Int($0) }  // Result: [1, 3]\n```"
+      },
+      {
+        "name": "CustomStringConvertible Protocol",
+        "example": "Implement `CustomStringConvertible` for a custom string representation of your type.\n\n```swift\nstruct Person: CustomStringConvertible {\n    var name: String\n    var description: String {\n        return \"Person: \\(name)\"\n    }\n}\n```"
+      },
+      {
+        "name": "CustomDebugStringConvertible Protocol",
+        "example": "Provide a custom debug description by conforming to `CustomDebugStringConvertible`.\n\n```swift\nstruct Debuggable: CustomDebugStringConvertible {\n    var value: Int\n    var debugDescription: String {\n        return \"Debuggable(value: \\(value))\"\n    }\n}\n```"
+      },
+      {
+        "name": "Property Wrappers",
+        "example": "Define reusable logic for property access using property wrappers.\n\n```swift\n@propertyWrapper\nstruct Clamped {\n    private var value: Int\n    let range: ClosedRange<Int>\n    var wrappedValue: Int {\n        get { value }\n        set { value = min(max(newValue, range.lowerBound), range.upperBound) }\n    }\n    init(wrappedValue: Int, _ range: ClosedRange<Int>) {\n        self.range = range\n        self.value = min(max(wrappedValue, range.lowerBound), range.upperBound)\n    }\n}\n\nstruct Example {\n    @Clamped(0...10) var number: Int = 5\n}\n```"
+      },
+      {
+        "name": "Result Type",
+        "example": "Use `Result` to encapsulate success and failure in operations.\n\n```swift\nenum MyError: Error { case failed }\n\nfunc fetchData() -> Result<String, MyError> {\n    // Return .success(\"Data\") or .failure(.failed)\n    return .success(\"Data\")\n}\n```"
+      },
+      {
+        "name": "Async/Await",
+        "example": "Simplify asynchronous code using async/await.\n\n```swift\nfunc fetchData() async -> String {\n    // Asynchronous operation\n    return \"Data\"\n}\n\n// Usage in an async context:\nTask {\n    let data = await fetchData()\n}\n```"
+      },
+      {
+        "name": "Task Initialization",
+        "example": "Start concurrent asynchronous work using `Task`.\n\n```swift\nTask {\n    // Asynchronous code block\n    let result = await fetchData()\n}\n```"
+      },
+      {
+        "name": "Actor Model",
+        "example": "Actors provide data isolation for safe concurrent access.\n\n```swift\nactor BankAccount {\n    private var balance: Double = 0.0\n    func deposit(_ amount: Double) {\n        balance += amount\n    }\n    func getBalance() -> Double {\n        return balance\n    }\n}\n```"
+      },
+      {
+        "name": "Generics with Where Clause",
+        "example": "Use generics with constraints to enforce type requirements.\n\n```swift\nfunc findIndex<T: Equatable>(of element: T, in array: [T]) -> Int? {\n    for (index, item) in array.enumerated() {\n        if item == element { return index }\n    }\n    return nil\n}\n```"
+      },
+      {
+        "name": "Protocol Composition",
+        "example": "Combine multiple protocols for a single type constraint.\n\n```swift\nprotocol A { func doA() }\nprotocol B { func doB() }\n\nfunc perform(action item: A & B) {\n    item.doA()\n    item.doB()\n}\n```"
+      },
+      {
+        "name": "Opaque Return Types",
+        "example": "Use `some` to hide the concrete return type while preserving type safety.\n\n```swift\nfunc makeOpaque() -> some Equatable {\n    return 42\n}\n```"
+      },
+      {
+        "name": "Enum with Associated Values",
+        "example": "Enums can store associated values for each case.\n\n```swift\nenum NetworkResponse {\n    case success(data: Data)\n    case failure(error: Error)\n}\n```"
+      },
+      {
+        "name": "If-case Pattern Matching",
+        "example": "Use `if case let` to conveniently unwrap enum cases.\n\n```swift\nlet result: NetworkResponse = .success(data: Data())\nif case let .success(data) = result {\n    // 'data' is unwrapped here\n}\n```"
+      },
+      {
+        "name": "Guard with Multiple Conditions",
+        "example": "Combine multiple conditions in a single `guard` statement.\n\n```swift\nfunc process(optA: Int?, optB: Int?) {\n    guard let a = optA, let b = optB else { return }\n    // Use 'a' and 'b'\n}\n```"
+      },
+      {
+        "name": "Custom Operator with Precedence Group",
+        "example": "Define custom operators with a specified precedence group.\n\n```swift\nprecedencegroup ExponentiationPrecedence {\n    higherThan: MultiplicationPrecedence\n    associativity: right\n}\n\ninfix operator **: ExponentiationPrecedence\n\nfunc ** (lhs: Double, rhs: Double) -> Double {\n    return pow(lhs, rhs)\n}\n```"
+      },
+      {
+        "name": "Type Casting with as? and as!",
+        "example": "Safely or forcefully cast types using `as?` and `as!`.\n\n```swift\nlet view: Any = UIButton()\nif let button = view as? UIButton {\n    // Safe cast succeeded\n}\nlet forcedButton = view as! UIButton  // Force cast (will crash if cast fails)\n```"
+      },
+      {
+        "name": "@objc Protocol with Optional Methods",
+        "example": "Use `@objc` to allow optional protocol methods.\n\n```swift\n@objc protocol SomeDelegate {\n    @objc optional func didFinish()\n}\n```"
+      },
+      {
+        "name": "Using fatalError",
+        "example": "Call `fatalError` to indicate unimplemented functionality.\n\n```swift\nfunc notImplemented() -> Never {\n    fatalError(\"Not implemented\")\n}\n```"
+      },
+      {
+        "name": "Assertions and Preconditions",
+        "example": "Use `assert` and `precondition` to check conditions at runtime.\n\n```swift\nlet value = 10\nassert(value > 0)           // Debug-time check\nprecondition(value != 0)      // Runtime check\n```"
+      },
+      {
+        "name": "Dictionary Merging",
+        "example": "Merge dictionaries using the `merge` method.\n\n```swift\nvar dict1 = [\"a\": 1, \"b\": 2]\nlet dict2 = [\"b\": 3, \"c\": 4]\n\ndict1.merge(dict2) { current, _ in current }  // Keeps existing values\n```"
+      },
+      {
+        "name": "withUnsafePointer Example",
+        "example": "Use `withUnsafePointer` to work with raw pointers when interfacing with C APIs.\n\n```swift\nvar value = 42\nwithUnsafePointer(to: &value) { pointer in\n    // Use 'pointer' in C function calls\n}\n```"
+      },
+      {
+        "name": "Computed Property with Getter and Setter",
+        "example": "Define a computed property with custom getter and setter logic.\n\n```swift\nstruct Temperature {\n    private var _celsius: Double = 0.0\n    var celsius: Double {\n        get { _celsius }\n        set { _celsius = newValue }\n    }\n}\n```"
+      },
+      {
+        "name": "Property Observer: willSet",
+        "example": "Use `willSet` to observe a property's value before it changes.\n\n```swift\nvar score: Int = 0 {\n    willSet {\n        // 'newValue' is available here\n    }\n}\n```"
+      },
+      {
+        "name": "Nested Types",
+        "example": "Define types within other types to improve organization.\n\n```swift\nstruct Outer {\n    struct Inner {\n        // Nested type\n    }\n}\n```"
+      },
+      {
+        "name": "Static vs Class Methods",
+        "example": "Use `static` for non-overridable methods and `class` for methods that can be overridden.\n\n```swift\nclass MyClass {\n    static func staticMethod() {}\n    class func classMethod() {}\n}\n```"
+      },
+      {
+        "name": "Using self in Closures",
+        "example": "Capture `self` explicitly in closures to clarify scope usage.\n\n```swift\nclass Example {\n    var value = 0\n    func doSomething() {\n        let closure = { [self] in\n            // Use self.value directly\n            print(self.value)\n        }\n        closure()\n    }\n}\n```"
+      },
+      {
+        "name": "Avoiding Retain Cycles with weak self in Closures",
+        "example": "Capture `self` weakly in closures to prevent retain cycles.\n\n```swift\nclass Example {\n    var value = 0\n    func doSomething() {\n        someAsyncMethod { [weak self] in\n            guard let self = self else { return }\n            self.value += 1\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Dynamic Member Lookup",
+        "example": "Use `@dynamicMemberLookup` to forward unknown member accesses.\n\n```swift\n@dynamicMemberLookup\nstruct Dynamic {\n    subscript(dynamicMember member: String) -> String {\n        return \"Value for \\(member)\"\n    }\n}\n\nlet dynamic = Dynamic()\nlet value = dynamic.someProperty  // Returns \"Value for someProperty\"\n```"
+      },
+      {
+        "name": "Dynamic Callable Types",
+        "example": "Use `@dynamicCallable` to make an instance callable like a function.\n\n```swift\n@dynamicCallable\nstruct Callable {\n    func dynamicallyCall(withArguments args: [Int]) -> Int {\n        return args.reduce(0, +)\n    }\n}\n\nlet call = Callable()\nlet result = call(1, 2, 3)  // Returns 6\n```"
+      },
+      {
+        "name": "Range Operators",
+        "example": "Swift provides closed and half-open range operators for flexible range expressions.\n\n```swift\nlet closedRange = 1...5    // 1 to 5 inclusive\nlet halfOpenRange = 1..<5   // 1 to 4\n```"
+      },
+      {
+        "name": "String Slicing with Ranges",
+        "example": "Extract substrings using range operations on String indices.\n\n```swift\nlet str = \"Hello, Swift!\"\nlet start = str.startIndex\nlet end = str.index(start, offsetBy: 5)\nlet substring = str[start..<end]  // \"Hello\"\n```"
+      },
+      {
+        "name": "Using defer with Early Return",
+        "example": "Ensure cleanup code runs before exiting a scope using `defer`.\n\n```swift\nfunc process() {\n    defer { \n        // Cleanup code\n    }\n    // Early return if a condition fails\n    guard true else { return }\n    // Processing code\n}\n```"
+      },
+      {
+        "name": "Multi-line String Literals",
+        "example": "Use triple quotes to define multi-line string literals.\n\n```swift\nlet multiLine = \"\"\"\nLine 1\nLine 2\nLine 3\n\"\"\"\n```"
+      },
+      {
+        "name": "Switch with Where Clause",
+        "example": "Add conditions to switch cases using the `where` clause.\n\n```swift\nlet number = 10\nswitch number {\ncase let x where x % 2 == 0:\n    // Even number case\n    break\ndefault:\n    break\n}\n```"
+      },
+      {
+        "name": "Lazy Sequence Generation",
+        "example": "Generate sequences lazily to improve performance on large collections.\n\n```swift\nlet numbers = Array(1...1000)\nlet lazyDoubles = numbers.lazy.map { $0 * 2 }\n```"
+      },
+      {
+        "name": "Using 'Self' in Type Methods",
+        "example": "Refer to the type itself using `Self` in class or protocol methods.\n\n```swift\nclass Example {\n    class func create() -> Self {\n        return self.init()\n    }\n    required init() {}\n}\n```"
+      },
+      {
+        "name": "Type Checking with 'is' Operator",
+        "example": "Check an instance's type using the `is` operator.\n\n```swift\nlet view: Any = UIButton()\nif view is UIButton {\n    // 'view' is confirmed as a UIButton\n}\n```"
+      },
+      {
+        "name": "Memory Layout of Structs",
+        "example": "Inspect the memory size of a type using `MemoryLayout`.\n\n```swift\nstruct Point { var x: Double; var y: Double }\nlet size = MemoryLayout<Point>.size\n```"
+      },
+      {
+        "name": "Writable KeyPath",
+        "example": "Use writable key paths to dynamically access and modify properties.\n\n```swift\nstruct Person { var name: String }\nvar person = Person(name: \"Alice\")\nlet nameKeyPath: WritableKeyPath<Person, String> = \\Person.name\nperson[keyPath: nameKeyPath] = \"Bob\"\n```"
+      },
+      {
+        "name": "Using Optional Pattern in Switch",
+        "example": "Pattern match on an optional value within a switch statement.\n\n```swift\nlet optionalValue: Int? = 5\nswitch optionalValue {\ncase .some(let value):\n    // 'value' is unwrapped\n    break\ncase .none:\n    // Handle nil\n    break\n}\n```"
+      },
+      {
+        "name": "Trailing Closure with Parameter Labels",
+        "example": "Use trailing closure syntax with labeled parameters for clarity.\n\n```swift\nfunc perform(action: (Int, String) -> Void) {\n    // Perform some action\n}\n\nperform { number, text in\n    // Use 'number' and 'text'\n}\n```"
+      }
+    ]
+  }
+  

@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Decorators Basics",
+        "example": "Functions can be wrapped to extend behavior.\n\n```python\n# Simple decorator\ndef my_decorator(func):\n    def wrapper(*args, **kwargs):\n        # Pre-call action\n        result = func(*args, **kwargs)\n        # Post-call action\n        return result\n    return wrapper\n\n@my_decorator\ndef greet(name):\n    return f\"Hello, {name}\"  \n\n# Calling greet(\"Alice\") returns \"Hello, Alice\"\n```"
+      },
+      {
+        "name": "Parameterized Decorators",
+        "example": "Decorators can accept arguments to modify behavior.\n\n```python\ndef repeat(n):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            # Call function n times\n            for _ in range(n):\n                result = func(*args, **kwargs)\n            return result\n        return wrapper\n    return decorator\n\n@repeat(3)\ndef say(msg):\n    return msg\n\n# say(\"Hi\") calls say three times\n```"
+      },
+      {
+        "name": "Class Decorators",
+        "example": "Decorators can modify or add methods to classes.\n\n```python\ndef add_method(cls):\n    # Add a new method to the class\n    cls.new_method = lambda self: \"New method added\"\n    return cls\n\n@add_method\nclass MyClass:\n    pass\n\n# MyClass().new_method() returns \"New method added\"\n```"
+      },
+      {
+        "name": "Generators with yield",
+        "example": "Generators produce a sequence of values using yield.\n\n```python\ndef count_up_to(max):\n    n = 1\n    while n <= max:\n        yield n  # Yield next number\n        n += 1\n\n# Iterating over count_up_to(3) yields 1, 2, 3\n```"
+      },
+      {
+        "name": "Generator Expressions",
+        "example": "A compact way to create generators.\n\n```python\n# Generator expression for squares\nsquares = (x * x for x in range(5))\n\n# Iterating squares yields 0, 1, 4, 9, 16\n```"
+      },
+      {
+        "name": "Context Manager with __enter__ and __exit__",
+        "example": "Implementing a custom context manager for resource handling.\n\n```python\nclass FileOpener:\n    def __init__(self, filename, mode):\n        self.filename = filename\n        self.mode = mode\n    def __enter__(self):\n        self.file = open(self.filename, self.mode)\n        return self.file  # Return file object\n    def __exit__(self, exc_type, exc_value, traceback):\n        self.file.close()  # Ensure file closure\n\n# Usage: with FileOpener('data.txt', 'r') as f:\n#           process file\n```"
+      },
+      {
+        "name": "Contextlib contextmanager",
+        "example": "Use the contextmanager decorator to simplify context managers.\n\n```python\nfrom contextlib import contextmanager\n\n@contextmanager\ndef simple_context():\n    # Setup code\n    yield \"resource\"  # Provide resource\n    # Teardown code\n\n# Usage: with simple_context() as res:\n#           use res\n```"
+      },
+      {
+        "name": "Asyncio Coroutines",
+        "example": "Define asynchronous functions with async and await.\n\n```python\nimport asyncio\n\nasync def async_greet(name):\n    # Coroutine to greet\n    return f\"Hello, {name}\"\n\n# To run: asyncio.run(async_greet(\"Alice\"))\n```"
+      },
+      {
+        "name": "Asyncio Sleep",
+        "example": "Pause execution within an async function using await.\n\n```python\nimport asyncio\n\nasync def delayed_message():\n    await asyncio.sleep(1)  # Pause for 1 second\n    return \"Delayed Hello\"\n\n# Run using: asyncio.run(delayed_message())\n```"
+      },
+      {
+        "name": "ThreadPoolExecutor with concurrent.futures",
+        "example": "Run functions concurrently using a thread pool.\n\n```python\nfrom concurrent.futures import ThreadPoolExecutor\n\ndef task(n):\n    return n * n  # Compute square\n\n# Using ThreadPoolExecutor to run tasks concurrently\nwith ThreadPoolExecutor(max_workers=2) as executor:\n    future = executor.submit(task, 4)\n    # future.result() returns 16\n```"
+      },
+      {
+        "name": "List Comprehensions",
+        "example": "Create lists concisely with comprehension syntax.\n\n```python\n# Create list of even numbers from 0 to 9\nevens = [x for x in range(10) if x % 2 == 0]\n# evens is [0, 2, 4, 6, 8]\n```"
+      },
+      {
+        "name": "Dictionary Comprehensions",
+        "example": "Build dictionaries in a single expression.\n\n```python\n# Map numbers to their squares\nsquares = {x: x * x for x in range(5)}\n# squares is {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}\n```"
+      },
+      {
+        "name": "Set Comprehensions",
+        "example": "Create sets using a similar syntax to list comprehensions.\n\n```python\n# Create a set of unique remainders when dividing by 3\nremainders = {x % 3 for x in range(10)}\n# remainders is {0, 1, 2}\n```"
+      },
+      {
+        "name": "Lambda Functions",
+        "example": "Define small anonymous functions using lambda.\n\n```python\n# Lambda for adding two numbers\nadd = lambda a, b: a + b\n# add(2, 3) returns 5\n```"
+      },
+      {
+        "name": "Higher-Order Functions (map/filter)",
+        "example": "Functions can take other functions as arguments.\n\n```python\nnums = [1, 2, 3, 4]\n\n# Square each element using map\nsquared = list(map(lambda x: x * x, nums))\n\n# Filter even numbers using filter\nfiltered = list(filter(lambda x: x % 2 == 0, nums))\n```"
+      },
+      {
+        "name": "functools.partial",
+        "example": "Fix some arguments of a function to create a new function.\n\n```python\nfrom functools import partial\n\ndef power(base, exponent):\n    return base ** exponent\n\nsquare = partial(power, exponent=2)\n# square(3) returns 9\n```"
+      },
+      {
+        "name": "functools.lru_cache Memoization",
+        "example": "Cache function results to speed up recursive calls.\n\n```python\nfrom functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\n# fib(10) computes Fibonacci efficiently\n```"
+      },
+      {
+        "name": "Type Annotations",
+        "example": "Specify expected variable and return types for clarity.\n\n```python\ndef greet(name: str) -> str:\n    return f\"Hello, {name}\"\n\n# Annotations help with type checking\n```"
+      },
+      {
+        "name": "Data Classes",
+        "example": "Automatically generate special methods using @dataclass.\n\n```python\nfrom dataclasses import dataclass\n\n@dataclass\nclass Point:\n    x: int\n    y: int\n\n# Point(1, 2) creates a point with x=1 and y=2\n```"
+      },
+      {
+        "name": "NamedTuple",
+        "example": "Create lightweight, immutable classes with named fields.\n\n```python\nfrom typing import NamedTuple\n\nclass Color(NamedTuple):\n    red: int\n    green: int\n    blue: int\n\n# Color(255, 0, 0) represents red\n```"
+      },
+      {
+        "name": "Using __slots__",
+        "example": "Limit attribute creation to save memory.\n\n```python\nclass Person:\n    __slots__ = ['name', 'age']  # Save memory\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n# Person objects only have 'name' and 'age' attributes\n```"
+      },
+      {
+        "name": "Operator Overloading",
+        "example": "Customize behavior of built-in operators.\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __add__(self, other):\n        # Add vectors component-wise\n        return Vector(self.x + other.x, self.y + other.y)\n    def __repr__(self):\n        return f\"Vector({self.x}, {self.y})\"\n\n# Vector(1, 2) + Vector(3, 4) returns Vector(4, 6)\n```"
+      },
+      {
+        "name": "Custom Iterator",
+        "example": "Implement __iter__ and __next__ to create iterable objects.\n\n```python\nclass Countdown:\n    def __init__(self, start):\n        self.current = start\n    def __iter__(self):\n        return self\n    def __next__(self):\n        if self.current <= 0:\n            raise StopIteration\n        self.current -= 1\n        return self.current + 1\n\n# Iterating Countdown(3) yields 3, 2, 1\n```"
+      },
+      {
+        "name": "Custom __getitem__",
+        "example": "Define custom behavior for indexing and slicing.\n\n```python\nclass Squares:\n    def __getitem__(self, index):\n        # Return square of index\n        return index * index\n\n# Squares()[4] returns 16\n```"
+      },
+      {
+        "name": "Descriptors",
+        "example": "Manage attribute access with __get__ and __set__ methods.\n\n```python\nclass Descriptor:\n    def __init__(self):\n        self.value = None\n    def __get__(self, instance, owner):\n        return self.value  # Access value\n    def __set__(self, instance, value):\n        self.value = value  # Set value\n\nclass MyClass:\n    attr = Descriptor()\n\n# my_obj = MyClass(); my_obj.attr = 10 sets descriptor's value\n```"
+      },
+      {
+        "name": "Metaclasses",
+        "example": "Customize class creation by defining a metaclass.\n\n```python\nclass Meta(type):\n    def __new__(cls, name, bases, dct):\n        # Modify class attribute\n        dct['added_attr'] = 'Added by Meta'\n        return super().__new__(cls, name, bases, dct)\n\nclass MyClass(metaclass=Meta):\n    pass\n\n# MyClass.added_attr returns 'Added by Meta'\n```"
+      },
+      {
+        "name": "Abstract Base Classes",
+        "example": "Define abstract methods that must be implemented.\n\n```python\nfrom abc import ABC, abstractmethod\n\nclass Animal(ABC):\n    @abstractmethod\n    def speak(self):\n        pass\n\nclass Dog(Animal):\n    def speak(self):\n        return \"Woof\"\n\n# Dog() implements speak(), allowing instantiation\n```"
+      },
+      {
+        "name": "Overriding __new__",
+        "example": "Customize instance creation using __new__.\n\n```python\nclass Singleton:\n    _instance = None\n    def __new__(cls, *args, **kwargs):\n        if not cls._instance:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n\n# Singleton() always returns the same instance\n```"
+      },
+      {
+        "name": "Multiple Inheritance and super()",
+        "example": "Resolve method calls in a multiple inheritance scenario.\n\n```python\nclass A:\n    def greet(self):\n        return \"Hello from A\"\n\nclass B:\n    def greet(self):\n        return \"Hello from B\"\n\nclass C(A, B):\n    def greet(self):\n        # Call first parent method via MRO\n        return super().greet()\n\n# C().greet() returns \"Hello from A\" due to MRO\n```"
+      },
+      {
+        "name": "Method Resolution Order (MRO)",
+        "example": "Examine the order in which base classes are searched.\n\n```python\nclass X:\n    pass\n\nclass Y(X):\n    pass\n\nclass Z(X):\n    pass\n\nclass A(Y, Z):\n    pass\n\n# A.__mro__ shows the order: A, Y, Z, X, object\n```"
+      },
+      {
+        "name": "Mixins",
+        "example": "Use mixin classes to add reusable functionality.\n\n```python\nclass ReprMixin:\n    def __repr__(self):\n        # Simple repr using class name and dict\n        return f\"{self.__class__.__name__}({self.__dict__})\"\n\nclass Person(ReprMixin):\n    def __init__(self, name):\n        self.name = name\n\n# Person(\"Alice\") uses mixin for __repr__\n```"
+      },
+      {
+        "name": "Dynamic Attributes with __getattr__",
+        "example": "Provide a fallback for missing attributes dynamically.\n\n```python\nclass Dynamic:\n    def __getattr__(self, name):\n        # Return default value for missing attributes\n        return f\"{name} not found\"\n\n# obj = Dynamic(); obj.anything returns 'anything not found'\n```"
+      },
+      {
+        "name": "Monkey Patching",
+        "example": "Modify classes or functions at runtime.\n\n```python\nclass Greeter:\n    def greet(self):\n        return \"Hello\"\n\ndef new_greet(self):\n    return \"Hi\"\n\nGreeter.greet = new_greet  # Patch method\n\n# Greeter().greet() now returns \"Hi\"\n```"
+      },
+      {
+        "name": "Recursion Example",
+        "example": "Solve problems by having a function call itself.\n\n```python\ndef factorial(n):\n    if n == 0:\n        return 1  # Base case\n    return n * factorial(n - 1)\n\n# factorial(5) returns 120\n```"
+      },
+      {
+        "name": "Memoization with Recursion",
+        "example": "Cache recursive calls to improve performance.\n\n```python\ndef memoize(func):\n    cache = {}\n    def wrapper(n):\n        if n not in cache:\n            cache[n] = func(n)\n        return cache[n]\n    return wrapper\n\n@memoize\ndef fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\n# fib(10) computes Fibonacci efficiently\n```"
+      },
+      {
+        "name": "Enumerations with enum",
+        "example": "Define a set of named constants using enum.\n\n```python\nfrom enum import Enum\n\nclass Color(Enum):\n    RED = 1\n    GREEN = 2\n    BLUE = 3\n\n# Color.RED is an enum member with value 1\n```"
+      },
+      {
+        "name": "Pattern Matching (match-case)",
+        "example": "Use pattern matching for clearer conditional logic (Python 3.10+).\n\n```python\ndef http_status(code):\n    match code:\n        case 200:\n            return \"OK\"\n        case 404:\n            return \"Not Found\"\n        case _:\n            return \"Unknown\"\n\n# http_status(404) returns \"Not Found\"\n```"
+      },
+      {
+        "name": "Assignment Expressions (Walrus operator)",
+        "example": "Assign and test values in a single expression.\n\n```python\n# Using walrus operator to assign and evaluate\nif (n := len(\"hello\")) > 3:\n    result = n  # result is 5\n\n# n is assigned 5\n```"
+      },
+      {
+        "name": "Itertools: accumulate",
+        "example": "Use itertools.accumulate to produce accumulated sums.\n\n```python\nimport itertools\n\nnumbers = [1, 2, 3, 4]\naccumulated = list(itertools.accumulate(numbers))\n# accumulated is [1, 3, 6, 10]\n```"
+      },
+      {
+        "name": "Complex Type Hints",
+        "example": "Annotate functions with nested types using the typing module.\n\n```python\nfrom typing import List, Dict, Tuple\n\ndef process(data: List[Dict[str, Tuple[int, int]]]) -> None:\n    # Process complex nested types\n    pass\n\n# Function annotations for nested data structures\n```"
+      },
+      {
+        "name": "Function Annotations Introspection",
+        "example": "Inspect a function's annotations at runtime.\n\n```python\ndef add(a: int, b: int) -> int:\n    return a + b\n\nannotations = add.__annotations__\n# annotations is {'a': int, 'b': int, 'return': int}\n```"
+      },
+      {
+        "name": "Dynamic Method Creation",
+        "example": "Add methods to a class dynamically at runtime.\n\n```python\nclass MyClass:\n    pass\n\ndef dynamic_method(self):\n    return \"I was added dynamically\"\n\nMyClass.dynamic_method = dynamic_method\n\n# MyClass().dynamic_method() returns \"I was added dynamically\"\n```"
+      },
+      {
+        "name": "Custom __call__ Method",
+        "example": "Make class instances callable by implementing __call__.\n\n```python\nclass Callable:\n    def __init__(self, factor):\n        self.factor = factor\n    def __call__(self, x):\n        return x * self.factor\n\n# Callable(3)(4) returns 12\n```"
+      },
+      {
+        "name": "Slicing with __getitem__",
+        "example": "Support slicing and indexing by overriding __getitem__.\n\n```python\nclass Sliceable:\n    def __getitem__(self, key):\n        # Return key itself for demonstration\n        return key\n\n# Sliceable()[1:5] returns slice(1, 5, None)\n```"
+      },
+      {
+        "name": "Immutable Collections with frozenset",
+        "example": "Use frozenset to create immutable, hashable sets.\n\n```python\nimmutable_set = frozenset([1, 2, 3])\n# immutable_set is a hashable, immutable set\n```"
+      },
+      {
+        "name": "Customizing __dir__",
+        "example": "Override __dir__ to control the list of attributes shown.\n\n```python\nclass CustomDir:\n    def __dir__(self):\n        # Return custom attribute list\n        return ['custom_attr']\n\n# dir(CustomDir()) returns ['custom_attr']\n```"
+      },
+      {
+        "name": "__init_subclass__ Hook",
+        "example": "Automatically modify subclasses upon creation.\n\n```python\nclass Base:\n    def __init_subclass__(cls, **kwargs):\n        super().__init_subclass__(**kwargs)\n        cls.custom_attr = \"Initialized\"\n\nclass Derived(Base):\n    pass\n\n# Derived.custom_attr is \"Initialized\"\n```"
+      },
+      {
+        "name": "Custom Exception Classes",
+        "example": "Define your own exception types for clearer error handling.\n\n```python\nclass CustomError(Exception):\n    pass\n\ndef raise_error():\n    raise CustomError(\"An error occurred\")\n\n# Calling raise_error() raises CustomError\n```"
+      },
+      {
+        "name": "Contextlib.suppress",
+        "example": "Suppress specified exceptions in a block of code.\n\n```python\nfrom contextlib import suppress\n\nwith suppress(FileNotFoundError):\n    open(\"nonexistent.txt\")\n# FileNotFoundError is suppressed\n```"
+      },
+      {
+        "name": "Using the operator module",
+        "example": "Perform operations using functions from the operator module.\n\n```python\nimport operator\n\n# operator.add performs addition\nresult = operator.add(5, 3)  # result is 8\n```"
+      },
+      {
+        "name": "Contextlib.ExitStack",
+        "example": "Manage multiple context managers in a single block.\n\n```python\nfrom contextlib import ExitStack\n\nwith ExitStack() as stack:\n    files = [stack.enter_context(open(f\"file{i}.txt\", 'w')) for i in range(3)]\n    # All files are automatically closed\n```"
+      },
+      {
+        "name": "ProcessPoolExecutor",
+        "example": "Execute tasks concurrently using processes.\n\n```python\nfrom concurrent.futures import ProcessPoolExecutor\n\ndef compute_square(n):\n    return n * n\n\nwith ProcessPoolExecutor(max_workers=2) as executor:\n    future = executor.submit(compute_square, 5)\n    # future.result() returns 25\n```"
+      },
+      {
+        "name": "Async Generators",
+        "example": "Yield values asynchronously in an async generator.\n\n```python\nimport asyncio\n\nasync def async_counter(limit):\n    for i in range(limit):\n        await asyncio.sleep(0.1)  # simulate async work\n        yield i\n\n# Usage: async for num in async_counter(3) yields 0, 1, 2\n```"
+      },
+      {
+        "name": "Async Comprehensions",
+        "example": "Create lists from async iterables with comprehensions.\n\n```python\nimport asyncio\n\nasync def get_numbers():\n    for i in range(3):\n        await asyncio.sleep(0.1)\n        yield i\n\n# Async list comprehension\nasync def collect():\n    return [num async for num in get_numbers()]\n\n# collect() returns [0, 1, 2] when awaited\n```"
+      },
+      {
+        "name": "Asynchronous Context Managers",
+        "example": "Define async context managers using __aenter__ and __aexit__.\n\n```python\nclass AsyncCM:\n    async def __aenter__(self):\n        # Setup async resource\n        return self\n    async def __aexit__(self, exc_type, exc, tb):\n        # Cleanup resource\n        pass\n\n# Usage: async with AsyncCM() as cm:\n#           use cm\n```"
+      },
+      {
+        "name": "Weak References with weakref",
+        "example": "Create weak references to objects to avoid memory leaks.\n\n```python\nimport weakref\n\nclass MyObject:\n    pass\n\nobj = MyObject()\nweak_obj = weakref.ref(obj)\n# weak_obj() returns obj until it is garbage collected\n```"
+      },
+      {
+        "name": "Memoryview for Byte Arrays",
+        "example": "Manipulate large byte arrays without copying data.\n\n```python\ndata = bytearray(b\"abcdef\")\nview = memoryview(data)\n# view[1:3] accesses bytes without copying\n```"
+      },
+      {
+        "name": "Custom __del__ Method",
+        "example": "Clean up resources when an object is garbage collected.\n\n```python\nclass Resource:\n    def __del__(self):\n        # Cleanup action\n        pass\n\n# When an instance is deleted, __del__ is called\n```"
+      },
+      {
+        "name": "Metaclass Registry",
+        "example": "Automatically register classes using a metaclass.\n\n```python\nclass RegistryMeta(type):\n    registry = {}\n    def __new__(cls, name, bases, attrs):\n        new_cls = super().__new__(cls, name, bases, attrs)\n        cls.registry[name] = new_cls\n        return new_cls\n\nclass Base(metaclass=RegistryMeta):\n    pass\n\nclass Derived(Base):\n    pass\n\n# RegistryMeta.registry contains Base and Derived\n```"
+      },
+      {
+        "name": "Functools.singledispatch",
+        "example": "Define a generic function with single-dispatch behavior.\n\n```python\nfrom functools import singledispatch\n\n@singledispatch\ndef process(arg):\n    return \"Default\"\n\n@process.register(int)\ndef _(arg):\n    return \"Processing int\"\n\n# process(10) returns \"Processing int\"\n```"
+      },
+      {
+        "name": "Functools.singledispatchmethod",
+        "example": "Enable method overloading based on type of first argument.\n\n```python\nfrom functools import singledispatchmethod\n\nclass Processor:\n    @singledispatchmethod\n    def process(self, arg):\n        return \"Default method\"\n    \n    @process.register\n    def _(self, arg: int):\n        return \"Processing int method\"\n\n# Processor().process(5) returns \"Processing int method\"\n```"
+      },
+      {
+        "name": "NewType for Type Safety",
+        "example": "Create distinct types for type checking without runtime overhead.\n\n```python\nfrom typing import NewType\n\nUserId = NewType('UserId', int)\n\ndef get_user_name(user_id: UserId) -> str:\n    return f\"User {user_id}\"\n\n# get_user_name(UserId(5)) ensures type clarity\n```"
+      },
+      {
+        "name": "Advanced Logging Configuration",
+        "example": "Configure logging with custom format and handlers.\n\n```python\nimport logging\n\nlogger = logging.getLogger('advanced')\nhandler = logging.StreamHandler()\nformatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')\nhandler.setFormatter(formatter)\nlogger.addHandler(handler)\nlogger.setLevel(logging.DEBUG)\n\n# logger.debug('Debug message') logs with timestamp and level\n```"
+      },
+      {
+        "name": "Custom __format__ Method",
+        "example": "Define custom formatting behavior for your objects.\n\n```python\nclass Money:\n    def __init__(self, amount):\n        self.amount = amount\n    def __format__(self, format_spec):\n        # Format as currency\n        return f\"${self.amount:{format_spec}}\"\n\n# format(Money(1000), ',') returns '$1,000'\n```"
+      },
+      {
+        "name": "AsyncExitStack for Async Contexts",
+        "example": "Manage multiple async context managers with AsyncExitStack.\n\n```python\nimport asyncio\nfrom contextlib import AsyncExitStack\n\nasync def main():\n    async with AsyncExitStack() as stack:\n        # Assume async context managers are entered here\n        pass\n\n# asyncio.run(main()) executes the async stack\n```"
+      },
+      {
+        "name": "Pathlib for Filesystem Paths",
+        "example": "Manipulate filesystem paths in an object-oriented way.\n\n```python\nfrom pathlib import Path\n\np = Path(\"/usr/bin\")\n# p.joinpath('python') creates a new path '/usr/bin/python'\n```"
+      },
+      {
+        "name": "itertools.zip_longest",
+        "example": "Zip iterables of unequal length, filling missing values.\n\n```python\nfrom itertools import zip_longest\n\na = [1, 2]\nb = ['a', 'b', 'c']\nresult = list(zip_longest(a, b, fillvalue=None))\n# result is [(1, 'a'), (2, 'b'), (None, 'c')]\n```"
+      },
+      {
+        "name": "collections.Counter",
+        "example": "Count occurrences of elements in an iterable.\n\n```python\nfrom collections import Counter\n\ncounts = Counter([\"apple\", \"banana\", \"apple\"])\n# counts is Counter({'apple': 2, 'banana': 1})\n```"
+      },
+      {
+        "name": "collections.defaultdict",
+        "example": "Provide default values for missing dictionary keys.\n\n```python\nfrom collections import defaultdict\n\nd = defaultdict(int)\nd['a'] += 1\n# d['a'] is 1; missing keys default to 0\n```"
+      },
+      {
+        "name": "collections.namedtuple",
+        "example": "Create simple, immutable classes with named fields.\n\n```python\nfrom collections import namedtuple\n\nPoint = namedtuple('Point', ['x', 'y'])\np = Point(1, 2)\n# p.x is 1 and p.y is 2\n```"
+      },
+      {
+        "name": "collections.OrderedDict",
+        "example": "Maintain insertion order in dictionaries (prior to Python 3.7).\n\n```python\nfrom collections import OrderedDict\n\nd = OrderedDict()\nd['a'] = 1\n# d preserves the order of keys\n```"
+      },
+      {
+        "name": "Thread-safe Queue with queue.Queue",
+        "example": "Use Queue for safe communication between threads.\n\n```python\nfrom queue import Queue\n\nq = Queue()\nq.put(10)  # Add item to queue\nitem = q.get()  # Retrieve item\n```"
+      },
+      {
+        "name": "Threading with Thread",
+        "example": "Run functions concurrently using threads.\n\n```python\nimport threading\n\ndef task():\n    pass  # Thread task\n\nthread = threading.Thread(target=task)\nthread.start()\n# thread.join() waits for completion\n```"
+      },
+      {
+        "name": "Using concurrent.futures.Future",
+        "example": "Manually create and resolve Future objects.\n\n```python\nfrom concurrent.futures import Future\n\nfuture = Future()\nfuture.set_result(42)\n# future.result() returns 42\n```"
+      },
+      {
+        "name": "Pickle for Serialization",
+        "example": "Serialize and deserialize Python objects with pickle.\n\n```python\nimport pickle\n\ndata = {'a': 1}\nserialized = pickle.dumps(data)\ndeserialized = pickle.loads(serialized)\n# deserialized is {'a': 1}\n```"
+      },
+      {
+        "name": "JSON Serialization/Deserialization",
+        "example": "Convert Python objects to JSON strings and back.\n\n```python\nimport json\n\ndata = {'a': 1}\njson_str = json.dumps(data)\nparsed = json.loads(json_str)\n# parsed is {'a': 1}\n```"
+      },
+      {
+        "name": "sched Module for Scheduling",
+        "example": "Schedule tasks to run at specific times.\n\n```python\nimport sched, time\n\nscheduler = sched.scheduler(time.time, time.sleep)\n\ndef task():\n    pass  # Scheduled task\n\nscheduler.enter(5, 1, task)  # Run after 5 seconds\n# scheduler.run() executes scheduled tasks\n```"
+      },
+      {
+        "name": "timeit for Performance Testing",
+        "example": "Measure execution time of small code snippets.\n\n```python\nimport timeit\n\n# timeit returns the execution time\nduration = timeit.timeit('\"-\".join(str(n) for n in range(100))', number=1000)\n```"
+      },
+      {
+        "name": "functools.reduce Example",
+        "example": "Aggregate values in an iterable using a function.\n\n```python\nfrom functools import reduce\n\nresult = reduce(lambda x, y: x + y, [1, 2, 3, 4])\n# result is 10\n```"
+      },
+      {
+        "name": "operator.itemgetter Usage",
+        "example": "Extract items from iterables using itemgetter.\n\n```python\nfrom operator import itemgetter\n\ndata = [(1, 'a'), (2, 'b')]\n# Sort by first element\nsorted_data = sorted(data, key=itemgetter(0))\n```"
+      },
+      {
+        "name": "bisect for Binary Search",
+        "example": "Find insertion points in a sorted list.\n\n```python\nimport bisect\n\nlst = [1, 3, 5]\nindex = bisect.bisect(lst, 4)\n# index is 2\n```"
+      },
+      {
+        "name": "heapq for Priority Queue",
+        "example": "Maintain a heap-based priority queue.\n\n```python\nimport heapq\n\nheap = []\nheapq.heappush(heap, 3)\nheapq.heappush(heap, 1)\n# heapq.heappop(heap) returns 1\n```"
+      },
+      {
+        "name": "WeakValueDictionary with weakref",
+        "example": "Store objects weakly so they can be garbage collected.\n\n```python\nimport weakref\n\nclass MyClass:\n    pass\n\nd = weakref.WeakValueDictionary()\nobj = MyClass()\nd['obj'] = obj\n# d['obj'] exists until obj is deleted\n```"
+      },
+      {
+        "name": "update_wrapper in Decorators",
+        "example": "Preserve function metadata when writing decorators.\n\n```python\nfrom functools import update_wrapper\n\ndef my_decorator(func):\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs)\n    update_wrapper(wrapper, func)\n    return wrapper\n\n# Decorated functions retain their __name__ and __doc__\n```"
+      },
+      {
+        "name": "Abstract Properties",
+        "example": "Enforce properties to be implemented in subclasses.\n\n```python\nfrom abc import ABC, abstractmethod\n\nclass Base(ABC):\n    @property\n    @abstractmethod\n    def value(self):\n        pass\n\nclass Derived(Base):\n    @property\n    def value(self):\n        return 10\n\n# Derived.value returns 10\n```"
+      },
+      {
+        "name": "Computed Attributes with property",
+        "example": "Define attributes computed on access.\n\n```python\nclass Rectangle:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n    @property\n    def area(self):\n        return self.width * self.height\n\n# Rectangle(3, 4).area returns 12\n```"
+      },
+      {
+        "name": "Generator-based Coroutine",
+        "example": "Use generators to simulate coroutines with send().\n\n```python\ndef coroutine():\n    result = yield\n    # Process result\n    yield result * 2\n\n# c = coroutine(); next(c); c.send(5) yields 10\n```"
+      },
+      {
+        "name": "Async Iterator with __aiter__ and __anext__",
+        "example": "Implement asynchronous iteration protocol.\n\n```python\nimport asyncio\n\nclass AsyncCounter:\n    def __init__(self, limit):\n        self.limit = limit\n        self.current = 0\n    def __aiter__(self):\n        return self\n    async def __anext__(self):\n        if self.current >= self.limit:\n            raise StopAsyncIteration\n        self.current += 1\n        await asyncio.sleep(0.1)\n        return self.current\n\n# Usage: async for num in AsyncCounter(3) yields 1, 2, 3\n```"
+      },
+      {
+        "name": "Type Checking with isinstance",
+        "example": "Verify an object's type at runtime.\n\n```python\nclass A:\n    pass\n\nobj = A()\n# isinstance(obj, A) returns True\n```"
+      },
+      {
+        "name": "Listing Subclasses with __subclasses__",
+        "example": "Retrieve all subclasses of a given class.\n\n```python\nclass Parent:\n    pass\n\nclass Child(Parent):\n    pass\n\n# Parent.__subclasses__() includes Child\n```"
+      },
+      {
+        "name": "Recursive Generator for Tree Traversal",
+        "example": "Traverse tree structures using recursion in generators.\n\n```python\nclass Node:\n    def __init__(self, value, children=None):\n        self.value = value\n        self.children = children or []\n\ndef traverse(node):\n    yield node.value\n    for child in node.children:\n        yield from traverse(child)\n\n# traverse(root) yields values in the tree\n```"
+      },
+      {
+        "name": "cmp_to_key for Sorting",
+        "example": "Convert old-style comparison functions to key functions.\n\n```python\nfrom functools import cmp_to_key\n\ndef compare(a, b):\n    return (a > b) - (a < b)\n\nsorted_list = sorted([3, 1, 2], key=cmp_to_key(compare))\n# sorted_list is [1, 2, 3]\n```"
+      },
+      {
+        "name": "redirect_stdout to Capture Output",
+        "example": "Capture printed output using a context manager.\n\n```python\nimport io\nfrom contextlib import redirect_stdout\n\nf = io.StringIO()\nwith redirect_stdout(f):\n    print(\"Captured\")\n# f.getvalue() contains 'Captured\\n'\n```"
+      },
+      {
+        "name": "cProfile for Profiling",
+        "example": "Profile code to analyze performance bottlenecks.\n\n```python\nimport cProfile\n\ndef my_func():\n    sum(range(1000))\n\n# cProfile.run('my_func()') profiles my_func\n```"
+      },
+      {
+        "name": "argparse for Command-line Parsing",
+        "example": "Parse command-line arguments in a script.\n\n```python\nimport argparse\n\nparser = argparse.ArgumentParser(description='Example')\nparser.add_argument('--verbose', action='store_true')\nargs = parser.parse_args()\n# Use args.verbose to adjust behavior\n```"
+      },
+      {
+        "name": "configparser for Config Files",
+        "example": "Read configuration files in INI format.\n\n```python\nimport configparser\n\nconfig = configparser.ConfigParser()\nconfig.read('config.ini')\n# Access config sections and options\n```"
+      },
+      {
+        "name": "Compiled Regular Expressions",
+        "example": "Precompile regex patterns for efficiency.\n\n```python\nimport re\n\npattern = re.compile(r'\\d+')\n# pattern.search('abc123') finds digits\n```"
+      },
+      {
+        "name": "dataclasses.field with default_factory",
+        "example": "Provide default mutable values in data classes.\n\n```python\nfrom dataclasses import dataclass, field\n\n@dataclass\nclass Bag:\n    items: list = field(default_factory=list)\n\n# Bag() creates a new list for items\n```"
+      },
+      {
+        "name": "Data Classes with __slots__",
+        "example": "Optimize memory usage in data classes with slots (Python 3.10+).\n\n```python\nfrom dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: int\n    y: int\n\n# Point uses __slots__ for attribute storage\n```"
+      },
+      {
+        "name": "Enum with auto() for Automatic Values",
+        "example": "Automatically assign values to enum members.\n\n```python\nfrom enum import Enum, auto\n\nclass Status(Enum):\n    STARTED = auto()\n    RUNNING = auto()\n    FINISHED = auto()\n\n# Status members get unique values automatically\n```"
+      }
+    ]
+  }
+  

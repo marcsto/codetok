@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Hello World Program",
+        "example": "**Hello World Program**\n\nA simple program to display \"Hello, World!\".\n\n```csharp\n// Entry point of the program\nusing System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Hello, World!\"); // Prints Hello, World!\n    }\n}\n```"
+      },
+      {
+        "name": "Variables and Data Types",
+        "example": "**Variables and Data Types**\n\nShows variable declarations with various data types.\n\n```csharp\nint age = 30;              // Integer\nfloat salary = 5000.50f;   // Floating point (note the f suffix)\ndouble pi = 3.14159;       // Double precision\nbool isActive = true;      // Boolean\nstring name = \"Bob\";      // String\n```"
+      },
+      {
+        "name": "Operators",
+        "example": "**Operators**\n\nDemonstrates basic arithmetic operators.\n\n```csharp\nint a = 10;\nint b = 5;\nint sum = a + b;      // Addition\nint diff = a - b;     // Subtraction\nint prod = a * b;     // Multiplication\nint quot = a / b;     // Division\nint mod = a % b;      // Modulus\n```"
+      },
+      {
+        "name": "Conditional Statements (if/else)",
+        "example": "**Conditional Statements (if/else)**\n\nUses an if/else to check a condition.\n\n```csharp\nint score = 85;\n\nif (score >= 60) {\n    // Condition met\n    Console.WriteLine(\"Pass\");\n} else {\n    // Condition not met\n    Console.WriteLine(\"Fail\");\n}\n```"
+      },
+      {
+        "name": "Switch Statement",
+        "example": "**Switch Statement**\n\nSelects code to execute based on variable value.\n\n```csharp\nint day = 3;\n\nswitch (day) {\n    case 1:\n        // Monday\n        break;\n    case 2:\n        // Tuesday\n        break;\n    case 3:\n        // Wednesday\n        break;\n    default:\n        // Other days\n        break;\n}\n```"
+      },
+      {
+        "name": "For Loop",
+        "example": "**For Loop**\n\nIterates a block of code a specific number of times.\n\n```csharp\nfor (int i = 0; i < 5; i++) {\n    // Loop runs 5 times (i = 0 to 4)\n    Console.WriteLine(i);\n}\n```"
+      },
+      {
+        "name": "While Loop",
+        "example": "**While Loop**\n\nExecutes code while a condition is true.\n\n```csharp\nint count = 0;\nwhile (count < 5) {\n    // Loop runs while count is less than 5\n    Console.WriteLine(count);\n    count++;\n}\n```"
+      },
+      {
+        "name": "Do-While Loop",
+        "example": "**Do-While Loop**\n\nExecutes code at least once, then checks the condition.\n\n```csharp\nint count = 0;\ndo {\n    // Executes at least once\n    Console.WriteLine(count);\n    count++;\n} while (count < 5);\n```"
+      },
+      {
+        "name": "Arrays",
+        "example": "**Arrays**\n\nStores a fixed-size sequential collection of elements.\n\n```csharp\nint[] numbers = { 1, 2, 3, 4, 5 };\n// Access elements using index: numbers[0] is 1\n```"
+      },
+      {
+        "name": "Lists",
+        "example": "**Lists**\n\nA dynamic collection that can grow in size.\n\n```csharp\nusing System.Collections.Generic;\n\nList<string> fruits = new List<string>();\nfruits.Add(\"Apple\");\nfruits.Add(\"Banana\");\n// 'fruits' now contains Apple and Banana\n```"
+      },
+      {
+        "name": "Dictionaries",
+        "example": "**Dictionaries**\n\nStores key-value pairs for fast lookup.\n\n```csharp\nusing System.Collections.Generic;\n\nDictionary<string, int> ages = new Dictionary<string, int>();\nages[\"Alice\"] = 30;\nages[\"Bob\"] = 25;\n// Access with key: ages[\"Alice\"] returns 30\n```"
+      },
+      {
+        "name": "Functions (Methods)",
+        "example": "**Functions (Methods)**\n\nDefines a reusable block of code.\n\n```csharp\n// Method that adds two numbers\nint Add(int a, int b) {\n    return a + b; // Returns the sum\n}\n\n// Usage: int result = Add(3, 4);\n```"
+      },
+      {
+        "name": "Method Overloading",
+        "example": "**Method Overloading**\n\nSame method name with different parameters.\n\n```csharp\n// Adds two integers\nint Add(int a, int b) {\n    return a + b;\n}\n\n// Adds three integers\nint Add(int a, int b, int c) {\n    return a + b + c;\n}\n```"
+      },
+      {
+        "name": "Classes and Objects",
+        "example": "**Classes and Objects**\n\nDefines a blueprint and creates instances.\n\n```csharp\n// Class definition\nclass Person {\n    public string Name;\n}\n\n// Object creation\nPerson person = new Person();\nperson.Name = \"John\";\n```"
+      },
+      {
+        "name": "Constructors",
+        "example": "**Constructors**\n\nSpecial methods to initialize new objects.\n\n```csharp\nclass Person {\n    public string Name;\n    \n    // Constructor\n    public Person(string name) {\n        Name = name; // Initialize property\n    }\n}\n\n// Create an object with an initial name\nPerson person = new Person(\"Jane\");\n```"
+      },
+      {
+        "name": "Properties",
+        "example": "**Properties**\n\nEncapsulate data with get and set accessors.\n\n```csharp\nclass Person {\n    private string name;\n    \n    public string Name {\n        get { return name; } // Retrieve value\n        set { name = value; } // Set value\n    }\n}\n```"
+      },
+      {
+        "name": "Encapsulation",
+        "example": "**Encapsulation**\n\nHides internal details and exposes only necessary parts.\n\n```csharp\nclass BankAccount {\n    private decimal balance; // Hidden field\n    \n    public void Deposit(decimal amount) {\n        // Modify internal state safely\n        balance += amount;\n    }\n\n    public decimal GetBalance() {\n        return balance; // Exposes state\n    }\n}\n```"
+      },
+      {
+        "name": "Inheritance",
+        "example": "**Inheritance**\n\nDerives a new class from an existing class.\n\n```csharp\n// Base class\nclass Animal {\n    public void Eat() { }\n}\n\n// Derived class\nclass Dog : Animal {\n    public void Bark() { }\n}\n```"
+      },
+      {
+        "name": "Polymorphism",
+        "example": "**Polymorphism**\n\nUses virtual methods to allow overriding in derived classes.\n\n```csharp\nclass Animal {\n    public virtual void Speak() {\n        // Default sound\n    }\n}\n\nclass Cat : Animal {\n    public override void Speak() {\n        // Cat's sound\n    }\n}\n```"
+      },
+      {
+        "name": "Interfaces",
+        "example": "**Interfaces**\n\nDefines a contract that classes can implement.\n\n```csharp\ninterface ILogger {\n    void Log(string message);\n}\n\nclass ConsoleLogger : ILogger {\n    public void Log(string message) {\n        // Log to console\n        Console.WriteLine(message);\n    }\n}\n```"
+      },
+      {
+        "name": "Abstract Classes",
+        "example": "**Abstract Classes**\n\nCannot be instantiated and may contain abstract methods.\n\n```csharp\nabstract class Shape {\n    public abstract double Area(); // Must be implemented by derived classes\n}\n\nclass Circle : Shape {\n    double radius;\n    public Circle(double r) { radius = r; }\n    public override double Area() {\n        return Math.PI * radius * radius;\n    }\n}\n```"
+      },
+      {
+        "name": "Exception Handling",
+        "example": "**Exception Handling**\n\nCatches and handles runtime errors.\n\n```csharp\ntry {\n    // Code that might throw an exception\n    int result = 10 / int.Parse(\"0\");\n} catch (DivideByZeroException) {\n    // Handle division by zero\n} catch (Exception) {\n    // Handle other exceptions\n}\n```"
+      },
+      {
+        "name": "Using Statement",
+        "example": "**Using Statement**\n\nAutomatically disposes objects implementing IDisposable.\n\n```csharp\nusing (var reader = new System.IO.StreamReader(\"file.txt\")) {\n    // Use reader\n}\n// 'reader' is disposed here\n```"
+      },
+      {
+        "name": "Static Members",
+        "example": "**Static Members**\n\nBelong to the class rather than an instance.\n\n```csharp\nclass MathUtil {\n    public static double Pi = 3.14159;\n    public static int Add(int a, int b) {\n        return a + b;\n    }\n}\n\n// Access without creating an object\nint sum = MathUtil.Add(3, 4);\n```"
+      },
+      {
+        "name": "Access Modifiers",
+        "example": "**Access Modifiers**\n\nControls the accessibility of classes and members.\n\n```csharp\npublic class PublicClass { }      // Accessible everywhere\ninternal class InternalClass { }  // Accessible within the assembly\n// Note: 'private' is used within classes only\n```"
+      },
+      {
+        "name": "Method Overriding",
+        "example": "**Method Overriding**\n\nOverrides a virtual method from a base class.\n\n```csharp\nclass BaseClass {\n    public virtual void Display() { }\n}\n\nclass DerivedClass : BaseClass {\n    public override void Display() { }\n}\n```"
+      },
+      {
+        "name": "Extension Methods",
+        "example": "**Extension Methods**\n\nAdds new methods to existing types without modifying them.\n\n```csharp\nstatic class StringExtensions {\n    public static int WordCount(this string str) {\n        return str.Split(' ').Length; // Count words\n    }\n}\n\n// Usage: int count = \"Hello world\".WordCount();\n```"
+      },
+      {
+        "name": "Delegates",
+        "example": "**Delegates**\n\nType-safe function pointers.\n\n```csharp\n// Delegate declaration\ndelegate int Operation(int x, int y);\n\n// Methods matching delegate signature\nint Add(int a, int b) { return a + b; }\nint Multiply(int a, int b) { return a * b; }\n\n// Usage:\nOperation op = Add;\nint result = op(3, 4);\n```"
+      },
+      {
+        "name": "Events",
+        "example": "**Events**\n\nNotifies subscribers when something occurs.\n\n```csharp\nclass Alarm {\n    public event Action OnAlarm;\n    \n    public void Trigger() {\n        // Notify subscribers\n        OnAlarm?.Invoke();\n    }\n}\n\n// Subscription example:\n// alarm.OnAlarm += HandlerMethod;\n```"
+      },
+      {
+        "name": "Anonymous Methods",
+        "example": "**Anonymous Methods**\n\nDefines inline, unnamed methods.\n\n```csharp\ndelegate void Printer(string message);\n\nPrinter print = delegate(string msg) {\n    // Inline implementation\n    Console.WriteLine(msg);\n};\n\n// Usage: print(\"Hello\");\n```"
+      },
+      {
+        "name": "Lambda Expressions",
+        "example": "**Lambda Expressions**\n\nConcise syntax for writing anonymous functions.\n\n```csharp\nFunc<int, int, int> add = (a, b) => a + b; // Returns sum\n```"
+      },
+      {
+        "name": "LINQ Basics",
+        "example": "**LINQ Basics**\n\nQueries collections using a SQL-like syntax.\n\n```csharp\nusing System.Linq;\n\nint[] numbers = { 1, 2, 3, 4, 5 };\nvar evenNumbers = numbers.Where(n => n % 2 == 0);\n```"
+      },
+      {
+        "name": "Generics",
+        "example": "**Generics**\n\nEnables classes and methods to operate on any type.\n\n```csharp\n// Generic class\nclass Box<T> {\n    public T Value { get; set; }\n}\n\n// Usage:\nBox<int> intBox = new Box<int>();\nintBox.Value = 123;\n```"
+      },
+      {
+        "name": "Structs",
+        "example": "**Structs**\n\nValue types that are typically used for small data structures.\n\n```csharp\nstruct Point {\n    public int X;\n    public int Y;\n}\n\n// Usage:\nPoint p = new Point { X = 10, Y = 20 };\n```"
+      },
+      {
+        "name": "Enums",
+        "example": "**Enums**\n\nDefines a set of named integral constants.\n\n```csharp\nenum Days { Monday, Tuesday, Wednesday, Thursday, Friday };\n\n// Usage: Days today = Days.Monday;\n```"
+      },
+      {
+        "name": "Nullable Types",
+        "example": "**Nullable Types**\n\nAllows value types to be null.\n\n```csharp\nint? optionalNumber = null;\n// Can hold an integer or null\n```"
+      },
+      {
+        "name": "Indexers",
+        "example": "**Indexers**\n\nEnables objects to be indexed like arrays.\n\n```csharp\nclass SampleCollection {\n    private string[] arr = new string[10];\n    public string this[int index] {\n        get { return arr[index]; }\n        set { arr[index] = value; }\n    }\n}\n\n// Usage: collection[0] = \"first\";\n```"
+      },
+      {
+        "name": "Auto-Implemented Properties",
+        "example": "**Auto-Implemented Properties**\n\nSimplifies property declarations.\n\n```csharp\nclass Person {\n    public string Name { get; set; } // Auto property\n}\n```"
+      },
+      {
+        "name": "Partial Classes",
+        "example": "**Partial Classes**\n\nSplits a class definition across multiple files.\n\n```csharp\n// File1.cs\npublic partial class MyClass {\n    void MethodA() { }\n}\n\n// File2.cs\npublic partial class MyClass {\n    void MethodB() { }\n}\n```"
+      },
+      {
+        "name": "Static Classes",
+        "example": "**Static Classes**\n\nCannot be instantiated and contain only static members.\n\n```csharp\nstatic class Utilities {\n    public static int Square(int x) {\n        return x * x;\n    }\n}\n\n// Usage: int result = Utilities.Square(4);\n```"
+      },
+      {
+        "name": "File I/O Basics",
+        "example": "**File I/O Basics**\n\nReads from and writes to files.\n\n```csharp\nusing System.IO;\n\n// Write text to a file\nFile.WriteAllText(\"example.txt\", \"Hello, File!\");\n\n// Read text from a file\nstring content = File.ReadAllText(\"example.txt\");\n```"
+      },
+      {
+        "name": "Threading Basics",
+        "example": "**Threading Basics**\n\nCreates and starts a new thread.\n\n```csharp\nusing System.Threading;\n\nThread thread = new Thread(() => {\n    // Code running on a separate thread\n});\nthread.Start();\n```"
+      },
+      {
+        "name": "Task Parallel Library",
+        "example": "**Task Parallel Library**\n\nRuns tasks in parallel using the Task class.\n\n```csharp\nusing System.Threading.Tasks;\n\nTask task = Task.Run(() => {\n    // Background task\n});\n```"
+      },
+      {
+        "name": "Async/Await",
+        "example": "**Async/Await**\n\nSimplifies asynchronous programming.\n\n```csharp\nusing System.Threading.Tasks;\n\nasync Task<string> GetDataAsync() {\n    // Asynchronous operation\n    await Task.Delay(1000);\n    return \"Data\";\n}\n```"
+      },
+      {
+        "name": "Attributes",
+        "example": "**Attributes**\n\nAdds metadata to code elements.\n\n```csharp\n[Obsolete(\"Use NewMethod instead\")]\nvoid OldMethod() { }\n```"
+      },
+      {
+        "name": "Reflection",
+        "example": "**Reflection**\n\nInspects metadata of types at runtime.\n\n```csharp\nusing System;\nusing System.Reflection;\n\nType type = typeof(string);\n// Get methods of the string class\nMethodInfo[] methods = type.GetMethods();\n```"
+      },
+      {
+        "name": "Operator Overloading",
+        "example": "**Operator Overloading**\n\nAllows custom behavior for operators.\n\n```csharp\nclass Complex {\n    public double Real, Imaginary;\n\n    public Complex(double r, double i) {\n        Real = r; \n        Imaginary = i;\n    }\n\n    // Overload the + operator\n    public static Complex operator +(Complex a, Complex b) {\n        return new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);\n    }\n}\n```"
+      },
+      {
+        "name": "Tuples",
+        "example": "**Tuples**\n\nGroups multiple values into a single compound value.\n\n```csharp\n// C# 7.0 syntax for tuples\nvar person = (Name: \"Alice\", Age: 30);\n// Access: person.Name, person.Age\n```"
+      },
+      {
+        "name": "Pattern Matching",
+        "example": "**Pattern Matching**\n\nSimplifies type and value checks in switch statements.\n\n```csharp\nobject obj = \"Hello\";\n\nswitch (obj) {\n    case string s:\n        // 's' is a string\n        break;\n    case int i:\n        // 'i' is an integer\n        break;\n}\n```"
+      },
+      {
+        "name": "Local Functions",
+        "example": "**Local Functions**\n\nDefines functions within a method's scope.\n\n```csharp\nvoid Process() {\n    // Local function inside Process\n    int Add(int x, int y) => x + y;\n    int result = Add(2, 3);\n    // 'result' holds the sum\n}\n```"
+      },
+      {
+        "name": "Null-Coalescing Operator",
+        "example": "**Null-Coalescing Operator**\n\nReturns the left-hand operand if not null; otherwise, returns the right-hand operand.\n\n```csharp\nstring message = null;\nstring displayMessage = message ?? \"Default Message\"; // 'displayMessage' becomes \"Default Message\"\n```"
+      },
+      {
+        "name": "Null-conditional Operator",
+        "example": "**Null-conditional Operator**\n\nSafely accesses members and elements, returning null if the receiver is null.\n\n```csharp\nPerson person = null;\nstring name = person?.Name; // Returns null instead of throwing an exception\n```"
+      },
+      {
+        "name": "Ternary Operator",
+        "example": "**Ternary Operator**\n\nSelects one of two values based on a condition.\n\n```csharp\nint a = 5, b = 10;\nint max = (a > b) ? a : b; // max is 10\n```"
+      },
+      {
+        "name": "Generic Constraints",
+        "example": "**Generic Constraints**\n\nRestricts type parameters using the 'where' clause.\n\n```csharp\n// T must implement IComparable<T>\npublic T Max<T>(T a, T b) where T : IComparable<T> {\n    return (a.CompareTo(b) > 0) ? a : b;\n}\n```"
+      },
+      {
+        "name": "Readonly Fields and Properties",
+        "example": "**Readonly Fields and Properties**\n\nPrevents modification after initialization.\n\n```csharp\nclass Sample {\n    public readonly int ReadonlyField = 10;\n    public int ReadOnlyProperty { get; } = 20;\n}\n```"
+      },
+      {
+        "name": "Immutable Collections",
+        "example": "**Immutable Collections**\n\nCreates collections that cannot be modified after creation.\n\n```csharp\nusing System.Collections.Immutable;\n\nvar immutableList = ImmutableList.Create(1, 2, 3);\n```"
+      },
+      {
+        "name": "Iterator with yield return",
+        "example": "**Iterator with yield return**\n\nYields elements one at a time in an iterator block.\n\n```csharp\nIEnumerable<int> GetNumbers() {\n    for (int i = 0; i < 5; i++) {\n        yield return i; // Yields one number at a time\n    }\n}\n```"
+      },
+      {
+        "name": "Dynamic Keyword",
+        "example": "**Dynamic Keyword**\n\nEnables dynamic typing, bypassing compile-time type checking.\n\n```csharp\ndynamic value = \"Hello\";\nvalue = 10; // Now 'value' holds an integer\n```"
+      },
+      {
+        "name": "Anonymous Types",
+        "example": "**Anonymous Types**\n\nCreates objects without explicitly defining a class.\n\n```csharp\nvar person = new { Name = \"Alice\", Age = 30 };\n// Access properties: person.Name, person.Age\n```"
+      },
+      {
+        "name": "Pattern Matching with is",
+        "example": "**Pattern Matching with is**\n\nChecks an object's type and assigns it to a variable if it matches.\n\n```csharp\nobject obj = \"Hello\";\nif (obj is string s) {\n    // 's' is now a string\n}\n```"
+      },
+      {
+        "name": "Switch Expressions",
+        "example": "**Switch Expressions**\n\nProvides a concise syntax for switch-case logic.\n\n```csharp\nint number = 2;\nstring result = number switch {\n    1 => \"One\",\n    2 => \"Two\",\n    _ => \"Other\"\n};\n```"
+      },
+      {
+        "name": "Records",
+        "example": "**Records**\n\nImmutable reference types with value-based equality (C# 9+).\n\n```csharp\npublic record Person(string Name, int Age);\n// Usage: var p = new Person(\"Alice\", 30);\n```"
+      },
+      {
+        "name": "Deconstruction",
+        "example": "**Deconstruction**\n\nExtracts values from a tuple or record into separate variables.\n\n```csharp\nvar person = (Name: \"Bob\", Age: 25);\nvar (name, age) = person; // name = \"Bob\", age = 25\n```"
+      },
+      {
+        "name": "Ref Returns and Locals",
+        "example": "**Ref Returns and Locals**\n\nReturns a reference to a variable, allowing modifications to the original.\n\n```csharp\nint[] numbers = { 1, 2, 3 };\nref int GetElement(int index) => ref numbers[index];\nref int numRef = ref GetElement(1);\nnumRef = 42; // Updates numbers[1] to 42\n```"
+      },
+      {
+        "name": "Out Variables Declaration",
+        "example": "**Out Variables Declaration**\n\nDeclares out variables inline with method calls.\n\n```csharp\nif (int.TryParse(\"123\", out int result)) {\n    // 'result' is 123\n}\n```"
+      },
+      {
+        "name": "Covariance and Contravariance",
+        "example": "**Covariance and Contravariance**\n\nAllows conversion between compatible generic types.\n\n```csharp\nIEnumerable<string> strings = new List<string>();\nIEnumerable<object> objects = strings; // Covariance in action\n```"
+      },
+      {
+        "name": "Expression-bodied Members",
+        "example": "**Expression-bodied Members**\n\nSimplifies method and property definitions using lambda syntax.\n\n```csharp\nclass Square {\n    public double Side { get; set; }\n    public double Area => Side * Side; // Expression-bodied property\n    public override string ToString() => $\"Square: {Side}\"; // Expression-bodied method\n}\n```"
+      },
+      {
+        "name": "Lambda Discard Parameters",
+        "example": "**Lambda Discard Parameters**\n\nIgnores unused parameters by using an underscore.\n\n```csharp\nAction _ = _ => { /* Parameter is intentionally ignored */ };\n// Usage: _();\n```"
+      },
+      {
+        "name": "Local Functions with Recursion",
+        "example": "**Local Functions with Recursion**\n\nDefines a recursive helper function within a method.\n\n```csharp\nint ComputeFactorial(int n) {\n    int LocalFactorial(int x) => (x <= 1) ? 1 : x * LocalFactorial(x - 1);\n    return LocalFactorial(n);\n}\n```"
+      },
+      {
+        "name": "Index Initializers",
+        "example": "**Index Initializers**\n\nInitializes dictionary entries using index syntax.\n\n```csharp\nvar dict = new Dictionary<string, int> {\n    [\"one\"] = 1,\n    [\"two\"] = 2\n};\n```"
+      },
+      {
+        "name": "Pattern Matching with Relational Patterns",
+        "example": "**Pattern Matching with Relational Patterns**\n\nMatches values based on relational conditions in switch expressions.\n\n```csharp\nint number = 15;\nstring size = number switch {\n    < 10 => \"Small\",\n    < 20 => \"Medium\",\n    _ => \"Large\"\n};\n```"
+      },
+      {
+        "name": "List Pattern Matching",
+        "example": "**List Pattern Matching**\n\nMatches specific patterns in lists or arrays.\n\n```csharp\nint[] numbers = { 1, 2, 3 };\nstring description = numbers switch {\n    [1, 2, 3] => \"Sequence 1,2,3\",\n    _ => \"Other\"\n};\n```"
+      },
+      {
+        "name": "Records with 'with' Expression",
+        "example": "**Records with 'with' Expression**\n\nCreates a copy of a record with some properties modified.\n\n```csharp\npublic record Person(string Name, int Age);\n\nvar person1 = new Person(\"Alice\", 30);\nvar person2 = person1 with { Age = 31 }; // person2 has Age 31\n```"
+      },
+      {
+        "name": "Default Interface Methods",
+        "example": "**Default Interface Methods**\n\nProvides a default implementation within an interface.\n\n```csharp\npublic interface ILogger {\n    void Log(string message);\n    \n    // Default implementation\n    void LogError(string message) => Log(\"Error: \" + message);\n}\n\nclass ConsoleLogger : ILogger {\n    public void Log(string message) => Console.WriteLine(message);\n}\n```"
+      },
+      {
+        "name": "File System Watcher",
+        "example": "**File System Watcher**\n\nMonitors file system changes in a specified directory.\n\n```csharp\nusing System.IO;\n\nFileSystemWatcher watcher = new FileSystemWatcher();\nwatcher.Path = \"C:\\\\Temp\";\nwatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;\nwatcher.Created += (s, e) => { /* Handle new file */ };\nwatcher.EnableRaisingEvents = true;\n```"
+      },
+      {
+        "name": "MemoryStream Usage",
+        "example": "**MemoryStream Usage**\n\nPerforms in-memory data operations without disk I/O.\n\n```csharp\nusing System.IO;\n\nbyte[] buffer;\nusing (MemoryStream ms = new MemoryStream()) {\n    ms.WriteByte(65); // Writes the ASCII code for 'A'\n    buffer = ms.ToArray();\n}\n```"
+      },
+      {
+        "name": "Regex Matching",
+        "example": "**Regex Matching**\n\nSearches for patterns in strings using regular expressions.\n\n```csharp\nusing System.Text.RegularExpressions;\n\nstring input = \"abc123\";\nMatch match = Regex.Match(input, \"[0-9]+\");\n// match.Value is \"123\"\n```"
+      },
+      {
+        "name": "Task Cancellation with CancellationToken",
+        "example": "**Task Cancellation with CancellationToken**\n\nGracefully cancels tasks using a cancellation token.\n\n```csharp\nusing System.Threading;\nusing System.Threading.Tasks;\n\nCancellationTokenSource cts = new CancellationTokenSource();\nTask task = Task.Run(() => {\n    while (!cts.Token.IsCancellationRequested) {\n        // Perform work until cancellation is requested\n    }\n}, cts.Token);\n\ncts.Cancel(); // Request cancellation\n```"
+      },
+      {
+        "name": "Parallel.ForEach",
+        "example": "**Parallel.ForEach**\n\nProcesses collection elements concurrently.\n\n```csharp\nusing System.Threading.Tasks;\n\nvar numbers = new int[] { 1, 2, 3, 4, 5 };\nParallel.ForEach(numbers, num => {\n    // Process each number in parallel\n});\n```"
+      },
+      {
+        "name": "ThreadPool usage",
+        "example": "**ThreadPool usage**\n\nQueues work items to be executed by threads in the pool.\n\n```csharp\nusing System.Threading;\n\nThreadPool.QueueUserWorkItem(state => {\n    // Code executed on a thread pool thread\n});\n```"
+      },
+      {
+        "name": "Unsafe Code and Pointers",
+        "example": "**Unsafe Code and Pointers**\n\nPerforms pointer operations; requires the /unsafe flag during compilation.\n\n```csharp\nunsafe {\n    int x = 10;\n    int* p = &x;\n    // *p is 10\n}\n```"
+      },
+      {
+        "name": "Fixed Statement",
+        "example": "**Fixed Statement**\n\nPins objects in memory to prevent them from being relocated by the GC.\n\n```csharp\nint[] numbers = { 1, 2, 3 };\nunsafe {\n    fixed (int* ptr = numbers) {\n        // 'ptr' remains fixed during the execution of this block\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Exception",
+        "example": "**Custom Exception**\n\nDefines a user-specific exception type by extending Exception.\n\n```csharp\npublic class MyCustomException : Exception {\n    public MyCustomException(string message) : base(message) { }\n}\n```"
+      },
+      {
+        "name": "NameOf Operator",
+        "example": "**NameOf Operator**\n\nReturns the name of a variable, type, or member as a string.\n\n```csharp\nstring paramName = nameof(MyCustomException);\n```"
+      },
+      {
+        "name": "Caller Information Attributes",
+        "example": "**Caller Information Attributes**\n\nCaptures information about the caller of a method automatically.\n\n```csharp\nusing System.Runtime.CompilerServices;\n\nvoid Log(string message,\n         [CallerMemberName] string caller = \"\") {\n    // 'caller' contains the name of the calling method\n}\n```"
+      },
+      {
+        "name": "Interpolated Strings",
+        "example": "**Interpolated Strings**\n\nEmbeds expressions within string literals using the $ prefix.\n\n```csharp\nstring name = \"World\";\nstring greeting = $\"Hello, {name}!\";\n```"
+      },
+      {
+        "name": "Verbatim Strings",
+        "example": "**Verbatim Strings**\n\nPreserves formatting and ignores escape sequences using the @ symbol.\n\n```csharp\nstring path = @\"C:\\Temp\\File.txt\";\n```"
+      },
+      {
+        "name": "Default Values with default keyword",
+        "example": "**Default Values with default keyword**\n\nReturns the default value for a given type.\n\n```csharp\nint defaultInt = default(int); // 0\n```"
+      },
+      {
+        "name": "Static Constructor",
+        "example": "**Static Constructor**\n\nInitializes static members of a class before any instances are created.\n\n```csharp\nclass MyClass {\n    public static int Value;\n    static MyClass() {\n        Value = 100; // Called once before any instance is created\n    }\n}\n```"
+      },
+      {
+        "name": "Event Subscription with Lambda",
+        "example": "**Event Subscription with Lambda**\n\nSubscribes to events using inline lambda expressions.\n\n```csharp\npublic event Action OnChange;\n\n// Subscription using a lambda expression\nOnChange += () => { /* Handle event */ };\n```"
+      },
+      {
+        "name": "Multicast Delegates",
+        "example": "**Multicast Delegates**\n\nAllows a delegate to reference and invoke multiple methods.\n\n```csharp\ndelegate void Notify();\n\nNotify notify = () => { /* First handler */ };\nnotify += () => { /* Second handler */ };\nnotify(); // Invokes both handlers\n```"
+      },
+      {
+        "name": "Reflection: Invoking a Method",
+        "example": "**Reflection: Invoking a Method**\n\nUses reflection to call a method dynamically at runtime.\n\n```csharp\nusing System.Reflection;\n\nMethodInfo method = typeof(string).GetMethod(\"ToUpper\", new Type[0]);\nstring result = (string)method.Invoke(\"hello\", null);\n```"
+      },
+      {
+        "name": "Type Checking with 'as' Operator",
+        "example": "**Type Checking with 'as' Operator**\n\nAttempts to cast an object to a specified type, returning null if the cast fails.\n\n```csharp\nobject obj = \"hello\";\nstring str = obj as string; // 'str' is \"hello\" if successful, otherwise null\n```"
+      },
+      {
+        "name": "Generic Method",
+        "example": "**Generic Method**\n\nDefines a method that operates on a parameterized type.\n\n```csharp\npublic T Echo<T>(T value) {\n    return value;\n}\n\n// Usage: int number = Echo(5);\n```"
+      },
+      {
+        "name": "Bitwise Operators",
+        "example": "**Bitwise Operators**\n\nPerforms operations at the bit level on integral types.\n\n```csharp\nint a = 5;  // Binary: 0101\nint b = 3;  // Binary: 0011\nint and = a & b; // Binary: 0001\nint or = a | b;  // Binary: 0111\n```"
+      },
+      {
+        "name": "Conditional Attributes",
+        "example": "**Conditional Attributes**\n\nIncludes or excludes method calls based on compile-time conditions.\n\n```csharp\nusing System.Diagnostics;\n\n[Conditional(\"DEBUG\")]\nvoid DebugLog(string message) { }\n```"
+      },
+      {
+        "name": "Using var keyword",
+        "example": "**Using var keyword**\n\nInfers the variable type from its initializer for brevity.\n\n```csharp\nvar number = 10; // 'number' is inferred as int\n```"
+      },
+      {
+        "name": "Async Streams (IAsyncEnumerable)",
+        "example": "**Async Streams (IAsyncEnumerable)**\n\nEnables asynchronous iteration over data streams.\n\n```csharp\nusing System.Collections.Generic;\nusing System.Threading.Tasks;\n\nasync IAsyncEnumerable<int> GetNumbersAsync() {\n    for (int i = 0; i < 5; i++) {\n        await Task.Delay(100);\n        yield return i;\n    }\n}\n\n// Usage with 'await foreach'\n```"
+      },
+      {
+        "name": "Record Structs",
+        "example": "**Record Structs**\n\nDefines immutable value types with record semantics (C# 10+).\n\n```csharp\npublic readonly record struct Point(int X, int Y);\n\n// Usage: var p = new Point(1, 2);\n```"
+      },
+      {
+        "name": "Nullable Reference Types",
+        "example": "**Nullable Reference Types**\n\nEnables compiler warnings to help avoid null reference errors (C# 8.0+).\n\n```csharp\n#nullable enable\nstring? nullableString = null; // Allows null assignment safely\n#nullable disable\n```"
+      }
+    ]
+  }
+  

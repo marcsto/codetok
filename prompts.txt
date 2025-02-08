@@ -57,7 +57,95 @@ examples: [
 }
 
 #javascript-beginner
+# https://chatgpt.com/c/67a6e69c-8490-8009-b4ba-2ed6edda5d07
 I want to learn javascript. Teach me it's core concepts. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
+#css-beginner
+I want to learn css. Teach me it's core concepts. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 5 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
+# Neural network tricks (advanced)
+
+I'm an ML engineer. Teach me about tricks and tips of neural network architectures and data generation that have been discovered over the past 8 years. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
+# Transformers
+
+I'm an ML engineer. Teach me about transformers, large language models and how to train them to get the best results. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
+# Swift for Objective-C programmers
+I'm an Objective-C programmer who wants to learn Swift. Teach me what's different about Swift compared to Objective-C. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 5 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
+# Python advanced
+I've been programming in Python for several years. Teach me advanced concepts that will make me a better programmer. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs. 
 
 Here's an example format:
 {

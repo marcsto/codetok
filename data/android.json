@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Basic Activity Setup",
+        "example": "An Activity is a single screen in an app.\n\n```kotlin\n// MainActivity.kt\nimport android.os.Bundle\nimport androidx.appcompat.app.AppCompatActivity\n\nclass MainActivity : AppCompatActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState) // Initialize activity\n        setContentView(R.layout.activity_main) // Set XML layout\n    }\n}\n```"
+      },
+      {
+        "name": "Activity Lifecycle - onCreate",
+        "example": "onCreate() is the entry point when the activity is created.\n\n```kotlin\noverride fun onCreate(savedInstanceState: Bundle?) {\n    super.onCreate(savedInstanceState) // Called once on creation\n    setContentView(R.layout.activity_main)\n}\n```"
+      },
+      {
+        "name": "Activity Lifecycle - onStart and onStop",
+        "example": "onStart() and onStop() handle the visible state of an Activity.\n\n```kotlin\noverride fun onStart() {\n    super.onStart() // Activity becomes visible\n}\n\noverride fun onStop() {\n    super.onStop() // Activity no longer visible\n}\n```"
+      },
+      {
+        "name": "XML Layout Basics",
+        "example": "XML layouts define the UI structure.\n\n```xml\n<!-- res/layout/activity_main.xml -->\n<LinearLayout xmlns:android=\\\"http://schemas.android.com/apk/res/android\\\"\n    android:layout_width=\\\"match_parent\\\"\n    android:layout_height=\\\"match_parent\\\"\n    android:orientation=\\\"vertical\\\">\n\n    <TextView\n        android:id=\\\"@+id/textView\\\"\n        android:layout_width=\\\"wrap_content\\\"\n        android:layout_height=\\\"wrap_content\\\"\n        android:text=\\\"Hello, Android!\\\" />\n</LinearLayout>\n```"
+      },
+      {
+        "name": "Find Views by ID",
+        "example": "Link XML views to Kotlin code using findViewById.\n\n```kotlin\n// In MainActivity\nval textView = findViewById<TextView>(R.id.textView) // Access TextView\n```"
+      },
+      {
+        "name": "Set Click Listener",
+        "example": "Handle user clicks with setOnClickListener.\n\n```kotlin\nbutton.setOnClickListener {\n    // Execute click logic\n}\n```"
+      },
+      {
+        "name": "Using Intents for Navigation",
+        "example": "Intents are used to navigate between activities.\n\n```kotlin\n// Starting SecondActivity\nval intent = Intent(this, SecondActivity::class.java)\nstartActivity(intent) // Launch the activity\n```"
+      },
+      {
+        "name": "Passing Data Between Activities",
+        "example": "Extras in intents pass data from one activity to another.\n\n```kotlin\n// In the first activity\nval intent = Intent(this, DetailActivity::class.java)\nintent.putExtra(\"EXTRA_MESSAGE\", \"Hello\")\nstartActivity(intent)\n\n// In DetailActivity\nval message = intent.getStringExtra(\"EXTRA_MESSAGE\")\n```"
+      },
+      {
+        "name": "Fragment Basics",
+        "example": "Fragments represent a reusable UI component within an activity.\n\n```kotlin\nclass ExampleFragment : Fragment(R.layout.fragment_example) {\n    // Fragment-specific code\n}\n```"
+      },
+      {
+        "name": "Fragment Lifecycle",
+        "example": "Inflate fragment layout in onCreateView() and initialize in onViewCreated().\n\n```kotlin\noverride fun onCreateView(\n    inflater: LayoutInflater, container: ViewGroup?,\n    savedInstanceState: Bundle?\n): View? {\n    return inflater.inflate(R.layout.fragment_example, container, false) // Inflate layout\n}\n```"
+      },
+      {
+        "name": "Fragment Transactions",
+        "example": "Replace or add fragments using FragmentManager transactions.\n\n```kotlin\nsupportFragmentManager.beginTransaction()\n    .replace(R.id.container, ExampleFragment())\n    .commit() // Commit the fragment transaction\n```"
+      },
+      {
+        "name": "RecyclerView Basics",
+        "example": "RecyclerView efficiently displays a scrollable list.\n\n```xml\n<!-- res/layout/item_view.xml -->\n<TextView\n    xmlns:android=\\\"http://schemas.android.com/apk/res/android\\\"\n    android:id=\\\"@+id/itemText\\\"\n    android:layout_width=\\\"match_parent\\\"\n    android:layout_height=\\\"wrap_content\\\" />\n```"
+      },
+      {
+        "name": "RecyclerView Adapter",
+        "example": "The adapter binds data to RecyclerView items.\n\n```kotlin\nclass MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {\n    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)\n\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\n        val view = LayoutInflater.from(parent.context)\n            .inflate(R.layout.item_view, parent, false)\n        return ViewHolder(view)\n    }\n\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\n        // Bind data to TextView\n        holder.view.findViewById<TextView>(R.id.itemText).text = items[position]\n    }\n\n    override fun getItemCount() = items.size\n}\n```"
+      },
+      {
+        "name": "ViewBinding Setup",
+        "example": "Enable ViewBinding in build.gradle for safer view access.\n\n```gradle\nandroid {\n    buildFeatures {\n        viewBinding true\n    }\n}\n```"
+      },
+      {
+        "name": "Using ViewBinding in Activity",
+        "example": "Access views directly with the binding object.\n\n```kotlin\nprivate lateinit var binding: ActivityMainBinding\n\noverride fun onCreate(savedInstanceState: Bundle?) {\n    super.onCreate(savedInstanceState)\n    binding = ActivityMainBinding.inflate(layoutInflater)\n    setContentView(binding.root) // Set root view\n}\n```"
+      },
+      {
+        "name": "ConstraintLayout Basics",
+        "example": "ConstraintLayout helps create flexible and responsive UIs.\n\n```xml\n<!-- res/layout/activity_main.xml -->\n<androidx.constraintlayout.widget.ConstraintLayout\n    xmlns:android=\\\"http://schemas.android.com/apk/res/android\\\"\n    xmlns:app=\\\"http://schemas.android.com/apk/res-auto\\\"\n    android:layout_width=\\\"match_parent\\\"\n    android:layout_height=\\\"match_parent\\\">\n\n    <Button\n        android:id=\\\"@+id/button\\\"\n        android:layout_width=\\\"wrap_content\\\"\n        android:layout_height=\\\"wrap_content\\\"\n        android:text=\\\"Click\\\"\n        app:layout_constraintTop_toTopOf=\\\"parent\\\"\n        app:layout_constraintStart_toStartOf=\\\"parent\\\" />\n</androidx.constraintlayout.widget.ConstraintLayout>\n```"
+      },
+      {
+        "name": "Defining String Resources",
+        "example": "Store UI text in strings.xml for localization.\n\n```xml\n<!-- res/values/strings.xml -->\n<resources>\n    <string name=\\\"app_name\\\">MyApp</string>\n    <string name=\\\"welcome_message\\\">Welcome to MyApp!</string>\n</resources>\n```"
+      },
+      {
+        "name": "Gradle Build File Basics",
+        "example": "Gradle files manage dependencies and build configurations.\n\n```gradle\n// app/build.gradle\nplugins {\n    id 'com.android.application'\n    id 'kotlin-android'\n}\n\ndependencies {\n    implementation 'androidx.appcompat:appcompat:1.6.0'\n}\n```"
+      },
+      {
+        "name": "AndroidManifest Setup",
+        "example": "The manifest declares app components and required permissions.\n\n```xml\n<!-- AndroidManifest.xml -->\n<manifest xmlns:android=\\\"http://schemas.android.com/apk/res/android\\\"\n    package=\\\"com.example.myapp\\\">\n\n    <application\n        android:label=\\\"@string/app_name\\\">\n        <activity android:name=\\\".MainActivity\\\">\n            <intent-filter>\n                <action android:name=\\\"android.intent.action.MAIN\\\" />\n                <category android:name=\\\"android.intent.category.LAUNCHER\\\" />\n            </intent-filter>\n        </activity>\n    </application>\n</manifest>\n```"
+      },
+      {
+        "name": "Requesting Runtime Permissions",
+        "example": "Check and request permissions at runtime (e.g., CAMERA).\n\n```kotlin\nif (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {\n    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 100)\n}\n```"
+      },
+      {
+        "name": "Creating a Service",
+        "example": "Services run background tasks independently of the UI.\n\n```kotlin\nclass MyService : Service() {\n    override fun onBind(intent: Intent?): IBinder? {\n        return null // Not a bound service\n    }\n\n    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {\n        // Execute background work\n        return START_NOT_STICKY\n    }\n}\n```"
+      },
+      {
+        "name": "Starting a Service",
+        "example": "Launch a service using an Intent.\n\n```kotlin\nval serviceIntent = Intent(this, MyService::class.java)\nstartService(serviceIntent) // Start the service\n```"
+      },
+      {
+        "name": "BroadcastReceiver Basics",
+        "example": "BroadcastReceivers listen for system or app events.\n\n```kotlin\nclass MyReceiver : BroadcastReceiver() {\n    override fun onReceive(context: Context, intent: Intent) {\n        // Handle the received broadcast\n    }\n}\n```"
+      },
+      {
+        "name": "Registering a BroadcastReceiver",
+        "example": "Register a BroadcastReceiver in code to listen for actions.\n\n```kotlin\n// In an Activity or Service\nval receiver = MyReceiver()\nregisterReceiver(receiver, IntentFilter(\"CUSTOM_ACTION\"))\n```"
+      },
+      {
+        "name": "Content Provider Overview",
+        "example": "Content Providers share data between apps securely.\n\n```kotlin\n// Example: Query contacts using ContentResolver\nval cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)\n```"
+      },
+      {
+        "name": "Using SQLiteOpenHelper",
+        "example": "SQLiteOpenHelper manages a local SQLite database.\n\n```kotlin\nclass MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, \"mydb\", null, 1) {\n    override fun onCreate(db: SQLiteDatabase) {\n        db.execSQL(\"CREATE TABLE items (id INTEGER PRIMARY KEY, name TEXT)\")\n    }\n\n    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}\n}\n```"
+      },
+      {
+        "name": "Room Database Setup",
+        "example": "Room abstracts SQLite for easier database access.\n\n```kotlin\n@Entity\ndata class User(\n    @PrimaryKey val uid: Int,\n    val firstName: String,\n    val lastName: String\n)\n```"
+      },
+      {
+        "name": "Room DAO Interface",
+        "example": "DAO interfaces define database operations in Room.\n\n```kotlin\n@Dao\ninterface UserDao {\n    @Query(\"SELECT * FROM user\")\n    fun getAll(): List<User>\n\n    @Insert\n    fun insert(user: User)\n}\n```"
+      },
+      {
+        "name": "LiveData Basics",
+        "example": "LiveData holds data that can be observed for changes.\n\n```kotlin\nval liveData = MutableLiveData<String>()\n// Update observed value\nliveData.value = \"New Value\"\n```"
+      },
+      {
+        "name": "ViewModel Basics",
+        "example": "ViewModel stores UI-related data that survives configuration changes.\n\n```kotlin\nclass MyViewModel : ViewModel() {\n    val data = MutableLiveData<String>()\n}\n```"
+      },
+      {
+        "name": "MVVM Architecture",
+        "example": "MVVM separates UI, business logic, and data layers.\n\n```kotlin\n// In an Activity, observe ViewModel data:\nviewModel.data.observe(this) { value ->\n    // Update the UI with new value\n}\n```"
+      },
+      {
+        "name": "Data Binding Basics",
+        "example": "Data Binding links UI components directly to data sources.\n\n```xml\n<!-- res/layout/activity_main.xml with data binding -->\n<layout xmlns:android=\\\"http://schemas.android.com/apk/res/android\\\">\n    <data>\n        <variable name=\\\"user\\\" type=\\\"com.example.User\\\" />\n    </data>\n    <TextView\n        android:layout_width=\\\"wrap_content\\\"\n        android:layout_height=\\\"wrap_content\\\"\n        android:text=\\\"@{user.firstName}\\\" />\n</layout>\n```"
+      },
+      {
+        "name": "Navigation Component Setup",
+        "example": "Use the Navigation Component to simplify in-app navigation.\n\n```xml\n<!-- res/navigation/nav_graph.xml -->\n<navigation xmlns:android=\\\"http://schemas.android.com/apk/res/android\\\"\n    android:id=\\\"@+id/nav_graph\\\"\n    app:startDestination=\\\"@id/homeFragment\\\">\n\n    <fragment\n        android:id=\\\"@+id/homeFragment\\\"\n        android:name=\\\"com.example.HomeFragment\\\" />\n</navigation>\n```"
+      },
+      {
+        "name": "Jetpack Compose Introduction",
+        "example": "Jetpack Compose builds UI with Kotlin code instead of XML.\n\n```kotlin\n@Composable\nfun Greeting(name: String) {\n    Text(text = \"Hello, $name\")\n}\n```"
+      },
+      {
+        "name": "Creating a Composable Function",
+        "example": "Define UI elements using the @Composable annotation.\n\n```kotlin\n@Composable\nfun MyButton() {\n    Button(onClick = { /* Handle click */ }) {\n        Text(\"Click Me\")\n    }\n}\n```"
+      },
+      {
+        "name": "Using State in Compose",
+        "example": "Manage UI state with remember and mutableStateOf.\n\n```kotlin\n@Composable\nfun Counter() {\n    var count by remember { mutableStateOf(0) }\n    Button(onClick = { count++ }) {\n        Text(\"Count: $count\")\n    }\n}\n```"
+      },
+      {
+        "name": "Property Animations",
+        "example": "Animate view properties using ObjectAnimator.\n\n```kotlin\nval animator = ObjectAnimator.ofFloat(view, \"alpha\", 0f, 1f)\nanimator.duration = 500 // Animation duration in ms\nanimator.start()\n```"
+      },
+      {
+        "name": "Retrofit Setup",
+        "example": "Retrofit simplifies making network API calls.\n\n```kotlin\n// Define a Retrofit API interface\ninterface ApiService {\n    @GET(\"users\")\n    suspend fun getUsers(): List<User>\n}\n```"
+      },
+      {
+        "name": "Parsing JSON with Gson",
+        "example": "Gson converts JSON strings into Kotlin objects.\n\n```kotlin\nval gson = Gson()\nval user = gson.fromJson(jsonString, User::class.java) // Parse JSON\n```"
+      },
+      {
+        "name": "Kotlin Coroutines in Android",
+        "example": "Coroutines manage asynchronous tasks without blocking the UI.\n\n```kotlin\nGlobalScope.launch(Dispatchers.Main) {\n    // Update UI after async work\n}\n```"
+      },
+      {
+        "name": "Coroutines in ViewModel",
+        "example": "Launch coroutines in a ViewModel using viewModelScope for background tasks.\n\n```kotlin\nclass MyViewModel : ViewModel() {\n    fun loadData() {\n        viewModelScope.launch {\n            // Fetch data asynchronously\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Dependency Injection with Hilt",
+        "example": "Hilt simplifies providing dependencies to Android components.\n\n```kotlin\n@AndroidEntryPoint\nclass MainActivity : AppCompatActivity() {\n    @Inject lateinit var repository: Repository\n    // Hilt injects the repository instance\n}\n```"
+      },
+      {
+        "name": "Creating a Custom View",
+        "example": "Extend the View class to create custom UI components.\n\n```kotlin\nclass MyCustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {\n    override fun onDraw(canvas: Canvas) {\n        super.onDraw(canvas)\n        // Custom drawing code\n    }\n}\n```"
+      },
+      {
+        "name": "Canvas Drawing",
+        "example": "Use Canvas in a custom view to draw shapes.\n\n```kotlin\noverride fun onDraw(canvas: Canvas) {\n    super.onDraw(canvas)\n    val paint = Paint().apply { color = Color.RED }\n    canvas.drawCircle(width / 2f, height / 2f, 50f, paint) // Draw a circle\n}\n```"
+      },
+      {
+        "name": "Themes and Styles",
+        "example": "Define themes and styles to maintain consistent design across your app.\n\n```xml\n<!-- res/values/styles.xml -->\n<style name=\\\"AppTheme\\\" parent=\\\"Theme.MaterialComponents.Light.DarkActionBar\\\">\n    <item name=\\\"colorPrimary\\\">@color/primaryColor</item>\n</style>\n```"
+      },
+      {
+        "name": "Material Design Components",
+        "example": "Use Material Design components like FloatingActionButton for modern UIs.\n\n```xml\n<com.google.android.material.floatingactionbutton.FloatingActionButton\n    android:id=\\\"@+id/fab\\\"\n    android:layout_width=\\\"wrap_content\\\"\n    android:layout_height=\\\"wrap_content\\\"\n    app:srcCompat=\\\"@drawable/ic_add\\\" />\n```"
+      },
+      {
+        "name": "Snackbar Messages",
+        "example": "Show transient messages with Snackbar.\n\n```kotlin\nSnackbar.make(view, \"Message sent\", Snackbar.LENGTH_SHORT).show()\n```"
+      },
+      {
+        "name": "Toast Messages",
+        "example": "Display short messages using Toast.\n\n```kotlin\nToast.makeText(context, \"Hello, Toast!\", Toast.LENGTH_SHORT).show()\n```"
+      },
+      {
+        "name": "Handling Configuration Changes",
+        "example": "Use ViewModel to preserve data during configuration changes like rotations.\n\n```kotlin\n// ViewModel retains data across rotations\nclass MyViewModel : ViewModel() {\n    var counter = 0\n}\n```"
+      },
+      {
+        "name": "Unit Testing with JUnit",
+        "example": "Write unit tests to verify your logic using JUnit.\n\n```kotlin\nclass ExampleUnitTest {\n    @Test\n    fun addition_isCorrect() {\n        assertEquals(4, 2 + 2) // Validate arithmetic\n    }\n}\n```"
+      },
+      {
+        "name": "RecyclerView DiffUtil",
+        "example": "DiffUtil helps calculate differences between lists.\n\n```kotlin\nclass MyDiffCallback(private val oldList: List<Item>, private val newList: List<Item>) : DiffUtil.Callback() {\n    override fun getOldListSize() = oldList.size\n    override fun getNewListSize() = newList.size\n    override fun areItemsTheSame(oldPos: Int, newPos: Int) = oldList[oldPos].id == newList[newPos].id\n    override fun areContentsTheSame(oldPos: Int, newPos: Int) = oldList[oldPos] == newList[newPos]\n}\n```"
+      },
+      {
+        "name": "Handling RecyclerView Item Clicks",
+        "example": "Handle item clicks in a RecyclerView adapter.\n\n```kotlin\nclass MyAdapter(private val items: List<String>, private val clickListener: (String) -> Unit) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {\n    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {\n        fun bind(item: String) {\n            view.findViewById<TextView>(R.id.itemText).text = item\n            view.setOnClickListener { clickListener(item) } // Set click listener\n        }\n    }\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =\n        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false))\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.bind(items[position]) }\n    override fun getItemCount() = items.size\n}\n```"
+      },
+      {
+        "name": "Using ListAdapter with DiffUtil",
+        "example": "ListAdapter simplifies RecyclerView adapter setup using DiffUtil.\n\n```kotlin\nclass MyListAdapter : ListAdapter<Item, MyListAdapter.ViewHolder>(DIFF_CALLBACK) {\n    companion object {\n        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Item>() {\n            override fun areItemsTheSame(oldItem: Item, newItem: Item) = oldItem.id == newItem.id\n            override fun areContentsTheSame(oldItem: Item, newItem: Item) = oldItem == newItem\n        }\n    }\n    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {\n        fun bind(item: Item) { /* Bind item here */ }\n    }\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =\n        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false))\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.bind(getItem(position)) }\n}\n```"
+      },
+      {
+        "name": "SharedPreferences Usage",
+        "example": "Store simple key-value pairs using SharedPreferences.\n\n```kotlin\nval prefs = context.getSharedPreferences(\"MyPrefs\", Context.MODE_PRIVATE)\nprefs.edit().putString(\"key\", \"value\").apply() // Save value\nval value = prefs.getString(\"key\", \"default\")\n```"
+      },
+      {
+        "name": "Using DataStore for Preferences",
+        "example": "DataStore is a modern alternative to SharedPreferences.\n\n```kotlin\nval dataStore: DataStore<Preferences> = context.createDataStore(name = \"settings\")\nval EXAMPLE_KEY = stringPreferencesKey(\"example\")\n// To save:\n// dataStore.edit { settings -> settings[EXAMPLE_KEY] = \"value\" }\n```"
+      },
+      {
+        "name": "Kotlin Flow Example",
+        "example": "Flow emits asynchronous streams of data.\n\n```kotlin\nval numbersFlow = flow {\n    for (i in 1..5) {\n        emit(i) // Emit numbers\n        delay(100) // Simulate work\n    }\n}\n```"
+      },
+      {
+        "name": "Collecting Flow in Activity",
+        "example": "Collect Flow values in an Activity using lifecycleScope.\n\n```kotlin\nlifecycleScope.launch {\n    numbersFlow.collect { number ->\n        // Update UI with number\n    }\n}\n```"
+      },
+      {
+        "name": "Paging 3 Library Basic Setup",
+        "example": "Paging 3 loads data in chunks for efficient scrolling.\n\n```kotlin\nclass MyPagingSource : PagingSource<Int, Item>() {\n    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {\n        val page = params.key ?: 1\n        val response = api.getItems(page) // API call\n        return LoadResult.Page(\n            data = response.items,\n            prevKey = if (page == 1) null else page - 1,\n            nextKey = if (response.items.isEmpty()) null else page + 1\n        )\n    }\n    override fun getRefreshKey(state: PagingState<Int, Item>): Int? = null\n}\n```"
+      },
+      {
+        "name": "Custom RecyclerView ItemDecoration",
+        "example": "Add spacing between RecyclerView items with ItemDecoration.\n\n```kotlin\nclass SpacingItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {\n    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {\n        outRect.bottom = space // Set bottom spacing\n    }\n}\n```"
+      },
+      {
+        "name": "Using StaggeredGridLayoutManager",
+        "example": "StaggeredGridLayoutManager creates grids with varying item sizes.\n\n```kotlin\nval layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)\nrecyclerView.layoutManager = layoutManager\n```"
+      },
+      {
+        "name": "ConstraintSet with ConstraintLayout",
+        "example": "Modify constraints programmatically using ConstraintSet.\n\n```kotlin\nval constraintSet = ConstraintSet()\nconstraintSet.clone(constraintLayout)\nconstraintSet.connect(R.id.view1, ConstraintSet.TOP, R.id.view2, ConstraintSet.BOTTOM, 16)\nconstraintSet.applyTo(constraintLayout) // Apply changes\n```"
+      },
+      {
+        "name": "LifecycleObserver Usage",
+        "example": "Observe lifecycle events using a LifecycleObserver.\n\n```kotlin\nclass MyObserver : LifecycleObserver {\n    @OnLifecycleEvent(Lifecycle.Event.ON_START)\n    fun onStart() {\n        // Handle start event\n    }\n}\n\nlifecycle.addObserver(MyObserver())\n```"
+      },
+      {
+        "name": "LiveData Transformations Example",
+        "example": "Transform LiveData using Transformations.map.\n\n```kotlin\nval source: LiveData<Int> = MutableLiveData(1)\nval transformed = Transformations.map(source) { it * 2 } // Multiply value\n```"
+      },
+      {
+        "name": "MediatorLiveData Usage",
+        "example": "Combine multiple LiveData sources using MediatorLiveData.\n\n```kotlin\nval mediator = MediatorLiveData<String>()\nmediator.addSource(liveData1) { value -> mediator.value = value }\nmediator.addSource(liveData2) { value -> mediator.value = value }\n```"
+      },
+      {
+        "name": "SavedStateHandle in ViewModel",
+        "example": "Persist state in ViewModel using SavedStateHandle.\n\n```kotlin\nclass MyViewModel(private val state: SavedStateHandle) : ViewModel() {\n    fun saveData(data: String) {\n        state.set(\"key\", data)\n    }\n}\n```"
+      },
+      {
+        "name": "Creating a Custom LiveData",
+        "example": "Extend LiveData to create a custom data holder.\n\n```kotlin\nclass MyLiveData : LiveData<String>() {\n    fun update(value: String) { postValue(value) } // Update value\n}\n```"
+      },
+      {
+        "name": "Using Dagger for Dependency Injection",
+        "example": "Dagger provides compile-time dependency injection.\n\n```kotlin\n@Component\ninterface AppComponent {\n    fun inject(activity: MainActivity)\n}\n\n// In MainActivity:\n// DaggerAppComponent.create().inject(this)\n```"
+      },
+      {
+        "name": "Integrating Room with LiveData",
+        "example": "Room DAOs can return LiveData for reactive UI updates.\n\n```kotlin\n@Dao\ninterface UserDao {\n    @Query(\"SELECT * FROM user\")\n    fun getUsers(): LiveData<List<User>>\n}\n```"
+      },
+      {
+        "name": "Writing a Room Migration",
+        "example": "Migrate Room database schema without data loss.\n\n```kotlin\nval MIGRATION_1_2 = object : Migration(1, 2) {\n    override fun migrate(database: SupportSQLiteDatabase) {\n        database.execSQL(\"ALTER TABLE user ADD COLUMN age INTEGER DEFAULT 0 NOT NULL\")\n    }\n}\n```"
+      },
+      {
+        "name": "Using RecyclerView with GridLayoutManager",
+        "example": "GridLayoutManager arranges items in a grid layout.\n\n```kotlin\nval layoutManager = GridLayoutManager(context, 3) // 3 columns\nrecyclerView.layoutManager = layoutManager\n```"
+      },
+      {
+        "name": "Implementing Swipe to Delete with ItemTouchHelper",
+        "example": "ItemTouchHelper enables swipe actions in RecyclerView.\n\n```kotlin\nval swipeHandler = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {\n    override fun onMove(rv: RecyclerView, vh: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false\n    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {\n        // Remove item at viewHolder.adapterPosition\n    }\n}\nItemTouchHelper(swipeHandler).attachToRecyclerView(recyclerView)\n```"
+      },
+      {
+        "name": "Android Navigation - Passing Safe Args",
+        "example": "Safe Args generates type-safe arguments for navigation.\n\n```kotlin\n// In a fragment:\nval action = HomeFragmentDirections.actionHomeToDetail(itemId)\nfindNavController().navigate(action) // Navigate with safe args\n```"
+      },
+      {
+        "name": "Using MotionLayout",
+        "example": "MotionLayout animates layout transitions defined in XML.\n\n```xml\n<!-- motion_scene.xml -->\n<MotionScene xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <!-- Define transitions here -->\n</MotionScene>\n```"
+      },
+      {
+        "name": "Implementing ViewPager2",
+        "example": "ViewPager2 enables horizontal paging of fragments.\n\n```kotlin\nviewPager.adapter = MyFragmentStateAdapter(this)\n```"
+      },
+      {
+        "name": "Handling Back Button Press in Fragments",
+        "example": "Override onBackPressed in Activity to delegate to a fragment if needed.\n\n```kotlin\noverride fun onBackPressed() {\n    val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)\n    if (fragment is OnBackPressedListener && fragment.onBackPressed()) {\n        return\n    }\n    super.onBackPressed()\n}\n```"
+      },
+      {
+        "name": "Using Handler and Runnable",
+        "example": "Handler schedules code execution on the main thread.\n\n```kotlin\nval handler = Handler(Looper.getMainLooper())\nhandler.postDelayed({ \n    // Execute code after delay\n}, 1000)\n```"
+      },
+      {
+        "name": "Running Code on UI Thread with runOnUiThread",
+        "example": "Ensure UI updates occur on the main thread.\n\n```kotlin\nrunOnUiThread {\n    // Update UI safely\n}\n```"
+      },
+      {
+        "name": "Adding a BroadcastReceiver Dynamically",
+        "example": "Register a BroadcastReceiver in code for dynamic events.\n\n```kotlin\nval receiver = object : BroadcastReceiver() {\n    override fun onReceive(context: Context, intent: Intent) {\n        // Handle broadcast\n    }\n}\nregisterReceiver(receiver, IntentFilter(\"SOME_ACTION\"))\n```"
+      },
+      {
+        "name": "Using JobScheduler",
+        "example": "JobScheduler schedules jobs based on system conditions.\n\n```kotlin\nval jobInfo = JobInfo.Builder(1, ComponentName(this, MyJobService::class.java))\n    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)\n    .build()\nval jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler\njobScheduler.schedule(jobInfo)\n```"
+      },
+      {
+        "name": "Using WorkManager for Background Tasks",
+        "example": "WorkManager schedules deferrable background work.\n\n```kotlin\nval workRequest = OneTimeWorkRequestBuilder<MyWorker>().build()\nWorkManager.getInstance(context).enqueue(workRequest)\n```"
+      },
+      {
+        "name": "Creating a Periodic Work Request",
+        "example": "Schedule recurring work using WorkManager.\n\n```kotlin\nval periodicWork = PeriodicWorkRequestBuilder<MyWorker>(1, TimeUnit.HOURS).build()\nWorkManager.getInstance(context).enqueue(periodicWork)\n```"
+      },
+      {
+        "name": "Using ConstraintLayout Barrier",
+        "example": "A Barrier aligns multiple views in ConstraintLayout.\n\n```xml\n<androidx.constraintlayout.widget.Barrier\n    android:id=\"@+id/barrier\"\n    app:barrierDirection=\"end\"\n    app:constraint_referenced_ids=\"view1,view2\" />\n```"
+      },
+      {
+        "name": "Creating Custom Drawable",
+        "example": "Define a custom shape drawable in XML.\n\n```xml\n<!-- res/drawable/custom_shape.xml -->\n<shape xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:shape=\"rectangle\">\n    <solid android:color=\"#FF5722\" />\n    <corners android:radius=\"8dp\" />\n</shape>\n```"
+      },
+      {
+        "name": "Vector Drawables in XML",
+        "example": "Vector drawables scale without loss of quality.\n\n```xml\n<!-- res/drawable/ic_vector.xml -->\n<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:width=\"24dp\"\n    android:height=\"24dp\"\n    android:viewportWidth=\"24\"\n    android:viewportHeight=\"24\">\n    <path android:fillColor=\"@android:color/black\" android:pathData=\"M12,2L2,22h20L12,2z\"/>\n</vector>\n```"
+      },
+      {
+        "name": "Using Lottie Animations",
+        "example": "Integrate Lottie for vector animations.\n\n```kotlin\nlottieAnimationView.setAnimation(\"animation.json\")\nlottieAnimationView.playAnimation()\n```"
+      },
+      {
+        "name": "Implementing SearchView in Toolbar",
+        "example": "Add a SearchView to the toolbar for filtering content.\n\n```kotlin\noverride fun onCreateOptionsMenu(menu: Menu): Boolean {\n    menuInflater.inflate(R.menu.menu_main, menu)\n    val searchItem = menu.findItem(R.id.action_search)\n    val searchView = searchItem.actionView as SearchView\n    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {\n        override fun onQueryTextSubmit(query: String) = true\n        override fun onQueryTextChange(newText: String) = true\n    })\n    return true\n}\n```"
+      },
+      {
+        "name": "Configuring TabLayout with ViewPager2",
+        "example": "Link TabLayout with ViewPager2 for tab navigation.\n\n```kotlin\nTabLayoutMediator(tabLayout, viewPager) { tab, position ->\n    tab.text = \"Tab ${position + 1}\"\n}.attach()\n```"
+      },
+      {
+        "name": "Using BottomNavigationView",
+        "example": "BottomNavigationView offers quick navigation at the bottom.\n\n```kotlin\nbottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->\n    // Handle navigation\n    true\n}\n```"
+      },
+      {
+        "name": "Implementing a Navigation Drawer",
+        "example": "A Navigation Drawer provides a side menu for app navigation.\n\n```kotlin\nval toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)\ndrawerLayout.addDrawerListener(toggle)\ntoggle.syncState()\n```"
+      },
+      {
+        "name": "Gesture Detection with GestureDetector",
+        "example": "Detect gestures using GestureDetector.\n\n```kotlin\nval gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {\n    override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {\n        // Handle fling gesture\n        return true\n    }\n})\nview.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }\n```"
+      },
+      {
+        "name": "Using SensorManager for Accelerometer",
+        "example": "Listen for accelerometer data with SensorManager.\n\n```kotlin\nval sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager\nval accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)\nsensorManager.registerListener(object : SensorEventListener {\n    override fun onSensorChanged(event: SensorEvent) {\n        // Process accelerometer data\n    }\n    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}\n}, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)\n```"
+      },
+      {
+        "name": "Implementing a Custom DialogFragment",
+        "example": "Create a custom dialog using DialogFragment.\n\n```kotlin\nclass MyDialogFragment : DialogFragment() {\n    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {\n        return AlertDialog.Builder(requireContext())\n            .setTitle(\"Title\")\n            .setMessage(\"Message\")\n            .setPositiveButton(\"OK\", null)\n            .create()\n    }\n}\n```"
+      },
+      {
+        "name": "Using AlertDialog Builder",
+        "example": "Display alerts using AlertDialog Builder.\n\n```kotlin\nAlertDialog.Builder(context)\n    .setTitle(\"Alert\")\n    .setMessage(\"This is an alert\")\n    .setPositiveButton(\"OK\", null)\n    .show()\n```"
+      },
+      {
+        "name": "Animating View with ViewPropertyAnimator",
+        "example": "Animate view properties using ViewPropertyAnimator.\n\n```kotlin\nview.animate()\n    .alpha(0f)\n    .setDuration(500)\n    .start() // Fade out view\n```"
+      },
+      {
+        "name": "Using RecyclerView with Data Binding",
+        "example": "Bind RecyclerView items using data binding in the adapter.\n\n```kotlin\nclass DataBindingAdapter(private val items: List<Item>) : RecyclerView.Adapter<DataBindingAdapter.ViewHolder>() {\n    class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =\n        ViewHolder(ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.binding.item = items[position] }\n    override fun getItemCount() = items.size\n}\n```"
+      },
+      {
+        "name": "Creating a Custom RecyclerView Adapter with Binding",
+        "example": "A custom adapter using view binding for efficient UI updates.\n\n```kotlin\nclass CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {\n    inner class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {\n        fun bind(item: Item) { binding.item = item }\n    }\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =\n        ViewHolder(ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.bind(items[position]) }\n    override fun getItemCount() = items.size\n}\n```"
+      },
+      {
+        "name": "Observing Network Connectivity Changes",
+        "example": "Monitor network changes using ConnectivityManager.\n\n```kotlin\nval connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager\nval networkCallback = object : ConnectivityManager.NetworkCallback() {\n    override fun onAvailable(network: Network) {\n        // Network available\n    }\n}\nconnectivityManager.registerDefaultNetworkCallback(networkCallback)\n```"
+      },
+      {
+        "name": "Using Firebase Authentication (Basic)",
+        "example": "Authenticate users with Firebase Auth.\n\n```kotlin\nFirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)\n    .addOnCompleteListener { task ->\n        // Check task.isSuccessful\n    }\n```"
+      },
+      {
+        "name": "Implementing Crashlytics Logging",
+        "example": "Log non-fatal exceptions with Crashlytics.\n\n```kotlin\ntry {\n    // Code that may throw an exception\n} catch (e: Exception) {\n    FirebaseCrashlytics.getInstance().recordException(e) // Log exception\n}\n```"
+      },
+      {
+        "name": "Using ExoPlayer for Video Playback",
+        "example": "Integrate ExoPlayer to play videos in your app.\n\n```kotlin\nval player = ExoPlayer.Builder(context).build()\nval mediaItem = MediaItem.fromUri(\"http://example.com/video.mp4\")\nplayer.setMediaItem(mediaItem)\nplayer.prepare()\nplayer.play()\n```"
+      }
+    ]
+  }
+  

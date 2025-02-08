@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Hello World",
+        "example": "A simple program to display **Hello, World!**\n\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        // Display Hello, World!\n        System.out.println(\"Hello, World!\");\n    }\n}\n```"
+      },
+      {
+        "name": "Variables and Data Types",
+        "example": "Declaring basic data types: int, double, char, and boolean.\n\n```java\npublic class VariablesExample {\n    public static void main(String[] args) {\n        int number = 10;         // integer\n        double decimal = 5.5;      // floating-point\n        char letter = 'A';         // character\n        boolean flag = true;       // boolean\n    }\n}\n```"
+      },
+      {
+        "name": "Operators",
+        "example": "Using arithmetic operators: addition, subtraction, multiplication, division, and modulus.\n\n```java\npublic class OperatorsExample {\n    public static void main(String[] args) {\n        int a = 10, b = 3;\n        int sum = a + b;         // addition\n        int diff = a - b;        // subtraction\n        int prod = a * b;        // multiplication\n        int quotient = a / b;    // integer division\n        int mod = a % b;         // modulus\n    }\n}\n```"
+      },
+      {
+        "name": "Control Flow: If/Else",
+        "example": "Simple conditional statement using if/else.\n\n```java\npublic class IfElseExample {\n    public static void main(String[] args) {\n        int score = 75;\n        if(score >= 60) {\n            // Pass\n        } else {\n            // Fail\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Control Flow: Switch",
+        "example": "Using switch to choose a code path based on a variable's value.\n\n```java\npublic class SwitchExample {\n    public static void main(String[] args) {\n        int day = 3;\n        switch(day) {\n            case 1:\n                // Monday\n                break;\n            case 2:\n                // Tuesday\n                break;\n            case 3:\n                // Wednesday\n                break;\n            default:\n                // Other days\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Loops: For Loop",
+        "example": "Iterate a fixed number of times using a for loop.\n\n```java\npublic class ForLoopExample {\n    public static void main(String[] args) {\n        for(int i = 0; i < 5; i++) {\n            // Loop iteration i\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Loops: While Loop",
+        "example": "Using a while loop to iterate until a condition is false.\n\n```java\npublic class WhileLoopExample {\n    public static void main(String[] args) {\n        int count = 0;\n        while(count < 5) {\n            // Loop iteration count\n            count++;\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Loops: Do-While Loop",
+        "example": "Execute the loop body at least once with a do-while loop.\n\n```java\npublic class DoWhileExample {\n    public static void main(String[] args) {\n        int count = 0;\n        do {\n            // Loop iteration count\n            count++;\n        } while(count < 5);\n    }\n}\n```"
+      },
+      {
+        "name": "Arrays",
+        "example": "Creating and initializing an array of integers.\n\n```java\npublic class ArrayExample {\n    public static void main(String[] args) {\n        int[] numbers = {1, 2, 3, 4, 5}; // array of integers\n    }\n}\n```"
+      },
+      {
+        "name": "Strings",
+        "example": "Using strings to store text data.\n\n```java\npublic class StringExample {\n    public static void main(String[] args) {\n        String greeting = \"Hello, Java!\"; // string literal\n    }\n}\n```"
+      },
+      {
+        "name": "Methods/Functions",
+        "example": "Defining and calling a simple method that adds two numbers.\n\n```java\npublic class MethodsExample {\n    // Method that adds two numbers\n    public static int add(int a, int b) {\n        return a + b;\n    }\n    \n    public static void main(String[] args) {\n        int result = add(5, 3);\n    }\n}\n```"
+      },
+      {
+        "name": "Method Overloading",
+        "example": "Using method overloading to define methods with the same name but different parameters.\n\n```java\npublic class OverloadingExample {\n    // Method with int parameters\n    public static int add(int a, int b) {\n        return a + b;\n    }\n    \n    // Overloaded method with double parameters\n    public static double add(double a, double b) {\n        return a + b;\n    }\n    \n    public static void main(String[] args) {\n        int sumInt = add(5, 3);\n        double sumDouble = add(5.5, 3.3);\n    }\n}\n```"
+      },
+      {
+        "name": "Classes and Objects",
+        "example": "Creating a simple class and instantiating an object.\n\n```java\npublic class Person {\n    String name;\n    \n    public Person(String name) {\n        this.name = name;\n    }\n}\n\npublic class ClassesExample {\n    public static void main(String[] args) {\n        Person person = new Person(\"Alice\"); // create object\n    }\n}\n```"
+      },
+      {
+        "name": "Constructors",
+        "example": "Using a constructor to initialize object state.\n\n```java\npublic class ConstructorExample {\n    String message;\n    \n    // Constructor\n    public ConstructorExample(String msg) {\n        this.message = msg;\n    }\n    \n    public static void main(String[] args) {\n        ConstructorExample obj = new ConstructorExample(\"Hello!\"); // initialize object\n    }\n}\n```"
+      },
+      {
+        "name": "Inheritance",
+        "example": "Demonstrating inheritance where a subclass extends a superclass.\n\n```java\nclass Animal {\n    void sound() {\n        // Default sound\n    }\n}\n\nclass Dog extends Animal {\n    @Override\n    void sound() {\n        // Bark\n    }\n}\n\npublic class InheritanceExample {\n    public static void main(String[] args) {\n        Dog dog = new Dog(); // Dog inherits from Animal\n    }\n}\n```"
+      },
+      {
+        "name": "Polymorphism",
+        "example": "Using polymorphism to call an overridden method through a superclass reference.\n\n```java\nclass Shape {\n    void draw() {\n        // Default draw\n    }\n}\n\nclass Circle extends Shape {\n    @Override\n    void draw() {\n        // Draw circle\n    }\n}\n\npublic class PolymorphismExample {\n    public static void main(String[] args) {\n        Shape shape = new Circle(); // Polymorphic behavior\n        shape.draw();\n    }\n}\n```"
+      },
+      {
+        "name": "Encapsulation",
+        "example": "Encapsulating data with private fields and public getters/setters.\n\n```java\npublic class EncapsulationExample {\n    private int data; // private field\n    \n    // Getter\n    public int getData() {\n        return data;\n    }\n    \n    // Setter\n    public void setData(int data) {\n        this.data = data;\n    }\n}\n```"
+      },
+      {
+        "name": "Abstraction (Abstract Classes)",
+        "example": "Using an abstract class to define a template for subclasses.\n\n```java\nabstract class Vehicle {\n    abstract void move();\n}\n\nclass Car extends Vehicle {\n    @Override\n    void move() {\n        // Car moves\n    }\n}\n\npublic class AbstractionExample {\n    public static void main(String[] args) {\n        Vehicle vehicle = new Car(); // Use abstract class reference\n    }\n}\n```"
+      },
+      {
+        "name": "Interfaces",
+        "example": "Implementing an interface to define a contract for classes.\n\n```java\ninterface Drawable {\n    void draw();\n}\n\nclass Rectangle implements Drawable {\n    @Override\n    public void draw() {\n        // Draw rectangle\n    }\n}\n\npublic class InterfaceExample {\n    public static void main(String[] args) {\n        Drawable d = new Rectangle(); // Interface implementation\n    }\n}\n```"
+      },
+      {
+        "name": "Static Members",
+        "example": "Using static variables and methods that belong to the class.\n\n```java\npublic class StaticExample {\n    static int count = 0; // static variable\n    \n    public StaticExample() {\n        count++; // increment count on each object creation\n    }\n    \n    public static void main(String[] args) {\n        new StaticExample();\n        new StaticExample();\n        // count is now 2\n    }\n}\n```"
+      },
+      {
+        "name": "Final Keyword",
+        "example": "Using the final keyword to declare constants.\n\n```java\npublic class FinalExample {\n    final int constant = 100; // final variable cannot change\n    \n    public static void main(String[] args) {\n        FinalExample obj = new FinalExample();\n        // obj.constant = 200; // would cause error\n    }\n}\n```"
+      },
+      {
+        "name": "this Keyword",
+        "example": "Using 'this' to reference the current object's fields.\n\n```java\npublic class ThisExample {\n    int value;\n    \n    public ThisExample(int value) {\n        this.value = value; // refers to instance variable\n    }\n    \n    public static void main(String[] args) {\n        ThisExample obj = new ThisExample(10);\n    }\n}\n```"
+      },
+      {
+        "name": "super Keyword",
+        "example": "Accessing superclass members using the super keyword.\n\n```java\nclass Parent {\n    int number = 5;\n}\n\nclass Child extends Parent {\n    int number = 10;\n    \n    void display() {\n        int parentNumber = super.number; // Access Parent's number\n    }\n}\n\npublic class SuperExample {\n    public static void main(String[] args) {\n        Child child = new Child();\n        child.display();\n    }\n}\n```"
+      },
+      {
+        "name": "Nested Classes",
+        "example": "Defining an inner class inside an outer class.\n\n```java\npublic class Outer {\n    class Inner {\n        void display() {\n            // Inner class method\n        }\n    }\n    \n    public static void main(String[] args) {\n        Outer outer = new Outer();\n        Outer.Inner inner = outer.new Inner(); // create inner class instance\n    }\n}\n```"
+      },
+      {
+        "name": "Anonymous Classes",
+        "example": "Creating an anonymous class to implement an interface on the fly.\n\n```java\ninterface Greet {\n    void sayHello();\n}\n\npublic class AnonymousExample {\n    public static void main(String[] args) {\n        Greet greet = new Greet() {\n            @Override\n            public void sayHello() {\n                // Anonymous class implementation\n            }\n        };\n    }\n}\n```"
+      },
+      {
+        "name": "Lambda Expressions",
+        "example": "Using lambda expressions for a concise implementation of a functional interface.\n\n```java\ninterface MathOperation {\n    int operation(int a, int b);\n}\n\npublic class LambdaExample {\n    public static void main(String[] args) {\n        MathOperation add = (a, b) -> a + b; // lambda expression\n        int result = add.operation(5, 3);\n    }\n}\n```"
+      },
+      {
+        "name": "Exception Handling: Try/Catch",
+        "example": "Catching exceptions using try/catch blocks.\n\n```java\npublic class ExceptionExample {\n    public static void main(String[] args) {\n        try {\n            int result = 10 / 0; // division by zero\n        } catch(ArithmeticException e) {\n            // Handle exception\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Exception Handling: Finally Block",
+        "example": "Using a finally block to execute code regardless of exceptions.\n\n```java\npublic class FinallyExample {\n    public static void main(String[] args) {\n        try {\n            int result = 10 / 0;\n        } catch(ArithmeticException e) {\n            // Handle exception\n        } finally {\n            // Cleanup actions\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Throwing Exceptions",
+        "example": "Throwing an exception explicitly using the throw keyword.\n\n```java\npublic class ThrowExample {\n    public static void checkAge(int age) {\n        if(age < 18) {\n            throw new IllegalArgumentException(\"Age must be 18+\"); // throw exception\n        }\n    }\n    \n    public static void main(String[] args) {\n        checkAge(15);\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Exceptions",
+        "example": "Defining and throwing a custom exception.\n\n```java\nclass CustomException extends Exception {\n    public CustomException(String message) {\n        super(message);\n    }\n}\n\npublic class CustomExceptionExample {\n    public static void main(String[] args) {\n        try {\n            throw new CustomException(\"Custom error occurred\"); // throw custom exception\n        } catch(CustomException e) {\n            // Handle custom exception\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Generics",
+        "example": "Creating a generic class to work with different data types.\n\n```java\npublic class GenericsExample<T> {\n    private T data;\n    \n    public GenericsExample(T data) {\n        this.data = data;\n    }\n    \n    public T getData() {\n        return data;\n    }\n    \n    public static void main(String[] args) {\n        GenericsExample<String> obj = new GenericsExample<>(\"Generic Data\"); // generic instance\n    }\n}\n```"
+      },
+      {
+        "name": "Collections: ArrayList",
+        "example": "Using an ArrayList to store dynamic data.\n\n```java\nimport java.util.ArrayList;\n\npublic class ArrayListExample {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n    }\n}\n```"
+      },
+      {
+        "name": "Collections: LinkedList",
+        "example": "Using a LinkedList for a dynamic data structure with efficient insertions.\n\n```java\nimport java.util.LinkedList;\n\npublic class LinkedListExample {\n    public static void main(String[] args) {\n        LinkedList<Integer> list = new LinkedList<>();\n        list.add(1);\n        list.add(2);\n    }\n}\n```"
+      },
+      {
+        "name": "Collections: HashSet",
+        "example": "Using a HashSet to store unique elements.\n\n```java\nimport java.util.HashSet;\n\npublic class HashSetExample {\n    public static void main(String[] args) {\n        HashSet<String> set = new HashSet<>();\n        set.add(\"Apple\");\n        set.add(\"Banana\");\n    }\n}\n```"
+      },
+      {
+        "name": "Collections: HashMap",
+        "example": "Using a HashMap to store key-value pairs.\n\n```java\nimport java.util.HashMap;\n\npublic class HashMapExample {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n        map.put(\"Alice\", 30);\n        map.put(\"Bob\", 25);\n    }\n}\n```"
+      },
+      {
+        "name": "Enhanced For Loop (for-each)",
+        "example": "Iterating over an array using the enhanced for loop.\n\n```java\npublic class ForEachExample {\n    public static void main(String[] args) {\n        int[] numbers = {1, 2, 3};\n        for(int num : numbers) {\n            // Iterate over array elements\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "File I/O: Reading Files",
+        "example": "Reading the contents of a file using NIO classes.\n\n```java\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class FileReadExample {\n    public static void main(String[] args) throws Exception {\n        String content = new String(Files.readAllBytes(Paths.get(\"file.txt\"))); // read file\n    }\n}\n```"
+      },
+      {
+        "name": "File I/O: Writing Files",
+        "example": "Writing text to a file using NIO classes.\n\n```java\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class FileWriteExample {\n    public static void main(String[] args) throws Exception {\n        String content = \"Hello, File!\";\n        Files.write(Paths.get(\"output.txt\"), content.getBytes()); // write file\n    }\n}\n```"
+      },
+      {
+        "name": "Multi-threading: Extending Thread",
+        "example": "Creating a thread by extending the Thread class.\n\n```java\nclass MyThread extends Thread {\n    public void run() {\n        // Thread execution\n    }\n}\n\npublic class ThreadExample {\n    public static void main(String[] args) {\n        MyThread t = new MyThread();\n        t.start(); // start thread\n    }\n}\n```"
+      },
+      {
+        "name": "Multi-threading: Implementing Runnable",
+        "example": "Creating a thread by implementing the Runnable interface.\n\n```java\nclass MyRunnable implements Runnable {\n    public void run() {\n        // Thread execution\n    }\n}\n\npublic class RunnableExample {\n    public static void main(String[] args) {\n        Thread t = new Thread(new MyRunnable());\n        t.start(); // start thread\n    }\n}\n```"
+      },
+      {
+        "name": "Synchronization",
+        "example": "Using synchronized methods to control access to shared resources.\n\n```java\npublic class SyncExample {\n    private int count = 0;\n    \n    public synchronized void increment() {\n        count++; // synchronized method\n    }\n}\n```"
+      },
+      {
+        "name": "Packages and Imports",
+        "example": "Organizing code into packages and importing classes.\n\n```java\npackage com.example;\n\npublic class PackageExample {\n    public void display() {\n        // In package com.example\n    }\n}\n```"
+      },
+      {
+        "name": "Javadoc Comments",
+        "example": "Using Javadoc comments to document classes and methods.\n\n```java\n/**\n * Represents a simple calculator.\n */\npublic class JavadocExample {\n    /**\n     * Adds two numbers.\n     * @param a first number\n     * @param b second number\n     * @return sum of a and b\n     */\n    public int add(int a, int b) {\n        return a + b;\n    }\n}\n```"
+      },
+      {
+        "name": "Enums",
+        "example": "Defining an enum to represent a fixed set of constants.\n\n```java\npublic enum Day {\n    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;\n}\n\npublic class EnumExample {\n    public static void main(String[] args) {\n        Day today = Day.MONDAY; // enum usage\n    }\n}\n```"
+      },
+      {
+        "name": "Annotations",
+        "example": "Using annotations to provide metadata; here, @Override indicates method overriding.\n\n```java\n@Override\npublic String toString() {\n    // Annotation indicates method override\n    return \"Example\";\n}\n```"
+      },
+      {
+        "name": "Stream API",
+        "example": "Using the Stream API to process collections in a functional style.\n\n```java\nimport java.util.Arrays;\nimport java.util.List;\n\npublic class StreamExample {\n    public static void main(String[] args) {\n        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);\n        numbers.stream()\n               .filter(n -> n % 2 == 0) // filter even numbers\n               .forEach(n -> {});       // process each even number\n    }\n}\n```"
+      },
+      {
+        "name": "Optional Class",
+        "example": "Using Optional to handle potential null values gracefully.\n\n```java\nimport java.util.Optional;\n\npublic class OptionalExample {\n    public static void main(String[] args) {\n        Optional<String> opt = Optional.of(\"Hello\");\n        // Check if value is present\n        opt.ifPresent(val -> {});\n    }\n}\n```"
+      },
+      {
+        "name": "Try-With-Resources",
+        "example": "Using try-with-resources to automatically close resources.\n\n```java\nimport java.io.BufferedReader;\nimport java.io.FileReader;\n\npublic class TryWithResourcesExample {\n    public static void main(String[] args) throws Exception {\n        try (BufferedReader br = new BufferedReader(new FileReader(\"file.txt\"))) {\n            // Read file using try-with-resources\n            String line = br.readLine();\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Reflection Basics",
+        "example": "Using reflection to inspect class methods at runtime.\n\n```java\nimport java.lang.reflect.Method;\n\npublic class ReflectionExample {\n    public void greet() {\n        // Reflection method\n    }\n    \n    public static void main(String[] args) throws Exception {\n        Class<?> clazz = ReflectionExample.class;\n        Method method = clazz.getMethod(\"greet\"); // get method reference\n    }\n}\n```"
+      },
+      {
+        "name": "Java 8 Date and Time API (java.time)",
+        "example": "Using the new Date and Time API to handle dates.\n\n```java\nimport java.time.LocalDate;\n\npublic class DateTimeExample {\n    public static void main(String[] args) {\n        LocalDate today = LocalDate.now(); // current date\n    }\n}\n```"
+      },
+      {
+        "name": "Method References",
+        "example": "Using **method references** for a concise lambda alternative.\n\n```java\nimport java.util.Arrays;\nimport java.util.List;\n\npublic class MethodReferenceExample {\n    public static void main(String[] args) {\n        List<String> names = Arrays.asList(\"Alice\", \"Bob\", \"Charlie\");\n        names.forEach(System.out::println); // method reference prints each name\n    }\n}\n```"
+      },
+      {
+        "name": "Comparator Interface",
+        "example": "Using the **Comparator interface** for sorting.\n\n```java\nimport java.util.Arrays;\nimport java.util.Comparator;\n\npublic class ComparatorExample {\n    public static void main(String[] args) {\n        String[] names = {\"Charlie\", \"Alice\", \"Bob\"};\n        Arrays.sort(names, Comparator.naturalOrder()); // sort names alphabetically\n    }\n}\n```"
+      },
+      {
+        "name": "Callable and Future",
+        "example": "Using **Callable** and **FutureTask** for concurrent tasks.\n\n```java\nimport java.util.concurrent.Callable;\nimport java.util.concurrent.FutureTask;\n\npublic class CallableExample {\n    public static void main(String[] args) throws Exception {\n        Callable<Integer> task = () -> 42; // callable returns 42\n        FutureTask<Integer> future = new FutureTask<>(task);\n        new Thread(future).start();\n        int result = future.get(); // result is 42\n    }\n}\n```"
+      },
+      {
+        "name": "ExecutorService (Thread Pool)",
+        "example": "Using **ExecutorService** to manage a thread pool.\n\n```java\nimport java.util.concurrent.ExecutorService;\nimport java.util.concurrent.Executors;\n\npublic class ExecutorServiceExample {\n    public static void main(String[] args) {\n        ExecutorService executor = Executors.newFixedThreadPool(2);\n        executor.execute(() -> {\n            // Task executed by thread pool\n        });\n        executor.shutdown(); // shutdown executor\n    }\n}\n```"
+      },
+      {
+        "name": "Atomic Variables",
+        "example": "Using **AtomicInteger** for thread-safe operations.\n\n```java\nimport java.util.concurrent.atomic.AtomicInteger;\n\npublic class AtomicExample {\n    public static void main(String[] args) {\n        AtomicInteger counter = new AtomicInteger(0);\n        counter.incrementAndGet(); // atomically increment\n    }\n}\n```"
+      },
+      {
+        "name": "ConcurrentHashMap",
+        "example": "Using **ConcurrentHashMap** for thread-safe maps.\n\n```java\nimport java.util.concurrent.ConcurrentHashMap;\n\npublic class ConcurrentHashMapExample {\n    public static void main(String[] args) {\n        ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();\n        map.put(\"key\", 1); // thread-safe insertion\n    }\n}\n```"
+      },
+      {
+        "name": "BlockingQueue",
+        "example": "Using **BlockingQueue** to handle thread synchronization.\n\n```java\nimport java.util.concurrent.ArrayBlockingQueue;\nimport java.util.concurrent.BlockingQueue;\n\npublic class BlockingQueueExample {\n    public static void main(String[] args) throws InterruptedException {\n        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);\n        queue.put(1); // add element, waits if full\n        int value = queue.take(); // retrieve element, waits if empty\n    }\n}\n```"
+      },
+      {
+        "name": "Wait and Notify",
+        "example": "Using **wait()** and **notify()** for thread communication.\n\n```java\npublic class WaitNotifyExample {\n    public synchronized void doWait() throws InterruptedException {\n        wait(); // thread waits\n    }\n    \n    public synchronized void doNotify() {\n        notify(); // wake waiting thread\n    }\n}\n```"
+      },
+      {
+        "name": "Volatile Keyword",
+        "example": "Using the **volatile** keyword to ensure visibility.\n\n```java\npublic class VolatileExample {\n    private volatile boolean flag = false; // volatile variable\n    \n    public void setFlag(boolean value) {\n        flag = value;\n    }\n}\n```"
+      },
+      {
+        "name": "Singleton Pattern",
+        "example": "Implementing the **Singleton pattern** for a single instance.\n\n```java\npublic class Singleton {\n    private static Singleton instance;\n    \n    private Singleton() {\n        // private constructor\n    }\n    \n    public static synchronized Singleton getInstance() {\n        if(instance == null) {\n            instance = new Singleton();\n        }\n        return instance;\n    }\n}\n```"
+      },
+      {
+        "name": "Factory Pattern",
+        "example": "Using the **Factory pattern** to create objects.\n\n```java\ninterface Shape {\n    void draw();\n}\n\nclass Circle implements Shape {\n    public void draw() {\n        // Draw circle\n    }\n}\n\nclass Square implements Shape {\n    public void draw() {\n        // Draw square\n    }\n}\n\npublic class FactoryPatternExample {\n    public static Shape getShape(String type) {\n        if(type.equalsIgnoreCase(\"circle\")) {\n            return new Circle();\n        } else if(type.equalsIgnoreCase(\"square\")) {\n            return new Square();\n        }\n        return null;\n    }\n}\n```"
+      },
+      {
+        "name": "Observer Pattern",
+        "example": "Implementing the **Observer pattern** for event handling.\n\n```java\nimport java.util.ArrayList;\nimport java.util.List;\n\ninterface Observer {\n    void update(String message);\n}\n\nclass Subject {\n    private List<Observer> observers = new ArrayList<>();\n    \n    public void addObserver(Observer o) {\n        observers.add(o);\n    }\n    \n    public void notifyObservers(String message) {\n        for(Observer o : observers) {\n            o.update(message); // notify each observer\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Strategy Pattern",
+        "example": "Using the **Strategy pattern** to change algorithms at runtime.\n\n```java\ninterface Strategy {\n    int execute(int a, int b);\n}\n\nclass Addition implements Strategy {\n    public int execute(int a, int b) {\n        return a + b; // addition strategy\n    }\n}\n\npublic class StrategyExample {\n    private Strategy strategy;\n    \n    public StrategyExample(Strategy strategy) {\n        this.strategy = strategy;\n    }\n    \n    public int performOperation(int a, int b) {\n        return strategy.execute(a, b);\n    }\n}\n```"
+      },
+      {
+        "name": "Dynamic Proxy",
+        "example": "Creating a **dynamic proxy** to intercept method calls.\n\n```java\nimport java.lang.reflect.InvocationHandler;\nimport java.lang.reflect.Method;\nimport java.lang.reflect.Proxy;\n\ninterface Service {\n    void perform();\n}\n\nclass RealService implements Service {\n    public void perform() {\n        // Real implementation\n    }\n}\n\nclass ServiceInvocationHandler implements InvocationHandler {\n    private final Service service;\n    \n    public ServiceInvocationHandler(Service service) {\n        this.service = service;\n    }\n    \n    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {\n        // Pre-processing\n        Object result = method.invoke(service, args);\n        // Post-processing\n        return result;\n    }\n}\n\npublic class DynamicProxyExample {\n    public static void main(String[] args) {\n        Service realService = new RealService();\n        Service proxyInstance = (Service) Proxy.newProxyInstance(\n            Service.class.getClassLoader(),\n            new Class<?>[] { Service.class },\n            new ServiceInvocationHandler(realService)\n        );\n        proxyInstance.perform(); // call via proxy\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Annotation",
+        "example": "Defining a **custom annotation** for metadata.\n\n```java\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\n\n@Retention(RetentionPolicy.RUNTIME)\n@interface MyAnnotation {\n    String value();\n}\n\n@MyAnnotation(\"Example Class\")\npublic class CustomAnnotationExample {\n    // Class annotated with custom annotation\n}\n```"
+      },
+      {
+        "name": "Serialization",
+        "example": "Implementing **serialization** with the Serializable interface.\n\n```java\nimport java.io.Serializable;\n\npublic class SerializationExample implements Serializable {\n    private static final long serialVersionUID = 1L;\n    private int data;\n    \n    public SerializationExample(int data) {\n        this.data = data;\n    }\n}\n```"
+      },
+      {
+        "name": "Deserialization",
+        "example": "Deserializing an object from a file.\n\n```java\nimport java.io.FileInputStream;\nimport java.io.ObjectInputStream;\n\npublic class DeserializationExample {\n    public static void main(String[] args) throws Exception {\n        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(\"object.ser\"))) {\n            SerializationExample obj = (SerializationExample) in.readObject(); // deserialize object\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Externalizable Interface",
+        "example": "Using **Externalizable** for custom serialization.\n\n```java\nimport java.io.Externalizable;\nimport java.io.ObjectInput;\nimport java.io.ObjectOutput;\nimport java.io.IOException;\n\npublic class ExternalizableExample implements Externalizable {\n    private int data;\n    \n    public ExternalizableExample() {\n        // no-arg constructor required\n    }\n    \n    public ExternalizableExample(int data) {\n        this.data = data;\n    }\n    \n    public void writeExternal(ObjectOutput out) throws IOException {\n        out.writeInt(data); // custom serialization\n    }\n    \n    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {\n        data = in.readInt(); // custom deserialization\n    }\n}\n```"
+      },
+      {
+        "name": "Cloning with Cloneable",
+        "example": "Implementing **cloning** using the Cloneable interface.\n\n```java\npublic class CloneExample implements Cloneable {\n    int value;\n    \n    public CloneExample(int value) {\n        this.value = value;\n    }\n    \n    public Object clone() throws CloneNotSupportedException {\n        return super.clone(); // shallow copy\n    }\n}\n```"
+      },
+      {
+        "name": "Regular Expressions",
+        "example": "Using **regular expressions** with Pattern and Matcher.\n\n```java\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\npublic class RegexExample {\n    public static void main(String[] args) {\n        Pattern pattern = Pattern.compile(\"\\\\d+\"); // regex for digits\n        Matcher matcher = pattern.matcher(\"abc123\");\n        // matcher finds digit sequences\n    }\n}\n```"
+      },
+      {
+        "name": "URL and HTTP Connection",
+        "example": "Establishing an **HTTP connection** using HttpURLConnection.\n\n```java\nimport java.net.HttpURLConnection;\nimport java.net.URL;\n\npublic class HttpURLConnectionExample {\n    public static void main(String[] args) throws Exception {\n        URL url = new URL(\"http://example.com\");\n        HttpURLConnection con = (HttpURLConnection) url.openConnection();\n        con.setRequestMethod(\"GET\"); // set GET method\n    }\n}\n```"
+      },
+      {
+        "name": "Socket Programming: Client",
+        "example": "Creating a **socket client** to connect to a server.\n\n```java\nimport java.io.OutputStream;\nimport java.net.Socket;\n\npublic class SocketClientExample {\n    public static void main(String[] args) throws Exception {\n        Socket socket = new Socket(\"localhost\", 8080);\n        OutputStream out = socket.getOutputStream();\n        // Send data to server\n        socket.close(); // close connection\n    }\n}\n```"
+      },
+      {
+        "name": "Socket Programming: Server",
+        "example": "Creating a **socket server** to accept client connections.\n\n```java\nimport java.net.ServerSocket;\nimport java.net.Socket;\n\npublic class SocketServerExample {\n    public static void main(String[] args) throws Exception {\n        ServerSocket serverSocket = new ServerSocket(8080);\n        Socket clientSocket = serverSocket.accept(); // wait for connection\n        // Handle client connection\n        clientSocket.close();\n        serverSocket.close();\n    }\n}\n```"
+      },
+      {
+        "name": "Swing GUI: Simple Frame",
+        "example": "Creating a simple **Swing GUI** frame.\n\n```java\nimport javax.swing.JFrame;\n\npublic class SwingExample {\n    public static void main(String[] args) {\n        JFrame frame = new JFrame(\"Simple Frame\");\n        frame.setSize(300, 200);\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        // Frame displayed on screen\n    }\n}\n```"
+      },
+      {
+        "name": "JavaFX: Simple Application",
+        "example": "Creating a simple **JavaFX** application.\n\n```java\nimport javafx.application.Application;\nimport javafx.stage.Stage;\n\npublic class JavaFXExample extends Application {\n    @Override\n    public void start(Stage stage) {\n        stage.setTitle(\"JavaFX App\");\n        stage.show(); // show stage\n    }\n    \n    public static void main(String[] args) {\n        launch(args);\n    }\n}\n```"
+      },
+      {
+        "name": "JDBC: Database Connection",
+        "example": "Connecting to a database using **JDBC**.\n\n```java\nimport java.sql.Connection;\nimport java.sql.DriverManager;\n\npublic class JDBCConnectionExample {\n    public static void main(String[] args) throws Exception {\n        String url = \"jdbc:mysql://localhost:3306/mydb\";\n        String user = \"root\";\n        String password = \"password\";\n        Connection conn = DriverManager.getConnection(url, user, password);\n        // Connection established\n    }\n}\n```"
+      },
+      {
+        "name": "JDBC: Execute Query",
+        "example": "Executing a **SQL query** using JDBC.\n\n```java\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.ResultSet;\nimport java.sql.Statement;\n\npublic class JDBCQueryExample {\n    public static void main(String[] args) throws Exception {\n        Connection conn = DriverManager.getConnection(\"jdbc:mysql://localhost:3306/mydb\", \"root\", \"password\");\n        Statement stmt = conn.createStatement();\n        ResultSet rs = stmt.executeQuery(\"SELECT * FROM users\");\n        // Iterate through ResultSet\n    }\n}\n```"
+      },
+      {
+        "name": "JDBC: PreparedStatement",
+        "example": "Using **PreparedStatement** to execute parameterized queries.\n\n```java\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.PreparedStatement;\n\npublic class JDBCPreparedStatementExample {\n    public static void main(String[] args) throws Exception {\n        Connection conn = DriverManager.getConnection(\"jdbc:mysql://localhost:3306/mydb\", \"root\", \"password\");\n        String sql = \"INSERT INTO users (name, age) VALUES (?, ?)\";\n        PreparedStatement pstmt = conn.prepareStatement(sql);\n        pstmt.setString(1, \"Alice\");\n        pstmt.setInt(2, 30);\n        // Execute update if needed\n    }\n}\n```"
+      },
+      {
+        "name": "JUnit: Simple Test",
+        "example": "Writing a **JUnit test** for a simple method.\n\n```java\nimport org.junit.Test;\nimport static org.junit.Assert.assertEquals;\n\npublic class JUnitExampleTest {\n    @Test\n    public void testAddition() {\n        int sum = 2 + 3; // addition test\n        assertEquals(5, sum);\n    }\n}\n```"
+      },
+      {
+        "name": "Logging with java.util.logging",
+        "example": "Logging messages using **java.util.logging**.\n\n```java\nimport java.util.logging.Logger;\n\npublic class LoggingExample {\n    private static final Logger logger = Logger.getLogger(LoggingExample.class.getName());\n    \n    public static void main(String[] args) {\n        logger.info(\"Logging an info message\"); // log message\n    }\n}\n```"
+      },
+      {
+        "name": "System Properties",
+        "example": "Accessing **system properties** in Java.\n\n```java\npublic class SystemPropertiesExample {\n    public static void main(String[] args) {\n        String os = System.getProperty(\"os.name\"); // get OS name\n    }\n}\n```"
+      },
+      {
+        "name": "Runtime.exec()",
+        "example": "Executing external processes using **Runtime.exec()**.\n\n```java\npublic class RuntimeExecExample {\n    public static void main(String[] args) throws Exception {\n        Runtime.getRuntime().exec(\"notepad\"); // execute external process\n    }\n}\n```"
+      },
+      {
+        "name": "Reflection: Constructor Access",
+        "example": "Accessing constructors via **reflection**.\n\n```java\nimport java.lang.reflect.Constructor;\n\npublic class ReflectionConstructorExample {\n    public static void main(String[] args) throws Exception {\n        Constructor<String> constructor = String.class.getConstructor(byte[].class);\n        // Constructor for String from byte array\n    }\n}\n```"
+      },
+      {
+        "name": "Reflection: Field Access",
+        "example": "Accessing public fields via **reflection**.\n\n```java\nimport java.lang.reflect.Field;\n\npublic class ReflectionFieldExample {\n    public String value = \"Hello\";\n    \n    public static void main(String[] args) throws Exception {\n        ReflectionFieldExample obj = new ReflectionFieldExample();\n        Field field = ReflectionFieldExample.class.getField(\"value\");\n        String fieldValue = (String) field.get(obj); // access public field\n    }\n}\n```"
+      },
+      {
+        "name": "Reflection: Private Field Access",
+        "example": "Accessing private fields using **reflection**.\n\n```java\nimport java.lang.reflect.Field;\n\npublic class PrivateFieldExample {\n    private String secret = \"hidden\";\n    \n    public static void main(String[] args) throws Exception {\n        PrivateFieldExample obj = new PrivateFieldExample();\n        Field field = PrivateFieldExample.class.getDeclaredField(\"secret\");\n        field.setAccessible(true); // allow access to private field\n        String secretValue = (String) field.get(obj);\n    }\n}\n```"
+      },
+      {
+        "name": "Stream API: Map and Reduce",
+        "example": "Using the **Stream API** to transform and aggregate data.\n\n```java\nimport java.util.Arrays;\n\npublic class StreamMapReduceExample {\n    public static void main(String[] args) {\n        int sum = Arrays.stream(new int[]{1, 2, 3, 4})\n                       .map(x -> x * 2) // double each number\n                       .reduce(0, Integer::sum); // sum the values\n        // sum holds the result\n    }\n}\n```"
+      },
+      {
+        "name": "Optional: orElse and orElseGet",
+        "example": "Using **Optional** methods to handle nulls gracefully.\n\n```java\nimport java.util.Optional;\n\npublic class OptionalMethodsExample {\n    public static void main(String[] args) {\n        Optional<String> opt = Optional.empty();\n        String value = opt.orElse(\"Default\"); // returns \"Default\" if empty\n        String value2 = opt.orElseGet(() -> \"Generated\"); // uses supplier\n    }\n}\n```"
+      },
+      {
+        "name": "File I/O: BufferedReader and BufferedWriter",
+        "example": "Reading and writing files using buffered streams.\n\n```java\nimport java.io.BufferedReader;\nimport java.io.BufferedWriter;\nimport java.io.FileReader;\nimport java.io.FileWriter;\n\npublic class BufferedIOExample {\n    public static void main(String[] args) throws Exception {\n        BufferedReader reader = new BufferedReader(new FileReader(\"input.txt\"));\n        BufferedWriter writer = new BufferedWriter(new FileWriter(\"output.txt\"));\n        // Read and write operations\n        reader.close();\n        writer.close();\n    }\n}\n```"
+      },
+      {
+        "name": "NIO: FileSystem",
+        "example": "Accessing the **default file system** using NIO.\n\n```java\nimport java.nio.file.FileSystems;\nimport java.nio.file.Path;\n\npublic class FileSystemExample {\n    public static void main(String[] args) {\n        Path path = FileSystems.getDefault().getPath(\"someDirectory\");\n        // Access default file system\n    }\n}\n```"
+      },
+      {
+        "name": "Files.walk",
+        "example": "Walking through a directory tree using **Files.walk**.\n\n```java\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.nio.file.Paths;\n\npublic class FilesWalkExample {\n    public static void main(String[] args) throws Exception {\n        Path start = Paths.get(\".\"); // current directory\n        Files.walk(start).forEach(path -> {\n            // Process each path in directory tree\n        });\n    }\n}\n```"
+      },
+      {
+        "name": "Random Number Generation",
+        "example": "Generating random numbers using **Random**.\n\n```java\nimport java.util.Random;\n\npublic class RandomExample {\n    public static void main(String[] args) {\n        Random random = new Random();\n        int num = random.nextInt(100); // random number between 0-99\n    }\n}\n```"
+      },
+      {
+        "name": "ThreadLocalRandom",
+        "example": "Generating random numbers using **ThreadLocalRandom**.\n\n```java\nimport java.util.concurrent.ThreadLocalRandom;\n\npublic class ThreadLocalRandomExample {\n    public static void main(String[] args) {\n        int num = ThreadLocalRandom.current().nextInt(100); // random number between 0-99\n    }\n}\n```"
+      },
+      {
+        "name": "Math Class: sqrt and pow",
+        "example": "Using **Math.sqrt** and **Math.pow** for calculations.\n\n```java\npublic class MathExample {\n    public static void main(String[] args) {\n        double root = Math.sqrt(16); // square root of 16\n        double power = Math.pow(2, 3); // 2 raised to 3\n    }\n}\n```"
+      },
+      {
+        "name": "BigDecimal Usage",
+        "example": "Performing precise calculations with **BigDecimal**.\n\n```java\nimport java.math.BigDecimal;\n\npublic class BigDecimalExample {\n    public static void main(String[] args) {\n        BigDecimal bd1 = new BigDecimal(\"10.5\");\n        BigDecimal bd2 = new BigDecimal(\"2.0\");\n        BigDecimal result = bd1.multiply(bd2); // multiply two BigDecimals\n    }\n}\n```"
+      },
+      {
+        "name": "BigInteger Usage",
+        "example": "Handling large integers with **BigInteger**.\n\n```java\nimport java.math.BigInteger;\n\npublic class BigIntegerExample {\n    public static void main(String[] args) {\n        BigInteger bi1 = new BigInteger(\"123456789\");\n        BigInteger bi2 = new BigInteger(\"987654321\");\n        BigInteger result = bi1.add(bi2); // add two BigIntegers\n    }\n}\n```"
+      },
+      {
+        "name": "StringBuilder vs StringBuffer",
+        "example": "Using **StringBuilder** for mutable strings (non-thread-safe) and **StringBuffer** (thread-safe).\n\n```java\npublic class StringBuilderExample {\n    public static void main(String[] args) {\n        StringBuilder sb = new StringBuilder(); // not thread-safe, faster\n        sb.append(\"Hello\");\n        StringBuffer sbuf = new StringBuffer(); // thread-safe, slower\n        sbuf.append(\"World\");\n    }\n}\n```"
+      },
+      {
+        "name": "Comparator Chaining",
+        "example": "Chaining comparators for multi-level sorting.\n\n```java\nimport java.util.Comparator;\n\npublic class ComparatorChainingExample {\n    public static void main(String[] args) {\n        Comparator<Person> comparator = Comparator.comparing(Person::getLastName)\n                                                   .thenComparing(Person::getFirstName);\n        // Comparator for sorting persons by last, then first name\n    }\n}\n\nclass Person {\n    private String firstName;\n    private String lastName;\n    public String getFirstName() { return firstName; }\n    public String getLastName() { return lastName; }\n}\n```"
+      },
+      {
+        "name": "Method Chaining",
+        "example": "Implementing **method chaining** by returning the current instance.\n\n```java\npublic class MethodChainingExample {\n    public MethodChainingExample setValue(int value) {\n        // Set value and return this for chaining\n        return this;\n    }\n    \n    public MethodChainingExample increment() {\n        // Increment value and return this\n        return this;\n    }\n    \n    public static void main(String[] args) {\n        MethodChainingExample obj = new MethodChainingExample();\n        obj.setValue(5).increment(); // chained method calls\n    }\n}\n```"
+      },
+      {
+        "name": "Nested Interfaces",
+        "example": "Defining an interface within a class.\n\n```java\npublic class NestedInterfaceExample {\n    interface InnerInterface {\n        void execute();\n    }\n    \n    public static void main(String[] args) {\n        InnerInterface instance = () -> {\n            // Implementation of inner interface method\n        };\n    }\n}\n```"
+      },
+      {
+        "name": "Try-Catch with Multiple Exceptions",
+        "example": "Handling multiple exceptions in a single catch block.\n\n```java\npublic class MultiCatchExample {\n    public static void main(String[] args) {\n        try {\n            // Code that may throw exceptions\n        } catch (NullPointerException | IllegalArgumentException e) {\n            // Handle multiple exception types\n        }\n    }\n}\n```"
+      }
+    ]
+  }
+  

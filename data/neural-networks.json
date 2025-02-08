@@ -1,0 +1,401 @@
+{
+    "examples": [
+      {
+        "name": "Dropout Regularization",
+        "example": "Dropout prevents overfitting by randomly deactivating neurons during training.\n\n```python\nimport torch.nn as nn\n\nclass Net(nn.Module):\n    def __init__(self):\n        super(Net, self).__init__()\n        self.fc = nn.Linear(100, 50)\n        self.dropout = nn.Dropout(0.5)  # 50% dropout rate\n\n    def forward(self, x):\n        x = self.fc(x)\n        x = self.dropout(x)  # apply dropout\n        return x\n```\n"
+      },
+      {
+        "name": "Batch Normalization",
+        "example": "Batch Normalization normalizes activations and accelerates training.\n\n```python\nimport torch.nn as nn\n\nclass Net(nn.Module):\n    def __init__(self):\n        super(Net, self).__init__()\n        self.conv = nn.Conv2d(3, 16, kernel_size=3, padding=1)\n        self.bn = nn.BatchNorm2d(16)  # normalize across channels\n\n    def forward(self, x):\n        x = self.conv(x)\n        x = self.bn(x)\n        return x\n```\n"
+      },
+      {
+        "name": "Residual Connections (ResNet)",
+        "example": "Residual connections allow gradients to flow through deep networks by skipping layers.\n\n```python\nimport torch.nn as nn\n\nclass ResidualBlock(nn.Module):\n    def __init__(self, channels):\n        super(ResidualBlock, self).__init__()\n        self.conv1 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)\n        self.relu = nn.ReLU()\n        self.conv2 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)\n\n    def forward(self, x):\n        identity = x\n        out = self.conv1(x)\n        out = self.relu(out)\n        out = self.conv2(out)\n        return self.relu(out + identity)  # add skip connection\n```\n"
+      },
+      {
+        "name": "Skip Connections in U-Net",
+        "example": "U-Net uses skip connections to combine encoder and decoder features for better segmentation.\n\n```python\n# Pseudocode for U-Net skip connection\nencoder_feature = encoder(x)\ndecoder_feature = decoder(encoder_feature)\ncombined = concatenate([encoder_feature, decoder_feature])  # merge features\n```\n"
+      },
+      {
+        "name": "Data Augmentation: Random Flip & Rotation",
+        "example": "Data augmentation increases dataset diversity. Common transforms include flipping and rotation.\n\n```python\nfrom torchvision import transforms\n\ntransform = transforms.Compose([\n    transforms.RandomHorizontalFlip(),  # random horizontal flip\n    transforms.RandomRotation(15)        # random rotation within 15 degrees\n])\n```\n"
+      },
+      {
+        "name": "Mixup Data Augmentation",
+        "example": "Mixup blends two images and their labels to improve robustness.\n\n```python\nimport torch\n\ndef mixup(x, y, alpha=0.2):\n    lam = torch.distributions.Beta(alpha, alpha).sample()\n    index = torch.randperm(x.size(0))\n    mixed_x = lam * x + (1 - lam) * x[index, :]\n    mixed_y = lam * y + (1 - lam) * y[index]\n    return mixed_x, mixed_y  # mixed samples\n```\n"
+      },
+      {
+        "name": "CutMix Data Augmentation",
+        "example": "CutMix replaces a region of an image with a patch from another image.\n\n```python\nimport torch\n\ndef cutmix(x, y, alpha=1.0):\n    lam = torch.distributions.Beta(alpha, alpha).sample()\n    rand_index = torch.randperm(x.size(0))\n    # Define a random bounding box (example: top-left quarter)\n    bbx1, bby1 = 0, 0\n    bbx2, bby2 = x.size(2)//2, x.size(3)//2\n    x[:, :, bbx1:bbx2, bby1:bby2] = x[rand_index, :, bbx1:bbx2, bby1:bby2]\n    return x, lam * y + (1 - lam) * y[rand_index]\n```\n"
+      },
+      {
+        "name": "AutoAugment Technique",
+        "example": "AutoAugment automatically searches for optimal augmentation policies.\n\n```python\n# Example usage in torchvision (policy pre-defined for ImageNet)\nfrom torchvision.transforms import AutoAugment, AutoAugmentPolicy\n\ntransform = AutoAugment(policy=AutoAugmentPolicy.IMAGENET)\n```\n"
+      },
+      {
+        "name": "RandAugment Technique",
+        "example": "RandAugment applies a fixed number of random augmentations with random magnitudes.\n\n```python\nfrom torchvision.transforms import RandAugment\n\ntransform = RandAugment(num_ops=2, magnitude=9)  # 2 operations with high magnitude\n```\n"
+      },
+      {
+        "name": "Stochastic Depth",
+        "example": "Stochastic depth randomly skips layers during training to regularize deep networks.\n\n```python\nimport torch.nn as nn\n\nclass StochasticBlock(nn.Module):\n    def __init__(self, layer, drop_prob=0.2):\n        super(StochasticBlock, self).__init__()\n        self.layer = layer\n        self.drop_prob = drop_prob\n\n    def forward(self, x):\n        if self.training and torch.rand(1).item() < self.drop_prob:\n            return x  # skip layer\n        else:\n            return self.layer(x)\n```\n"
+      },
+      {
+        "name": "He Initialization",
+        "example": "He initialization is used for layers with ReLU activations.\n\n```python\nimport torch.nn as nn\nimport torch.nn.init as init\n\nlayer = nn.Conv2d(3, 16, kernel_size=3)\ninit.kaiming_normal_(layer.weight, nonlinearity='relu')  # He initialization\n```\n"
+      },
+      {
+        "name": "Cosine Annealing LR Scheduler",
+        "example": "Cosine annealing reduces the learning rate following a cosine curve.\n\n```python\nimport torch.optim as optim\n\noptimizer = optim.SGD(model.parameters(), lr=0.1)\nscheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)\n# Call scheduler.step() each epoch\n```\n"
+      },
+      {
+        "name": "One Cycle Policy",
+        "example": "One Cycle Policy adjusts the learning rate and momentum for faster convergence.\n\n```python\nfrom torch.optim.lr_scheduler import OneCycleLR\nimport torch.optim as optim\n\noptimizer = optim.SGD(model.parameters(), lr=0.1)\n# Scheduler adjusts lr in one cycle over training\nscheduler = OneCycleLR(optimizer, max_lr=0.1, steps_per_epoch=100, epochs=10)\n```\n"
+      },
+      {
+        "name": "Early Stopping",
+        "example": "Early stopping halts training when validation loss stops improving.\n\n```python\n# Pseudocode for early stopping\nbest_loss = float('inf')\npatience = 5\ncounter = 0\nfor epoch in range(epochs):\n    val_loss = validate(model)\n    if val_loss < best_loss:\n        best_loss = val_loss\n        counter = 0\n    else:\n        counter += 1\n        if counter >= patience:\n            break  # stop training\n```\n"
+      },
+      {
+        "name": "Transfer Learning with Pretrained Models",
+        "example": "Leverage pretrained models to fine-tune on new tasks.\n\n```python\nfrom torchvision import models\nimport torch.nn as nn\n\nmodel = models.resnet50(pretrained=True)\n# Replace final layer for a new task\nmodel.fc = nn.Linear(model.fc.in_features, num_classes)\n```\n"
+      },
+      {
+        "name": "Fine-Tuning Strategies",
+        "example": "Fine-tuning may involve freezing early layers and training later ones.\n\n```python\n# Freeze all layers\nfor param in model.parameters():\n    param.requires_grad = False\n# Unfreeze final layer for training\nmodel.fc.weight.requires_grad = True\n```\n"
+      },
+      {
+        "name": "Neural Architecture Search (NAS)",
+        "example": "NAS automatically searches for optimal architectures.\n\n```python\n# Pseudocode for NAS process\nfor candidate in candidate_models:\n    train(candidate)\n    evaluate(candidate)\nselect(best_candidate)\n```\n"
+      },
+      {
+        "name": "EfficientNet Scaling",
+        "example": "EfficientNet scales width, depth, and resolution using a compound coefficient.\n\n```python\n# EfficientNet: Scaling from B0 to B7 by adjusting network dimensions\n# Actual implementation involves compound scaling formulas\n```\n"
+      },
+      {
+        "name": "MobileNet Architecture",
+        "example": "MobileNet uses depthwise separable convolutions for efficiency on mobile devices.\n\n```python\n# MobileNet replaces standard convolutions with depthwise and pointwise convolutions\n# This reduces computational cost and model size\n```\n"
+      },
+      {
+        "name": "Squeeze-and-Excitation Networks (SE)",
+        "example": "SE blocks recalibrate channel-wise feature responses.\n\n```python\nimport torch.nn as nn\n\nclass SEBlock(nn.Module):\n    def __init__(self, channels, reduction=16):\n        super(SEBlock, self).__init__()\n        self.fc = nn.Sequential(\n            nn.Linear(channels, channels // reduction),\n            nn.ReLU(),\n            nn.Linear(channels // reduction, channels),\n            nn.Sigmoid()\n        )\n\n    def forward(self, x):\n        b, c, _, _ = x.size()\n        y = x.view(b, c, -1).mean(dim=2)\n        y = self.fc(y).view(b, c, 1, 1)\n        return x * y  # scale features\n```\n"
+      },
+      {
+        "name": "Depthwise Separable Convolutions",
+        "example": "Split convolution into depthwise and pointwise for computational efficiency.\n\n```python\nimport torch.nn as nn\n\nclass DepthwiseSeparableConv(nn.Module):\n    def __init__(self, in_channels, out_channels, kernel_size):\n        super(DepthwiseSeparableConv, self).__init__()\n        self.depthwise = nn.Conv2d(in_channels, in_channels, kernel_size, groups=in_channels, padding=kernel_size//2)\n        self.pointwise = nn.Conv2d(in_channels, out_channels, 1)\n\n    def forward(self, x):\n        x = self.depthwise(x)\n        x = self.pointwise(x)\n        return x\n```\n"
+      },
+      {
+        "name": "Attention Mechanisms in CNNs",
+        "example": "Integrate attention to focus on important features.\n\n```python\n# Pseudocode for spatial attention\nattention = softmax(feature_map)\nweighted_features = feature_map * attention\n```\n"
+      },
+      {
+        "name": "Self-Attention in Transformers",
+        "example": "Self-attention computes relationships within the sequence.\n\n```python\n# Pseudocode for self-attention\nQ, K, V = query, key, value\nattention = softmax(Q @ K.T / sqrt(d_k))\noutput = attention @ V\n```\n"
+      },
+      {
+        "name": "Transformer Architecture Basics",
+        "example": "Transformers rely solely on attention mechanisms without recurrence.\n\n```python\n# Pseudocode for a transformer block\nfor layer in transformer_layers:\n    x = layer(x)  # self-attention followed by feed-forward\n```\n"
+      },
+      {
+        "name": "Positional Encoding in Transformers",
+        "example": "Positional encoding injects sequence order information into token embeddings.\n\n```python\nimport math\nimport torch\n\ndef positional_encoding(seq_len, d_model):\n    pe = torch.zeros(seq_len, d_model)\n    for pos in range(seq_len):\n        for i in range(0, d_model, 2):\n            pe[pos, i] = math.sin(pos / (10000 ** ((2 * i)/d_model)))\n            pe[pos, i+1] = math.cos(pos / (10000 ** ((2 * i)/d_model)))\n    return pe\n```\n"
+      },
+      {
+        "name": "Multi-Head Attention Mechanism",
+        "example": "Multi-head attention allows the model to attend to information from different subspaces.\n\n```python\n# Pseudocode for multi-head attention\nfor head in range(num_heads):\n    head_output = self_attention(x)\ncombined = concatenate(all head_output)\n```\n"
+      },
+      {
+        "name": "Vision Transformer (ViT)",
+        "example": "ViT applies transformer architecture directly to image patches.\n\n```python\n# Pseudocode for splitting image into patches\npatches = image.unfold(2, patch_size, patch_size).unfold(3, patch_size, patch_size)\n# Flatten and embed patches before feeding into transformer\n```\n"
+      },
+      {
+        "name": "Capsule Networks",
+        "example": "Capsule Networks capture spatial hierarchies using capsules and dynamic routing.\n\n```python\n# Pseudocode for capsule routing\nfor iteration in range(routing_iters):\n    update coupling coefficients based on agreement\n```\n"
+      },
+      {
+        "name": "Swish Activation Function",
+        "example": "Swish activation (x * sigmoid(x)) is smooth and can improve performance.\n\n```python\ndef swish(x):\n    return x * (1 / (1 + torch.exp(-x)))  # simple implementation\n```\n"
+      },
+      {
+        "name": "Mish Activation Function",
+        "example": "Mish (x * tanh(softplus(x))) can yield better results than ReLU in some networks.\n\n```python\ndef mish(x):\n    return x * torch.tanh(torch.nn.functional.softplus(x))\n```\n"
+      },
+      {
+        "name": "Group Normalization",
+        "example": "Group normalization divides channels into groups and normalizes them, useful for small batch sizes.\n\n```python\nimport torch.nn as nn\n\ngroup_norm = nn.GroupNorm(num_groups=4, num_channels=64)  # example\n```\n"
+      },
+      {
+        "name": "Layer Normalization",
+        "example": "Layer normalization normalizes across the features in each sample independently.\n\n```python\nimport torch.nn as nn\n\nlayer_norm = nn.LayerNorm(normalized_shape=128)  # normalize feature dimension\n```\n"
+      },
+      {
+        "name": "Weight Normalization",
+        "example": "Weight normalization reparameterizes weights to decouple magnitude from direction.\n\n```python\nimport torch.nn as nn\nimport torch.nn.utils as utils\n\nlayer = utils.weight_norm(nn.Linear(128, 64))  # apply weight normalization\n```\n"
+      },
+      {
+        "name": "Sharpness-Aware Minimization (SAM)",
+        "example": "SAM minimizes loss sharpness, leading to improved generalization.\n\n```python\n# Pseudocode for SAM\nperturb = compute_weight_perturbation(model)\nloss = loss_fn(model(x + perturb))\n# Update weights to minimize both loss and sharpness\n```\n"
+      },
+      {
+        "name": "Stochastic Weight Averaging (SWA)",
+        "example": "SWA averages weights over training epochs for a more robust final model.\n\n```python\n# Pseudocode for SWA\nswa_model = copy(model)\nfor epoch in training_epochs:\n    update(model)\n    swa_model.update_parameters(model)  # average weights\n```\n"
+      },
+      {
+        "name": "Gradient Centralization",
+        "example": "Gradient centralization normalizes gradients to stabilize and accelerate training.\n\n```python\n# Pseudocode for gradient centralization\nfor grad in gradients:\n    grad -= grad.mean(dim=1, keepdim=True)\n```\n"
+      },
+      {
+        "name": "Contrastive Learning (SimCLR)",
+        "example": "SimCLR maximizes agreement between augmented views of the same image.\n\n```python\n# Pseudocode for SimCLR loss\nz1, z2 = encoder(view1), encoder(view2)\nloss = contrastive_loss(z1, z2)\n```\n"
+      },
+      {
+        "name": "BYOL - Bootstrap Your Own Latent",
+        "example": "BYOL learns representations by predicting target network embeddings without negative samples.\n\n```python\n# Pseudocode for BYOL update\nonline_output = online_network(x)\ntarget_output = target_network(x)\nloss = mse(online_output, target_output)\n```\n"
+      },
+      {
+        "name": "Contrastive Predictive Coding (CPC)",
+        "example": "CPC learns representations by predicting future latent variables.\n\n```python\n# Pseudocode for CPC\nlatent = encoder(x)\nprediction = autoregressor(latent)\nloss = contrastive_loss(prediction, latent_future)\n```\n"
+      },
+      {
+        "name": "Self-Supervised Pretraining",
+        "example": "Pretrain models on unlabeled data with self-supervised tasks before fine-tuning.\n\n```python\n# Pseudocode for self-supervised pretraining\nfor batch in unlabeled_data:\n    task_loss = self_supervised_task(batch)\n    update(model, task_loss)\n```\n"
+      },
+      {
+        "name": "Basic GAN Architecture",
+        "example": "GANs consist of a generator and discriminator in an adversarial setup.\n\n```python\n# Pseudocode for GAN training\nfor batch in data:\n    update(discriminator)\n    update(generator)\n```\n"
+      },
+      {
+        "name": "Conditional GANs",
+        "example": "Conditional GANs incorporate label information into both generator and discriminator.\n\n```python\n# Pseudocode for conditional GAN\ngen_input = concatenate(noise, label)\ngenerated = generator(gen_input)\n```\n"
+      },
+      {
+        "name": "Progressive GANs",
+        "example": "Progressive GANs start training on low-resolution images and gradually increase resolution.\n\n```python\n# Pseudocode for progressive growing\nfor resolution in resolutions:\n    train(generator, discriminator, resolution)\n```\n"
+      },
+      {
+        "name": "CycleGAN for Domain Translation",
+        "example": "CycleGAN translates images between domains without paired data using cycle-consistency loss.\n\n```python\n# Pseudocode for CycleGAN loss\nloss_G = adversarial_loss + cycle_consistency_loss\n```\n"
+      },
+      {
+        "name": "Differentiable Data Augmentation",
+        "example": "Apply differentiable augmentations to stabilize GAN training.\n\n```python\n# Pseudocode for differentiable augmentation\naugmented = differentiable_augment(x)\nloss = gan_loss(generator(augmented))\n```\n"
+      },
+      {
+        "name": "Pseudo-Labeling for Semi-Supervised Learning",
+        "example": "Pseudo-labeling assigns model predictions as labels for unlabeled data.\n\n```python\n# Pseudocode for pseudo-labeling\npseudo_labels = model(unlabeled_data).argmax(dim=1)\ntrain(model, labeled_data + (unlabeled_data, pseudo_labels))\n```\n"
+      },
+      {
+        "name": "Test Time Augmentation",
+        "example": "Improve predictions by averaging over augmented versions of the test input.\n\n```python\n# Pseudocode for Test Time Augmentation (TTA)\naug_predictions = [model(augment(x)) for augment in augmentations]\nfinal_prediction = average(aug_predictions)\n```\n"
+      },
+      {
+        "name": "Random Erasing Data Augmentation",
+        "example": "Randomly erase a part of the image during training to force robustness.\n\n```python\nfrom torchvision.transforms import RandomErasing\ntransform = RandomErasing(p=0.5, scale=(0.02, 0.33))\n```\n"
+      },
+      {
+        "name": "Synthetic Data Generation with Simulations",
+        "example": "Generate synthetic data using physics-based or simulated models to augment training.\n\n```python\n# Pseudocode for simulation-based data generation\nfor simulation in range(num_simulations):\n    data.append(run_simulation(parameters))\n```\n"
+      },
+      {
+        "name": "Data Synthesis using Variational Autoencoders (VAE)",
+        "example": "VAEs learn a latent representation to generate new data samples.\n\n```python\nimport torch.nn as nn\n\nclass VAE(nn.Module):\n    def __init__(self):\n        super(VAE, self).__init__()\n        self.encoder = nn.Linear(784, 400)\n        self.mu = nn.Linear(400, 20)\n        self.logvar = nn.Linear(400, 20)\n        self.decoder = nn.Linear(20, 784)\n\n    def forward(self, x):\n        h = self.encoder(x)\n        mu, logvar = self.mu(h), self.logvar(h)\n        # Reparameterization trick\n        std = torch.exp(0.5 * logvar)\n        eps = torch.randn_like(std)\n        z = mu + eps * std\n        return self.decoder(z)\n```\n"
+      },
+      {
+        "name": "Cutout Data Augmentation",
+        "example": "Cutout masks a random square patch from an image to force the model to learn robust features.\n\n```python\nimport numpy as np\nimport cv2\n\ndef cutout(image, mask_size):\n    h, w, _ = image.shape\n    top = np.random.randint(0, h - mask_size)\n    left = np.random.randint(0, w - mask_size)\n    image[top:top+mask_size, left:left+mask_size] = 0  # mask the patch\n    return image\n```"
+      },
+      {
+        "name": "GridMask Data Augmentation",
+        "example": "GridMask applies a grid-like mask over the image, occluding parts of it.\n\n```python\nimport numpy as np\n\ndef grid_mask(image, d, ratio=0.5):\n    h, w, _ = image.shape\n    mask = np.ones((h, w), np.float32)\n    for i in range(0, h, d):\n        for j in range(0, w, d):\n            if np.random.rand() < ratio:\n                mask[i:i+d, j:j+d] = 0  # mask a grid cell\n    return image * mask[..., np.newaxis]\n```"
+      },
+      {
+        "name": "Adaptive Instance Normalization (AdaIN) for Style Transfer",
+        "example": "AdaIN adjusts the content features using the statistics of the style features.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\ndef adain(content, style, eps=1e-5):\n    # Compute mean and std for content and style\n    c_mean = content.mean(dim=[2,3], keepdim=True)\n    c_std = content.std(dim=[2,3], keepdim=True) + eps\n    s_mean = style.mean(dim=[2,3], keepdim=True)\n    s_std = style.std(dim=[2,3], keepdim=True) + eps\n    # Normalize content and scale with style statistics\n    normalized = (content - c_mean) / c_std\n    return normalized * s_std + s_mean\n```"
+      },
+      {
+        "name": "Feature Pyramid Networks (FPN)",
+        "example": "FPN combines features at different scales to improve object detection and segmentation.\n\n```python\n# Pseudocode for FPN\nfor level in feature_levels:\n    upsampled = upsample(higher_level_feature)\n    fused = lateral_feature + upsampled  # combine features\n```"
+      },
+      {
+        "name": "Pyramid Pooling Module (PSPNet)",
+        "example": "PSPNet aggregates context information by pooling at multiple scales.\n\n```python\n# Pseudocode for Pyramid Pooling\npooled_features = []\nfor pool_size in [1, 2, 3, 6]:\n    pooled = adaptive_avg_pool(feature_map, output_size=pool_size)\n    pooled_features.append(upsample(pooled))\noutput = concatenate([feature_map] + pooled_features)\n```"
+      },
+      {
+        "name": "Dynamic Convolutions",
+        "example": "Dynamic convolutions adapt filter weights based on the input.\n\n```python\nimport torch.nn as nn\n\nclass DynamicConv(nn.Module):\n    def __init__(self, in_channels, out_channels, kernel_size, num_experts=4):\n        super().__init__()\n        self.experts = nn.ModuleList([\n            nn.Conv2d(in_channels, out_channels, kernel_size, padding=kernel_size//2) \n            for _ in range(num_experts)\n        ])\n        self.gate = nn.Linear(in_channels, num_experts)\n\n    def forward(self, x):\n        b, c, h, w = x.size()\n        # Global pooling to generate gating weights\n        pooled = x.mean(dim=[2,3])\n        weights = self.gate(pooled).softmax(dim=1)\n        out = 0\n        for i, expert in enumerate(self.experts):\n            out += weights[:, i].view(b, 1, 1, 1) * expert(x)\n        return out\n```"
+      },
+      {
+        "name": "Squeeze-and-Excitation for RNNs",
+        "example": "Integrate channel-wise recalibration into RNN hidden states using SE blocks.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass SERNNCell(nn.Module):\n    def __init__(self, input_size, hidden_size, reduction=4):\n        super().__init__()\n        self.rnn_cell = nn.RNNCell(input_size, hidden_size)\n        self.fc = nn.Sequential(\n            nn.Linear(hidden_size, hidden_size // reduction),\n            nn.ReLU(),\n            nn.Linear(hidden_size // reduction, hidden_size),\n            nn.Sigmoid()\n        )\n\n    def forward(self, x, h):\n        h_new = self.rnn_cell(x, h)\n        scale = self.fc(h_new)\n        return h_new * scale  # recalibrate hidden state\n```"
+      },
+      {
+        "name": "Self-Normalizing Neural Networks (SNN) with SELU",
+        "example": "SNNs use SELU activations and AlphaDropout to maintain mean and variance.\n\n```python\nimport torch.nn as nn\n\nlayer = nn.Linear(128, 64)\nactivation = nn.SELU()\n# Use AlphaDropout during training to keep self-normalization\ndropout = nn.AlphaDropout(p=0.1)\n```"
+      },
+      {
+        "name": "AlphaDropout",
+        "example": "AlphaDropout randomly masks activations while preserving the self-normalizing property of SELU.\n\n```python\nimport torch.nn as nn\n\n# Replace standard dropout with AlphaDropout for SELU networks\ndropout = nn.AlphaDropout(p=0.1)\n```"
+      },
+      {
+        "name": "Label Smoothing",
+        "example": "Label smoothing softens the targets to reduce overconfidence in predictions.\n\n```python\nimport torch.nn as nn\n\ncriterion = nn.CrossEntropyLoss(label_smoothing=0.1)  # smoothing factor\n```"
+      },
+      {
+        "name": "Focal Loss",
+        "example": "Focal Loss down-weights easy examples, focusing training on hard negatives.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass FocalLoss(nn.Module):\n    def __init__(self, gamma=2.0):\n        super().__init__()\n        self.gamma = gamma\n        self.ce = nn.CrossEntropyLoss(reduction='none')\n\n    def forward(self, inputs, targets):\n        logpt = -self.ce(inputs, targets)\n        pt = torch.exp(logpt)\n        loss = -((1 - pt) ** self.gamma) * logpt\n        return loss.mean()\n```"
+      },
+      {
+        "name": "Gradient Clipping",
+        "example": "Gradient clipping prevents exploding gradients by capping their norm during backpropagation.\n\n```python\nimport torch.nn.utils as utils\n\n# In training loop\nutils.clip_grad_norm_(model.parameters(), max_norm=5.0)  # clip gradients\n```"
+      },
+      {
+        "name": "Knowledge Distillation",
+        "example": "Knowledge distillation transfers knowledge from a larger teacher model to a smaller student model.\n\n```python\n# Pseudocode for distillation\nteacher_outputs = teacher_model(inputs)\nstudent_outputs = student_model(inputs)\nloss = alpha * distillation_loss(student_outputs, teacher_outputs) + beta * student_loss\n```"
+      },
+      {
+        "name": "Model Pruning",
+        "example": "Pruning removes unimportant weights to reduce model size without a significant loss in accuracy.\n\n```python\n# Pseudocode for pruning\nfor param in model.parameters():\n    mask = (abs(param) > threshold).float()\n    param.data *= mask  # zero out small weights\n```"
+      },
+      {
+        "name": "Model Quantization",
+        "example": "Quantization reduces model size and speeds up inference by using lower-precision arithmetic.\n\n```python\n# Pseudocode for quantization\nquantized_model = quantize_model(model, dtype='int8')\n```"
+      },
+      {
+        "name": "Dynamic Routing in Capsule Networks",
+        "example": "Dynamic routing iteratively adjusts coupling coefficients between capsules based on agreement.\n\n```python\n# Pseudocode for capsule routing\nfor r in range(num_iterations):\n    coupling = softmax(logits)\n    output = squash(weighted_sum(coupling, capsule_inputs))\n    logits += dot(output, capsule_inputs)  # update agreements\n```"
+      },
+      {
+        "name": "DenseNet Architecture",
+        "example": "DenseNet connects each layer to every other layer, encouraging feature reuse.\n\n```python\nimport torch.nn as nn\n\nclass DenseBlock(nn.Module):\n    def __init__(self, num_layers, in_channels, growth_rate):\n        super().__init__()\n        self.layers = nn.ModuleList()\n        for i in range(num_layers):\n            self.layers.append(nn.Sequential(\n                nn.BatchNorm2d(in_channels + i * growth_rate),\n                nn.ReLU(),\n                nn.Conv2d(in_channels + i * growth_rate, growth_rate, kernel_size=3, padding=1)\n            ))\n\n    def forward(self, x):\n        features = [x]\n        for layer in self.layers:\n            new_feat = layer(torch.cat(features, 1))\n            features.append(new_feat)\n        return torch.cat(features, 1)\n```"
+      },
+      {
+        "name": "Dual Path Networks (DPN)",
+        "example": "DPNs combine the benefits of ResNets and DenseNets by merging residual and densely connected paths.\n\n```python\n# Pseudocode for DPN\nresidual = residual_branch(x)\ndense = dense_branch(x)\noutput = merge(residual, dense)\n```"
+      },
+      {
+        "name": "Neural ODEs",
+        "example": "Neural ODEs model the network as a continuous dynamical system solved via ODE solvers.\n\n```python\n# Pseudocode using torchdiffeq\nfrom torchdiffeq import odeint\n\ndef ode_func(t, x):\n    return f(x)  # define derivative\n\nz = odeint(ode_func, x0, t_span)  # solve ODE\n```"
+      },
+      {
+        "name": "HyperNetworks",
+        "example": "HyperNetworks generate weights for another network, enabling dynamic parameterization.\n\n```python\nimport torch.nn as nn\n\nclass HyperNetwork(nn.Module):\n    def __init__(self, embedding_size, target_params):\n        super().__init__()\n        self.fc = nn.Linear(embedding_size, target_params)\n\n    def forward(self, embedding):\n        return self.fc(embedding)  # generates weights for target network\n```"
+      },
+      {
+        "name": "Mixture of Experts (MoE)",
+        "example": "MoE routes inputs to different expert networks using a gating mechanism.\n\n```python\n# Pseudocode for MoE\ngates = softmax(gating_network(x))\nexperts_output = [expert(x) for expert in experts]\noutput = sum(g * o for g, o in zip(gates, experts_output))\n```"
+      },
+      {
+        "name": "Sparse Mixture of Experts",
+        "example": "Sparse MoE activates only a subset of experts per input to improve efficiency.\n\n```python\n# Pseudocode for sparse MoE\ngates = sparse_softmax(gating_network(x))  # only top-k experts active\noutput = sum(selected_gate * expert(x) for each selected expert)\n```"
+      },
+      {
+        "name": "EfficientDet",
+        "example": "EfficientDet combines EfficientNet backbone with BiFPN for scalable object detection.\n\n```python\n# Pseudocode for EfficientDet\nfeatures = efficientnet_backbone(x)\nfused_features = bifpn(features)\ndetections = detection_head(fused_features)\n```"
+      },
+      {
+        "name": "BiFPN (Bidirectional Feature Pyramid Network)",
+        "example": "BiFPN fuses features at multiple scales bidirectionally with learnable weights.\n\n```python\n# Pseudocode for BiFPN\nfor level in feature_levels:\n    up = upsample(higher_level_feature)\n    down = downsample(lower_level_feature)\n    fused = weighted_sum(current, up, down)\n```"
+      },
+      {
+        "name": "RAdam Optimizer",
+        "example": "RAdam rectifies the variance of adaptive learning rates for more stable training.\n\n```python\nimport torch.optim as optim\n\noptimizer = optim.Adam(model.parameters(), lr=1e-3)  # Replace with RAdam implementation if available\n```"
+      },
+      {
+        "name": "LAMB Optimizer",
+        "example": "LAMB scales the learning rate for large batch training effectively.\n\n```python\n# Pseudocode for LAMB optimizer initialization\noptimizer = LAMB(model.parameters(), lr=0.001)  # Requires LAMB implementation\n```"
+      },
+      {
+        "name": "Lookahead Optimizer",
+        "example": "Lookahead wraps another optimizer to update slow weights with fast weights.\n\n```python\n# Pseudocode for Lookahead\nbase_optimizer = Adam(model.parameters(), lr=1e-3)\noptimizer = Lookahead(base_optimizer, k=5, alpha=0.5)\n```"
+      },
+      {
+        "name": "AdaBelief Optimizer",
+        "example": "AdaBelief adapts step sizes based on the 'belief' in observed gradients, improving convergence.\n\n```python\n# Pseudocode for AdaBelief\noptimizer = AdaBelief(model.parameters(), lr=1e-3)  # Requires AdaBelief implementation\n```"
+      },
+      {
+        "name": "Gradient Accumulation",
+        "example": "Accumulate gradients over several mini-batches to simulate a larger batch size.\n\n```python\noptimizer.zero_grad()\nfor i, batch in enumerate(dataloader):\n    loss = model(batch)\n    loss.backward()\n    if (i + 1) % accumulation_steps == 0:\n        optimizer.step()\n        optimizer.zero_grad()\n```"
+      },
+      {
+        "name": "Temporal Ensembling for Semi-Supervised Learning",
+        "example": "Temporal ensembling averages predictions over epochs to generate more reliable targets.\n\n```python\n# Pseudocode for temporal ensembling\nensemble_prediction = decay * previous_prediction + (1 - decay) * current_prediction\n```"
+      },
+      {
+        "name": "Mean Teacher Method",
+        "example": "The Mean Teacher method uses an exponential moving average of model weights as a teacher.\n\n```python\n# Pseudocode for Mean Teacher\nfor each training step:\n    teacher_weights = ema_decay * teacher_weights + (1 - ema_decay) * student_weights\n```"
+      },
+      {
+        "name": "Test-Time Dropout for Uncertainty Estimation",
+        "example": "Apply dropout during inference to estimate uncertainty via multiple stochastic forward passes.\n\n```python\n# Pseudocode for test-time dropout\npredictions = [model(x, training=True) for _ in range(num_samples)]\nuncertainty = compute_variance(predictions)\n```"
+      },
+      {
+        "name": "Monte Carlo Dropout",
+        "example": "MC Dropout performs multiple stochastic inferences to approximate Bayesian uncertainty.\n\n```python\n# Pseudocode for Monte Carlo Dropout\noutputs = [model(x, training=True) for _ in range(10)]\nfinal_output = average(outputs)\n```"
+      },
+      {
+        "name": "Triplet Loss for Metric Learning",
+        "example": "Triplet loss ensures that an anchor is closer to a positive than to a negative by a margin.\n\n```python\nimport torch.nn.functional as F\n\ndef triplet_loss(anchor, positive, negative, margin=1.0):\n    pos_dist = F.pairwise_distance(anchor, positive)\n    neg_dist = F.pairwise_distance(anchor, negative)\n    loss = F.relu(pos_dist - neg_dist + margin)\n    return loss.mean()\n```"
+      },
+      {
+        "name": "Center Loss for Discriminative Features",
+        "example": "Center loss minimizes the distance between features and their corresponding class centers.\n\n```python\n# Pseudocode for center loss\nfor each class:\n    update_center = moving_average(features[class])\nloss = sum(distance(feature, center[class]) for feature in batch)\n```"
+      },
+      {
+        "name": "Contrastive Loss in Siamese Networks",
+        "example": "Contrastive loss trains Siamese networks to pull similar pairs together and push dissimilar pairs apart.\n\n```python\n# Pseudocode for contrastive loss\nloss = label * distance**2 + (1 - label) * max(margin - distance, 0)**2\n```"
+      },
+      {
+        "name": "Attention U-Net for Segmentation",
+        "example": "Attention U-Net integrates attention gates into U-Net to focus on relevant features.\n\n```python\n# Pseudocode for Attention U-Net\nattention = sigmoid(conv(skip_connection))\nfiltered = skip_connection * attention\noutput = upsample(decoder_feature) + filtered\n```"
+      },
+      {
+        "name": "Residual U-Net",
+        "example": "Residual U-Net combines residual connections with the U-Net architecture for improved gradient flow.\n\n```python\n# Pseudocode for Residual U-Net\nresidual = conv_block(input)\nskip = input + residual\ndecoder_input = concatenate(upsample(skip), corresponding_encoder_output)\n```"
+      },
+      {
+        "name": "Dual Attention Networks (DANet)",
+        "example": "DANet employs both spatial and channel attention to refine feature maps.\n\n```python\n# Pseudocode for dual attention\nspatial_att = spatial_attention(feature_map)\nchannel_att = channel_attention(feature_map)\nrefined = feature_map * spatial_att * channel_att\n```"
+      },
+      {
+        "name": "Sparse Transformer",
+        "example": "Sparse Transformers reduce computation by applying attention only to a subset of tokens.\n\n```python\n# Pseudocode for sparse attention\nfor token in sequence:\n    attend_to = select_top_k(tokens, similarity(token))\n    output = attention(token, attend_to)\n```"
+      },
+      {
+        "name": "Linformer",
+        "example": "Linformer approximates self-attention with low-rank projections to reduce complexity.\n\n```python\n# Pseudocode for Linformer\nprojected_keys = linear_projection(keys)\nprojected_values = linear_projection(values)\nattention = softmax(query @ projected_keys.transpose())\noutput = attention @ projected_values\n```"
+      },
+      {
+        "name": "Perceiver Model",
+        "example": "The Perceiver processes high-dimensional inputs with a cross-attention mechanism to a latent array.\n\n```python\n# Pseudocode for Perceiver\nlatent = initialize_latent()\nfor _ in range(num_layers):\n    latent = cross_attention(latent, input_data) + latent\n```"
+      },
+      {
+        "name": "Graph Neural Networks (GNNs)",
+        "example": "GNNs operate on graph-structured data, aggregating information from neighboring nodes.\n\n```python\n# Pseudocode for GNN message passing\nfor node in graph:\n    message = aggregate(neighbor_features)\n    node_feature = update(node_feature, message)\n```"
+      },
+      {
+        "name": "Graph Convolutional Networks (GCN)",
+        "example": "GCNs perform convolution operations on graphs by normalizing and aggregating neighbor features.\n\n```python\nimport torch.nn as nn\n\nclass GCNLayer(nn.Module):\n    def __init__(self, in_features, out_features):\n        super().__init__()\n        self.linear = nn.Linear(in_features, out_features)\n\n    def forward(self, x, adj):\n        out = self.linear(x)\n        out = torch.matmul(adj, out)  # aggregate neighbors\n        return out\n```"
+      },
+      {
+        "name": "Graph Attention Networks (GAT)",
+        "example": "GAT uses attention mechanisms to weigh the importance of neighboring nodes.\n\n```python\n# Pseudocode for GAT\nfor each node:\n    for neighbor in neighbors:\n        compute attention weight\n    aggregate weighted neighbor features\n```"
+      },
+      {
+        "name": "Message Passing Neural Networks (MPNN)",
+        "example": "MPNNs generalize GNNs with a flexible message-passing framework.\n\n```python\n# Pseudocode for MPNN\nfor node in graph:\n    messages = [message_func(node, neighbor) for neighbor in neighbors]\n    node_feature = update_func(node_feature, sum(messages))\n```"
+      },
+      {
+        "name": "Transformer-XL",
+        "example": "Transformer-XL introduces recurrence to capture longer context beyond fixed-length segments.\n\n```python\n# Pseudocode for Transformer-XL\nfor segment in sequence:\n    hidden = transformer_block(segment, prev_state)\n    prev_state = hidden.detach()  # carry over state\n```"
+      },
+      {
+        "name": "Reformer",
+        "example": "Reformer reduces memory usage in transformers using locality-sensitive hashing and reversible layers.\n\n```python\n# Pseudocode for Reformer attention\nhashed_keys = LSH(query)\nfor bucket in hashed_keys:\n    perform attention within bucket\n```"
+      },
+      {
+        "name": "Dynamic Neural Networks with Conditional Computation",
+        "example": "Conditional computation dynamically routes inputs through sub-networks based on their characteristics.\n\n```python\n# Pseudocode for conditional computation\nif condition(x):\n    output = branch_A(x)\nelse:\n    output = branch_B(x)\n```"
+      }
+    ]
+  }
+  

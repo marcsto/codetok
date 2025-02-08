@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Transformer Overview",
+        "example": "Transformers use self-attention to process sequences in parallel. They consist of encoder and decoder stacks with residual connections and normalization.\n\n```python\n# Pseudo-code for a Transformer block\nclass TransformerBlock(nn.Module):\n    def __init__(self, d_model, heads):\n        super().__init__()\n        self.attention = MultiHeadAttention(d_model, heads)\n        self.ff = FeedForward(d_model)\n\n    def forward(self, x):\n        x = self.attention(x) + x  # Residual connection\n        x = self.ff(x) + x         # Residual connection\n        return x\n```\n"
+      },
+      {
+        "name": "Self-Attention Mechanism",
+        "example": "Self-attention computes relationships between tokens using queries, keys, and values.\n\n```python\nimport math\nimport torch.nn.functional as F\n\ndef scaled_dot_product_attention(q, k, v):\n    d_k = q.size(-1)\n    scores = (q @ k.transpose(-2, -1)) / math.sqrt(d_k)  # Scale scores\n    weights = F.softmax(scores, dim=-1)  # Normalize\n    return weights @ v  # Weighted sum\n```\n"
+      },
+      {
+        "name": "Scaled Dot-Product Attention",
+        "example": "This computes attention by scaling the dot products of queries and keys before applying softmax.\n\n```python\n# Scaled dot-product attention implementation\nattention_output = scaled_dot_product_attention(query, key, value)\n```\n"
+      },
+      {
+        "name": "Multi-Head Attention Explanation",
+        "example": "Multi-head attention splits inputs into multiple parts, computes attention in parallel, then concatenates the results.\n\n```python\nclass MultiHeadAttention(nn.Module):\n    def __init__(self, d_model, num_heads):\n        super().__init__()\n        # Initialize projections for queries, keys, and values\n\n    def forward(self, x):\n        # Split x into multiple heads\n        heads = [self.attention(head) for head in split_heads(x)]\n        # Concatenate heads\n        return combine_heads(heads)\n```\n"
+      },
+      {
+        "name": "Positional Encoding",
+        "example": "Since transformers have no recurrence, positional encodings provide token order information.\n\n```python\nimport torch\nimport math\n\ndef positional_encoding(max_seq_len, d_model):\n    pe = torch.zeros(max_seq_len, d_model)\n    position = torch.arange(0, max_seq_len, dtype=torch.float).unsqueeze(1)\n    div_term = torch.exp(torch.arange(0, d_model, 2).float() * -(math.log(10000.0) / d_model))\n    pe[:, 0::2] = torch.sin(position * div_term)\n    pe[:, 1::2] = torch.cos(position * div_term)\n    return pe\n```\n"
+      },
+      {
+        "name": "Transformer Encoder Architecture",
+        "example": "The encoder is a stack of layers that combine self-attention and feed-forward networks with normalization and residual connections.\n\n```python\nclass EncoderLayer(nn.Module):\n    def __init__(self, d_model, heads):\n        super().__init__()\n        self.self_attn = MultiHeadAttention(d_model, heads)\n        self.ff = FeedForward(d_model)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n\n    def forward(self, x):\n        x = self.norm1(x + self.self_attn(x))\n        x = self.norm2(x + self.ff(x))\n        return x\n```\n"
+      },
+      {
+        "name": "Transformer Decoder Architecture",
+        "example": "The decoder uses masked self-attention and encoder-decoder attention to generate outputs sequentially.\n\n```python\nclass DecoderLayer(nn.Module):\n    def __init__(self, d_model, heads):\n        super().__init__()\n        self.self_attn = MultiHeadAttention(d_model, heads)\n        self.enc_dec_attn = MultiHeadAttention(d_model, heads)\n        self.ff = FeedForward(d_model)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.norm3 = nn.LayerNorm(d_model)\n\n    def forward(self, x, encoder_output):\n        x = self.norm1(x + self.self_attn(x, mask='causal'))  # Masked self-attention\n        x = self.norm2(x + self.enc_dec_attn(x, encoder_output))\n        x = self.norm3(x + self.ff(x))\n        return x\n```\n"
+      },
+      {
+        "name": "Residual Connections in Transformers",
+        "example": "Residual connections help with gradient flow by adding the input back to the layer output.\n\n```python\n# Residual connection example\noutput = layer(x)\noutput = x + output  # Adds input to output\n```\n"
+      },
+      {
+        "name": "Layer Normalization in Transformers",
+        "example": "LayerNorm stabilizes and speeds up training by normalizing across features.\n\n```python\nimport torch.nn as nn\n\n# Using LayerNorm in PyTorch\nnorm = nn.LayerNorm(normalized_shape)\nnormalized_output = norm(input_tensor)\n```\n"
+      },
+      {
+        "name": "Feed-Forward Networks in Transformers",
+        "example": "Feed-forward networks process each token independently after the attention mechanism.\n\n```python\nclass FeedForward(nn.Module):\n    def __init__(self, d_model, d_ff=2048):\n        super().__init__()\n        self.linear1 = nn.Linear(d_model, d_ff)\n        self.linear2 = nn.Linear(d_ff, d_model)\n\n    def forward(self, x):\n        return self.linear2(F.relu(self.linear1(x)))\n```\n"
+      },
+      {
+        "name": "Tokenization for LLMs",
+        "example": "Tokenization converts text into tokens (subwords/words) that can be processed by the model.\n\n```python\nfrom transformers import AutoTokenizer\n\ntokenizer = AutoTokenizer.from_pretrained(\"bert-base-uncased\")\ntokens = tokenizer.tokenize(\"Hello, world!\")\n```\n"
+      },
+      {
+        "name": "Byte Pair Encoding (BPE) Tokenization",
+        "example": "BPE reduces vocabulary size by iteratively merging frequent character pairs.\n\n```python\n# Conceptual example of BPE\nvocab = {'l', 'o', 'w', 'lo', 'ow', 'low'}\n# Merge frequent pairs like 'l'+'o' -> 'lo'\n```\n"
+      },
+      {
+        "name": "Subword Tokenization Example",
+        "example": "Subword tokenization splits words into meaningful parts to handle rare words.\n\n```python\n# Tokenize 'unhappiness' into subwords\ntokens = [\"un\", \"happi\", \"ness\"]  # Example split\n```\n"
+      },
+      {
+        "name": "Input Embeddings in Transformers",
+        "example": "Embeddings map discrete tokens to continuous vector representations.\n\n```python\nembedding = nn.Embedding(num_embeddings=10000, embedding_dim=512)\nembedded_tokens = embedding(token_ids)  # Convert token IDs to vectors\n```\n"
+      },
+      {
+        "name": "Positional Embedding in Transformers",
+        "example": "Positional embeddings add sequence order information to token embeddings.\n\n```python\n# Combine token embeddings with positional encodings\nembeddings = token_embeddings + positional_encoding(seq_length, d_model)\n```\n"
+      },
+      {
+        "name": "Attention Masking",
+        "example": "Masks prevent the model from attending to padding tokens or irrelevant positions.\n\n```python\n# Create a mask to ignore padding tokens\nmask = (token_ids != pad_token_id)\n```\n"
+      },
+      {
+        "name": "Causal Masking in Decoder",
+        "example": "Causal masking ensures that each token only attends to previous tokens during decoding.\n\n```python\n# Create a lower triangular matrix for causal masking\ncausal_mask = torch.tril(torch.ones(seq_len, seq_len))\n```\n"
+      },
+      {
+        "name": "Training Objectives: MLM vs CLM",
+        "example": "MLM (Masked Language Modeling) predicts randomly masked tokens, while CLM (Causal Language Modeling) predicts the next token.\n\n```python\n# MLM: Mask and predict tokens\n# CLM: Predict next token in sequence\n```\n"
+      },
+      {
+        "name": "Masked Language Modeling (MLM) Objective",
+        "example": "MLM randomly masks tokens and trains the model to predict them based on context.\n\n```python\n# Calculate loss by comparing model predictions with true tokens\nloss = cross_entropy(model(masked_input), true_tokens)\n```\n"
+      },
+      {
+        "name": "Causal Language Modeling (CLM) Objective",
+        "example": "CLM trains the model to predict the next token given previous tokens.\n\n```python\n# Shift input and target for next-token prediction\nloss = cross_entropy(model(input_sequence[:, :-1]), input_sequence[:, 1:])\n```\n"
+      },
+      {
+        "name": "Pre-training LLMs",
+        "example": "Pre-training on large text corpora helps models learn general language representations.\n\n```python\n# Simplified pre-training loop\nfor batch in pretraining_data:\n    loss = model(batch).loss\n    loss.backward()\n    optimizer.step()\n```\n"
+      },
+      {
+        "name": "Fine-tuning LLMs",
+        "example": "Fine-tuning adapts a pre-trained model to a specific downstream task with task-specific data.\n\n```python\n# Fine-tuning loop for a specific task\ntarget_loss = model(task_batch).loss\n target_loss.backward()\n optimizer.step()\n```\n"
+      },
+      {
+        "name": "Transfer Learning with Transformers",
+        "example": "Transfer learning leverages pre-trained models to reduce training time on new tasks.\n\n```python\nfrom transformers import AutoModelForSequenceClassification\n\n# Load a pre-trained model and add a classification head\nmodel = AutoModelForSequenceClassification.from_pretrained(\"bert-base-uncased\")\n```\n"
+      },
+      {
+        "name": "Gradient Clipping in Transformer Training",
+        "example": "Gradient clipping prevents exploding gradients during training.\n\n```python\n# Clip gradients to a maximum norm of 1.0\ntorch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)\n```\n"
+      },
+      {
+        "name": "Learning Rate Scheduling (Warmup and Decay)",
+        "example": "Learning rate schedulers adjust the learning rate during training for better convergence.\n\n```python\n# Example: Linear warmup and decay scheduler\nscheduler = get_linear_schedule_with_warmup(optimizer, warmup_steps, total_steps)\n```\n"
+      },
+      {
+        "name": "Adam Optimizer for Transformers",
+        "example": "Adam optimizer is widely used due to its adaptive learning rates and momentum.\n\n```python\noptimizer = torch.optim.Adam(model.parameters(), lr=5e-5)\n```\n"
+      },
+      {
+        "name": "Layer-wise Learning Rate Decay",
+        "example": "Apply lower learning rates to earlier layers to stabilize fine-tuning of deep models.\n\n```python\n# Example: Different learning rates for lower and higher layers\noptimizer = AdamW([\n    {'params': lower_layer_params, 'lr': 1e-5},\n    {'params': higher_layer_params, 'lr': 5e-5}\n])\n```\n"
+      },
+      {
+        "name": "Mixed Precision Training",
+        "example": "Mixed precision uses FP16 computations where possible to speed up training and reduce memory usage.\n\n```python\nfrom apex import amp\n# Initialize mixed precision training\nmodel, optimizer = amp.initialize(model, optimizer, opt_level=\"O1\")\n```\n"
+      },
+      {
+        "name": "Data Parallelism for Large Models",
+        "example": "Data parallelism splits batches across multiple GPUs to accelerate training.\n\n```python\n# Wrap the model to use multiple GPUs\nmodel = nn.DataParallel(model)\n```\n"
+      },
+      {
+        "name": "Model Parallelism Strategies",
+        "example": "Model parallelism distributes different parts of the model across multiple devices.\n\n```python\n# Conceptual example: assign layers to different GPUs\nlayer1.to('cuda:0')\nlayer2.to('cuda:1')\n```\n"
+      },
+      {
+        "name": "Distributed Training Setup",
+        "example": "Distributed training uses multiple nodes to further scale up training.\n\n```python\n# Initialize the PyTorch distributed backend\nimport torch.distributed as dist\ndist.init_process_group(backend='nccl')\n```\n"
+      },
+      {
+        "name": "Hyperparameter Tuning for Transformers",
+        "example": "Experiment with learning rates, dropout, batch sizes, and other hyperparameters to optimize performance.\n\n```python\n# Use libraries like Optuna or Ray Tune for systematic tuning\n```\n"
+      },
+      {
+        "name": "Regularization Techniques (Dropout)",
+        "example": "Dropout helps prevent overfitting by randomly deactivating neurons during training.\n\n```python\ndropout = nn.Dropout(p=0.1)\noutput = dropout(layer_output)\n```\n"
+      },
+      {
+        "name": "Attention Visualization Techniques",
+        "example": "Visualize attention weights to gain insights into model focus during predictions.\n\n```python\nimport matplotlib.pyplot as plt\n# Display attention weights heatmap\nplt.imshow(attention_weights, cmap='viridis')\n```\n"
+      },
+      {
+        "name": "Evaluating LLMs: Metrics",
+        "example": "Metrics like accuracy, F1, and perplexity help assess model performance on tasks.\n\n```python\n# Example: Perplexity is computed as exp(loss)\nperplexity = math.exp(loss_value)\n```\n"
+      },
+      {
+        "name": "BLEU and ROUGE for LLM Evaluation",
+        "example": "BLEU and ROUGE scores evaluate the quality of generated text by comparing with reference texts.\n\n```python\nfrom nltk.translate.bleu_score import sentence_bleu\nscore = sentence_bleu(reference, candidate)\n```\n"
+      },
+      {
+        "name": "Perplexity as a Metric",
+        "example": "Perplexity measures how well a model predicts a sample; lower perplexity indicates better performance.\n\n```python\nimport math\nperplexity = math.exp(loss_value)  # exp(loss) gives perplexity\n```\n"
+      },
+      {
+        "name": "Handling Long Sequences: Memory Efficient Attention",
+        "example": "Memory-efficient attention mechanisms, like sparse or local attention, help process long sequences.\n\n```python\n# Conceptual: Implement sparse attention to reduce memory usage\n```\n"
+      },
+      {
+        "name": "Sparse Attention Mechanisms",
+        "example": "Sparse attention computes attention over a subset of token pairs, reducing computation.\n\n```python\n# Pseudo-code for applying a sparse attention mask\nsparse_mask = create_sparse_mask(sequence_length)\n```\n"
+      },
+      {
+        "name": "Efficient Transformer Variants (e.g., Longformer)",
+        "example": "Models like Longformer use sliding window attention to handle long inputs efficiently.\n\n```python\nfrom transformers import LongformerModel\nmodel = LongformerModel.from_pretrained(\"allenai/longformer-base-4096\")\n```\n"
+      },
+      {
+        "name": "Zero-shot Learning with LLMs",
+        "example": "Zero-shot learning uses a pre-trained model on tasks it wasn't explicitly fine-tuned for.\n\n```python\n# Example: Use a model's inherent knowledge to classify text without extra training\n```\n"
+      },
+      {
+        "name": "Few-shot Learning with LLMs",
+        "example": "Few-shot learning adapts a model to a new task using only a few examples via prompts.\n\n```python\n# Provide a few examples in the prompt to guide the model\n```\n"
+      },
+      {
+        "name": "Prompt Engineering Strategies",
+        "example": "Crafting effective prompts can greatly improve output quality from LLMs.\n\n```python\n# Example prompt for translation: 'Translate English to French: How are you?'\n```\n"
+      },
+      {
+        "name": "Adapter Modules for Fine-tuning",
+        "example": "Adapters add small trainable layers to a pre-trained model, enabling efficient task-specific fine-tuning.\n\n```python\n# Insert adapter layers between transformer blocks for minimal parameter updates\n```\n"
+      },
+      {
+        "name": "Distillation for LLM Compression",
+        "example": "Knowledge distillation transfers knowledge from a large (teacher) model to a smaller (student) model.\n\n```python\n# Teacher-student training loop: minimize distillation loss between outputs\nloss = distillation_loss(student_output, teacher_output)\n```\n"
+      },
+      {
+        "name": "Using Pre-trained Models (Hugging Face Transformers)",
+        "example": "Hugging Face makes it simple to load and use pre-trained transformer models.\n\n```python\nfrom transformers import AutoModel, AutoTokenizer\n\ntokenizer = AutoTokenizer.from_pretrained(\"bert-base-uncased\")\nmodel = AutoModel.from_pretrained(\"bert-base-uncased\")\n```\n"
+      },
+      {
+        "name": "Custom Training Loop with PyTorch",
+        "example": "A custom training loop provides flexibility for debugging and custom modifications.\n\n```python\nfor epoch in range(num_epochs):\n    for batch in dataloader:\n        optimizer.zero_grad()\n        outputs = model(batch)\n        loss = loss_fn(outputs, targets)\n        loss.backward()\n        optimizer.step()\n```\n"
+      },
+      {
+        "name": "Checkpointing and Saving Models",
+        "example": "Regular checkpointing saves the model's state, allowing training to resume or for future evaluation.\n\n```python\n# Save model checkpoint\ntorch.save(model.state_dict(), 'model_checkpoint.pth')\n```\n"
+      },
+      {
+        "name": "Monitoring Training with TensorBoard",
+        "example": "TensorBoard provides visualization tools for tracking metrics and model graphs during training.\n\n```python\nfrom torch.utils.tensorboard import SummaryWriter\nwriter = SummaryWriter()\nwriter.add_scalar('Loss/train', loss, epoch)\n```\n"
+      },
+      {
+        "name": "Best Practices: Reproducibility in Transformer Training",
+        "example": "Ensure reproducibility by setting random seeds and documenting hyperparameters.\n\n```python\nimport random, numpy as np, torch\nrandom.seed(42)\nnp.random.seed(42)\ntorch.manual_seed(42)\n```\n"
+      },
+      {
+        "name": "BERT Architecture Overview",
+        "example": "BERT is a bidirectional transformer that uses masked language modeling and next sentence prediction. It employs only the encoder stack.\n\n```python\n# Simplified BERT pseudo-code\nclass BERT(nn.Module):\n    def __init__(self, config):\n        super().__init__()\n        self.encoder = TransformerEncoder(config)\n        self.nsp = nn.Linear(config.hidden_size, 2)  # Next Sentence Prediction head\n    def forward(self, input_ids, attention_mask):\n        encoded = self.encoder(input_ids, attention_mask)\n        # Use [CLS] token representation\n        cls_token = encoded[:, 0]\n        return self.nsp(cls_token)\n```\n"
+      },
+      {
+        "name": "GPT Architecture Overview",
+        "example": "GPT is a unidirectional transformer decoder optimized for autoregressive language modeling.\n\n```python\n# Simplified GPT pseudo-code\nclass GPT(nn.Module):\n    def __init__(self, config):\n        super().__init__()\n        self.decoder = TransformerDecoder(config)  \n    def forward(self, input_ids):\n        # Only uses past context\n        return self.decoder(input_ids)\n```\n"
+      },
+      {
+        "name": "T5 Architecture Overview",
+        "example": "T5 frames all tasks as text-to-text problems using an encoder-decoder structure.\n\n```python\n# Simplified T5 pseudo-code\nclass T5Model(nn.Module):\n    def __init__(self, config):\n        super().__init__()\n        self.encoder = TransformerEncoder(config)\n        self.decoder = TransformerDecoder(config)\n    def forward(self, input_ids, decoder_input_ids):\n        enc_out = self.encoder(input_ids)\n        return self.decoder(decoder_input_ids, enc_out)\n```\n"
+      },
+      {
+        "name": "Sequence-to-Sequence Transformers",
+        "example": "Seq2Seq models convert an input sequence to an output sequence using encoder-decoder architecture.\n\n```python\n# Basic seq2seq transformer usage\ndef seq2seq_forward(encoder, decoder, src, tgt):\n    enc_out = encoder(src)\n    return decoder(tgt, enc_out)  # Decode with encoder context\n```\n"
+      },
+      {
+        "name": "Cross-Attention in Multi-Modal Transformers",
+        "example": "Cross-attention layers allow the model to integrate information from different modalities, such as text and images.\n\n```python\n# Pseudo-code for cross-attention\nclass CrossAttention(nn.Module):\n    def forward(self, query, key, value):\n        # Compute attention between modalities\n        return scaled_dot_product_attention(query, key, value)\n```\n"
+      },
+      {
+        "name": "Handling Out-of-Vocabulary Tokens",
+        "example": "Subword tokenization (e.g., BPE) splits rare words into known components to reduce OOV issues.\n\n```python\n# Example using a tokenizer\ntokens = tokenizer.tokenize(\"uncommonword\")\n# Might return: ['un', 'common', 'word']\n```\n"
+      },
+      {
+        "name": "Weight Sharing in Transformer Embeddings",
+        "example": "Sharing weights between input embeddings and output projection can reduce model size and improve performance.\n\n```python\n# Weight sharing example in PyTorch\nembedding = nn.Embedding(vocab_size, d_model)\noutput_layer = nn.Linear(d_model, vocab_size)\noutput_layer.weight = embedding.weight  # Share weights\n```\n"
+      },
+      {
+        "name": "Adaptive Input Representations",
+        "example": "Adaptive inputs adjust embedding dimensions based on token frequency, optimizing parameter usage.\n\n```python\n# Conceptual example: smaller embeddings for rare words\n# Implementation details vary by framework\n```\n"
+      },
+      {
+        "name": "Relative Positional Encoding",
+        "example": "Relative positional encodings capture token-to-token distances, often improving performance in long contexts.\n\n```python\n# Simple relative encoding example\ndef relative_encoding(positions, d_model):\n    # Compute embeddings based on relative positions\n    return torch.sin(positions / d_model)\n```\n"
+      },
+      {
+        "name": "Dynamic Attention Patterns",
+        "example": "Dynamic attention adjusts focus based on input content instead of using fixed patterns.\n\n```python\n# Pseudo-code for dynamic attention\n def dynamic_attention(query, key, value, dynamic_mask):\n    scores = query @ key.transpose(-2, -1)\n    scores = scores * dynamic_mask  # Modify scores dynamically\n    return F.softmax(scores, dim=-1) @ value\n```\n"
+      },
+      {
+        "name": "Residual Dropout in Transformer Blocks",
+        "example": "Applying dropout after adding residual connections can help prevent overfitting.\n\n```python\n# Residual dropout example\nresidual = x\nx = dropout(layer(x))\nx = residual + x\n```\n"
+      },
+      {
+        "name": "Attention Head Dropout",
+        "example": "Dropping entire attention heads during training can encourage robustness in multi-head attention.\n\n```python\n# Pseudo-code for head dropout\nheads = multi_head_attention(x)\nheads = dropout(heads)  # Randomly drop some heads\ncombined = combine_heads(heads)\n```\n"
+      },
+      {
+        "name": "Next Sentence Prediction in BERT",
+        "example": "BERT uses next sentence prediction (NSP) to learn sentence relationships by predicting if one sentence follows another.\n\n```python\n# NSP loss calculation\nlogits = model(nsp_input)\nloss = cross_entropy(logits, next_sentence_labels)\n```\n"
+      },
+      {
+        "name": "BERT for Question Answering",
+        "example": "Fine-tuning BERT on QA tasks involves predicting start and end positions of an answer in a context.\n\n```python\n# BERT QA pseudo-code\nstart_logits, end_logits = model(context, question)\n# Identify answer span based on logits\n```\n"
+      },
+      {
+        "name": "Transformer-based Text Summarization",
+        "example": "Text summarization condenses long documents into shorter summaries using encoder-decoder transformers.\n\n```python\n# Summarization generation example\nsummary = model.generate(input_text, max_length=50)\n```\n"
+      },
+      {
+        "name": "Sequence Classification with Transformers",
+        "example": "Adding a classification head on top of a transformer encoder enables sequence classification tasks.\n\n```python\n# Sequence classification example\nlogits = classifier(transformer_encoder(input_ids))\n```\n"
+      },
+      {
+        "name": "Teacher Forcing in Seq2Seq Models",
+        "example": "Teacher forcing uses the actual target token as input for the next time step during training, accelerating convergence.\n\n```python\n# Teacher forcing loop example\nfor t in range(1, tgt_len):\n    decoder_input = tgt[:, t-1]\n    output = decoder(decoder_input, encoder_output)\n```\n"
+      },
+      {
+        "name": "Dynamic Masking for MLM",
+        "example": "Dynamic masking selects different tokens to mask at each training step, enhancing model robustness.\n\n```python\n# Create a new mask each epoch\nmasked_input = dynamic_masking(token_ids, mask_prob=0.15)\n```\n"
+      },
+      {
+        "name": "Gradient Accumulation for Large Batches",
+        "example": "Accumulate gradients over several mini-batches to simulate a larger batch size without exceeding memory limits.\n\n```python\n# Gradient accumulation example\nfor i, batch in enumerate(dataloader):\n    loss = model(batch).loss / accumulation_steps\n    loss.backward()\n    if (i + 1) % accumulation_steps == 0:\n        optimizer.step()\n        optimizer.zero_grad()\n```\n"
+      },
+      {
+        "name": "Checkpoint Averaging for Model Stability",
+        "example": "Averaging weights from multiple checkpoints can yield a more stable final model.\n\n```python\n# Pseudo-code for checkpoint averaging\navg_state = average([load_state(path) for path in checkpoint_paths])\nmodel.load_state_dict(avg_state)\n```\n"
+      },
+      {
+        "name": "Data Augmentation in NLP with Transformers",
+        "example": "Data augmentation, such as synonym replacement, can increase dataset diversity for improved generalization.\n\n```python\n# Augment text by replacing words with synonyms\naugmented_text = augment_text(input_text)\n```\n"
+      },
+      {
+        "name": "Distributed Data Parallel (DDP) in PyTorch",
+        "example": "DDP allows training models across multiple GPUs by replicating the model on each device.\n\n```python\n# Initialize DDP model\nmodel = torch.nn.parallel.DistributedDataParallel(model)\n```\n"
+      },
+      {
+        "name": "Pipeline Parallelism in Transformers",
+        "example": "Pipeline parallelism splits transformer layers across devices, enabling larger models to be trained.\n\n```python\n# Example: assign different layers to different GPUs\nlayer1.to('cuda:0')\nlayer2.to('cuda:1')\n```\n"
+      },
+      {
+        "name": "Using Focal Loss for Imbalanced Data",
+        "example": "Focal loss down-weights easy examples, focusing training on hard-to-classify cases in imbalanced datasets.\n\n```python\n# Focal loss function snippet\n def focal_loss(pred, target, gamma=2.0):\n    loss = - (1 - pred) ** gamma * target * torch.log(pred)\n    return loss.mean()\n```\n"
+      },
+      {
+        "name": "Label Smoothing in Loss Computation",
+        "example": "Label smoothing softens target distributions, reducing overconfidence in predictions.\n\n```python\n# Apply label smoothing\nsmoothed_labels = (1 - smoothing) * true_labels + smoothing / num_classes\nloss = cross_entropy(logits, smoothed_labels)\n```\n"
+      },
+      {
+        "name": "Contrastive Learning with Transformers",
+        "example": "Contrastive learning trains the model to bring similar representations closer and push dissimilar ones apart.\n\n```python\n# Compute contrastive loss between representations\nloss = contrastive_loss(rep1, rep2, temperature=0.07)\n```\n"
+      },
+      {
+        "name": "Optimizing Inference Speed with ONNX",
+        "example": "Exporting the model to ONNX can speed up inference and simplify deployment across platforms.\n\n```python\n# Export model to ONNX\ntorch.onnx.export(model, dummy_input, 'model.onnx')\n```\n"
+      },
+      {
+        "name": "Quantization Techniques for Transformers",
+        "example": "Post-training quantization converts model weights to lower precision, reducing size and latency.\n\n```python\n# Dynamic quantization example\nquantized_model = torch.quantization.quantize_dynamic(model, {nn.Linear}, dtype=torch.qint8)\n```\n"
+      },
+      {
+        "name": "Model Pruning for Efficiency",
+        "example": "Pruning removes less significant weights, creating a sparser and more efficient model.\n\n```python\n# Pruning example: zero out small weights\nfor param in model.parameters():\n    param.data[abs(param.data) < threshold] = 0\n```\n"
+      },
+      {
+        "name": "Temperature Scaling in Distillation",
+        "example": "Temperature scaling softens the teacher's logits, making it easier for the student to learn.\n\n```python\n# Scale logits with temperature\nscaled_logits = teacher_logits / temperature\nloss = distillation_loss(student_logits, scaled_logits)\n```\n"
+      },
+      {
+        "name": "Knowledge Distillation Loss Components",
+        "example": "Combine soft target loss from the teacher with hard target loss from ground truth labels.\n\n```python\n# Combined distillation loss\nloss = alpha * soft_loss(student_logits, teacher_logits) + (1 - alpha) * hard_loss(student_logits, true_labels)\n```\n"
+      },
+      {
+        "name": "Unsupervised Pre-training Objectives",
+        "example": "Objectives like denoising autoencoders enable learning representations without explicit labels.\n\n```python\n# Denoising autoencoder objective\nreconstructed = model(noisy_input)\nloss = reconstruction_loss(reconstructed, original_input)\n```\n"
+      },
+      {
+        "name": "Masked Span Prediction Objective",
+        "example": "Instead of single-token masking, predict entire spans to capture richer contextual information.\n\n```python\n# Span prediction loss pseudo-code\nloss = span_prediction_loss(model(masked_input), true_spans)\n```\n"
+      },
+      {
+        "name": "Fine-tuning on Domain-Specific Data",
+        "example": "Further fine-tune pre-trained models on specialized data to better capture domain-specific language.\n\n```python\n# Domain-specific fine-tuning loop\nfor batch in domain_data:\n    loss = model(batch).loss\n    loss.backward()\n    optimizer.step()\n```\n"
+      },
+      {
+        "name": "NLP Data Preprocessing Pipelines",
+        "example": "Clean, tokenize, and encode text data before model ingestion to improve training quality.\n\n```python\n# Simple NLP preprocessing pipeline\ntext = clean_text(raw_text)\ntokens = tokenizer.tokenize(text)\ntoken_ids = tokenizer.convert_tokens_to_ids(tokens)\n```\n"
+      },
+      {
+        "name": "Transformers for Code Modeling",
+        "example": "Apply transformer models to source code for tasks like code completion and summarization.\n\n```python\n# Process source code with a specialized tokenizer\ncode_tokens = code_tokenizer.tokenize(source_code)\ncode_ids = code_tokenizer.convert_tokens_to_ids(code_tokens)\noutput = model(code_ids)\n```\n"
+      },
+      {
+        "name": "Multi-task Learning with Transformers",
+        "example": "Train a single model on multiple tasks to benefit from shared representations across tasks.\n\n```python\n# Multi-task training example\nloss_task1 = model(task1_input).loss\nloss_task2 = model(task2_input).loss\ncombined_loss = loss_task1 + loss_task2\ncombined_loss.backward()\n```\n"
+      },
+      {
+        "name": "Curriculum Learning for Transformers",
+        "example": "Begin training with simpler tasks and progressively increase task difficulty to improve learning.\n\n```python\n# Curriculum learning pseudo-code\nfor epoch in range(num_epochs):\n    difficulty = get_difficulty(epoch)\n    batch = sample_data(difficulty)\n    loss = model(batch).loss\n    loss.backward()\n```\n"
+      },
+      {
+        "name": "Bayesian Optimization for Hyperparameter Tuning",
+        "example": "Use Bayesian optimization to efficiently search the hyperparameter space for optimal model settings.\n\n```python\n# Example using Optuna\nimport optuna\nstudy = optuna.create_study(direction='minimize')\nstudy.optimize(objective, n_trials=100)\n```\n"
+      },
+      {
+        "name": "Integrating External Knowledge Bases",
+        "example": "Enhance transformer outputs by incorporating information from external knowledge bases.\n\n```python\n# Retrieve external facts and provide as additional context\nfacts = knowledge_base.retrieve(query)\noutput = model(input, context=facts)\n```\n"
+      },
+      {
+        "name": "Handling Long-Range Dependencies",
+        "example": "Incorporate memory tokens or additional mechanisms to capture dependencies over long sequences.\n\n```python\n# Introduce memory tokens for long-range context\nmemory = initialize_memory(batch_size, memory_size)\noutput = model(input, memory=memory)\n```\n"
+      },
+      {
+        "name": "Self-Supervised Learning in Transformers",
+        "example": "Self-supervision leverages parts of the input itself as supervision signals to learn robust features.\n\n```python\n# Self-supervised objective: predict masked portions of input\nmasked_input = mask_randomly(input_ids)\nloss = self_supervised_loss(model(masked_input), input_ids)\n```\n"
+      },
+      {
+        "name": "Efficient Transformer Inference with Beam Search",
+        "example": "Beam search explores multiple candidate sequences to improve the quality of generated text.\n\n```python\n# Generate text using beam search\ngenerated = model.generate(input_ids, num_beams=5, max_length=50)\n```\n"
+      },
+      {
+        "name": "Transformer Ensembling for Robust Predictions",
+        "example": "Ensembling multiple transformer models can improve prediction stability by averaging their outputs.\n\n```python\n# Average logits from multiple models\nensemble_logits = sum(model(input_ids).logits for model in models) / len(models)\n```\n"
+      },
+      {
+        "name": "Using Mixed Loss Functions",
+        "example": "Combine different loss functions (e.g., cross-entropy and contrastive loss) to guide training from multiple angles.\n\n```python\n# Mixed loss example\nloss = cross_entropy_loss(logits, labels) + lambda_val * contrastive_loss(rep, rep_augmented)\n```\n"
+      },
+      {
+        "name": "Distributed Evaluation for Large Models",
+        "example": "Spread evaluation across multiple devices to speed up inference on large datasets.\n\n```python\n# Distributed evaluation pseudocode\nresults = distributed_evaluate(model, eval_dataset)\n```\n"
+      },
+      {
+        "name": "Sparse Transformer Implementations",
+        "example": "Sparse transformers reduce computation by restricting attention to a subset of tokens.\n\n```python\n# Create a sparse attention mask\nsparse_mask = create_sparse_mask(seq_len)\noutput = model(input_ids, attention_mask=sparse_mask)\n```\n"
+      },
+      {
+        "name": "Integrating Convolution with Self-Attention",
+        "example": "Hybrid models combine convolutional layers with self-attention to capture both local and global features.\n\n```python\n# Example combining CNN and transformer\nconv_features = cnn_layer(input)\nattended = transformer_block(conv_features)\noutput = combine(conv_features, attended)\n```\n"
+      },
+      {
+        "name": "Handling Multi-Language Inputs",
+        "example": "Multilingual transformers use shared subword vocabularies to process inputs in various languages.\n\n```python\n# Tokenize multi-language input\ntokens = multilingual_tokenizer.tokenize(\"Bonjour, hello, こんにちは\")\n```\n"
+      },
+      {
+        "name": "Zeroing Out Gradients for Stability",
+        "example": "Always zero out gradients before backpropagation to prevent inadvertent accumulation.\n\n```python\n# Zero gradients in PyTorch\noptimizer.zero_grad()\nloss.backward()\noptimizer.step()\n```\n"
+      }
+    ]
+  }
+  

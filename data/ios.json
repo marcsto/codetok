@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Swift Variables and Constants",
+        "example": "### Swift Variables and Constants\n\n`var` creates a mutable variable, while `let` creates an immutable constant.\n\n```swift\nvar mutableVar = 10  // Mutable variable\nlet constantVal = 20 // Immutable constant\n```"
+      },
+      {
+        "name": "Swift Data Types",
+        "example": "### Swift Data Types\n\nSwift supports several basic data types like `Int`, `Double`, `String`, and `Bool`.\n\n```swift\nlet age: Int = 30\nlet height: Double = 5.9\nlet name: String = \"Alice\"\nlet isActive: Bool = true\n```"
+      },
+      {
+        "name": "Swift Optionals",
+        "example": "### Swift Optionals\n\nOptionals may hold a value or be `nil`.\n\n```swift\nvar optionalString: String? = \"Hello\"\noptionalString = nil  // Now has no value\n```"
+      },
+      {
+        "name": "Optional Binding",
+        "example": "### Optional Binding\n\nUse `if let` to safely unwrap an optional.\n\n```swift\nvar optionalName: String? = \"Bob\"\nif let name = optionalName {\n    // 'name' is safely unwrapped\n    // Example: Using the unwrapped value\n}\n```"
+      },
+      {
+        "name": "Swift Control Flow",
+        "example": "### Swift Control Flow\n\nUtilize `if-else` and `switch` statements to control code execution.\n\n```swift\nlet number = 3\nif number % 2 == 0 {\n    // Even number\n} else {\n    // Odd number\n}\n\nswitch number {\ncase 1:\n    // Handle case for 1\n    break\ncase 2...4:\n    // Handle numbers 2 through 4\n    break\ndefault:\n    break\n}\n```"
+      },
+      {
+        "name": "Swift Functions",
+        "example": "### Swift Functions\n\nFunctions group code for reuse.\n\n```swift\nfunc greet(name: String) -> String {\n    return \"Hello, \\(name)!\"\n}\n\n// Usage: greet(name: \"Alice\")\n```"
+      },
+      {
+        "name": "Swift Closures",
+        "example": "### Swift Closures\n\nClosures are self-contained blocks of functionality.\n\n```swift\nlet add = { (a: Int, b: Int) -> Int in\n    return a + b\n}\n\n// Usage: add(2, 3) returns 5\n```"
+      },
+      {
+        "name": "Swift Structs",
+        "example": "### Swift Structs\n\nStructs are value types used to encapsulate related data.\n\n```swift\nstruct Person {\n    var name: String\n    var age: Int\n}\n\nlet person = Person(name: \"Carol\", age: 25)\n```"
+      },
+      {
+        "name": "Swift Classes",
+        "example": "### Swift Classes\n\nClasses are reference types that support inheritance.\n\n```swift\nclass Animal {\n    var name: String\n    init(name: String) {\n        self.name = name\n    }\n}\n\nlet animal = Animal(name: \"Lion\")\n```"
+      },
+      {
+        "name": "Swift Enums",
+        "example": "### Swift Enums\n\nEnums define a type with a group of related values.\n\n```swift\nenum Direction {\n    case north, south, east, west\n}\n\nlet heading = Direction.north\n```"
+      },
+      {
+        "name": "Swift Protocols",
+        "example": "### Swift Protocols\n\nProtocols define a blueprint of methods or properties that conforming types must implement.\n\n```swift\nprotocol Drivable {\n    func drive()\n}\n\nclass Car: Drivable {\n    func drive() {\n        // Implement driving logic\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Extensions",
+        "example": "### Swift Extensions\n\nExtensions add new functionality to existing types.\n\n```swift\nextension Int {\n    var isEven: Bool {\n        return self % 2 == 0\n    }\n}\n\n// Usage: 4.isEven returns true\n```"
+      },
+      {
+        "name": "Swift Error Handling",
+        "example": "### Swift Error Handling\n\nHandle errors using `do-catch` blocks.\n\n```swift\nenum FileError: Error {\n    case notFound\n}\n\nfunc readFile() throws {\n    throw FileError.notFound\n}\n\ndo {\n    try readFile()\n} catch {\n    // Error is handled here\n}\n```"
+      },
+      {
+        "name": "Swift Generics",
+        "example": "### Swift Generics\n\nGenerics enable you to write flexible and reusable functions and types.\n\n```swift\nfunc swapValues<T>(_ a: inout T, _ b: inout T) {\n    let temp = a\n    a = b\n    b = temp\n}\n```"
+      },
+      {
+        "name": "Swift Access Control",
+        "example": "### Swift Access Control\n\nAccess modifiers control the visibility of code.\n\n```swift\npublic class PublicClass {}\ninternal class InternalClass {}\nprivate class PrivateClass {}\n```"
+      },
+      {
+        "name": "Swift Memory Management (ARC)",
+        "example": "### Swift Memory Management (ARC)\n\nAutomatic Reference Counting (ARC) manages memory. Use `weak` to avoid retain cycles.\n\n```swift\nclass Person {\n    var name: String\n    init(name: String) { self.name = name }\n    weak var friend: Person?\n}\n```"
+      },
+      {
+        "name": "Swift Enum with Associated Values",
+        "example": "### Swift Enum with Associated Values\n\nEnums can store associated values for each case.\n\n```swift\nenum Result {\n    case success(data: String)\n    case failure(error: Error)\n}\n\nlet result = Result.success(data: \"Data loaded\")\n```"
+      },
+      {
+        "name": "Swift Pattern Matching",
+        "example": "### Swift Pattern Matching\n\nUse pattern matching in a `switch` statement for complex comparisons.\n\n```swift\nlet value = 5\nswitch value {\ncase let x where x > 0:\n    // x is positive\n    break\ndefault:\n    break\n}\n```"
+      },
+      {
+        "name": "Swift Subscripts",
+        "example": "### Swift Subscripts\n\nSubscripts let you access elements in a collection-like way.\n\n```swift\nstruct TimesTable {\n    let multiplier: Int\n    subscript(index: Int) -> Int {\n        return multiplier * index\n    }\n}\n\nlet table = TimesTable(multiplier: 3)\n// Usage: table[4] returns 12\n```"
+      },
+      {
+        "name": "Swift Computed Properties",
+        "example": "### Swift Computed Properties\n\nComputed properties calculate a value rather than storing it.\n\n```swift\nstruct Circle {\n    var radius: Double\n    var area: Double {\n        return .pi * radius * radius\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Property Observers",
+        "example": "### Swift Property Observers\n\n`didSet` and `willSet` allow you to observe property changes.\n\n```swift\nvar score: Int = 0 {\n    didSet {\n        // Called after 'score' changes\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Lazy Properties",
+        "example": "### Swift Lazy Properties\n\nLazy properties are only computed when first accessed.\n\n```swift\nclass DataLoader {\n    lazy var data: String = {\n        // Expensive setup code\n        return \"Loaded Data\"\n    }()\n}\n```"
+      },
+      {
+        "name": "Swift Static Properties and Methods",
+        "example": "### Swift Static Properties and Methods\n\nStatic members belong to the type itself rather than an instance.\n\n```swift\nclass Math {\n    static let pi = 3.14159\n    static func square(_ value: Int) -> Int {\n        return value * value\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Singleton Pattern",
+        "example": "### Swift Singleton Pattern\n\nEnsure a class has only one shared instance.\n\n```swift\nclass Manager {\n    static let shared = Manager()\n    private init() { }\n}\n```"
+      },
+      {
+        "name": "Swift Type Casting",
+        "example": "### Swift Type Casting\n\nUse `as?` for safe casting and `as!` for forced casting.\n\n```swift\nclass Animal {}\nclass Dog: Animal {}\n\nlet animal: Animal = Dog()\nif let dog = animal as? Dog {\n    // Successfully cast to Dog\n}\n```"
+      },
+      {
+        "name": "Swift MVC Architecture",
+        "example": "### Swift MVC Architecture\n\nMVC separates your app into Model, View, and Controller components.\n\n```swift\n// Model\nstruct User { let name: String }\n\n// View: Defined in Storyboards or SwiftUI\n\n// Controller\nclass UserController {\n    var user: User?\n    // Manage user data and update views\n}\n```"
+      },
+      {
+        "name": "SwiftUI Introduction",
+        "example": "### SwiftUI Introduction\n\nSwiftUI uses a declarative syntax for building UIs.\n\n```swift\nimport SwiftUI\n\nstruct ContentView: View {\n    var body: some View {\n        Text(\"Hello, SwiftUI\")\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Views",
+        "example": "### SwiftUI Views\n\nCreate custom views using SwiftUI's declarative syntax.\n\n```swift\nstruct CustomView: View {\n    var body: some View {\n        VStack {\n            Text(\"Title\")\n            Text(\"Subtitle\")\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Modifiers",
+        "example": "### SwiftUI Modifiers\n\nModifiers adjust the appearance and behavior of views.\n\n```swift\nText(\"Hello\")\n    .font(.largeTitle)\n    .foregroundColor(.blue)\n    .padding()\n```"
+      },
+      {
+        "name": "SwiftUI State",
+        "example": "### SwiftUI State\n\nUse `@State` to manage local mutable state in a view.\n\n```swift\nstruct CounterView: View {\n    @State private var count = 0\n\n    var body: some View {\n        Button(action: { count += 1 }) {\n            Text(\"Count: \\(count)\")\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Bindings",
+        "example": "### SwiftUI Bindings\n\n`@Binding` creates a two-way connection between a view and its data.\n\n```swift\nstruct ToggleView: View {\n    @Binding var isOn: Bool\n\n    var body: some View {\n        Toggle(\"Switch\", isOn: $isOn)\n    }\n}\n\n// Parent view passes a binding to ToggleView\n```"
+      },
+      {
+        "name": "SwiftUI Lists",
+        "example": "### SwiftUI Lists\n\nLists display a scrollable collection of items.\n\n```swift\nstruct ItemListView: View {\n    let items = [\"Apple\", \"Banana\", \"Cherry\"]\n    var body: some View {\n        List(items, id: \\ .self) { item in\n            Text(item)\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Navigation",
+        "example": "### SwiftUI Navigation\n\n`NavigationView` and `NavigationLink` enable navigation between views.\n\n```swift\nstruct MainView: View {\n    var body: some View {\n        NavigationView {\n            NavigationLink(destination: DetailView()) {\n                Text(\"Go to Detail\")\n            }\n            .navigationTitle(\"Home\")\n        }\n    }\n}\n\nstruct DetailView: View {\n    var body: some View {\n        Text(\"Detail View\")\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Stacks",
+        "example": "### SwiftUI Stacks\n\nUse `VStack`, `HStack`, and `ZStack` to arrange views vertically, horizontally, or in layers.\n\n```swift\nVStack {\n    Text(\"Top\")\n    Text(\"Bottom\")\n}\n```"
+      },
+      {
+        "name": "SwiftUI Conditional Views",
+        "example": "### SwiftUI Conditional Views\n\nRender different views based on conditions.\n\n```swift\nstruct ConditionalView: View {\n    var isLoggedIn: Bool\n    var body: some View {\n        if isLoggedIn {\n            Text(\"Welcome Back!\")\n        } else {\n            Text(\"Please Log In\")\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: Basic UIViewController",
+        "example": "### UIKit: Basic UIViewController\n\nSubclass `UIViewController` to create a new screen.\n\n```swift\nimport UIKit\n\nclass MyViewController: UIViewController {\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        // Setup view components\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: View Lifecycle",
+        "example": "### UIKit: View Lifecycle\n\nKey lifecycle methods include `viewDidLoad` and `viewWillAppear`.\n\n```swift\nclass LifecycleVC: UIViewController {\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        // Called once when the view loads\n    }\n    override func viewWillAppear(_ animated: Bool) {\n        super.viewWillAppear(animated)\n        // Called each time before the view appears\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: Programmatic UI",
+        "example": "### UIKit: Programmatic UI\n\nCreate UI elements in code rather than using Storyboards.\n\n```swift\nclass ProgrammaticVC: UIViewController {\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        let label = UILabel()\n        label.text = \"Hello, UIKit\"\n        label.translatesAutoresizingMaskIntoConstraints = false\n        view.addSubview(label)\n        // Add layout constraints as needed\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: Auto Layout with NSLayoutConstraint",
+        "example": "### UIKit: Auto Layout with NSLayoutConstraint\n\nDefine layout constraints programmatically.\n\n```swift\nlet containerView = UIView()\nlet subview = UIView()\nsubview.translatesAutoresizingMaskIntoConstraints = false\ncontainerView.addSubview(subview)\nNSLayoutConstraint.activate([\n    subview.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),\n    subview.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)\n])\n```"
+      },
+      {
+        "name": "UIKit: Using Storyboards",
+        "example": "### UIKit: Using Storyboards\n\nDesign your UI visually and connect elements via @IBOutlet.\n\n```swift\n// In the Storyboard, link UI elements to your code\nclass StoryboardVC: UIViewController {\n    @IBOutlet weak var label: UILabel!\n}\n```"
+      },
+      {
+        "name": "Delegation Pattern in iOS",
+        "example": "### Delegation Pattern in iOS\n\nDelegation allows one object to communicate back to another.\n\n```swift\nprotocol TaskDelegate: AnyObject {\n    func didFinishTask()\n}\n\nclass Worker {\n    weak var delegate: TaskDelegate?\n    func doTask() {\n        // Task is completed\n        delegate?.didFinishTask()\n    }\n}\n```"
+      },
+      {
+        "name": "Target-Action Pattern",
+        "example": "### Target-Action Pattern\n\nConnect UI events to methods using target-action.\n\n```swift\nlet button = UIButton(type: .system)\nbutton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)\n\n@objc func buttonTapped() {\n    // Handle button tap\n}\n```"
+      },
+      {
+        "name": "Notification Center",
+        "example": "### Notification Center\n\nUse NotificationCenter to broadcast and listen for events.\n\n```swift\n// Adding an observer\nNotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: NSNotification.Name(\"MyNotification\"), object: nil)\n\n@objc func handleNotification() {\n    // Notification received\n}\n\n// Posting a notification\nNotificationCenter.default.post(name: NSNotification.Name(\"MyNotification\"), object: nil)\n```"
+      },
+      {
+        "name": "Gesture Recognizers",
+        "example": "### Gesture Recognizers\n\nDetect user interactions like taps using gesture recognizers.\n\n```swift\nlet tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))\nview.addGestureRecognizer(tapGesture)\n\n@objc func handleTap() {\n    // Handle tap gesture\n}\n```"
+      },
+      {
+        "name": "UITableView Basic Setup",
+        "example": "### UITableView Basic Setup\n\nImplement `UITableViewDataSource` to populate table views.\n\n```swift\nclass TableVC: UIViewController, UITableViewDataSource {\n    let items = [\"Item 1\", \"Item 2\"]\n    let tableView = UITableView()\n\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        tableView.dataSource = self\n        view.addSubview(tableView)\n    }\n\n    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {\n        return items.count\n    }\n\n    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {\n        let cell = UITableViewCell()\n        cell.textLabel?.text = items[indexPath.row]\n        return cell\n    }\n}\n```"
+      },
+      {
+        "name": "UICollectionView Basic Setup",
+        "example": "### UICollectionView Basic Setup\n\nImplement `UICollectionViewDataSource` to set up a collection view.\n\n```swift\nclass CollectionVC: UIViewController, UICollectionViewDataSource {\n    var items = [\"A\", \"B\", \"C\"]\n    var collectionView: UICollectionView!\n\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        let layout = UICollectionViewFlowLayout()\n        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)\n        collectionView.dataSource = self\n        view.addSubview(collectionView)\n    }\n\n    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {\n        return items.count\n    }\n\n    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {\n        let cell = UICollectionViewCell()\n        // Configure cell\n        return cell\n    }\n}\n```"
+      },
+      {
+        "name": "Networking with URLSession",
+        "example": "### Networking with URLSession\n\nFetch data asynchronously using URLSession.\n\n```swift\nlet url = URL(string: \"https://api.example.com/data\")!\nURLSession.shared.dataTask(with: url) { data, response, error in\n    // Handle response or error\n}.resume()\n```"
+      },
+      {
+        "name": "JSON Decoding with Codable",
+        "example": "### JSON Decoding with Codable\n\nDecode JSON data into Swift types using the Codable protocol.\n\n```swift\nstruct User: Codable {\n    let id: Int\n    let name: String\n}\n\nlet jsonData = \"{ \\\"id\\\": 1, \\\"name\\\": \\\"Alice\\\" }\".data(using: .utf8)!\nlet user = try? JSONDecoder().decode(User.self, from: jsonData)\n```"
+      },
+      {
+        "name": "Concurrency in iOS: GCD",
+        "example": "### Concurrency in iOS: GCD\n\nUse Grand Central Dispatch (GCD) to perform background tasks.\n\n```swift\nDispatchQueue.global(qos: .background).async {\n    // Perform background work\n    DispatchQueue.main.async {\n        // Update UI on the main thread\n    }\n}\n```"
+      },
+      {
+        "name": "Concurrency in iOS: Async/Await",
+        "example": "### Concurrency in iOS: Async/Await\n\nSimplify asynchronous code using async/await.\n\n```swift\nfunc fetchData() async throws -> String {\n    // Simulate a network call\n    return \"Data\"\n}\n\nTask {\n    do {\n        let data = try await fetchData()\n        // Use the retrieved data\n    } catch {\n        // Handle any errors\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Tuples",
+        "example": "### Swift Tuples\n\nTuples group multiple values into a single compound value.\n\n```swift\nlet person = (\"Alice\", 30)\nlet (name, age) = person  // name is \"Alice\", age is 30\n```"
+      },
+      {
+        "name": "Swift Higher-Order Functions",
+        "example": "### Swift Higher-Order Functions\n\nUse functions like `map`, `filter`, and `reduce` on collections.\n\n```swift\nlet numbers = [1, 2, 3, 4, 5]\nlet doubled = numbers.map { $0 * 2 }      // [2, 4, 6, 8, 10]\nlet evens = numbers.filter { $0 % 2 == 0 }  // [2, 4]\nlet sum = numbers.reduce(0, +)              // 15\n```"
+      },
+      {
+        "name": "Swift Custom Operators",
+        "example": "### Swift Custom Operators\n\nDefine custom operators for specialized tasks.\n\n```swift\ninfix operator **\n\nfunc ** (lhs: Int, rhs: Int) -> Int {\n    return Int(pow(Double(lhs), Double(rhs)))\n}\n\n// Usage: 2 ** 3 returns 8\n```"
+      },
+      {
+        "name": "Swift Protocol Extensions",
+        "example": "### Swift Protocol Extensions\n\nProvide default implementations for protocol methods.\n\n```swift\nprotocol Greetable {\n    func greet()\n}\n\nextension Greetable {\n    func greet() {\n        // Default greeting\n    }\n}\n\nstruct Person: Greetable {}\n// Person now has a default greet() method\n```"
+      },
+      {
+        "name": "Swift Error Propagation (try? and try!)",
+        "example": "### Swift Error Propagation (try? and try!)\n\nUse `try?` to convert errors into optionals, or `try!` to force unwrap.\n\n```swift\nenum FileError: Error {\n    case notFound\n}\n\nfunc readFile() throws -> String {\n    throw FileError.notFound\n}\n\nlet result = try? readFile()  // result is nil if an error occurs\n// let forcedResult = try! readFile()  // Crashes if error is thrown\n```"
+      },
+      {
+        "name": "Swift Nested Types",
+        "example": "### Swift Nested Types\n\nDefine types inside other types to encapsulate related functionality.\n\n```swift\nstruct Chess {\n    enum Piece {\n        case king, queen, rook, bishop, knight, pawn\n    }\n}\n\nlet piece = Chess.Piece.king\n```"
+      },
+      {
+        "name": "Swift Computed Type Properties",
+        "example": "### Swift Computed Type Properties\n\nType properties can be computed for shared data.\n\n```swift\nstruct Math {\n    static var pi: Double {\n        return 3.14159\n    }\n}\n// Usage: Math.pi\n```"
+      },
+      {
+        "name": "Swift Mutating Methods",
+        "example": "### Swift Mutating Methods\n\nUse `mutating` in structs to modify self.\n\n```swift\nstruct Counter {\n    var count = 0\n    mutating func increment() {\n        count += 1\n    }\n}\n\nvar counter = Counter()\ncounter.increment()\n```"
+      },
+      {
+        "name": "Swift Value vs. Reference Types",
+        "example": "### Swift Value vs. Reference Types\n\nStructs are value types; classes are reference types.\n\n```swift\nstruct ValueType { var number = 1 }\nclass ReferenceType { var number = 1 }\n\nvar a = ValueType()\nvar b = a\nb.number = 2  // a.number remains 1\n\nlet objA = ReferenceType()\nlet objB = objA\nobjB.number = 2  // objA.number becomes 2\n```"
+      },
+      {
+        "name": "Swift Deinitializers",
+        "example": "### Swift Deinitializers\n\nUse `deinit` to clean up before an instance is deallocated.\n\n```swift\nclass Resource {\n    deinit {\n        // Clean up resources\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Custom Initializers",
+        "example": "### Swift Custom Initializers\n\nDefine initializers to set up your types with custom parameters.\n\n```swift\nstruct User {\n    var name: String\n    var age: Int\n    \n    init(name: String, age: Int) {\n        self.name = name\n        self.age = age\n    }\n}\n\nlet user = User(name: \"Bob\", age: 28)\n```"
+      },
+      {
+        "name": "Swift Failable Initializers",
+        "example": "### Swift Failable Initializers\n\nReturn nil if initialization fails using `init?`.\n\n```swift\nstruct PositiveNumber {\n    var value: Int\n    \n    init?(value: Int) {\n        if value <= 0 { return nil }\n        self.value = value\n    }\n}\n\nlet number = PositiveNumber(value: -5)  // nil\n```"
+      },
+      {
+        "name": "Swift Type Inference",
+        "example": "### Swift Type Inference\n\nSwift infers types from the assigned values.\n\n```swift\nlet message = \"Hello, World!\"  // Inferred as String\nlet count = 42                // Inferred as Int\n```"
+      },
+      {
+        "name": "Swift Enum Raw Values",
+        "example": "### Swift Enum Raw Values\n\nAssociate raw values with enum cases.\n\n```swift\nenum Planet: Int {\n    case mercury = 1, venus, earth, mars\n}\n\nlet earth = Planet(rawValue: 3)  // earth\n```"
+      },
+      {
+        "name": "Swift Recursive Enumerations",
+        "example": "### Swift Recursive Enumerations\n\nDefine enums that reference themselves using `indirect`.\n\n```swift\nenum ArithmeticExpression {\n    case number(Int)\n    indirect case addition(ArithmeticExpression, ArithmeticExpression)\n}\n\nlet expr = ArithmeticExpression.addition(.number(1), .number(2))\n```"
+      },
+      {
+        "name": "SwiftUI Previews",
+        "example": "### SwiftUI Previews\n\nPreview your SwiftUI views in Xcode.\n\n```swift\nimport SwiftUI\n\nstruct ContentView: View {\n    var body: some View {\n        Text(\"Hello, Preview\")\n    }\n}\n\nstruct ContentView_Previews: PreviewProvider {\n    static var previews: some View {\n        ContentView()\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Grouping Views with Group",
+        "example": "### SwiftUI Grouping Views with Group\n\nUse `Group` to combine multiple views without affecting layout.\n\n```swift\nstruct GroupedView: View {\n    var body: some View {\n        Group {\n            Text(\"First\")\n            Text(\"Second\")\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Custom Shapes",
+        "example": "### SwiftUI Custom Shapes\n\nCreate your own shapes by conforming to the Shape protocol.\n\n```swift\nstruct Triangle: Shape {\n    func path(in rect: CGRect) -> Path {\n        var path = Path()\n        path.move(to: CGPoint(x: rect.midX, y: rect.minY))\n        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))\n        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))\n        path.closeSubpath()\n        return path\n    }\n}\n\n// Usage: Triangle().fill(Color.blue)\n```"
+      },
+      {
+        "name": "SwiftUI Animations",
+        "example": "### SwiftUI Animations\n\nAnimate view changes with implicit animations.\n\n```swift\nstruct AnimatedView: View {\n    @State private var scale: CGFloat = 1.0\n    var body: some View {\n        VStack {\n            Circle()\n                .scaleEffect(scale)\n                .animation(.easeInOut, value: scale)\n            Button(\"Animate\") {\n                scale += 0.5\n            }\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Transitions",
+        "example": "### SwiftUI Transitions\n\nAnimate views appearing or disappearing.\n\n```swift\nstruct TransitionView: View {\n    @State private var isVisible = false\n    var body: some View {\n        VStack {\n            if isVisible {\n                Text(\"Hello, World!\")\n                    .transition(.slide)\n            }\n            Button(\"Toggle\") {\n                withAnimation { isVisible.toggle() }\n            }\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Environment Variables",
+        "example": "### SwiftUI Environment Variables\n\nAccess system values using `@Environment`.\n\n```swift\nstruct EnvironmentView: View {\n    @Environment(\\.colorScheme) var colorScheme\n    var body: some View {\n        Text(\"Current mode: \\(colorScheme == .dark ? \"Dark\" : \"Light\")\")\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI GeometryReader",
+        "example": "### SwiftUI GeometryReader\n\nUse `GeometryReader` to get layout information.\n\n```swift\nstruct GeometryExample: View {\n    var body: some View {\n        GeometryReader { geometry in\n            Text(\"Width: \\(geometry.size.width)\")\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Lists with ForEach",
+        "example": "### SwiftUI Lists with ForEach\n\nCombine `List` with `ForEach` to iterate over collections.\n\n```swift\nstruct NamesList: View {\n    let names = [\"Alice\", \"Bob\", \"Charlie\"]\n    var body: some View {\n        List {\n            ForEach(names, id: \\.self) { name in\n                Text(name)\n            }\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Alerts",
+        "example": "### SwiftUI Alerts\n\nDisplay alerts using the `alert` modifier.\n\n```swift\nstruct AlertView: View {\n    @State private var showAlert = false\n    var body: some View {\n        Button(\"Show Alert\") {\n            showAlert = true\n        }\n        .alert(isPresented: $showAlert) {\n            Alert(title: Text(\"Alert\"), message: Text(\"This is an alert.\"), dismissButton: .default(Text(\"OK\")))\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Sheets",
+        "example": "### SwiftUI Sheets\n\nPresent modal views with the `sheet` modifier.\n\n```swift\nstruct SheetView: View {\n    @State private var showSheet = false\n    var body: some View {\n        Button(\"Show Sheet\") {\n            showSheet = true\n        }\n        .sheet(isPresented: $showSheet) {\n            Text(\"Modal Content\")\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI EnvironmentObject",
+        "example": "### SwiftUI EnvironmentObject\n\nShare data across views using `@EnvironmentObject`.\n\n```swift\nclass UserSettings: ObservableObject {\n    @Published var score = 0\n}\n\nstruct ScoreView: View {\n    @EnvironmentObject var settings: UserSettings\n    var body: some View {\n        Text(\"Score: \\(settings.score)\")\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI PreferenceKey",
+        "example": "### SwiftUI PreferenceKey\n\nPass data up the view hierarchy with a PreferenceKey.\n\n```swift\nstruct SizePreferenceKey: PreferenceKey {\n    static var defaultValue: CGSize = .zero\n    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}\n}\n\n// Usage: .background(GeometryReader { geo in\n//    Color.clear.preference(key: SizePreferenceKey.self, value: geo.size)\n// })\n```"
+      },
+      {
+        "name": "SwiftUI Custom View Modifiers",
+        "example": "### SwiftUI Custom View Modifiers\n\nCreate reusable modifiers by extending `View`.\n\n```swift\nextension View {\n    func customTitleStyle() -> some View {\n        self.font(.largeTitle).foregroundColor(.purple)\n    }\n}\n\n// Usage: Text(\"Hello\").customTitleStyle()\n```"
+      },
+      {
+        "name": "SwiftUI ScrollView",
+        "example": "### SwiftUI ScrollView\n\nMake content scrollable with `ScrollView`.\n\n```swift\nstruct ScrollingView: View {\n    var body: some View {\n        ScrollView {\n            VStack(spacing: 20) {\n                ForEach(0..<20) { i in\n                    Text(\"Item \\(i)\")\n                }\n            }\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Lazy Stacks",
+        "example": "### SwiftUI Lazy Stacks\n\nUse `LazyVStack` or `LazyHStack` for performance with many items.\n\n```swift\nstruct LazyStackView: View {\n    var body: some View {\n        ScrollView {\n            LazyVStack {\n                ForEach(0..<100) { i in\n                    Text(\"Row \\(i)\")\n                }\n            }\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: TableView Delegate Methods",
+        "example": "### UIKit: TableView Delegate Methods\n\nImplement delegate methods to handle interactions.\n\n```swift\nclass TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {\n    let items = [\"One\", \"Two\"]\n    let tableView = UITableView()\n\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        tableView.delegate = self\n        tableView.dataSource = self\n        view.addSubview(tableView)\n    }\n\n    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {\n        return items.count\n    }\n\n    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {\n        let cell = UITableViewCell()\n        cell.textLabel?.text = items[indexPath.row]\n        return cell\n    }\n\n    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {\n        // Handle row selection\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: Custom UITableViewCell",
+        "example": "### UIKit: Custom UITableViewCell\n\nSubclass UITableViewCell to create custom cells.\n\n```swift\nclass CustomCell: UITableViewCell {\n    let customLabel = UILabel()\n    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {\n        super.init(style: style, reuseIdentifier: reuseIdentifier)\n        contentView.addSubview(customLabel)\n        // Configure layout\n    }\n    required init?(coder: NSCoder) {\n        fatalError(\"init(coder:) has not been implemented\")\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: CollectionView Flow Layout",
+        "example": "### UIKit: CollectionView Flow Layout\n\nCustomize UICollectionView layout using UICollectionViewFlowLayout.\n\n```swift\nlet layout = UICollectionViewFlowLayout()\nlayout.itemSize = CGSize(width: 100, height: 100)\nlet collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)\n```"
+      },
+      {
+        "name": "UIKit: UIStackView",
+        "example": "### UIKit: UIStackView\n\nArrange views in a row or column using UIStackView.\n\n```swift\nlet stackView = UIStackView()\nstackView.axis = .vertical\nstackView.spacing = 10\n// Add arranged subviews\n```"
+      },
+      {
+        "name": "UIKit: Custom Transitions",
+        "example": "### UIKit: Custom Transitions\n\nCustomize view controller transitions with a transitioning delegate.\n\n```swift\nclass CustomTransition: NSObject, UIViewControllerAnimatedTransitioning {\n    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {\n        return 0.3\n    }\n    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {\n        // Animation code\n    }\n}\n```"
+      },
+      {
+        "name": "UIKit: Core Animation Basics",
+        "example": "### UIKit: Core Animation Basics\n\nAnimate CALayer properties for smooth effects.\n\n```swift\nimport QuartzCore\n\nlet layer = CALayer()\nlayer.backgroundColor = UIColor.red.cgColor\nlet animation = CABasicAnimation(keyPath: \"opacity\")\nanimation.fromValue = 0\nanimation.toValue = 1\nanimation.duration = 1.0\nlayer.add(animation, forKey: \"fadeIn\")\n```"
+      },
+      {
+        "name": "UIKit: UIView.animate",
+        "example": "### UIKit: UIView.animate\n\nAnimate view properties using UIView.animate.\n\n```swift\nUIView.animate(withDuration: 0.5) {\n    myView.alpha = 0.0  // Fade out\n}\n```"
+      },
+      {
+        "name": "UIKit: UIMotionEffect",
+        "example": "### UIKit: UIMotionEffect\n\nAdd a parallax effect to views using motion effects.\n\n```swift\nlet motionEffect = UIInterpolatingMotionEffect(keyPath: \"center.x\", type: .tiltAlongHorizontalAxis)\nmotionEffect.minimumRelativeValue = -10\nmotionEffect.maximumRelativeValue = 10\nmyView.addMotionEffect(motionEffect)\n```"
+      },
+      {
+        "name": "UIKit: Blur Effects with UIVisualEffectView",
+        "example": "### UIKit: Blur Effects with UIVisualEffectView\n\nApply blur effects to your views.\n\n```swift\nlet blurEffect = UIBlurEffect(style: .light)\nlet blurView = UIVisualEffectView(effect: blurEffect)\nblurView.frame = myView.bounds\nmyView.addSubview(blurView)\n```"
+      },
+      {
+        "name": "UIKit: Handling Keyboard Notifications",
+        "example": "### UIKit: Handling Keyboard Notifications\n\nObserve keyboard events to adjust your UI.\n\n```swift\nNotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)\n\n@objc func keyboardWillShow(notification: Notification) {\n    // Adjust UI\n}\n```"
+      },
+      {
+        "name": "UIKit: Working with XIBs",
+        "example": "### UIKit: Working with XIBs\n\nLoad views from XIB files programmatically.\n\n```swift\nlet nib = UINib(nibName: \"CustomView\", bundle: nil)\nlet views = nib.instantiate(withOwner: nil, options: nil)\nif let customView = views.first as? UIView {\n    // Use customView\n}\n```"
+      },
+      {
+        "name": "UIKit: Storyboard Segues",
+        "example": "### UIKit: Storyboard Segues\n\nPrepare for transitions between view controllers in Storyboards.\n\n```swift\noverride func prepare(for segue: UIStoryboardSegue, sender: Any?) {\n    if segue.identifier == \"showDetail\" {\n        // Pass data to destination\n    }\n}\n```"
+      },
+      {
+        "name": "Networking: URLSession Configuration",
+        "example": "### Networking: URLSession Configuration\n\nCustomize URLSession with a specific configuration.\n\n```swift\nlet config = URLSessionConfiguration.default\nconfig.timeoutIntervalForRequest = 30\nlet session = URLSession(configuration: config)\n```"
+      },
+      {
+        "name": "Networking: Upload Tasks",
+        "example": "### Networking: Upload Tasks\n\nUpload data using URLSession's uploadTask.\n\n```swift\nlet url = URL(string: \"https://api.example.com/upload\")!\nvar request = URLRequest(url: url)\nrequest.httpMethod = \"POST\"\nlet data = Data()\nURLSession.shared.uploadTask(with: request, from: data) { data, response, error in\n    // Handle response\n}.resume()\n```"
+      },
+      {
+        "name": "Networking: Download Tasks",
+        "example": "### Networking: Download Tasks\n\nDownload files using URLSession's downloadTask.\n\n```swift\nlet url = URL(string: \"https://example.com/file.zip\")!\nURLSession.shared.downloadTask(with: url) { localURL, response, error in\n    // Use localURL to access the downloaded file\n}.resume()\n```"
+      },
+      {
+        "name": "Core Data: Basic Setup",
+        "example": "### Core Data: Basic Setup\n\nInitialize a basic Core Data stack.\n\n```swift\nimport CoreData\n\nclass DataController {\n    let persistentContainer = NSPersistentContainer(name: \"Model\")\n    init() {\n        persistentContainer.loadPersistentStores { _, error in\n            // Handle error if needed\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Core Data: NSFetchRequest",
+        "example": "### Core Data: NSFetchRequest\n\nFetch data from Core Data using NSFetchRequest.\n\n```swift\nlet request: NSFetchRequest<Entity> = Entity.fetchRequest()\n// Optionally, set predicates or sort descriptors\nlet results = try? context.fetch(request)\n```"
+      },
+      {
+        "name": "Core Data: Saving Context",
+        "example": "### Core Data: Saving Context\n\nSave changes in the managed object context.\n\n```swift\ndo {\n    try context.save()\n} catch {\n    // Handle save error\n}\n```"
+      },
+      {
+        "name": "Combine: Publishers and Subscribers",
+        "example": "### Combine: Publishers and Subscribers\n\nCreate a publisher and subscribe to receive values.\n\n```swift\nimport Combine\n\nlet publisher = [1, 2, 3].publisher\nlet subscriber = publisher.sink { value in\n    // Process each value\n}\n```"
+      },
+      {
+        "name": "Combine: Using Just Publisher",
+        "example": "### Combine: Using Just Publisher\n\nUse `Just` to emit a single value.\n\n```swift\nimport Combine\n\nlet justPublisher = Just(\"Hello, Combine\")\nlet _ = justPublisher.sink { value in\n    // Received: \"Hello, Combine\"\n}\n```"
+      }
+    ]
+  }
+  

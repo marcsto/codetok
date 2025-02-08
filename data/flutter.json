@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Flutter App Structure",
+        "example": "A basic Flutter app structure with **main()** and **runApp()**.\n\n```dart\n// Entry point\nvoid main() {\n  runApp(MyApp()); // Launch the app\n}\n\n// Root widget\nclass MyApp extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      home: Scaffold(\n        appBar: AppBar(title: Text('Flutter App Structure')),\n        body: Center(child: Text('Hello, Flutter!')),\n      ),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "StatelessWidget Example",
+        "example": "A simple **StatelessWidget** that displays text.\n\n```dart\n// Stateless widget displays static content\nclass MyStatelessWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Center(\n      child: Text('I am stateless'), // Display text\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "StatefulWidget Example",
+        "example": "A simple **StatefulWidget** with a counter.\n\n```dart\nclass MyStatefulWidget extends StatefulWidget {\n  @override\n  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();\n}\n\nclass _MyStatefulWidgetState extends State<MyStatefulWidget> {\n  int counter = 0;\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(title: Text('Stateful Widget')),\n      body: Center(child: Text('Counter: $counter')),\n      floatingActionButton: FloatingActionButton(\n        onPressed: () {\n          setState(() { counter++; }); // Increment counter\n        },\n        child: Icon(Icons.add),\n      ),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Hot Reload in Flutter",
+        "example": "Hot reload rebuilds the UI quickly after code changes.\n\n```dart\n// After code changes, press 'r' in the console to hot reload.\n```"
+      },
+      {
+        "name": "MaterialApp Widget",
+        "example": "Wrap your app with **MaterialApp** to use Material Design.\n\n```dart\nclass MyApp extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      title: 'My Flutter App', // App title\n      home: MyHomePage(),   // Main screen\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Scaffold Widget",
+        "example": "Provides a basic layout with **appBar** and **body**.\n\n```dart\nScaffold(\n  appBar: AppBar(title: Text('Scaffold Example')), // Top bar\n  body: Center(child: Text('Hello')),            // Main content\n);\n```"
+      },
+      {
+        "name": "AppBar Widget",
+        "example": "Displays a top bar with a title and actions.\n\n```dart\nAppBar(\n  title: Text('AppBar Example'), // Title text\n);\n```"
+      },
+      {
+        "name": "Container Widget",
+        "example": "A box with padding, margin, and color properties.\n\n```dart\nContainer(\n  padding: EdgeInsets.all(16.0), // Inner padding\n  margin: EdgeInsets.all(8.0),   // Outer margin\n  color: Colors.blue,            // Background color\n  child: Text('Container Example'), // Child widget\n);\n```"
+      },
+      {
+        "name": "Row and Column",
+        "example": "Layout widgets horizontally (**Row**) and vertically (**Column**).\n\n```dart\n// Row layout\nRow(\n  children: [\n    Icon(Icons.star),      // Icon on left\n    Text('Row Example'),     // Text on right\n  ],\n);\n\n// Column layout\nColumn(\n  children: [\n    Text('First'),   // Top\n    Text('Second'),  // Bottom\n  ],\n);\n```"
+      },
+      {
+        "name": "Text Widget",
+        "example": "Displays text with styling.\n\n```dart\nText(\n  'Hello, Flutter!',            // Display text\n  style: TextStyle(fontSize: 20), // Font size\n);\n```"
+      },
+      {
+        "name": "Image Widget",
+        "example": "Displays images from the network or assets.\n\n```dart\n// From network\nImage.network(\n  'https://example.com/image.png', // Image URL\n);\n\n// From assets (declare in pubspec.yaml)\nImage.asset(\n  'assets/image.png',               // Asset image\n);\n```"
+      },
+      {
+        "name": "Icon Widget",
+        "example": "Displays an icon from the material icons set.\n\n```dart\nIcon(\n  Icons.favorite, // Icon symbol\n  color: Colors.red, // Icon color\n  size: 30.0,      // Icon size\n);\n```"
+      },
+      {
+        "name": "ElevatedButton Widget",
+        "example": "A clickable button with elevation.\n\n```dart\nElevatedButton(\n  onPressed: () {\n    // Handle button press\n  },\n  child: Text('Click Me'), // Button label\n);\n```"
+      },
+      {
+        "name": "TextButton Widget",
+        "example": "A flat button that displays text.\n\n```dart\nTextButton(\n  onPressed: () {\n    // Handle button press\n  },\n  child: Text('Tap Here'), // Button label\n);\n```"
+      },
+      {
+        "name": "FloatingActionButton",
+        "example": "A circular button for primary actions.\n\n```dart\nFloatingActionButton(\n  onPressed: () {\n    // Action on press\n  },\n  child: Icon(Icons.add), // Icon inside FAB\n);\n```"
+      },
+      {
+        "name": "ListView Widget",
+        "example": "A scrollable list of widgets.\n\n```dart\nListView(\n  children: [\n    ListTile(title: Text('Item 1')), // List item\n    ListTile(title: Text('Item 2')),\n  ],\n);\n```"
+      },
+      {
+        "name": "GridView Widget",
+        "example": "Displays items in a grid layout.\n\n```dart\nGridView.count(\n  crossAxisCount: 2,              // Two columns\n  children: [\n    Container(color: Colors.red),  // Grid item\n    Container(color: Colors.blue),\n  ],\n);\n```"
+      },
+      {
+        "name": "Creating Custom Widgets",
+        "example": "Build your own reusable widget.\n\n```dart\nclass CustomCard extends StatelessWidget {\n  final String title;\n  CustomCard({required this.title}); // Constructor\n\n  @override\n  Widget build(BuildContext context) {\n    return Card(\n      child: Padding(\n        padding: EdgeInsets.all(8.0), // Card padding\n        child: Text(title),         // Display title\n      ),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Using BuildContext",
+        "example": "Provides the location of a widget in the widget tree.\n\n```dart\nWidget build(BuildContext context) {\n  return Container(\n    child: Text('Context is key'), // Use context here\n  );\n}\n```"
+      },
+      {
+        "name": "StatefulWidget Lifecycle",
+        "example": "Lifecycle methods like **initState** and **dispose** manage state.\n\n```dart\nclass MyWidget extends StatefulWidget {\n  @override\n  _MyWidgetState createState() => _MyWidgetState();\n}\n\nclass _MyWidgetState extends State<MyWidget> {\n  @override\n  void initState() {\n    super.initState(); // Called when widget is inserted into tree\n  }\n\n  @override\n  void dispose() {\n    super.dispose(); // Called when widget is removed\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Container(); // Build widget\n  }\n}\n```"
+      },
+      {
+        "name": "Updating UI with setState",
+        "example": "Call **setState** to update the UI when state changes.\n\n```dart\nint counter = 0;\n\nvoid increment() {\n  setState(() {\n    counter++; // Update counter and rebuild UI\n  });\n}\n```"
+      },
+      {
+        "name": "Navigation with Navigator",
+        "example": "Navigate between screens using **Navigator.push** and **Navigator.pop**.\n\n```dart\n// Navigate to another screen\nNavigator.push(\n  context,\n  MaterialPageRoute(builder: (context) => SecondScreen()),\n);\n\n// Return to previous screen\nNavigator.pop(context);\n```"
+      },
+      {
+        "name": "GestureDetector",
+        "example": "Detect taps and gestures on a widget.\n\n```dart\nGestureDetector(\n  onTap: () {\n    // Handle tap gesture\n  },\n  child: Container(\n    color: Colors.green,\n    width: 100,\n    height: 100,\n  ),\n);\n```"
+      },
+      {
+        "name": "InkWell Widget",
+        "example": "Provides a ripple effect on tap.\n\n```dart\nInkWell(\n  onTap: () {\n    // Handle tap with ripple effect\n  },\n  child: Container(\n    padding: EdgeInsets.all(16.0),\n    child: Text('InkWell Example'),\n  ),\n);\n```"
+      },
+      {
+        "name": "Form and TextFormField",
+        "example": "Create forms with input validation using **Form** and **TextFormField**.\n\n```dart\nForm(\n  child: Column(\n    children: [\n      TextFormField(\n        decoration: InputDecoration(labelText: 'Enter text'),\n        validator: (value) {\n          return value!.isEmpty ? 'Required' : null; // Validate input\n        },\n      ),\n    ],\n  ),\n);\n```"
+      },
+      {
+        "name": "SnackBar Notification",
+        "example": "Display brief messages using **SnackBar**.\n\n```dart\nScaffoldMessenger.of(context).showSnackBar(\n  SnackBar(content: Text('This is a SnackBar')), // Show message\n);\n```"
+      },
+      {
+        "name": "AlertDialog",
+        "example": "Display a pop-up dialog for alerts or confirmations.\n\n```dart\nshowDialog(\n  context: context,\n  builder: (context) {\n    return AlertDialog(\n      title: Text('Dialog Title'),       // Dialog title\n      content: Text('This is the dialog content'), // Message\n      actions: [\n        TextButton(\n          onPressed: () => Navigator.pop(context), // Close dialog\n          child: Text('OK'),\n        ),\n      ],\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Custom ThemeData",
+        "example": "Customize your app's look with **ThemeData**.\n\n```dart\nMaterialApp(\n  theme: ThemeData(\n    primarySwatch: Colors.blue, // Primary color\n    accentColor: Colors.orange, // Accent color\n  ),\n  home: HomeScreen(),\n);\n```"
+      },
+      {
+        "name": "ListTile Widget",
+        "example": "A pre-designed row widget for list items.\n\n```dart\nListTile(\n  leading: Icon(Icons.label),          // Icon on the left\n  title: Text('ListTile Example'),       // Main text\n  trailing: Icon(Icons.arrow_forward),   // Icon on the right\n);\n```"
+      },
+      {
+        "name": "Expanded Widget",
+        "example": "Expands a widget to fill available space.\n\n```dart\nRow(\n  children: [\n    Expanded(\n      child: Container(color: Colors.red), // Fills remaining space\n    ),\n    Container(width: 50, color: Colors.blue),\n  ],\n);\n```"
+      },
+      {
+        "name": "Flexible Widget",
+        "example": "Allocates space flexibly between children.\n\n```dart\nRow(\n  children: [\n    Flexible(\n      flex: 2, // Takes 2/3 of space\n      child: Container(color: Colors.green),\n    ),\n    Flexible(\n      flex: 1, // Takes 1/3 of space\n      child: Container(color: Colors.yellow),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "Padding Widget",
+        "example": "Adds padding around a widget.\n\n```dart\nPadding(\n  padding: EdgeInsets.all(16.0), // Uniform padding\n  child: Text('Padded Text'),\n);\n```"
+      },
+      {
+        "name": "Align Widget",
+        "example": "Aligns a child widget within its parent.\n\n```dart\nAlign(\n  alignment: Alignment.topRight, // Position at top right\n  child: Text('Aligned Text'),\n);\n```"
+      },
+      {
+        "name": "Stack Widget",
+        "example": "Overlays multiple widgets on top of each other.\n\n```dart\nStack(\n  children: [\n    Container(color: Colors.blue, width: 100, height: 100), // Base widget\n    Positioned(\n      top: 10,\n      left: 10,\n      child: Container(color: Colors.red, width: 50, height: 50), // Overlapping widget\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "Positioned in Stack",
+        "example": "Position a widget inside a **Stack**.\n\n```dart\nStack(\n  children: [\n    Container(color: Colors.grey, width: 200, height: 200),\n    Positioned(\n      bottom: 0,\n      right: 0,\n      child: Text('Positioned'), // Positioned widget\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "FutureBuilder Widget",
+        "example": "Builds UI based on asynchronous data with **FutureBuilder**.\n\n```dart\nFutureBuilder<String>(\n  future: fetchData(), // Async function returning a String\n  builder: (context, snapshot) {\n    if (snapshot.connectionState == ConnectionState.waiting) {\n      return CircularProgressIndicator(); // Loading indicator\n    } else if (snapshot.hasError) {\n      return Text('Error'); // Error state\n    } else {\n      return Text(snapshot.data!); // Display fetched data\n    }\n  },\n);\n```"
+      },
+      {
+        "name": "StreamBuilder Widget",
+        "example": "Builds UI based on a stream of data with **StreamBuilder**.\n\n```dart\nStreamBuilder<int>(\n  stream: counterStream(), // Stream of integers\n  builder: (context, snapshot) {\n    if (!snapshot.hasData) return CircularProgressIndicator(); // Loading\n    return Text('Count: ${snapshot.data}'); // Display stream data\n  },\n);\n```"
+      },
+      {
+        "name": "CustomPaint Widget",
+        "example": "Draw custom graphics using **CustomPaint**.\n\n```dart\nCustomPaint(\n  size: Size(200, 200),\n  painter: MyPainter(), // Custom painter class\n);\n\nclass MyPainter extends CustomPainter {\n  @override\n  void paint(Canvas canvas, Size size) {\n    // Draw a circle in the center\n    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 50, Paint()..color = Colors.blue);\n  }\n  \n  @override\n  bool shouldRepaint(CustomPainter oldDelegate) => false;\n}\n```"
+      },
+      {
+        "name": "Animation Basics",
+        "example": "Animate properties using **AnimationController** and **Tween**.\n\n```dart\nclass MyAnimatedWidget extends StatefulWidget {\n  @override\n  _MyAnimatedWidgetState createState() => _MyAnimatedWidgetState();\n}\n\nclass _MyAnimatedWidgetState extends State<MyAnimatedWidget> with SingleTickerProviderStateMixin {\n  late AnimationController _controller;\n  late Animation<double> _animation;\n  \n  @override\n  void initState() {\n    super.initState();\n    _controller = AnimationController(duration: Duration(seconds: 2), vsync: this);\n    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);\n    _controller.forward(); // Start animation\n  }\n  \n  @override\n  void dispose() {\n    _controller.dispose(); // Clean up\n    super.dispose();\n  }\n  \n  @override\n  Widget build(BuildContext context) {\n    return FadeTransition(\n      opacity: _animation, // Animate opacity\n      child: Container(width: 100, height: 100, color: Colors.red),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Hero Animation",
+        "example": "Create shared element transitions using **Hero** widgets.\n\n```dart\n// First screen\nHero(\n  tag: 'hero-tag', // Unique tag\n  child: Image.network('https://example.com/image.png'),\n);\n\n// Second screen with same hero tag\nHero(\n  tag: 'hero-tag', // Matching tag for transition\n  child: Image.network('https://example.com/image.png'),\n);\n```"
+      },
+      {
+        "name": "SliverAppBar",
+        "example": "Create a scrollable app bar using **SliverAppBar** inside a **CustomScrollView**.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverAppBar(\n      expandedHeight: 200.0, // Expanded height\n      floating: false,\n      pinned: true,\n      flexibleSpace: FlexibleSpaceBar(\n        title: Text('SliverAppBar'),\n      ),\n    ),\n    SliverList(\n      delegate: SliverChildBuilderDelegate((context, index) {\n        return ListTile(title: Text('Item #$index'));\n      }),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "SafeArea Widget",
+        "example": "Ensure UI is visible by avoiding system intrusions using **SafeArea**.\n\n```dart\nSafeArea(\n  child: Text('Safe from system intrusions'), // Adjusts for notches\n);\n```"
+      },
+      {
+        "name": "ConstrainedBox",
+        "example": "Apply size constraints to a widget using **ConstrainedBox**.\n\n```dart\nConstrainedBox(\n  constraints: BoxConstraints(minWidth: 100, minHeight: 100), // Minimum size\n  child: Container(color: Colors.purple),\n);\n```"
+      },
+      {
+        "name": "AspectRatio Widget",
+        "example": "Maintain a specific aspect ratio for a widget.\n\n```dart\nAspectRatio(\n  aspectRatio: 16/9, // 16:9 ratio\n  child: Container(color: Colors.teal),\n);\n```"
+      },
+      {
+        "name": "Opacity Widget",
+        "example": "Control the transparency of a widget using **Opacity**.\n\n```dart\nOpacity(\n  opacity: 0.5, // 50% transparent\n  child: Container(color: Colors.black),\n);\n```"
+      },
+      {
+        "name": "ClipRRect Widget",
+        "example": "Clip a widget with rounded corners using **ClipRRect**.\n\n```dart\nClipRRect(\n  borderRadius: BorderRadius.circular(8.0), // Rounded corners\n  child: Image.network('https://example.com/image.png'),\n);\n```"
+      },
+      {
+        "name": "Placeholder Widget",
+        "example": "Display a temporary widget during development using **Placeholder**.\n\n```dart\nPlaceholder(\n  fallbackHeight: 100, // Height for placeholder\n  fallbackWidth: 100,  // Width for placeholder\n);\n```"
+      },
+      {
+        "name": "Responsive Design",
+        "example": "Adapt layouts using **MediaQuery** for responsive design.\n\n```dart\nWidget build(BuildContext context) {\n  var screenWidth = MediaQuery.of(context).size.width; // Get screen width\n  return Container(\n    width: screenWidth * 0.8, // 80% of screen width\n    child: Text('Responsive Layout'),\n  );\n}\n```"
+      },
+      {
+        "name": "Localization",
+        "example": "Support multiple languages using localization techniques.\n\n```dart\n// Use ARB files for localized strings and access them like this:\nText(AppLocalizations.of(context)!.helloWorld); // Display localized text\n```"
+      },
+      {
+        "name": "Provider for State Management",
+        "example": "Manage state efficiently using the **Provider** package.\n\n```dart\n// Wrap your app with ChangeNotifierProvider\nChangeNotifierProvider(\n  create: (_) => CounterModel(),\n  child: MyApp(),\n);\n\n// Access the model in a widget\nConsumer<CounterModel>(\n  builder: (context, counter, child) {\n    return Text('Count: ${counter.value}');\n  },\n);\n\n// Counter model example\nclass CounterModel extends ChangeNotifier {\n  int value = 0;\n  void increment() {\n    value++;\n    notifyListeners(); // Notify listeners\n  }\n}\n```"
+      },
+      {
+        "name": "Dart Futures and async/await",
+        "example": "Use **async** and **await** to handle asynchronous tasks.\n\n```dart\nFuture<String> fetchData() async {\n  // Simulate network delay\n  await Future.delayed(Duration(seconds: 2));\n  return 'Data loaded';\n}\n\nvoid main() async {\n  String data = await fetchData(); // Wait for future to complete\n}\n```"
+      },
+      {
+        "name": "Dart Streams and async*",
+        "example": "Generate a stream of integers using **async***.\n\n```dart\nStream<int> numberStream() async* {\n  for (int i = 1; i <= 5; i++) {\n    await Future.delayed(Duration(seconds: 1));\n    yield i; // Emit number\n  }\n}\n```"
+      },
+      {
+        "name": "ValueNotifier and ValueListenableBuilder",
+        "example": "Update UI with **ValueNotifier** and **ValueListenableBuilder**.\n\n```dart\nValueNotifier<int> counter = ValueNotifier<int>(0);\n\n// Widget that listens to changes\nValueListenableBuilder<int>(\n  valueListenable: counter,\n  builder: (context, value, child) {\n    return Text('Count: $value');\n  },\n);\n\n// Increment counter\ncounter.value++;\n```"
+      },
+      {
+        "name": "AnimatedBuilder Usage",
+        "example": "Use **AnimatedBuilder** to rebuild a widget on animation changes.\n\n```dart\nclass MyAnimation extends StatefulWidget {\n  @override\n  _MyAnimationState createState() => _MyAnimationState();\n}\n\nclass _MyAnimationState extends State<MyAnimation> with SingleTickerProviderStateMixin {\n  late AnimationController _controller;\n\n  @override\n  void initState() {\n    _controller = AnimationController(duration: Duration(seconds: 2), vsync: this);\n    _controller.repeat(reverse: true);\n    super.initState();\n  }\n\n  @override\n  void dispose() {\n    _controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return AnimatedBuilder(\n      animation: _controller,\n      builder: (context, child) {\n        return Transform.rotate(\n          angle: _controller.value * 6.28, // Rotate 360°\n          child: child,\n        );\n      },\n      child: Icon(Icons.refresh, size: 50),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "TweenAnimationBuilder",
+        "example": "Animate a widget property using **TweenAnimationBuilder**.\n\n```dart\nTweenAnimationBuilder<double>(\n  tween: Tween<double>(begin: 0, end: 1),\n  duration: Duration(seconds: 2),\n  builder: (context, value, child) {\n    return Opacity(\n      opacity: value, // Animate opacity\n      child: child,\n    );\n  },\n  child: Container(width: 100, height: 100, color: Colors.blue),\n);\n```"
+      },
+      {
+        "name": "SliverGrid",
+        "example": "Create a grid layout inside a scroll view using **SliverGrid**.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverGrid(\n      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(\n        crossAxisCount: 2, // Two columns\n      ),\n      delegate: SliverChildBuilderDelegate(\n        (context, index) => Container(\n          color: index.isEven ? Colors.blue : Colors.green,\n          child: Center(child: Text('Item $index')),\n        ),\n        childCount: 6,\n      ),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "PageView Widget",
+        "example": "Swipe between pages using **PageView**.\n\n```dart\nPageView(\n  children: [\n    Container(color: Colors.red, child: Center(child: Text('Page 1'))),\n    Container(color: Colors.blue, child: Center(child: Text('Page 2'))),\n    Container(color: Colors.green, child: Center(child: Text('Page 3'))),\n  ],\n);\n```"
+      },
+      {
+        "name": "BottomNavigationBar",
+        "example": "Create a bottom navigation bar for switching views.\n\n```dart\nScaffold(\n  bottomNavigationBar: BottomNavigationBar(\n    items: [\n      BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),\n      BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),\n    ],\n    currentIndex: 0, // Selected index\n    onTap: (index) {\n      // Handle tap\n    },\n  ),\n);\n```"
+      },
+      {
+        "name": "Drawer Widget",
+        "example": "Add a navigation drawer using **Drawer**.\n\n```dart\nScaffold(\n  drawer: Drawer(\n    child: ListView(\n      children: [\n        DrawerHeader(child: Text('Header')),\n        ListTile(title: Text('Item 1')),\n      ],\n    ),\n  ),\n);\n```"
+      },
+      {
+        "name": "TabBar and TabBarView",
+        "example": "Implement tabs with **TabBar** and **TabBarView**.\n\n```dart\nDefaultTabController(\n  length: 3,\n  child: Scaffold(\n    appBar: AppBar(\n      bottom: TabBar(\n        tabs: [\n          Tab(text: 'Tab 1'),\n          Tab(text: 'Tab 2'),\n          Tab(text: 'Tab 3'),\n        ],\n      ),\n      title: Text('Tabs Example'),\n    ),\n    body: TabBarView(\n      children: [\n        Center(child: Text('Content 1')),\n        Center(child: Text('Content 2')),\n        Center(child: Text('Content 3')),\n      ],\n    ),\n  ),\n);\n```"
+      },
+      {
+        "name": "Named Routes",
+        "example": "Navigate using named routes defined in **MaterialApp**.\n\n```dart\nMaterialApp(\n  initialRoute: '/',\n  routes: {\n    '/': (context) => HomeScreen(),\n    '/second': (context) => SecondScreen(),\n  },\n);\n\n// Navigate using:\nNavigator.pushNamed(context, '/second');\n```"
+      },
+      {
+        "name": "AppBar with Actions",
+        "example": "Add action buttons in the **AppBar**.\n\n```dart\nAppBar(\n  title: Text('AppBar Actions'),\n  actions: [\n    IconButton(\n      icon: Icon(Icons.settings),\n      onPressed: () {\n        // Action button pressed\n      },\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "Using Future in initState",
+        "example": "Fetch data in **initState** and update state.\n\n```dart\nclass MyWidget extends StatefulWidget {\n  @override\n  _MyWidgetState createState() => _MyWidgetState();\n}\n\nclass _MyWidgetState extends State<MyWidget> {\n  String data = 'Loading...';\n\n  @override\n  void initState() {\n    super.initState();\n    fetchData();\n  }\n\n  Future<void> fetchData() async {\n    await Future.delayed(Duration(seconds: 2));\n    setState(() {\n      data = 'Data Loaded';\n    });\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Center(child: Text(data));\n  }\n}\n```"
+      },
+      {
+        "name": "StreamController Usage",
+        "example": "Manually control a stream using **StreamController**.\n\n```dart\nimport 'dart:async';\n\nfinal controller = StreamController<int>();\n\n// Listen to the stream\ncontroller.stream.listen((data) {\n  // Handle data\n});\n\n// Add data to stream\ncontroller.add(1);\n\n// Close the stream\ncontroller.close();\n```"
+      },
+      {
+        "name": "Wrap Widget",
+        "example": "Arrange widgets in a flow layout using **Wrap**.\n\n```dart\nWrap(\n  spacing: 8.0, // Horizontal spacing\n  runSpacing: 4.0, // Vertical spacing\n  children: List.generate(5, (index) => Chip(label: Text('Item $index'))),\n);\n```"
+      },
+      {
+        "name": "Table Widget",
+        "example": "Create a grid-like layout with **Table**.\n\n```dart\nTable(\n  border: TableBorder.all(), // Border for cells\n  children: [\n    TableRow(\n      children: [\n        Padding(padding: EdgeInsets.all(8.0), child: Text('Cell 1')),\n        Padding(padding: EdgeInsets.all(8.0), child: Text('Cell 2')),\n      ],\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "ListBody Widget",
+        "example": "Arrange children in a list without scrolling using **ListBody**.\n\n```dart\nListBody(\n  children: [\n    Text('Item 1'),\n    Text('Item 2'),\n    Text('Item 3'),\n  ],\n);\n```"
+      },
+      {
+        "name": "Checkbox Widget",
+        "example": "Toggle boolean values with **Checkbox**.\n\n```dart\nbool isChecked = false;\n\nCheckbox(\n  value: isChecked,\n  onChanged: (value) {\n    // Update state\n    isChecked = value!;\n  },\n);\n```"
+      },
+      {
+        "name": "Radio Widget",
+        "example": "Select one option from many using **Radio** buttons.\n\n```dart\nint selectedValue = 1;\n\nColumn(\n  children: [\n    Radio<int>(\n      value: 1,\n      groupValue: selectedValue,\n      onChanged: (value) {\n        // Update selected value\n        selectedValue = value!;\n      },\n    ),\n    Radio<int>(\n      value: 2,\n      groupValue: selectedValue,\n      onChanged: (value) {\n        selectedValue = value!;\n      },\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "Switch Widget",
+        "example": "Toggle a setting with **Switch**.\n\n```dart\nbool isOn = false;\n\nSwitch(\n  value: isOn,\n  onChanged: (value) {\n    // Update toggle state\n    isOn = value;\n  },\n);\n```"
+      },
+      {
+        "name": "Slider Widget",
+        "example": "Select a value from a range using **Slider**.\n\n```dart\ndouble sliderValue = 50;\n\nSlider(\n  value: sliderValue,\n  min: 0,\n  max: 100,\n  onChanged: (value) {\n    // Update slider value\n    sliderValue = value;\n  },\n);\n```"
+      },
+      {
+        "name": "LinearProgressIndicator",
+        "example": "Show progress with a horizontal bar using **LinearProgressIndicator**.\n\n```dart\nLinearProgressIndicator(\n  value: 0.5, // 50% progress\n);\n```"
+      },
+      {
+        "name": "CircularProgressIndicator",
+        "example": "Show progress with a circular indicator using **CircularProgressIndicator**.\n\n```dart\nCircularProgressIndicator(); // Indeterminate progress\n```"
+      },
+      {
+        "name": "RefreshIndicator",
+        "example": "Add pull-to-refresh functionality using **RefreshIndicator**.\n\n```dart\nRefreshIndicator(\n  onRefresh: () async {\n    // Refresh action\n  },\n  child: ListView(\n    children: List.generate(10, (index) => ListTile(title: Text('Item $index'))),\n  ),\n);\n```"
+      },
+      {
+        "name": "Draggable and DragTarget",
+        "example": "Implement drag-and-drop with **Draggable** and **DragTarget**.\n\n```dart\nDraggable<int>(\n  data: 10,\n  feedback: Material(\n    child: Container(\n      width: 50,\n      height: 50,\n      color: Colors.blue,\n    ),\n  ),\n  child: Container(width: 50, height: 50, color: Colors.red),\n);\n\nDragTarget<int>(\n  builder: (context, candidateData, rejectedData) {\n    return Container(\n      width: 100,\n      height: 100,\n      color: Colors.green,\n    );\n  },\n  onAccept: (data) {\n    // Handle dropped data\n  },\n);\n```"
+      },
+      {
+        "name": "ReorderableListView",
+        "example": "Allow list items to be reordered with **ReorderableListView**.\n\n```dart\nReorderableListView(\n  onReorder: (oldIndex, newIndex) {\n    // Update list order\n  },\n  children: List.generate(5, (index) {\n    return ListTile(\n      key: ValueKey(index),\n      title: Text('Item $index'),\n    );\n  }),\n);\n```"
+      },
+      {
+        "name": "Custom Route Transitions",
+        "example": "Define custom transitions for page navigation.\n\n```dart\nNavigator.push(context, PageRouteBuilder(\n  pageBuilder: (context, animation, secondaryAnimation) => SecondScreen(),\n  transitionsBuilder: (context, animation, secondaryAnimation, child) {\n    return FadeTransition(\n      opacity: animation,\n      child: child,\n    );\n  },\n));\n```"
+      },
+      {
+        "name": "AnimatedSwitcher",
+        "example": "Animate switching between widgets with **AnimatedSwitcher**.\n\n```dart\nAnimatedSwitcher(\n  duration: Duration(milliseconds: 300),\n  child: Text(\n    'Hello',\n    key: ValueKey('hello'), // Unique key for each child\n  ),\n);\n```"
+      },
+      {
+        "name": "AnimatedContainer",
+        "example": "Animate container properties with **AnimatedContainer**.\n\n```dart\nAnimatedContainer(\n  duration: Duration(seconds: 1),\n  width: 100,\n  height: 100,\n  color: Colors.red,\n);\n```"
+      },
+      {
+        "name": "AnimatedOpacity",
+        "example": "Animate changes in opacity with **AnimatedOpacity**.\n\n```dart\nAnimatedOpacity(\n  duration: Duration(seconds: 1),\n  opacity: 0.5, // Target opacity\n  child: Container(color: Colors.blue, width: 100, height: 100),\n);\n```"
+      },
+      {
+        "name": "AnimatedCrossFade",
+        "example": "Smoothly transition between two children with **AnimatedCrossFade**.\n\n```dart\nAnimatedCrossFade(\n  duration: Duration(seconds: 1),\n  firstChild: Container(color: Colors.red, width: 100, height: 100),\n  secondChild: Container(color: Colors.green, width: 100, height: 100),\n  crossFadeState: CrossFadeState.showFirst, // Toggle state\n);\n```"
+      },
+      {
+        "name": "ScrollController",
+        "example": "Control scrolling of a list using **ScrollController**.\n\n```dart\nScrollController _controller = ScrollController();\n\nListView(\n  controller: _controller, // Attach controller\n  children: List.generate(20, (index) => ListTile(title: Text('Item $index'))),\n);\n```"
+      },
+      {
+        "name": "Listening to Scroll Events",
+        "example": "Listen for scroll changes with a **ScrollController**.\n\n```dart\nScrollController _controller = ScrollController();\n\n@override\nvoid initState() {\n  super.initState();\n  _controller.addListener(() {\n    // Access _controller.offset for scroll position\n  });\n}\n\nListView(controller: _controller);\n```"
+      },
+      {
+        "name": "ListView.builder",
+        "example": "Efficiently build a list using **ListView.builder**.\n\n```dart\nListView.builder(\n  itemCount: 50, // Number of items\n  itemBuilder: (context, index) {\n    return ListTile(title: Text('Item $index'));\n  },\n);\n```"
+      },
+      {
+        "name": "GridView.builder",
+        "example": "Efficiently build a grid using **GridView.builder**.\n\n```dart\nGridView.builder(\n  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(\n    crossAxisCount: 2, // Two columns\n  ),\n  itemCount: 20,\n  itemBuilder: (context, index) {\n    return Container(\n      color: index.isEven ? Colors.orange : Colors.purple,\n      child: Center(child: Text('Grid $index')),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "SliverFillRemaining",
+        "example": "Fill remaining space in a scroll view using **SliverFillRemaining**.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverList(\n      delegate: SliverChildListDelegate([\n        ListTile(title: Text('Item 1')),\n        ListTile(title: Text('Item 2')),\n      ]),\n    ),\n    SliverFillRemaining(\n      child: Center(child: Text('Fill Remaining')),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "SliverPersistentHeader",
+        "example": "Keep a header visible during scroll using **SliverPersistentHeader**.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverPersistentHeader(\n      pinned: true,\n      delegate: MyHeaderDelegate(), // Custom header delegate\n    ),\n    SliverList(\n      delegate: SliverChildBuilderDelegate(\n        (context, index) => ListTile(title: Text('Item $index')),\n        childCount: 20,\n      ),\n    ),\n  ],\n);\n\nclass MyHeaderDelegate extends SliverPersistentHeaderDelegate {\n  @override\n  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {\n    return Container(color: Colors.blue, child: Center(child: Text('Header')));\n  }\n  \n  @override\n  double get maxExtent => 100;\n  @override\n  double get minExtent => 50;\n  @override\n  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;\n}\n```"
+      },
+      {
+        "name": "ValueListenableBuilder",
+        "example": "Rebuild parts of the UI based on **ValueNotifier** changes using **ValueListenableBuilder**.\n\n```dart\nValueNotifier<int> count = ValueNotifier<int>(0);\n\nValueListenableBuilder<int>(\n  valueListenable: count,\n  builder: (context, value, child) {\n    return Text('Count: $value');\n  },\n);\n\n// Update count\ncount.value++;\n```"
+      },
+      {
+        "name": "Future.delayed",
+        "example": "Delay execution using **Future.delayed**.\n\n```dart\nFuture.delayed(Duration(seconds: 3), () {\n  // Execute after delay\n});\n```"
+      },
+      {
+        "name": "Adaptive Apps with Platform Checks",
+        "example": "Build adaptive UI using **Platform** from dart:io.\n\n```dart\nimport 'dart:io';\n\nWidget build(BuildContext context) {\n  if (Platform.isIOS) {\n    return Text('Running on iOS');\n  } else {\n    return Text('Running on Android');\n  }\n}\n```"
+      },
+      {
+        "name": "Cupertino Widgets",
+        "example": "Use iOS-styled widgets with the **Cupertino** library.\n\n```dart\nimport 'package:flutter/cupertino.dart';\n\nCupertinoButton(\n  child: Text('Cupertino Button'),\n  onPressed: () {\n    // Handle press\n  },\n);\n```"
+      },
+      {
+        "name": "Combining Material and Cupertino",
+        "example": "Mix **Material** and **Cupertino** widgets in one app.\n\n```dart\nScaffold(\n  appBar: AppBar(title: Text('Mixed UI')),\n  body: Center(\n    child: CupertinoButton(\n      child: Text('iOS Button'),\n      onPressed: () {},\n    ),\n  ),\n);\n```"
+      },
+      {
+        "name": "AnimatedList",
+        "example": "Animate list item insertions and removals using **AnimatedList**.\n\n```dart\nAnimatedList(\n  initialItemCount: items.length,\n  itemBuilder: (context, index, animation) {\n    return SizeTransition(\n      sizeFactor: animation,\n      child: ListTile(title: Text('Item ${items[index]}')),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Visibility Widget",
+        "example": "Show or hide a widget with **Visibility**.\n\n```dart\nVisibility(\n  visible: true, // Toggle visibility\n  child: Text('Now you see me'),\n);\n```"
+      },
+      {
+        "name": "Offstage Widget",
+        "example": "Remove a widget from layout but keep its state using **Offstage**.\n\n```dart\nOffstage(\n  offstage: false, // When true, widget is hidden\n  child: Text('Offstage Widget'),\n);\n```"
+      },
+      {
+        "name": "FittedBox Widget",
+        "example": "Scale and position a child widget within available space using **FittedBox**.\n\n```dart\nFittedBox(\n  fit: BoxFit.contain,\n  child: Text('Scaled Text'),\n);\n```"
+      },
+      {
+        "name": "LayoutBuilder Widget",
+        "example": "Build widgets based on parent constraints using **LayoutBuilder**.\n\n```dart\nLayoutBuilder(\n  builder: (context, constraints) {\n    return Container(\n      width: constraints.maxWidth * 0.5, // 50% width\n      child: Text('LayoutBuilder'),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Understanding Keys in Flutter",
+        "example": "Assign keys to widgets to preserve state during rebuilds.\n\n```dart\n// Use UniqueKey, ValueKey, or GlobalKey\nListTile(\n  key: ValueKey('item1'),\n  title: Text('Key Example'),\n);\n```"
+      },
+      {
+        "name": "Hero flightShuttleBuilder",
+        "example": "Customize Hero animations with **flightShuttleBuilder**.\n\n```dart\nHero(\n  tag: 'hero-tag',\n  flightShuttleBuilder: (\n    BuildContext flightContext,\n    Animation<double> animation,\n    HeroFlightDirection flightDirection,\n    BuildContext fromHeroContext,\n    BuildContext toHeroContext,\n  ) {\n    return ScaleTransition(\n      scale: animation,\n      child: fromHeroContext.widget,\n    );\n  },\n  child: Image.network('https://example.com/image.png'),\n);\n```"
+      },
+      {
+        "name": "Debugging with Flutter Inspector",
+        "example": "Use **Flutter Inspector** to debug widget trees.\n\n```dart\n// In your IDE, open Flutter Inspector to examine the widget tree.\n// You can also call debugDumpApp() to print the widget hierarchy.\nimport 'package:flutter/rendering.dart';\n\nvoid main() {\n  debugDumpApp(); // Print widget tree to console\n  runApp(MyApp());\n}\n```"
+      }
+    ]
+  }
+  

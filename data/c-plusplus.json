@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Hello World Program",
+        "example": "A simple program that prints **Hello, World!** using `std::cout`.\n\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\"; // prints Hello, World!\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Variables and Data Types",
+        "example": "Demonstrates declaring different variable types: `int`, `double`, `char`, and `bool`.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int age = 25;         // integer\n    double price = 9.99;    // floating-point number\n    char grade = 'A';       // character\n    bool isValid = true;    // boolean\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Constants",
+        "example": "Shows how to use the `const` keyword to define constant values.\n\n```cpp\n#include <iostream>\n\nint main() {\n    const double PI = 3.14159; // constant value\n    // PI = 3.14; // error: cannot modify a constant\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Basic Input and Output",
+        "example": "Demonstrates using `std::cin` and `std::cout` for console I/O.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int number;\n    std::cout << \"Enter a number: \"; // prompt the user\n    std::cin >> number;             // read input\n    // output is explained in the comment\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Arithmetic Operations",
+        "example": "Performs basic arithmetic: addition, subtraction, multiplication, division, and modulus.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 10, b = 3;\n    int sum  = a + b; // addition\n    int diff = a - b; // subtraction\n    int prod = a * b; // multiplication\n    int div  = a / b; // division\n    int mod  = a % b; // modulus\n    return 0;\n}\n```"
+      },
+      {
+        "name": "If-Else Conditions",
+        "example": "Demonstrates basic decision making with `if-else` statements.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    if (x > 0) {         // condition is true\n        // x is positive\n    } else {\n        // x is zero or negative\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "For Loop",
+        "example": "Illustrates a `for` loop to iterate over a range of numbers.\n\n```cpp\n#include <iostream>\n\nint main() {\n    for (int i = 0; i < 5; i++) { // loop from 0 to 4\n        // loop body\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "While Loop",
+        "example": "Uses a `while` loop that continues as long as the condition is true.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int i = 0;\n    while (i < 5) { // condition check\n        // loop body\n        i++;\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Do-While Loop",
+        "example": "Demonstrates a `do-while` loop which executes the block at least once.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int i = 0;\n    do {\n        // loop body\n        i++;\n    } while (i < 5); // condition checked after execution\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Switch Statement",
+        "example": "Uses a `switch` statement to handle multiple cases based on a variable's value.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int option = 2;\n    switch(option) {\n        case 1:\n            // handle case 1\n            break;\n        case 2:\n            // handle case 2\n            break;\n        default:\n            // handle any other case\n            break;\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Functions",
+        "example": "Shows how to declare and call a simple function in C++.\n\n```cpp\n#include <iostream>\n\n// Function that adds two numbers\nint add(int a, int b) {\n    return a + b; // returns the sum\n}\n\nint main() {\n    int result = add(3, 4);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Function Overloading",
+        "example": "Demonstrates multiple functions with the same name but different parameter types.\n\n```cpp\n#include <iostream>\n\nint multiply(int a, int b) {\n    return a * b;\n}\n\ndouble multiply(double a, double b) {\n    return a * b;\n}\n\nint main() {\n    int res1 = multiply(2, 3);\n    double res2 = multiply(2.5, 3.0);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Default Arguments in Functions",
+        "example": "Shows how functions can have default parameter values.\n\n```cpp\n#include <iostream>\n\nint subtract(int a, int b = 5) {\n    return a - b; // b defaults to 5 if not provided\n}\n\nint main() {\n    int res = subtract(10); // equivalent to subtract(10, 5)\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Recursion Example",
+        "example": "Calculates the factorial of a number using recursion.\n\n```cpp\n#include <iostream>\n\nint factorial(int n) {\n    if (n <= 1) return 1; // base case\n    return n * factorial(n - 1); // recursive call\n}\n\nint main() {\n    int fact = factorial(5); // computes 5!\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Arrays",
+        "example": "Declares and initializes a fixed-size array of integers.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int numbers[5] = {1, 2, 3, 4, 5}; // array declaration\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Multi-dimensional Arrays",
+        "example": "Demonstrates declaring and initializing a 2D array (matrix).\n\n```cpp\n#include <iostream>\n\nint main() {\n    int matrix[2][3] = { {1, 2, 3}, {4, 5, 6} };\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Vectors (STL)",
+        "example": "Uses `std::vector` for a dynamic array that can change size.\n\n```cpp\n#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> vec = {1, 2, 3};\n    vec.push_back(4); // adds an element\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Strings",
+        "example": "Illustrates basic operations with `std::string`.\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string greeting = \"Hello\";  // string declaration\n    greeting += \", World!\";            // string concatenation\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Pointers",
+        "example": "Introduces pointers and how to dereference them to access data.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int value = 10;\n    int *ptr = &value; // pointer holds the address of value\n    // *ptr is 10\n    return 0;\n}\n```"
+      },
+      {
+        "name": "References",
+        "example": "Demonstrates references as aliases for existing variables.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int value = 20;\n    int &ref = value; // ref refers to value\n    ref = 30;         // value becomes 30\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Dynamic Memory Allocation",
+        "example": "Shows how to allocate and free memory using `new` and `delete`.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int *ptr = new int(100); // allocate memory dynamically\n    // use *ptr as needed\n    delete ptr;             // free allocated memory\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Structs",
+        "example": "Defines a `struct` to group related data members together.\n\n```cpp\n#include <iostream>\n\nstruct Person {\n    std::string name;\n    int age;\n};\n\nint main() {\n    Person p = {\"Alice\", 30}; // create and initialize a struct instance\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Enums",
+        "example": "Uses an `enum` to define named constant values.\n\n```cpp\n#include <iostream>\n\nenum Color { RED, GREEN, BLUE };\n\nint main() {\n    Color favorite = GREEN; // assign an enum value\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Unions",
+        "example": "Demonstrates a `union` which allows storing different data types in the same memory space.\n\n```cpp\n#include <iostream>\n\nunion Data {\n    int i;\n    float f;\n    char c;\n};\n\nint main() {\n    Data data;\n    data.i = 10; // use union as an integer\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Classes and Objects",
+        "example": "Defines a simple class and creates an object to use its members.\n\n```cpp\n#include <iostream>\n\nclass Rectangle {\npublic:\n    int width, height;\n    int area() { return width * height; } // member function\n};\n\nint main() {\n    Rectangle rect;\n    rect.width = 5;\n    rect.height = 4;\n    int a = rect.area(); // calculates area\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Constructors and Destructors",
+        "example": "Illustrates automatic calls to a constructor and destructor within a class.\n\n```cpp\n#include <iostream>\n\nclass MyClass {\npublic:\n    MyClass() { /* constructor code */ }\n    ~MyClass() { /* destructor code */ }\n};\n\nint main() {\n    MyClass obj; // constructor is called here\n    return 0;    // destructor is called when obj goes out of scope\n}\n```"
+      },
+      {
+        "name": "Copy Constructor",
+        "example": "Demonstrates a custom copy constructor to create a copy of an object.\n\n```cpp\n#include <iostream>\n\nclass MyClass {\npublic:\n    int data;\n    MyClass(int d) : data(d) {}\n    // Copy constructor\n    MyClass(const MyClass &other) : data(other.data) {}\n};\n\nint main() {\n    MyClass a(10);\n    MyClass b = a; // invokes copy constructor\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Inheritance",
+        "example": "Shows simple inheritance where a derived class inherits from a base class.\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    void display() { /* base display functionality */ }\n};\n\nclass Derived : public Base {\npublic:\n    void show() { /* derived show functionality */ }\n};\n\nint main() {\n    Derived obj;\n    obj.display(); // inherited method from Base\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Polymorphism and Virtual Functions",
+        "example": "Demonstrates runtime polymorphism using virtual functions and method overriding.\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void show() { /* base show */ }\n};\n\nclass Derived : public Base {\npublic:\n    void show() override { /* derived show */ }\n};\n\nint main() {\n    Base *ptr = new Derived();\n    ptr->show(); // calls Derived's show() due to virtual mechanism\n    delete ptr;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Abstract Classes",
+        "example": "Introduces an abstract class with a pure virtual function that must be overridden.\n\n```cpp\n#include <iostream>\n\nclass Animal {\npublic:\n    virtual void makeSound() = 0; // pure virtual function\n};\n\nclass Dog : public Animal {\npublic:\n    void makeSound() override { /* bark sound */ }\n};\n\nint main() {\n    Dog d;\n    d.makeSound();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Interfaces (Abstract Base Classes)",
+        "example": "Uses an abstract base class to define an interface for shapes.\n\n```cpp\n#include <iostream>\n\nclass IShape {\npublic:\n    virtual double area() = 0; // interface method\n};\n\nclass Circle : public IShape {\npublic:\n    double radius;\n    Circle(double r) : radius(r) {}\n    double area() override { return 3.14159 * radius * radius; }\n};\n\nint main() {\n    Circle c(5);\n    double a = c.area();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Operator Overloading",
+        "example": "Shows how to overload an operator (in this case, the `+` operator) for a custom class.\n\n```cpp\n#include <iostream>\n\nclass Point {\npublic:\n    int x, y;\n    Point(int a, int b) : x(a), y(b) {}\n    // Overload the + operator to add two Points\n    Point operator+(const Point &p) {\n        return Point(x + p.x, y + p.y);\n    }\n};\n\nint main() {\n    Point p1(1, 2), p2(3, 4);\n    Point p3 = p1 + p2; // uses overloaded + operator\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Friend Functions",
+        "example": "Demonstrates a friend function that can access private members of a class.\n\n```cpp\n#include <iostream>\n\nclass Box {\nprivate:\n    int width;\npublic:\n    Box(int w) : width(w) {}\n    friend void printWidth(Box b); // friend declaration\n};\n\nvoid printWidth(Box b) {\n    // Can access private member 'width'\n}\n\nint main() {\n    Box box(10);\n    printWidth(box);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Function Templates",
+        "example": "Shows a generic function template to find the maximum of two values.\n\n```cpp\n#include <iostream>\n\ntemplate <typename T>\nT max(T a, T b) {\n    return (a > b) ? a : b;\n}\n\nint main() {\n    int m = max(3, 7);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Class Templates",
+        "example": "Demonstrates a generic class template that can work with any data type.\n\n```cpp\n#include <iostream>\n\ntemplate <typename T>\nclass Container {\npublic:\n    T element;\n    Container(T arg) : element(arg) {}\n};\n\nint main() {\n    Container<int> c(42);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Namespaces",
+        "example": "Illustrates how namespaces help avoid naming conflicts.\n\n```cpp\n#include <iostream>\n\nnamespace Math {\n    int add(int a, int b) { return a + b; }\n}\n\nint main() {\n    int sum = Math::add(3, 4);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Exception Handling",
+        "example": "Uses `try-catch` blocks to handle exceptions gracefully.\n\n```cpp\n#include <iostream>\n\nint main() {\n    try {\n        // Code that may throw an exception\n        throw 20; // throwing an integer exception\n    } catch (int e) {\n        // Exception is caught here\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "File I/O",
+        "example": "Demonstrates basic file output using the `<fstream>` library.\n\n```cpp\n#include <iostream>\n#include <fstream>\n\nint main() {\n    std::ofstream outfile(\"example.txt\");\n    // Write to the file here\n    outfile.close();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Lambda Functions",
+        "example": "Shows how to define and use an inline lambda function.\n\n```cpp\n#include <iostream>\n\nint main() {\n    auto add = [](int a, int b) { return a + b; }; // lambda function\n    int result = add(2, 3);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Smart Pointers",
+        "example": "Demonstrates using `std::unique_ptr` for automatic memory management.\n\n```cpp\n#include <iostream>\n#include <memory>\n\nint main() {\n    std::unique_ptr<int> ptr(new int(10)); // unique pointer manages memory automatically\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Standard Algorithms (sort)",
+        "example": "Uses `std::sort` from the `<algorithm>` header to sort a vector.\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> vec = {4, 2, 5, 1, 3};\n    std::sort(vec.begin(), vec.end()); // sorts the vector in ascending order\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Iterators",
+        "example": "Demonstrates how to use iterators to traverse a container such as a vector.\n\n```cpp\n#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> vec = {1, 2, 3};\n    for (auto it = vec.begin(); it != vec.end(); ++it) {\n        // *it accesses the current element\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Auto Keyword",
+        "example": "Illustrates the use of the `auto` keyword for type inference.\n\n```cpp\n#include <iostream>\n\nint main() {\n    auto x = 5;    // x is deduced as an int\n    auto y = 3.14; // y is deduced as a double\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Range-Based For Loop",
+        "example": "Uses a modern range-based for loop to iterate over a container.\n\n```cpp\n#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> vec = {1, 2, 3};\n    for (const auto &num : vec) {\n        // num represents each element in vec\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Const Correctness",
+        "example": "Demonstrates how to use `const` to prevent modification of variables.\n\n```cpp\n#include <iostream>\n\nint main() {\n    const int constant = 10; // constant value\n    // constant = 20; // error: cannot modify a const variable\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Move Semantics",
+        "example": "Shows how to transfer ownership of resources using `std::move`.\n\n```cpp\n#include <iostream>\n#include <utility>\n#include <vector>\n\nint main() {\n    std::vector<int> vec1 = {1, 2, 3};\n    std::vector<int> vec2 = std::move(vec1); // vec1 is now empty\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Rvalue References",
+        "example": "Demonstrates the use of rvalue references to bind to temporary objects.\n\n```cpp\n#include <iostream>\n\nvoid process(int&& value) {\n    // process rvalue\n}\n\nint main() {\n    process(5); // 5 is a temporary (rvalue)\n    return 0;\n}\n```"
+      },
+      {
+        "name": "std::map",
+        "example": "Uses `std::map` to store key-value pairs with automatic key ordering.\n\n```cpp\n#include <iostream>\n#include <map>\n\nint main() {\n    std::map<std::string, int> ageMap;\n    ageMap[\"Alice\"] = 30;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "std::set",
+        "example": "Demonstrates `std::set` for storing unique elements in sorted order.\n\n```cpp\n#include <iostream>\n#include <set>\n\nint main() {\n    std::set<int> numbers = {1, 2, 3, 2}; // duplicate 2 is removed\n    return 0;\n}\n```"
+      },
+      {
+        "name": "std::unordered_map",
+        "example": "Uses `std::unordered_map` for fast key-value lookups without ordering.\n\n```cpp\n#include <iostream>\n#include <unordered_map>\n\nint main() {\n    std::unordered_map<std::string, int> umap;\n    umap[\"Bob\"] = 25;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Lambda Capture by Value and Reference",
+        "example": "Shows how a lambda can capture variables by value and by reference.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 5;\n    int b = 10;\n    auto lambda = [a, &b]() {\n        // 'a' is captured by value, remains 5\n        // 'b' is captured by reference; modifying b affects the original\n        b += 10;\n    };\n    lambda();\n    // Now, a is 5 and b is 20\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::shared_ptr",
+        "example": "Demonstrates use of std::shared_ptr for shared ownership of dynamically allocated memory.\n\n```cpp\n#include <iostream>\n#include <memory>\n\nint main() {\n    std::shared_ptr<int> sp1 = std::make_shared<int>(42);\n    std::shared_ptr<int> sp2 = sp1; // sp1 and sp2 share ownership\n    // Memory is freed when the last shared_ptr goes out of scope\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::weak_ptr",
+        "example": "Shows how std::weak_ptr provides non-owning access to an object managed by std::shared_ptr.\n\n```cpp\n#include <iostream>\n#include <memory>\n\nint main() {\n    std::shared_ptr<int> sp = std::make_shared<int>(100);\n    std::weak_ptr<int> wp = sp; // non-owning reference\n    if (auto locked = wp.lock()) { // check if memory still exists\n        // locked points to the integer 100\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::function",
+        "example": "Demonstrates using std::function to store any callable target.\n\n```cpp\n#include <iostream>\n#include <functional>\n\nint main() {\n    std::function<int(int, int)> func = [](int a, int b) { return a + b; };\n    int result = func(3, 4); // result is 7\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::bind",
+        "example": "Shows how std::bind creates a callable object with bound arguments.\n\n```cpp\n#include <iostream>\n#include <functional>\n\nint add(int a, int b) { return a + b; }\n\nint main() {\n    auto add5 = std::bind(add, 5, std::placeholders::_1);\n    int result = add5(10); // result is 15\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::chrono for Timing",
+        "example": "Demonstrates how to measure time intervals using std::chrono.\n\n```cpp\n#include <iostream>\n#include <chrono>\n\nint main() {\n    auto start = std::chrono::high_resolution_clock::now();\n    // Code to be timed\n    auto end = std::chrono::high_resolution_clock::now();\n    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);\n    // duration.count() gives elapsed milliseconds\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "C++11 Threads",
+        "example": "Creates and runs a thread using std::thread.\n\n```cpp\n#include <iostream>\n#include <thread>\n\nvoid threadFunc() {\n    // Code executed in the thread\n}\n\nint main() {\n    std::thread t(threadFunc);\n    t.join(); // Wait for the thread to finish\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Mutex and Lock Guard",
+        "example": "Uses std::mutex and std::lock_guard for thread-safe operations.\n\n```cpp\n#include <iostream>\n#include <thread>\n#include <mutex>\n\nstd::mutex mtx;\n\nvoid safePrint() {\n    std::lock_guard<std::mutex> lock(mtx);\n    // Critical section: thread-safe operations\n}\n\nint main() {\n    std::thread t1(safePrint);\n    std::thread t2(safePrint);\n    t1.join();\n    t2.join();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::atomic",
+        "example": "Illustrates atomic operations to avoid data races.\n\n```cpp\n#include <iostream>\n#include <atomic>\n\nint main() {\n    std::atomic<int> counter(0);\n    counter++; // Atomic increment\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Condition Variables",
+        "example": "Uses std::condition_variable to synchronize threads.\n\n```cpp\n#include <iostream>\n#include <thread>\n#include <mutex>\n#include <condition_variable>\n\nstd::mutex mtx;\nstd::condition_variable cv;\nbool ready = false;\n\nvoid worker() {\n    std::unique_lock<std::mutex> lock(mtx);\n    cv.wait(lock, [] { return ready; }); // Wait until 'ready' is true\n    // Proceed when signaled\n}\n\nint main() {\n    std::thread t(worker);\n    {\n        std::lock_guard<std::mutex> lock(mtx);\n        ready = true;\n    }\n    cv.notify_one();\n    t.join();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Variadic Templates",
+        "example": "Shows a function template that accepts a variable number of arguments.\n\n```cpp\n#include <iostream>\n\n// Base case\nvoid print() {}\n\n// Variadic template function\ntemplate<typename T, typename... Args>\nvoid print(T first, Args... args) {\n    // Process the first argument (could print or handle it)\n    print(args...); // Recursive call\n}\n\nint main() {\n    print(1, 2.5, \"hello\");\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Fold Expressions (C++17)",
+        "example": "Uses fold expressions to sum multiple arguments in C++17.\n\n```cpp\n#include <iostream>\n\ntemplate<typename... Args>\nint sum(Args... args) {\n    return (args + ...); // Fold expression summing all arguments\n}\n\nint main() {\n    int total = sum(1, 2, 3, 4); // total is 10\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "constexpr Functions",
+        "example": "Defines a constexpr function that can be evaluated at compile-time.\n\n```cpp\n#include <iostream>\n\nconstexpr int square(int x) {\n    return x * x;\n}\n\nint main() {\n    int result = square(5); // Computed at compile-time\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Generic Lambdas (C++14)",
+        "example": "Demonstrates a lambda function with auto parameters for generic use.\n\n```cpp\n#include <iostream>\n\nint main() {\n    auto add = [](auto a, auto b) { return a + b; };\n    int result = add(2, 3); // result is 5\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::tuple",
+        "example": "Creates and accesses elements of a std::tuple.\n\n```cpp\n#include <iostream>\n#include <tuple>\n\nint main() {\n    std::tuple<int, double, std::string> tup(1, 2.3, \"hello\");\n    int a = std::get<0>(tup); // Access first element\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::pair",
+        "example": "Shows how to use std::pair to store two related values.\n\n```cpp\n#include <iostream>\n#include <utility>\n\nint main() {\n    std::pair<int, std::string> p(1, \"one\");\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::array",
+        "example": "Uses std::array for a fixed-size array with STL features.\n\n```cpp\n#include <iostream>\n#include <array>\n\nint main() {\n    std::array<int, 3> arr = {1, 2, 3};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Structured Bindings (C++17)",
+        "example": "Unpacks a tuple into individual variables using structured bindings.\n\n```cpp\n#include <iostream>\n#include <tuple>\n\nint main() {\n    std::tuple<int, double> tup(1, 2.5);\n    auto [a, b] = tup; // 'a' is 1, 'b' is 2.5\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "noexcept Specifier",
+        "example": "Declares functions that are guaranteed not to throw exceptions.\n\n```cpp\n#include <iostream>\n\nvoid safeFunc() noexcept {\n    // Guaranteed not to throw\n}\n\nint main() {\n    safeFunc();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using assert",
+        "example": "Demonstrates the use of assert to validate assumptions in code.\n\n```cpp\n#include <cassert>\n\nint main() {\n    int x = 5;\n    assert(x == 5); // Program continues if true\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Bitwise Operators",
+        "example": "Performs bitwise operations like AND, OR, XOR, and shifts.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 5;       // 0101 in binary\n    int b = 9;       // 1001 in binary\n    int c = a & b;   // Bitwise AND\n    int d = a | b;   // Bitwise OR\n    int e = a ^ b;   // Bitwise XOR\n    int f = a << 1;  // Left shift\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::bitset",
+        "example": "Uses std::bitset to represent and manipulate bits.\n\n```cpp\n#include <iostream>\n#include <bitset>\n\nint main() {\n    std::bitset<8> bits(42); // Represents binary 00101010\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::find Algorithm",
+        "example": "Uses std::find to locate an element in a container.\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> vec = {1, 2, 3, 4};\n    auto it = std::find(vec.begin(), vec.end(), 3);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::accumulate",
+        "example": "Calculates the sum of elements in a container using std::accumulate.\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <numeric>\n\nint main() {\n    std::vector<int> vec = {1, 2, 3, 4};\n    int sum = std::accumulate(vec.begin(), vec.end(), 0);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Custom Comparator with std::sort",
+        "example": "Sorts a vector with a custom comparator function.\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> vec = {4, 2, 5, 1, 3};\n    std::sort(vec.begin(), vec.end(), [](int a, int b) { return a > b; }); // Descending order\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::list",
+        "example": "Uses std::list for a doubly linked list container.\n\n```cpp\n#include <iostream>\n#include <list>\n\nint main() {\n    std::list<int> myList = {1, 2, 3};\n    myList.push_back(4);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::deque",
+        "example": "Demonstrates using std::deque for double-ended queue operations.\n\n```cpp\n#include <iostream>\n#include <deque>\n\nint main() {\n    std::deque<int> dq = {1, 2, 3};\n    dq.push_front(0);\n    dq.push_back(4);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::forward and Perfect Forwarding",
+        "example": "Illustrates perfect forwarding in function templates using std::forward.\n\n```cpp\n#include <iostream>\n#include <utility>\n\nvoid process(int& x) { /* lvalue version */ }\nvoid process(int&& x) { /* rvalue version */ }\n\ntemplate<typename T>\nvoid forwarder(T&& arg) {\n    process(std::forward<T>(arg));\n}\n\nint main() {\n    int a = 10;\n    forwarder(a);      // Calls lvalue version\n    forwarder(20);     // Calls rvalue version\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Lambda Capturing this Pointer",
+        "example": "Demonstrates how to capture the this pointer in a lambda within a class.\n\n```cpp\n#include <iostream>\n\nclass MyClass {\npublic:\n    int value = 42;\n    void display() {\n        auto lambda = [this]() { // Captures this pointer\n            int v = value; // Access member variable\n        };\n        lambda();\n    }\n};\n\nint main() {\n    MyClass obj;\n    obj.display();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "SFINAE with std::enable_if",
+        "example": "Uses SFINAE to enable a function only for integral types.\n\n```cpp\n#include <iostream>\n#include <type_traits>\n\ntemplate<typename T>\ntypename std::enable_if<std::is_integral<T>::value, T>::type\nincrement(T value) {\n    return value + 1;\n}\n\nint main() {\n    int a = increment(5);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::optional (C++17)",
+        "example": "Illustrates the use of std::optional to represent optional values.\n\n```cpp\n#include <iostream>\n#include <optional>\n\nint main() {\n    std::optional<int> opt = 10;\n    if (opt) { // Check if value exists\n        int value = opt.value();\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::variant (C++17)",
+        "example": "Demonstrates std::variant to store one of several types.\n\n```cpp\n#include <iostream>\n#include <variant>\n\nint main() {\n    std::variant<int, double> var = 5;\n    var = 3.14; // Now holds a double\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "CRTP (Curiously Recurring Template Pattern)",
+        "example": "Uses CRTP to provide static polymorphism.\n\n```cpp\n#include <iostream>\n\ntemplate <typename Derived>\nclass Base {\npublic:\n    void interface() {\n        static_cast<Derived*>(this)->implementation();\n    }\n};\n\nclass Derived : public Base<Derived> {\npublic:\n    void implementation() { /* Specific implementation */ }\n};\n\nint main() {\n    Derived d;\n    d.interface();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Singleton Pattern",
+        "example": "Implements a basic Singleton class ensuring a single instance.\n\n```cpp\n#include <iostream>\n\nclass Singleton {\nprivate:\n    Singleton() {}\npublic:\n    Singleton(const Singleton&) = delete;\n    Singleton& operator=(const Singleton&) = delete;\n    static Singleton& getInstance() {\n        static Singleton instance;\n        return instance;\n    }\n};\n\nint main() {\n    Singleton &s = Singleton::getInstance();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Rule of Three, Five, and Zero",
+        "example": "Highlights proper resource management in classes.\n\n```cpp\n#include <iostream>\n\nclass Resource {\npublic:\n    Resource() { /* Allocate resource */ }\n    ~Resource() { /* Free resource */ }\n    // Define copy/move constructors and assignment operators as needed\n};\n\nint main() {\n    Resource r;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Extern Keyword",
+        "example": "Demonstrates the use of extern to declare variables defined elsewhere.\n\n```cpp\n// file1.cpp\n#include <iostream>\n\nint sharedVar = 100;\n\n// file2.cpp\n// extern int sharedVar; // Declaration of sharedVar defined in another file\n\nint main() {\n    // Use sharedVar defined in file1.cpp\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Function Pointers",
+        "example": "Shows how to declare and use a pointer to a function.\n\n```cpp\n#include <iostream>\n\nint add(int a, int b) { return a + b; }\n\nint main() {\n    int (*funcPtr)(int, int) = add; // Function pointer\n    int result = funcPtr(2, 3); // result is 5\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "std::regex",
+        "example": "Uses std::regex to perform regular expression matching.\n\n```cpp\n#include <iostream>\n#include <regex>\n#include <string>\n\nint main() {\n    std::string s = \"Hello123\";\n    std::regex pattern(\"[A-Za-z]+\\\\d+\");\n    bool match = std::regex_match(s, pattern);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Overloading new and delete",
+        "example": "Shows how to overload the new and delete operators in a class.\n\n```cpp\n#include <iostream>\n#include <cstdlib>\n\nclass MyClass {\npublic:\n    void* operator new(size_t size) {\n        return std::malloc(size);\n    }\n    void operator delete(void* ptr) {\n        std::free(ptr);\n    }\n};\n\nint main() {\n    MyClass *obj = new MyClass();\n    delete obj;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Memory Leak Detection with Smart Pointers",
+        "example": "Utilizes smart pointers to automatically manage dynamic memory.\n\n```cpp\n#include <iostream>\n#include <memory>\n\nint main() {\n    std::unique_ptr<int> ptr = std::make_unique<int>(10);\n    // Memory is automatically freed when ptr goes out of scope\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Bit-fields in Structs",
+        "example": "Defines a struct with bit-fields to optimize memory usage.\n\n```cpp\n#include <iostream>\n\nstruct Flags {\n    unsigned int isVisible : 1;\n    unsigned int isActive  : 1;\n};\n\nint main() {\n    Flags flag = {1, 0};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Static Keyword in Functions and Variables",
+        "example": "Demonstrates the use of static for persistent local variables and functions.\n\n```cpp\n#include <iostream>\n\nvoid counter() {\n    static int count = 0; // Retains its value between calls\n    count++;\n}\n\nint main() {\n    counter();\n    counter();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Template Specialization",
+        "example": "Shows how to specialize a template for a specific type.\n\n```cpp\n#include <iostream>\n\n// Generic template\ntemplate<typename T>\nvoid func(T value) {\n    // Generic implementation\n}\n\n// Template specialization for int\ntemplate<>\nvoid func<int>(int value) {\n    // Specialized implementation for int\n}\n\nint main() {\n    func(5); // Calls the specialized version\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Basic Template Metaprogramming",
+        "example": "Uses templates to compute values at compile-time (e.g., factorial).\n\n```cpp\n#include <iostream>\n\n// Compile-time factorial calculation\ntemplate<int N>\nstruct Factorial {\n    static constexpr int value = N * Factorial<N - 1>::value;\n};\n\ntemplate<>\nstruct Factorial<0> {\n    static constexpr int value = 1;\n};\n\nint main() {\n    int fact = Factorial<5>::value; // 120 computed at compile-time\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "RTTI with typeid",
+        "example": "Uses typeid to obtain runtime type information.\n\n```cpp\n#include <iostream>\n#include <typeinfo>\n\nclass Base { virtual void foo() {} };\nclass Derived : public Base {};\n\nint main() {\n    Base* b = new Derived();\n    const std::type_info &ti = typeid(*b);\n    // ti.name() returns the type name\n    delete b;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using dynamic_cast",
+        "example": "Performs safe downcasting using dynamic_cast.\n\n```cpp\n#include <iostream>\n\nclass Base { virtual void foo() {} };\nclass Derived : public Base {};\n\nint main() {\n    Base* b = new Derived();\n    Derived* d = dynamic_cast<Derived*>(b); // Safe downcast\n    delete b;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "static_cast and reinterpret_cast",
+        "example": "Demonstrates type conversions using static_cast and reinterpret_cast.\n\n```cpp\n#include <iostream>\n\nint main() {\n    double d = 3.14;\n    int i = static_cast<int>(d); // Converts double to int\n    void* ptr = &i;\n    int* iptr = reinterpret_cast<int*>(ptr); // Reinterprets pointer type\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "I/O Manipulators (setw, fixed)",
+        "example": "Uses manipulators to format output in C++ streams.\n\n```cpp\n#include <iostream>\n#include <iomanip>\n\nint main() {\n    double num = 3.14159;\n    std::cout << std::fixed << std::setprecision(2) << num; // Outputs 3.14\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Operator Precedence Example",
+        "example": "Demonstrates operator precedence in C++ with proper parentheses.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int result = 2 + 3 * 4; // Multiplication has higher precedence; result is 14\n    int corrected = (2 + 3) * 4; // Parentheses change the order; result is 20\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Recursive Lambda",
+        "example": "Shows how a lambda can call itself recursively using std::function.\n\n```cpp\n#include <iostream>\n#include <functional>\n\nint main() {\n    std::function<int(int)> factorial = [&factorial](int n) -> int {\n        return (n <= 1) ? 1 : n * factorial(n - 1);\n    };\n    int result = factorial(5); // Computes 120\n    return 0;\n}\n```\n"
+      }
+    ]
+  }
+  

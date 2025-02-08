@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Hello World",
+        "example": "Basic structure of a C program.\n\n```c\n#include <stdio.h>\n\nint main() {\n    // Print Hello World\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Variables and Data Types",
+        "example": "Declaring variables of different types: int, float, char.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int a = 10;        // integer\n    float b = 3.14f;   // floating point\n    char c = 'A';      // character\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Basic Arithmetic",
+        "example": "Perform arithmetic operations: addition, subtraction, multiplication, division, modulus.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int sum = 5 + 3;       // addition\n    int diff = 10 - 2;     // subtraction\n    int prod = 4 * 3;      // multiplication\n    int quot = 20 / 4;     // division\n    int mod = 20 % 3;      // modulus\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Conditional Statements (if-else)",
+        "example": "Using if-else for decision making.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int num = 10;\n    if (num > 5) {\n        // num is greater than 5\n    } else {\n        // num is 5 or less\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Switch Statement",
+        "example": "Using switch-case to handle multiple conditions.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int day = 3;\n    switch(day) {\n        case 1:\n            // Monday\n            break;\n        case 2:\n            // Tuesday\n            break;\n        case 3:\n            // Wednesday\n            break;\n        default:\n            // Other days\n            break;\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "For Loop",
+        "example": "Basic for loop example.\n\n```c\n#include <stdio.h>\n\nint main() {\n    for (int i = 0; i < 5; i++) {\n        // Loop 5 times\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "While Loop",
+        "example": "Basic while loop example.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int i = 0;\n    while(i < 5) {\n        // Loop until i reaches 5\n        i++;\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Do-While Loop",
+        "example": "Demonstrate do-while loop, which executes at least once.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int i = 0;\n    do {\n        // Execute at least once\n        i++;\n    } while(i < 5);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Functions in C",
+        "example": "Define and call a simple function.\n\n```c\n#include <stdio.h>\n\nvoid greet() {\n    // Greet function\n}\n\nint main() {\n    greet(); // Call function\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Function with Parameters and Return Value",
+        "example": "A function that takes parameters and returns a value.\n\n```c\n#include <stdio.h>\n\nint add(int a, int b) {\n    // Returns sum of a and b\n    return a + b;\n}\n\nint main() {\n    int result = add(3, 4);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Function Prototypes",
+        "example": "Using prototypes to declare functions before usage.\n\n```c\n#include <stdio.h>\n\nint multiply(int a, int b); // Function prototype\n\nint main() {\n    int result = multiply(2, 3);\n    return 0;\n}\n\nint multiply(int a, int b) {\n    return a * b;\n}\n```"
+      },
+      {
+        "name": "Pointers Basics",
+        "example": "Declare and use pointers in C.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int value = 10;\n    int *ptr = &value; // Pointer to value\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Pointer Arithmetic",
+        "example": "Demonstrate pointer arithmetic with an array.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int arr[3] = {1, 2, 3};\n    int *ptr = arr; // Points to first element\n    ptr++; // Move pointer to next element\n    // *ptr is now 2\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Arrays in C",
+        "example": "Declare and initialize an array.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int numbers[5] = {0, 1, 2, 3, 4}; // Array of 5 integers\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Strings in C",
+        "example": "Working with C strings (character arrays).\n\n```c\n#include <stdio.h>\n\nint main() {\n    char greeting[] = \"Hello\"; // String with null terminator\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Structures (struct)",
+        "example": "Define and use a structure to group data.\n\n```c\n#include <stdio.h>\n\nstruct Person {\n    char name[50];\n    int age;\n};\n\nint main() {\n    struct Person p = {\"Alice\", 30};\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Unions",
+        "example": "Using a union to store different data types in the same memory location.\n\n```c\n#include <stdio.h>\n\nunion Data {\n    int i;\n    float f;\n    char str[20];\n};\n\nint main() {\n    union Data data;\n    data.i = 10; // Only one member is valid at a time\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Enumerations (enum)",
+        "example": "Define named integer constants with an enum.\n\n```c\n#include <stdio.h>\n\nenum Weekday { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };\n\nint main() {\n    enum Weekday today = Wednesday;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Preprocessor Directives",
+        "example": "Use #include and #define directives.\n\n```c\n#include <stdio.h>\n\n#define PI 3.14 // Macro for PI\n\nint main() {\n    // Use PI in calculations if needed\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Macros",
+        "example": "Define a macro for an inline operation.\n\n```c\n#include <stdio.h>\n\n#define SQUARE(x) ((x) * (x))\n\nint main() {\n    int sq = SQUARE(5); // Expands to 5*5\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Constants (const keyword)",
+        "example": "Declare an immutable variable using const.\n\n```c\n#include <stdio.h>\n\nint main() {\n    const int days = 7; // days cannot be modified\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Static Variables",
+        "example": "Use static variables to retain values between function calls.\n\n```c\n#include <stdio.h>\n\nvoid counter() {\n    static int count = 0; // Retains value between calls\n    count++;\n    // count increases each call\n}\n\nint main() {\n    counter();\n    counter();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Global vs Local Variables",
+        "example": "Illustrate the difference between global and local variables.\n\n```c\n#include <stdio.h>\n\nint globalVar = 100; // Global variable\n\nint main() {\n    int localVar = 50; // Local variable\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Command-line Arguments",
+        "example": "Access command-line arguments using argc and argv.\n\n```c\n#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n    // argc: argument count, argv: argument vector\n    return 0;\n}\n```"
+      },
+      {
+        "name": "File I/O - Writing to a File",
+        "example": "Open a file and write text to it.\n\n```c\n#include <stdio.h>\n\nint main() {\n    FILE *fp = fopen(\"output.txt\", \"w\"); // Open file for writing\n    if (fp != NULL) {\n        // Write to file\n        fclose(fp);\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "File I/O - Reading from a File",
+        "example": "Open a file and read text from it.\n\n```c\n#include <stdio.h>\n\nint main() {\n    FILE *fp = fopen(\"input.txt\", \"r\"); // Open file for reading\n    if (fp != NULL) {\n        // Read from file\n        fclose(fp);\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Dynamic Memory Allocation",
+        "example": "Allocate and free memory dynamically using malloc and free.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int *ptr = (int*) malloc(sizeof(int) * 5); // Allocate memory for 5 ints\n    if (ptr) {\n        // Use allocated memory\n        free(ptr); // Free memory\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Multidimensional Arrays",
+        "example": "Declare and initialize a 2D array.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int matrix[2][3] = { {1, 2, 3}, {4, 5, 6} }; // 2 rows, 3 columns\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Function Pointers",
+        "example": "Declare and use a pointer to a function.\n\n```c\n#include <stdio.h>\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    int (*funcPtr)(int, int) = add; // Function pointer\n    int result = funcPtr(2, 3);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Recursion",
+        "example": "A recursive function to calculate factorial.\n\n```c\n#include <stdio.h>\n\nint factorial(int n) {\n    if(n <= 1) return 1; // Base case\n    return n * factorial(n - 1); // Recursive call\n}\n\nint main() {\n    int fact = factorial(5); // 5! = 120\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Bitwise Operators",
+        "example": "Use bitwise operators: AND, OR, XOR.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int a = 5;  // 0101 in binary\n    int b = 3;  // 0011 in binary\n    int and = a & b; // Bitwise AND: 0001\n    int or = a | b;  // Bitwise OR: 0111\n    int xor = a ^ b; // Bitwise XOR: 0110\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Ternary Operator",
+        "example": "Use the ternary operator for simple conditions.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int a = 10, b = 20;\n    int max = (a > b) ? a : b; // max gets the greater value\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Passing Arrays to Functions",
+        "example": "Pass an array to a function.\n\n```c\n#include <stdio.h>\n\nvoid printArray(int arr[], int size) {\n    for(int i = 0; i < size; i++) {\n        // Process each element\n    }\n}\n\nint main() {\n    int numbers[] = {1, 2, 3, 4};\n    printArray(numbers, 4);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Passing Pointers to Functions",
+        "example": "Pass a pointer to modify a variable inside a function.\n\n```c\n#include <stdio.h>\n\nvoid increment(int *num) {\n    (*num)++; // Increment value\n}\n\nint main() {\n    int value = 5;\n    increment(&value);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Volatile Keyword",
+        "example": "Use volatile to prevent unwanted compiler optimizations.\n\n```c\n#include <stdio.h>\n\nint main() {\n    volatile int sensor = 0; // Value may change unexpectedly\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Inline Functions (C99)",
+        "example": "Suggest inline expansion of a function using the inline keyword.\n\n```c\n#include <stdio.h>\n\ninline int square(int x) {\n    return x * x;\n}\n\nint main() {\n    int result = square(4); // Likely inlined by compiler\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Type Casting",
+        "example": "Explicitly convert a variable from one type to another.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int a = 5;\n    double b = (double)a; // Cast int to double\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Using sizeof Operator",
+        "example": "Determine the size of data types or variables.\n\n```c\n#include <stdio.h>\n\nint main() {\n    size_t sizeInt = sizeof(int); // Size of int\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Struct with Pointer Members",
+        "example": "Define a structure that contains a pointer member.\n\n```c\n#include <stdio.h>\n\nstruct Node {\n    int data;\n    struct Node *next;\n};\n\nint main() {\n    struct Node node;\n    node.data = 10;\n    node.next = NULL; // End of list\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Simple Linked List",
+        "example": "Create a simple linked list node and free memory.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nstruct Node {\n    int data;\n    struct Node *next;\n};\n\nint main() {\n    struct Node *head = malloc(sizeof(struct Node)); // Allocate node\n    head->data = 1;\n    head->next = NULL;\n    free(head); // Clean up memory\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Preprocessor Conditional Compilation",
+        "example": "Use #ifdef to conditionally compile code.\n\n```c\n#include <stdio.h>\n\n#define DEBUG 1\n\nint main() {\n#ifdef DEBUG\n    // Debug mode enabled\n#endif\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Multiline Comments",
+        "example": "Use /* */ for multiline comments.\n\n```c\n#include <stdio.h>\n\nint main() {\n    /* This is a multiline\n       comment in C */\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Single Line Comments",
+        "example": "Use // for single line comments.\n\n```c\n#include <stdio.h>\n\nint main() {\n    // This is a single line comment\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Error Handling with errno",
+        "example": "Check for errors using errno after a failed operation.\n\n```c\n#include <stdio.h>\n#include <errno.h>\n#include <string.h>\n\nint main() {\n    FILE *fp = fopen(\"nonexistent.txt\", \"r\");\n    if (fp == NULL) {\n        // Handle error using errno\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Using assert Macro",
+        "example": "Use assert for debugging checks.\n\n```c\n#include <stdio.h>\n#include <assert.h>\n\nint main() {\n    int value = 5;\n    assert(value == 5); // Assert must be true\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Variadic Functions",
+        "example": "Define a function with a variable number of arguments using stdarg.h.\n\n```c\n#include <stdio.h>\n#include <stdarg.h>\n\nvoid printNumbers(int count, ...) {\n    va_list args;\n    va_start(args, count);\n    // Process each argument\n    va_end(args);\n}\n\nint main() {\n    printNumbers(3, 10, 20, 30);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Static Inline Functions (C99)",
+        "example": "Combine static and inline for internal linkage and potential inlining.\n\n```c\n#include <stdio.h>\n\nstatic inline int cube(int x) {\n    return x * x * x;\n}\n\nint main() {\n    int result = cube(3); // 27\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Recursion: Fibonacci",
+        "example": "Recursive function to compute Fibonacci numbers.\n\n```c\n#include <stdio.h>\n\nint fibonacci(int n) {\n    if(n <= 1) return n;\n    return fibonacci(n-1) + fibonacci(n-2);\n}\n\nint main() {\n    int fib = fibonacci(5); // 5th Fibonacci number\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Const Correctness in Pointers",
+        "example": "Use const with pointers to prevent modification of data.\n\n```c\n#include <stdio.h>\n\nint main() {\n    const int constant = 100;  // Immutable variable\n    const int *ptr = &constant; // Pointer to const int\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Basic Header File Usage",
+        "example": "Demonstrate creating and including a custom header file.\n\n```c\n/* myheader.h */\n#ifndef MYHEADER_H\n#define MYHEADER_H\n\nvoid myFunction(); // Function declaration\n\n#endif\n\n/* main.c */\n#include <stdio.h>\n#include \"myheader.h\" // Include custom header\n\nint main() {\n    myFunction(); // Call declared function\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Double Pointers",
+        "example": "Demonstrates pointer to pointer usage.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int value = 42;\n    int *ptr = &value;\n    int **dptr = &ptr; // dptr points to ptr\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Array of Pointers",
+        "example": "Store pointers in an array.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int a = 1, b = 2, c = 3;\n    int *arr[3] = { &a, &b, &c };\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Dynamic 2D Array Allocation",
+        "example": "Allocate a 2D array dynamically.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int rows = 3, cols = 4;\n    int **matrix = malloc(rows * sizeof(int*));\n    for (int i = 0; i < rows; i++) {\n        matrix[i] = malloc(cols * sizeof(int));\n    }\n    // Free memory\n    for (int i = 0; i < rows; i++) {\n        free(matrix[i]);\n    }\n    free(matrix);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "String Manipulation with strcpy and strcat",
+        "example": "Copy and concatenate strings using string.h functions.\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char dest[20];\n    strcpy(dest, \"Hello\"); // Copy string\n    strcat(dest, \" World\"); // Concatenate string\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using memset",
+        "example": "Initialize a block of memory to a specific value.\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char buffer[10];\n    memset(buffer, 0, sizeof(buffer)); // Set all bytes to 0\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using memcpy",
+        "example": "Copy memory from one buffer to another.\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char src[] = \"Data\";\n    char dest[10];\n    memcpy(dest, src, sizeof(src)); // Copy string including null terminator\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Variable Length Arrays (VLAs)",
+        "example": "Declare arrays with runtime-determined size (C99 feature).\n\n```c\n#include <stdio.h>\n\nint main() {\n    int n = 5;\n    int arr[n]; // VLA of size n\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Compound Literals",
+        "example": "Create unnamed objects using compound literals (C99 feature).\n\n```c\n#include <stdio.h>\n\nstruct Point { int x, y; };\n\nint main() {\n    struct Point p = (struct Point){ .x = 10, .y = 20 };\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Flexible Array Member",
+        "example": "Define a structure with a flexible array member (C99 feature).\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nstruct Flex {\n    size_t size;\n    int data[]; // Flexible array member\n};\n\nint main() {\n    size_t n = 5;\n    struct Flex *f = malloc(sizeof(struct Flex) + n * sizeof(int));\n    f->size = n;\n    free(f);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Bit Fields in Structures",
+        "example": "Use bit fields to store data in a compact form.\n\n```c\n#include <stdio.h>\n\nstruct Flags {\n    unsigned int isOn : 1;\n    unsigned int error : 1;\n};\n\nint main() {\n    struct Flags f = {1, 0};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Enumerations with Explicit Values",
+        "example": "Define enum constants with explicit values.\n\n```c\n#include <stdio.h>\n\nenum Status { OK = 200, NOT_FOUND = 404, ERROR = 500 };\n\nint main() {\n    enum Status s = OK;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Nested Structures",
+        "example": "Embed one structure within another.\n\n```c\n#include <stdio.h>\n\nstruct Date {\n    int day, month, year;\n};\n\nstruct Event {\n    char name[20];\n    struct Date date;\n};\n\nint main() {\n    struct Event e = {\"Meeting\", {1, 1, 2025}};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Self-referential Structures (Binary Tree Node)",
+        "example": "Define a binary tree node using self-referential structure.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nstruct TreeNode {\n    int value;\n    struct TreeNode *left, *right;\n};\n\nint main() {\n    struct TreeNode *root = malloc(sizeof(struct TreeNode));\n    root->value = 10;\n    root->left = root->right = NULL;\n    free(root);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Doubly Linked List Node",
+        "example": "Define a node for a doubly linked list.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nstruct DNode {\n    int data;\n    struct DNode *prev, *next;\n};\n\nint main() {\n    struct DNode *node = malloc(sizeof(struct DNode));\n    node->data = 100;\n    node->prev = node->next = NULL;\n    free(node);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using realloc for Dynamic Memory",
+        "example": "Resize allocated memory using realloc.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int *arr = malloc(5 * sizeof(int));\n    arr = realloc(arr, 10 * sizeof(int)); // Resize array\n    free(arr);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using calloc for Zero Initialization",
+        "example": "Allocate and initialize memory to zero using calloc.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int *arr = calloc(5, sizeof(int)); // Allocated memory is zeroed\n    free(arr);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Sorting with qsort",
+        "example": "Sort an array using the standard library qsort function.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint cmpInt(const void *a, const void *b) {\n    return (*(int*)a - *(int*)b);\n}\n\nint main() {\n    int arr[] = { 5, 2, 9, 1, 5 };\n    size_t size = sizeof(arr) / sizeof(arr[0]);\n    qsort(arr, size, sizeof(int), cmpInt);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Custom Comparator for qsort",
+        "example": "Custom comparator function for sorting in descending order.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint cmpDesc(const void *a, const void *b) {\n    return (*(int*)b - *(int*)a);\n}\n\nint main() {\n    int arr[] = { 3, 8, 2, 5 };\n    size_t size = sizeof(arr) / sizeof(arr[0]);\n    qsort(arr, size, sizeof(int), cmpDesc);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Function Pointer as Callback",
+        "example": "Pass a function pointer as a callback to another function.\n\n```c\n#include <stdio.h>\n\nvoid callback(void (*func)(void)) {\n    func(); // Call the passed function\n}\n\nvoid sayHello() {\n    // Hello message\n}\n\nint main() {\n    callback(sayHello);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Implementing Bubble Sort",
+        "example": "Simple bubble sort implementation.\n\n```c\n#include <stdio.h>\n\nvoid bubbleSort(int arr[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        for (int j = 0; j < n - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                int temp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = temp;\n            }\n        }\n    }\n}\n\nint main() {\n    int data[] = {5, 3, 8, 4, 2};\n    int n = sizeof(data) / sizeof(data[0]);\n    bubbleSort(data, n);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Pointer Decay Demonstration",
+        "example": "Show how an array decays to a pointer.\n\n```c\n#include <stdio.h>\n\nvoid printArray(int *arr, int size) {\n    // arr is treated as a pointer\n    for (int i = 0; i < size; i++) {\n        // Process each element\n    }\n}\n\nint main() {\n    int numbers[] = {1, 2, 3};\n    printArray(numbers, 3);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Pointer to Constant Data",
+        "example": "Prevent modification of data via pointer.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int value = 10;\n    const int *ptr = &value; // Data is constant\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Constant Pointer",
+        "example": "The pointer itself is constant and cannot change address.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int value1 = 10, value2 = 20;\n    int *const ptr = &value1; // ptr always points to value1\n    *ptr = 15; // Allowed: modifying value1\n    // ptr = &value2; // Error: cannot change pointer\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Double Constant Pointers",
+        "example": "Both pointer and data are constant.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int value = 100;\n    const int *const ptr = &value; // Neither pointer nor data can change\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Recursion: Sum of Array Elements",
+        "example": "Recursively compute the sum of an array.\n\n```c\n#include <stdio.h>\n\nint sumArray(int arr[], int n) {\n    if (n <= 0) return 0;\n    return arr[n - 1] + sumArray(arr, n - 1);\n}\n\nint main() {\n    int data[] = {1, 2, 3, 4};\n    int total = sumArray(data, 4);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Recursion: Binary Search",
+        "example": "Perform a binary search recursively.\n\n```c\n#include <stdio.h>\n\nint binarySearch(int arr[], int low, int high, int key) {\n    if (low > high) return -1;\n    int mid = low + (high - low) / 2;\n    if (arr[mid] == key) return mid;\n    if (arr[mid] > key)\n        return binarySearch(arr, low, mid - 1, key);\n    else\n        return binarySearch(arr, mid + 1, high, key);\n}\n\nint main() {\n    int data[] = {1, 3, 5, 7, 9};\n    int index = binarySearch(data, 0, 4, 7);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Macro Pitfalls: Side Effects",
+        "example": "Demonstrate potential side effects of macros.\n\n```c\n#include <stdio.h>\n\n#define SQUARE(x) ((x) * (x))\n\nint main() {\n    int a = 5;\n    int result = SQUARE(a++); // May lead to unexpected behavior\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using Inline Assembly (GCC Specific)",
+        "example": "Embed assembly code within C (GCC extension).\n\n```c\n#include <stdio.h>\n\nint main() {\n    int result;\n    __asm__(\"movl $10, %0\" : \"=r\"(result)); // Move 10 into result\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Switch with Enum",
+        "example": "Use an enum in a switch statement.\n\n```c\n#include <stdio.h>\n\nenum Color { RED, GREEN, BLUE };\n\nint main() {\n    enum Color col = GREEN;\n    switch (col) {\n        case RED:\n            break;\n        case GREEN:\n            break;\n        case BLUE:\n            break;\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Multiple Return Points in Function",
+        "example": "A function that returns from multiple points.\n\n```c\n#include <stdio.h>\n\nint checkValue(int x) {\n    if (x < 0) return -1;\n    if (x == 0) return 0;\n    return 1;\n}\n\nint main() {\n    int result = checkValue(5);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Pointer to Function Returning Pointer",
+        "example": "Declare a pointer to a function that returns a pointer.\n\n```c\n#include <stdio.h>\n\nchar* getString() {\n    return \"Hello\";\n}\n\nint main() {\n    char* (*funcPtr)() = getString;\n    char *str = funcPtr();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Function Returning Pointer to Array",
+        "example": "Return a pointer to an array from a function.\n\n```c\n#include <stdio.h>\n\nint* getArray() {\n    static int arr[3] = {1, 2, 3}; // Static lifetime\n    return arr;\n}\n\nint main() {\n    int *array = getArray();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Passing Structure to Function by Value",
+        "example": "Pass a struct by value to a function.\n\n```c\n#include <stdio.h>\n\nstruct Point {\n    int x, y;\n};\n\nvoid printPoint(struct Point p) {\n    // Use p.x and p.y\n}\n\nint main() {\n    struct Point pt = {10, 20};\n    printPoint(pt);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Passing Structure to Function by Reference",
+        "example": "Pass a pointer to a struct for modification.\n\n```c\n#include <stdio.h>\n\nstruct Point {\n    int x, y;\n};\n\nvoid movePoint(struct Point *p, int dx, int dy) {\n    p->x += dx;\n    p->y += dy;\n}\n\nint main() {\n    struct Point pt = {10, 20};\n    movePoint(&pt, 5, -5);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Dynamic Array of Structures",
+        "example": "Allocate an array of structs dynamically.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nstruct Item {\n    int id;\n};\n\nint main() {\n    int count = 3;\n    struct Item *items = malloc(count * sizeof(struct Item));\n    // Use items array\n    free(items);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Memory Leak Demonstration",
+        "example": "Example showing a memory leak if allocated memory isn't freed.\n\n```c\n#include <stdlib.h>\n\nint main() {\n    int *leak = malloc(10 * sizeof(int));\n    // Missing free(leak) leads to memory leak\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Recursion: Greatest Common Divisor (GCD)",
+        "example": "Compute GCD using recursion.\n\n```c\n#include <stdio.h>\n\nint gcd(int a, int b) {\n    if (b == 0) return a;\n    return gcd(b, a % b);\n}\n\nint main() {\n    int result = gcd(48, 18);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Macro to Find Maximum Value",
+        "example": "Define a macro to determine the maximum of two values.\n\n```c\n#include <stdio.h>\n\n#define MAX(a, b) ((a) > (b) ? (a) : (b))\n\nint main() {\n    int m = MAX(3, 7);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Macro with Multiple Statements",
+        "example": "Use do-while(0) to encapsulate multiple statements in a macro.\n\n```c\n#include <stdio.h>\n\n#define SWAP(a, b) do { \\\n    int temp = a; \\\n    a = b; \\\n    b = temp; \\\n} while(0)\n\nint main() {\n    int x = 5, y = 10;\n    SWAP(x, y);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using exit() and atexit()",
+        "example": "Register a function to be called on program exit.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nvoid cleanup() {\n    // Cleanup tasks\n}\n\nint main() {\n    atexit(cleanup);\n    exit(0);\n}\n```\n"
+      },
+      {
+        "name": "Signal Handling with signal()",
+        "example": "Handle a signal using the signal() function.\n\n```c\n#include <stdio.h>\n#include <signal.h>\n\nvoid handleSigint(int sig) {\n    // Handle Ctrl+C interrupt\n}\n\nint main() {\n    signal(SIGINT, handleSigint);\n    while (1) { /* Loop indefinitely */ }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Time Measurement using clock()",
+        "example": "Measure execution time using clock().\n\n```c\n#include <stdio.h>\n#include <time.h>\n\nint main() {\n    clock_t start = clock();\n    // Code to measure\n    clock_t end = clock();\n    double cpu_time = (double)(end - start) / CLOCKS_PER_SEC;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Generating Random Numbers using rand()",
+        "example": "Generate a random number using rand().\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int num = rand();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Seeding Random Numbers with srand()",
+        "example": "Seed the random number generator using the current time.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n#include <time.h>\n\nint main() {\n    srand((unsigned) time(NULL));\n    int num = rand();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "File I/O: Appending to a File",
+        "example": "Open a file in append mode to add data.\n\n```c\n#include <stdio.h>\n\nint main() {\n    FILE *fp = fopen(\"log.txt\", \"a\"); // Append mode\n    if (fp) {\n        // Append data\n        fclose(fp);\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "File I/O: Reading Line by Line using fgets",
+        "example": "Read a file line by line using fgets.\n\n```c\n#include <stdio.h>\n\nint main() {\n    char line[100];\n    FILE *fp = fopen(\"input.txt\", \"r\");\n    if (fp) {\n        while (fgets(line, sizeof(line), fp)) {\n            // Process each line\n        }\n        fclose(fp);\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using fseek and ftell",
+        "example": "Navigate a file using fseek and ftell.\n\n```c\n#include <stdio.h>\n\nint main() {\n    FILE *fp = fopen(\"example.txt\", \"r\");\n    if (fp) {\n        fseek(fp, 0, SEEK_END);\n        long size = ftell(fp); // Get file size\n        fclose(fp);\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Using snprintf for Safe String Formatting",
+        "example": "Format a string safely into a buffer using snprintf.\n\n```c\n#include <stdio.h>\n\nint main() {\n    char buffer[50];\n    int value = 100;\n    snprintf(buffer, sizeof(buffer), \"Value: %d\", value);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Implementing a Simple Stack using an Array",
+        "example": "A basic stack implementation using an array.\n\n```c\n#include <stdio.h>\n#define MAX 10\n\nint stack[MAX];\nint top = -1;\n\nvoid push(int value) {\n    if (top < MAX - 1) {\n        stack[++top] = value;\n    }\n}\n\nint pop() {\n    if (top >= 0) return stack[top--];\n    return -1; // Underflow\n}\n\nint main() {\n    push(5);\n    int val = pop();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Implementing a Simple Queue using an Array",
+        "example": "A basic queue implementation using an array.\n\n```c\n#include <stdio.h>\n#define SIZE 10\n\nint queue[SIZE];\nint front = 0, rear = -1;\n\nvoid enqueue(int value) {\n    if (rear < SIZE - 1) {\n        queue[++rear] = value;\n    }\n}\n\nint dequeue() {\n    if (front <= rear) return queue[front++];\n    return -1; // Underflow\n}\n\nint main() {\n    enqueue(10);\n    int val = dequeue();\n    return 0;\n}\n```\n"
+      }
+    ]
+  }
+  

@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Basic Tensor Creation",
+        "example": "Creating a simple tensor in PyTorch.\n\n```python\nimport torch\n\nt = torch.tensor([1, 2, 3])  # Create a 1D tensor\n# t: tensor([1, 2, 3])\n```"
+      },
+      {
+        "name": "Tensor Attributes (Shape, Dtype, Device)",
+        "example": "Accessing tensor attributes like shape, dtype, and device.\n\n```python\nimport torch\n\nt = torch.tensor([[1, 2], [3, 4]])  # 2x2 tensor\n# t.shape: torch.Size([2, 2])\n# t.dtype: torch.int64\n# t.device: cpu\n```"
+      },
+      {
+        "name": "Tensor Arithmetic Operations",
+        "example": "Performing element-wise arithmetic on tensors.\n\n```python\nimport torch\n\na = torch.tensor([1, 2])\nbb = torch.tensor([3, 4])\nc = a + bb  # Element-wise addition\n# c: tensor([4, 6])\n```"
+      },
+      {
+        "name": "Broadcasting in PyTorch",
+        "example": "Using broadcasting to perform operations on tensors of different shapes.\n\n```python\nimport torch\n\na = torch.tensor([[1, 2, 3], [4, 5, 6]])\nb = torch.tensor([1, 0, 1])\nc = a + b  # Broadcasting b to each row of a\n# c: tensor([[2, 2, 4], [5, 5, 7]])\n```"
+      },
+      {
+        "name": "Indexing and Slicing Tensors",
+        "example": "Extracting elements using indexing and slicing.\n\n```python\nimport torch\n\nt = torch.tensor([[10, 20, 30], [40, 50, 60]])\nsub = t[0, 1:]  # First row, columns 1 onward\n# sub: tensor([20, 30])\n```"
+      },
+      {
+        "name": "Tensor Reshaping with view()",
+        "example": "Reshaping a tensor without changing its data using view().\n\n```python\nimport torch\n\nt = torch.arange(6)  # tensor([0, 1, 2, 3, 4, 5])\nreshaped = t.view(2, 3)  # Reshape to 2x3 tensor\n# reshaped: tensor([[0, 1, 2], [3, 4, 5]])\n```"
+      },
+      {
+        "name": "Tensor Cloning and In-place Operations",
+        "example": "Cloning a tensor and performing in-place modifications.\n\n```python\nimport torch\n\nt = torch.tensor([1, 2, 3])\nt_clone = t.clone()  # Clone tensor\n\nt.add_(1)  # In-place addition; modifies t\n# t: tensor([2, 3, 4])\n# t_clone remains tensor([1, 2, 3])\n```"
+      },
+      {
+        "name": "Creating Tensors from NumPy Arrays",
+        "example": "Converting a NumPy array to a PyTorch tensor.\n\n```python\nimport torch\nimport numpy as np\n\nnp_array = np.array([1, 2, 3])\nt = torch.from_numpy(np_array)  # Create tensor from numpy array\n# t: tensor([1, 2, 3])\n```"
+      },
+      {
+        "name": "Conversion between Tensors and NumPy Arrays",
+        "example": "Converting a tensor to a NumPy array.\n\n```python\nimport torch\n\nt = torch.tensor([4, 5, 6])\nnp_array = t.numpy()  # Convert tensor to numpy array\n# np_array: array([4, 5, 6])\n```"
+      },
+      {
+        "name": "Autograd: Setting requires_grad",
+        "example": "Enabling gradient tracking on a tensor.\n\n```python\nimport torch\n\nx = torch.tensor(2.0, requires_grad=True)  # Enable gradients\n# x.grad is None until backward() is called\n```"
+      },
+      {
+        "name": "Computing Gradients with backward()",
+        "example": "Computing gradients using the backward() function.\n\n```python\nimport torch\n\nx = torch.tensor(3.0, requires_grad=True)\ny = x * x  # y = x^2\n\ny.backward()  # Computes dy/dx = 2*x\n# x.grad: tensor(6.0)\n```"
+      },
+      {
+        "name": "Building a Computation Graph",
+        "example": "Creating a simple computation graph and computing gradients.\n\n```python\nimport torch\n\nx = torch.tensor(2.0, requires_grad=True)\ny = x + 3\nz = y * y  # z = (x + 3)^2\n\nz.backward()  # dz/dx = 2*(x + 3)\n# x.grad: tensor(10.0)\n```"
+      },
+      {
+        "name": "Simple Neural Network Module",
+        "example": "Defining a basic neural network using nn.Module.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass SimpleNet(nn.Module):\n    def __init__(self):\n        super(SimpleNet, self).__init__()\n        self.linear = nn.Linear(5, 2)  # Linear layer: 5 -> 2\n\n    def forward(self, x):\n        return self.linear(x)  # Forward pass\n\nmodel = SimpleNet()  # Instantiate the model\n```"
+      },
+      {
+        "name": "Using nn.Linear Layer",
+        "example": "Applying a linear transformation using nn.Linear.\n\n```python\nimport torch\nimport torch.nn as nn\n\nlinear = nn.Linear(3, 1)  # Input dimension 3, output dimension 1\nx = torch.randn(2, 3)  # Batch of 2 examples\noutput = linear(x)  # Compute linear transformation\n# output: tensor of shape [2, 1]\n```"
+      },
+      {
+        "name": "Using nn.ReLU Activation",
+        "example": "Applying the ReLU activation function.\n\n```python\nimport torch\nimport torch.nn as nn\n\nrelu = nn.ReLU()\nx = torch.tensor([-1.0, 0.0, 1.0])\nactivated = relu(x)  # Applies ReLU: max(0, x)\n# activated: tensor([0., 0., 1.])\n```"
+      },
+      {
+        "name": "Stacking Layers with nn.Sequential",
+        "example": "Building a simple model by stacking layers using nn.Sequential.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Sequential(\n    nn.Linear(4, 3),\n    nn.ReLU(),\n    nn.Linear(3, 1)\n)\n\nx = torch.randn(2, 4)  # Batch of 2, input dim 4\noutput = model(x)  # Forward pass through the stacked layers\n```"
+      },
+      {
+        "name": "Custom Model Forward Pass",
+        "example": "Defining a custom model with its own forward method.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass CustomModel(nn.Module):\n    def __init__(self):\n        super(CustomModel, self).__init__()\n        self.fc = nn.Linear(10, 5)\n\n    def forward(self, x):\n        x = self.fc(x)\n        return x  # Return output\n\nmodel = CustomModel()\n```"
+      },
+      {
+        "name": "Zeroing Gradients Before Backward Pass",
+        "example": "Clearing gradients to avoid accumulation before a new backward pass.\n\n```python\nimport torch\n\nx = torch.tensor(1.0, requires_grad=True)\ny = x * 2\n\ny.backward()  # Compute gradients\nx.grad.zero_()  # Zero the gradient before next backward pass\n```"
+      },
+      {
+        "name": "Loss Calculation using nn.MSELoss",
+        "example": "Calculating mean squared error loss.\n\n```python\nimport torch\nimport torch.nn as nn\n\ncriterion = nn.MSELoss()\noutput = torch.tensor([0.5])\ntarget = torch.tensor([1.0])\nloss = criterion(output, target)  # Compute MSE loss\n# loss: tensor representing the loss value\n```"
+      },
+      {
+        "name": "Optimization using torch.optim.SGD",
+        "example": "Using SGD to update model parameters based on gradients.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(2, 1)\noptimizer = optim.SGD(model.parameters(), lr=0.01)\n\nx = torch.randn(3, 2)\ntarget = torch.randn(3, 1)\noutput = model(x)\nloss = ((output - target) ** 2).mean()\nloss.backward()  # Compute gradients\noptimizer.step()  # Update parameters\n```"
+      },
+      {
+        "name": "Training Loop Structure",
+        "example": "A simple training loop using model, loss, and optimizer.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(4, 2)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\ncriterion = nn.MSELoss()\n\n# Dummy training loop for 3 epochs\nfor epoch in range(3):\n    optimizer.zero_grad()  # Reset gradients\n    x = torch.randn(5, 4)   # Input batch\n    target = torch.randn(5, 2)\n    output = model(x)\n    loss = criterion(output, target)\n    loss.backward()         # Compute gradients\n    optimizer.step()        # Update parameters\n```"
+      },
+      {
+        "name": "Custom Dataset Creation",
+        "example": "Creating a custom dataset by subclassing torch.utils.data.Dataset.\n\n```python\nimport torch\nfrom torch.utils.data import Dataset\n\nclass MyDataset(Dataset):\n    def __init__(self):\n        self.data = [i for i in range(10)]\n    \n    def __len__(self):\n        return len(self.data)\n    \n    def __getitem__(self, idx):\n        # Return data and a dummy label\n        return self.data[idx], self.data[idx] * 2\n\ndataset = MyDataset()\n```"
+      },
+      {
+        "name": "Using DataLoader for Batching",
+        "example": "Utilizing DataLoader to iterate over data in batches.\n\n```python\nimport torch\nfrom torch.utils.data import DataLoader, TensorDataset\n\n# Create a dummy dataset\n data = torch.arange(20).view(10, 2)  # 10 samples, 2 features\n dataset = TensorDataset(data)\n loader = DataLoader(dataset, batch_size=3, shuffle=True)\n\n# Iterate through batches\nfor batch in loader:\n    # Each batch is a tuple of tensors\n    pass  # Process the batch\n```"
+      },
+      {
+        "name": "Model Evaluation Mode: model.eval()",
+        "example": "Setting the model to evaluation mode to disable dropout, etc.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Sequential(\n    nn.Linear(3, 1),\n    nn.Dropout(0.5)\n)\n\nmodel.eval()  # Switch to evaluation mode\n# Dropout behaves differently during evaluation\n```"
+      },
+      {
+        "name": "Model Training Mode: model.train()",
+        "example": "Setting the model to training mode to enable training-specific layers.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Sequential(\n    nn.Linear(3, 1),\n    nn.Dropout(0.5)\n)\n\nmodel.train()  # Switch to training mode\n# Enables dropout and batch norm behaviors for training\n```"
+      },
+      {
+        "name": "Saving Model State Dict",
+        "example": "Saving the state dictionary of a model for later use.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(2, 1)\n# Save model state to a file\ntorch.save(model.state_dict(), 'model_state.pth')\n```"
+      },
+      {
+        "name": "Loading Model State Dict",
+        "example": "Loading a saved state dictionary into a model.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(2, 1)\n# Load the state from file\nmodel.load_state_dict(torch.load('model_state.pth'))\n```"
+      },
+      {
+        "name": "Using GPU with CUDA",
+        "example": "Moving tensors to a GPU if available.\n\n```python\nimport torch\n\ndevice = torch.device('cuda' if torch.cuda.is_available() else 'cpu')\nt = torch.tensor([1, 2, 3], device=device)\n# t is on GPU if available, else CPU\n```"
+      },
+      {
+        "name": "Handling CUDA Tensors and CPU Tensors",
+        "example": "Converting tensors between CPU and GPU devices.\n\n```python\nimport torch\n\nt_cpu = torch.tensor([1, 2, 3])\nt_gpu = t_cpu.to('cuda') if torch.cuda.is_available() else t_cpu\n# t_gpu: tensor on GPU if available\n```"
+      },
+      {
+        "name": "Using torch.no_grad() for Inference",
+        "example": "Disabling gradient calculation during inference.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(4, 2)\nx = torch.randn(3, 4)\nwith torch.no_grad():\n    output = model(x)  # No gradient tracking\n```"
+      },
+      {
+        "name": "Custom Autograd Function",
+        "example": "Defining a custom function with forward and backward methods.\n\n```python\nimport torch\n\nclass SquareFunction(torch.autograd.Function):\n    @staticmethod\n    def forward(ctx, input):\n        ctx.save_for_backward(input)\n        return input * input  # Square the input\n\n    @staticmethod\n    def backward(ctx, grad_output):\n        input, = ctx.saved_tensors\n        return grad_output * 2 * input  # Derivative: 2*x\n\nx = torch.tensor(3.0, requires_grad=True)\ny = SquareFunction.apply(x)\ny.backward()  # Computes gradient 2*x\n# x.grad: tensor(6.0)\n```"
+      },
+      {
+        "name": "Gradient Accumulation Example",
+        "example": "Demonstrating how gradients accumulate over multiple backward calls.\n\n```python\nimport torch\n\nx = torch.tensor(1.0, requires_grad=True)\ny = x * 2\n\ny.backward()  # First backward, x.grad becomes 2\ny.backward()  # Accumulates gradient, now x.grad becomes 4\n```"
+      },
+      {
+        "name": "Parameter vs Buffer in nn.Module",
+        "example": "Showing the difference between parameters and buffers in a module.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MyModule(nn.Module):\n    def __init__(self):\n        super(MyModule, self).__init__()\n        self.param = nn.Parameter(torch.randn(3))  # Registered as parameter\n        self.register_buffer('buffer', torch.randn(3))  # Not optimized\n\nmodel = MyModule()\n# model.param is learnable; model.buffer is not\n```"
+      },
+      {
+        "name": "Using register_buffer in a Module",
+        "example": "Registering a buffer that is not updated by the optimizer.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass BufferModule(nn.Module):\n    def __init__(self):\n        super(BufferModule, self).__init__()\n        self.register_buffer('running_mean', torch.zeros(3))\n\nmodel = BufferModule()\n# running_mean persists across model saves but is not a parameter\n```"
+      },
+      {
+        "name": "Applying Dropout in a Model",
+        "example": "Using dropout to randomly zero some elements during training.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndropout = nn.Dropout(p=0.5)\nx = torch.ones(4)\noutput = dropout(x)  # Randomly zeroes some elements\n```"
+      },
+      {
+        "name": "Batch Normalization Example",
+        "example": "Normalizing inputs using BatchNorm for 1D features.\n\n```python\nimport torch\nimport torch.nn as nn\n\nbn = nn.BatchNorm1d(3)  # For 1D data with 3 features\nx = torch.randn(10, 3)   # Batch of 10 samples\noutput = bn(x)  # Normalizes each feature across the batch\n```"
+      },
+      {
+        "name": "Weight Initialization in PyTorch",
+        "example": "Initializing model weights using Xavier uniform initialization.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(5, 2)\nnn.init.xavier_uniform_(model.weight)  # Initialize weights\n# Biases remain unchanged\n```"
+      },
+      {
+        "name": "Learning Rate Scheduler Usage",
+        "example": "Adjusting the learning rate during training using a scheduler.\n\n```python\nimport torch\nimport torch.optim as optim\n\nmodel = torch.nn.Linear(2, 1)\noptimizer = optim.SGD(model.parameters(), lr=0.1)\nscheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)\n\n# In the training loop, call scheduler.step() to update the LR\n```"
+      },
+      {
+        "name": "Using torch.manual_seed for Reproducibility",
+        "example": "Setting a manual seed to ensure reproducible results.\n\n```python\nimport torch\n\ntorch.manual_seed(42)  # Ensures deterministic behavior for random ops\n```"
+      },
+      {
+        "name": "Saving and Loading Checkpoints",
+        "example": "Saving and later restoring both model and optimizer states.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(2, 1)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\n\ncheckpoint = {\n    'model_state': model.state_dict(),\n    'optimizer_state': optimizer.state_dict()\n}\n\ntorch.save(checkpoint, 'checkpoint.pth')\n# Later, load with torch.load and update model/optimizer:\n# checkpoint = torch.load('checkpoint.pth')\n```"
+      },
+      {
+        "name": "Matrix Multiplication with torch.mm",
+        "example": "Performing matrix multiplication using torch.mm.\n\n```python\nimport torch\n\na = torch.randn(2, 3)\nb = torch.randn(3, 4)\nresult = torch.mm(a, b)  # Matrix multiplication\n# result: tensor of shape [2, 4]\n```"
+      },
+      {
+        "name": "Element-wise Multiplication",
+        "example": "Multiplying tensors element by element.\n\n```python\nimport torch\n\na = torch.tensor([1, 2, 3])\nb = torch.tensor([4, 5, 6])\nresult = a * b  # Element-wise multiplication\n# result: tensor([4, 10, 18])\n```"
+      },
+      {
+        "name": "Using torch.matmul for Batch Multiplication",
+        "example": "Performing batch matrix multiplication using torch.matmul.\n\n```python\nimport torch\n\na = torch.randn(10, 2, 3)\nb = torch.randn(10, 3, 4)\nresult = torch.matmul(a, b)  # Batch matrix multiplication\n# result: tensor of shape [10, 2, 4]\n```"
+      },
+      {
+        "name": "Understanding In-place Operations (_ version)",
+        "example": "Using in-place operations to modify tensors directly.\n\n```python\nimport torch\n\nt = torch.tensor([1, 2, 3])\nt.add_(5)  # In-place addition\n# t: tensor([6, 7, 8])\n```"
+      },
+      {
+        "name": "Using torch.Tensor.fill_ for In-place Filling",
+        "example": "Filling a tensor with a constant value in-place.\n\n```python\nimport torch\n\nt = torch.empty(3)\nt.fill_(7)  # In-place fill\n# t: tensor([7, 7, 7])\n```"
+      },
+      {
+        "name": "Broadcasting with Different Shapes",
+        "example": "Demonstrating broadcasting between tensors of different shapes.\n\n```python\nimport torch\n\na = torch.tensor([[1, 2, 3]])\nb = torch.tensor([[10], [20]])\nresult = a + b  # Broadcasts b across rows of a\n# result: tensor([[11, 12, 13], [21, 22, 23]])\n```"
+      },
+      {
+        "name": "Advanced Indexing: Boolean Masking",
+        "example": "Using a boolean mask to filter tensor elements.\n\n```python\nimport torch\n\nt = torch.arange(10)\nmask = t % 2 == 0  # True for even numbers\nfiltered = t[mask]\n# filtered: tensor([0, 2, 4, 6, 8])\n```"
+      },
+      {
+        "name": "Using torch.stack to Combine Tensors",
+        "example": "Stacking a sequence of tensors along a new dimension.\n\n```python\nimport torch\n\na = torch.tensor([1, 2])\nb = torch.tensor([3, 4])\nstacked = torch.stack((a, b))\n# stacked: tensor([[1, 2], [3, 4]])\n```"
+      },
+      {
+        "name": "Using torch.cat to Concatenate Tensors",
+        "example": "Concatenating tensors along an existing dimension.\n\n```python\nimport torch\n\na = torch.tensor([[1, 2]])\nb = torch.tensor([[3, 4]])\nconcatenated = torch.cat((a, b), dim=0)  # Concatenates along rows\n# concatenated: tensor([[1, 2], [3, 4]])\n```"
+      },
+      {
+        "name": "Using torch.split to Split Tensors",
+        "example": "Splitting a tensor into chunks of a given size.\n\n```python\nimport torch\n\nt = torch.arange(10)\nsplits = torch.split(t, 3)  # Splits into chunks of 3 elements\n# splits: (tensor([0, 1, 2]), tensor([3, 4, 5]), tensor([6, 7, 8]), tensor([9]))\n```"
+      },
+      {
+        "name": "3D Tensor Creation and Manipulation",
+        "example": "Creating and reshaping a 3D tensor.\n\n```python\nimport torch\n\nt = torch.arange(24).view(2, 3, 4)  # 3D tensor of shape (2,3,4)\n# t contains values from 0 to 23\n```"
+      },
+      {
+        "name": "Tensor Slicing in Higher Dimensions",
+        "example": "Slicing a 3D tensor along specific dimensions.\n\n```python\nimport torch\n\nt = torch.arange(24).view(2, 3, 4)\nsliced = t[1, :, 2:]  # Second block, all rows, columns 2 onward\n# sliced: tensor with shape (3,2)\n```"
+      },
+      {
+        "name": "Using torch.unsqueeze and torch.squeeze",
+        "example": "Adding and removing dimensions from a tensor.\n\n```python\nimport torch\n\nt = torch.tensor([1, 2, 3])\nt_unsqueezed = t.unsqueeze(0)  # Shape becomes (1, 3)\nt_squeezed = t_unsqueezed.squeeze(0)  # Back to (3,)\n```"
+      },
+      {
+        "name": "Expanding Tensors with torch.expand",
+        "example": "Expanding dimensions using broadcasting semantics.\n\n```python\nimport torch\n\nt = torch.tensor([[1], [2], [3]])  # Shape (3,1)\nexpanded = t.expand(3, 4)  # Expands to shape (3,4) without copying data\n```"
+      },
+      {
+        "name": "Repeating Tensors with torch.repeat",
+        "example": "Repeating tensor elements along specified dimensions.\n\n```python\nimport torch\n\nt = torch.tensor([1, 2])\nrepeated = t.repeat(3)  # Repeats tensor 3 times; shape (6,)\n```"
+      },
+      {
+        "name": "Tensor Type Conversion",
+        "example": "Converting a tensor from one type to another.\n\n```python\nimport torch\n\nt = torch.tensor([1.0, 2.0])\nt_int = t.type(torch.int32)  # Converts to int32\n```"
+      },
+      {
+        "name": "Element-wise Comparison Operators",
+        "example": "Comparing tensors element-wise using relational operators.\n\n```python\nimport torch\n\na = torch.tensor([1, 2, 3])\nb = torch.tensor([2, 2, 2])\nresult = a > b  # Returns a boolean tensor\n# result: tensor([False, False, True])\n```"
+      },
+      {
+        "name": "Using torch.where for Conditional Selection",
+        "example": "Selecting elements based on a condition.\n\n```python\nimport torch\n\nt = torch.tensor([1, 2, 3, 4])\nmask = t > 2\nresult = torch.where(mask, t, torch.zeros_like(t))\n# result: tensor([0, 0, 3, 4])\n```"
+      },
+      {
+        "name": "Aggregation: Sum, Mean, and Std",
+        "example": "Computing sum, mean, and standard deviation of tensor elements.\n\n```python\nimport torch\n\nt = torch.tensor([1.0, 2.0, 3.0, 4.0])\ns = t.sum()    # Sum: 10.0\nm = t.mean()   # Mean: 2.5\nstd = t.std()  # Standard deviation\n```"
+      },
+      {
+        "name": "Using torch.max and torch.min",
+        "example": "Finding the maximum and minimum values in a tensor.\n\n```python\nimport torch\n\nt = torch.tensor([1, 5, 3])\nmax_val = t.max()  # 5\nmin_val = t.min()  # 1\n```"
+      },
+      {
+        "name": "Using torch.argmax and torch.argmin",
+        "example": "Getting the indices of the maximum and minimum values.\n\n```python\nimport torch\n\nt = torch.tensor([1, 5, 3])\nidx_max = t.argmax()  # Index 1\nidx_min = t.argmin()  # Index 0\n```"
+      },
+      {
+        "name": "Matrix Transposition with .t()",
+        "example": "Transposing a 2D tensor using the .t() method.\n\n```python\nimport torch\n\nt = torch.tensor([[1, 2, 3], [4, 5, 6]])\ntransposed = t.t()  # Shape becomes (3, 2)\n```"
+      },
+      {
+        "name": "Permuting Dimensions with torch.permute",
+        "example": "Rearranging the dimensions of a tensor.\n\n```python\nimport torch\n\nt = torch.arange(24).view(2, 3, 4)\npermuted = t.permute(2, 0, 1)  # New shape: (4, 2, 3)\n```"
+      },
+      {
+        "name": "Flattening Tensors with torch.flatten",
+        "example": "Flattening a multi-dimensional tensor to 1D.\n\n```python\nimport torch\n\nt = torch.arange(12).view(3, 4)\nflattened = torch.flatten(t)  # 1D tensor with 12 elements\n```"
+      },
+      {
+        "name": "Creating Zero Tensor with torch.zeros",
+        "example": "Creating a tensor filled with zeros.\n\n```python\nimport torch\n\nzeros = torch.zeros(3, 4)  # 3x4 tensor of zeros\n```"
+      },
+      {
+        "name": "Creating Ones Tensor with torch.ones",
+        "example": "Creating a tensor filled with ones.\n\n```python\nimport torch\n\nones = torch.ones(2, 5)  # 2x5 tensor of ones\n```"
+      },
+      {
+        "name": "Creating Random Tensor with torch.rand",
+        "example": "Generating a tensor with uniform random values between 0 and 1.\n\n```python\nimport torch\n\nrand_tensor = torch.rand(2, 3)\n```"
+      },
+      {
+        "name": "Creating Normal Random Tensor with torch.randn",
+        "example": "Generating a tensor with values from a normal distribution.\n\n```python\nimport torch\n\nrandn_tensor = torch.randn(2, 3)\n```"
+      },
+      {
+        "name": "Seed-based Tensor Generation",
+        "example": "Ensuring reproducible random tensors by setting a seed.\n\n```python\nimport torch\n\ntorch.manual_seed(123)\nt1 = torch.rand(2, 2)\n\ntorch.manual_seed(123)\nt2 = torch.rand(2, 2)\n# t1 and t2 will be identical\n```"
+      },
+      {
+        "name": "Using torch.sigmoid Activation",
+        "example": "Applying the sigmoid activation function element-wise.\n\n```python\nimport torch\n\nx = torch.tensor([0.0, 1.0, -1.0])\nactivated = torch.sigmoid(x)\n# activated: values between 0 and 1\n```"
+      },
+      {
+        "name": "Using torch.tanh Activation",
+        "example": "Applying the tanh activation function element-wise.\n\n```python\nimport torch\n\nx = torch.tensor([0.0, 1.0, -1.0])\nactivated = torch.tanh(x)\n# activated: values between -1 and 1\n```"
+      },
+      {
+        "name": "Using torch.exp and torch.log",
+        "example": "Computing the exponential and logarithm of tensor elements.\n\n```python\nimport torch\n\nx = torch.tensor([1.0, 2.0, 3.0])\nexp_x = torch.exp(x)  # Exponential\nlog_x = torch.log(x)  # Natural logarithm\n```"
+      },
+      {
+        "name": "Element-wise Power with torch.pow",
+        "example": "Raising each element of a tensor to a specified power.\n\n```python\nimport torch\n\nx = torch.tensor([2, 3, 4])\npowered = torch.pow(x, 3)  # Each element cubed\n```"
+      },
+      {
+        "name": "Matrix Inversion using torch.inverse",
+        "example": "Computing the inverse of a 2x2 matrix.\n\n```python\nimport torch\n\na = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\na_inv = torch.inverse(a)  # Inverse of the matrix\n```"
+      },
+      {
+        "name": "Solving Linear Systems with torch.linalg.solve",
+        "example": "Solving a linear system Ax = b.\n\n```python\nimport torch\n\nA = torch.tensor([[3.0, 1.0], [1.0, 2.0]])\nb = torch.tensor([9.0, 8.0])\nsolution = torch.linalg.solve(A, b)  # Solves for x in Ax = b\n```"
+      },
+      {
+        "name": "Using torch.norm for Vector Norms",
+        "example": "Calculating the L2 norm (Euclidean norm) of a vector.\n\n```python\nimport torch\n\nx = torch.tensor([3.0, 4.0])\nnorm = torch.norm(x)  # Result is 5.0\n```"
+      },
+      {
+        "name": "Computing L1 Norm with torch.norm",
+        "example": "Calculating the L1 norm (sum of absolute values) of a vector.\n\n```python\nimport torch\n\nx = torch.tensor([1.0, -2.0, 3.0])\nl1_norm = torch.norm(x, p=1)\n```"
+      },
+      {
+        "name": "Extracting Diagonal with torch.diag",
+        "example": "Extracting the diagonal elements from a matrix.\n\n```python\nimport torch\n\na = torch.tensor([[1, 2], [3, 4]])\ndiag = torch.diag(a)  # Returns tensor([1, 4])\n```"
+      },
+      {
+        "name": "Creating Diagonal Matrix with torch.diag_embed",
+        "example": "Creating a diagonal matrix from a 1D tensor.\n\n```python\nimport torch\n\nv = torch.tensor([1, 2, 3])\ndiag_matrix = torch.diag_embed(v)  # 3x3 diagonal matrix\n```"
+      },
+      {
+        "name": "Upper and Lower Triangular Parts with torch.triu and torch.tril",
+        "example": "Extracting the upper and lower triangular parts of a matrix.\n\n```python\nimport torch\n\na = torch.tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])\nupper = torch.triu(a)  # Upper triangular part\nlower = torch.tril(a)  # Lower triangular part\n```"
+      },
+      {
+        "name": "Stable LogSumExp with torch.logsumexp",
+        "example": "Computing the log-sum-exp of tensor elements in a stable way.\n\n```python\nimport torch\n\nx = torch.tensor([1.0, 2.0, 3.0])\nlse = torch.logsumexp(x, dim=0)  # Computes log(sum(exp(x)))\n```"
+      },
+      {
+        "name": "Computing Softmax with torch.nn.functional.softmax",
+        "example": "Applying the softmax function over a tensor.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nx = torch.tensor([1.0, 2.0, 3.0])\nsoftmax = F.softmax(x, dim=0)  # Softmax applied over the tensor\n```"
+      },
+      {
+        "name": "Computing Log-Softmax with torch.nn.functional.log_softmax",
+        "example": "Calculating log-softmax of tensor elements.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nx = torch.tensor([1.0, 2.0, 3.0])\nlog_softmax = F.log_softmax(x, dim=0)\n```"
+      },
+      {
+        "name": "Cross Entropy Loss with torch.nn.functional.cross_entropy",
+        "example": "Computing cross entropy loss for classification tasks.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nlogits = torch.randn(3, 5)  # Batch of 3, 5 classes\ntargets = torch.tensor([1, 0, 4])\nloss = F.cross_entropy(logits, targets)  # Cross entropy loss\n```"
+      },
+      {
+        "name": "Negative Log Likelihood Loss with torch.nn.functional.nll_loss",
+        "example": "Calculating NLL loss using log probabilities.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nlog_probs = F.log_softmax(torch.randn(3, 5), dim=1)\ntargets = torch.tensor([1, 0, 4])\nloss = F.nll_loss(log_probs, targets)\n```"
+      },
+      {
+        "name": "2D Convolution using torch.nn.functional.conv2d",
+        "example": "Performing a 2D convolution on an image tensor.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\n# Input: batch of 1, 1 channel, 5x5 image\ninput = torch.randn(1, 1, 5, 5)\n# Convolution filter: 1 output channel, 1 input channel, kernel size 3\nweight = torch.randn(1, 1, 3, 3)\noutput = F.conv2d(input, weight)\n```"
+      },
+      {
+        "name": "Max Pooling with torch.nn.functional.max_pool2d",
+        "example": "Applying max pooling to reduce spatial dimensions.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nx = torch.randn(1, 1, 8, 8)  # 8x8 input\npooled = F.max_pool2d(x, kernel_size=2, stride=2)  # Output shape (1,1,4,4)\n```"
+      },
+      {
+        "name": "Upsampling with torch.nn.functional.interpolate",
+        "example": "Upsampling an image tensor using bilinear interpolation.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nx = torch.randn(1, 3, 16, 16)  # 16x16 image\nupsampled = F.interpolate(x, scale_factor=2, mode='bilinear', align_corners=False)  # 32x32 image\n```"
+      },
+      {
+        "name": "Functional Dropout with torch.nn.functional.dropout",
+        "example": "Applying dropout in functional style during training.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\nx = torch.ones(5)\ndropped = F.dropout(x, p=0.5, training=True)  # Randomly zeros some elements\n```"
+      },
+      {
+        "name": "Simple CNN Forward Pass using Functional API",
+        "example": "Building a simple CNN forward pass with conv, relu, and pooling.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\n# Input: batch of 1, 1 channel, 28x28 image\nx = torch.randn(1, 1, 28, 28)\n# Convolution: from 1 to 10 channels, kernel size 5\nconv_weight = torch.randn(10, 1, 5, 5)\nx = F.conv2d(x, conv_weight)\nx = F.relu(x)\nx = F.max_pool2d(x, 2)  # Downsample spatial dimensions\n```"
+      },
+      {
+        "name": "Defining a Convolutional Layer with nn.Conv2d",
+        "example": "Creating a convolutional layer using nn.Conv2d.\n\n```python\nimport torch\nimport torch.nn as nn\n\nconv_layer = nn.Conv2d(in_channels=1, out_channels=10, kernel_size=5)\n# Can be integrated into a CNN model for image data\n```"
+      },
+      {
+        "name": "Defining a Max Pooling Layer with nn.MaxPool2d",
+        "example": "Creating a max pooling layer to reduce spatial size.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmaxpool = nn.MaxPool2d(kernel_size=2, stride=2)\n# Reduces each spatial dimension by a factor of 2\n```"
+      },
+      {
+        "name": "Transposed Convolution with nn.ConvTranspose2d",
+        "example": "Creating a transposed convolution (deconvolution) layer for upsampling.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndeconv = nn.ConvTranspose2d(in_channels=10, out_channels=1, kernel_size=5)\n# Useful in generative models or segmentation\n```"
+      },
+      {
+        "name": "Creating an Embedding Layer with nn.Embedding",
+        "example": "Defining an embedding layer for mapping indices to vectors.\n\n```python\nimport torch\nimport torch.nn as nn\n\nembedding = nn.Embedding(num_embeddings=100, embedding_dim=10)\ninput_indices = torch.tensor([1, 5, 7])\nembedded = embedding(input_indices)  # Retrieves embeddings for indices\n```"
+      },
+      {
+        "name": "Defining a Simple RNN with nn.RNN",
+        "example": "Creating a basic RNN for sequential data.\n\n```python\nimport torch\nimport torch.nn as nn\n\nrnn = nn.RNN(input_size=10, hidden_size=20, num_layers=1, batch_first=True)\nx = torch.randn(5, 7, 10)  # Batch of 5, sequence length 7\noutput, hn = rnn(x)  # output shape: (5, 7, 20)\n```"
+      },
+      {
+        "name": "Defining an LSTM with nn.LSTM",
+        "example": "Creating an LSTM layer for handling long-term dependencies.\n\n```python\nimport torch\nimport torch.nn as nn\n\nlstm = nn.LSTM(input_size=10, hidden_size=20, num_layers=1, batch_first=True)\nx = torch.randn(5, 7, 10)\noutput, (hn, cn) = lstm(x)  # hn and cn: hidden and cell states\n```"
+      },
+      {
+        "name": "Defining a GRU with nn.GRU",
+        "example": "Creating a GRU layer as an alternative to LSTM.\n\n```python\nimport torch\nimport torch.nn as nn\n\ngru = nn.GRU(input_size=10, hidden_size=20, num_layers=1, batch_first=True)\nx = torch.randn(5, 7, 10)\noutput, hn = gru(x)  # hn: hidden state\n```"
+      },
+      {
+        "name": "Packing Padded Sequences for RNNs",
+        "example": "Handling variable-length sequences using packing utilities.\n\n```python\nimport torch\nimport torch.nn.utils.rnn as rnn_utils\n\n# Example sequences of different lengths\nsequences = [torch.tensor([1, 2, 3]), torch.tensor([4, 5])]\npadded = rnn_utils.pad_sequence(sequences, batch_first=True)  # Pads sequences\nlengths = torch.tensor([3, 2])\npacked = rnn_utils.pack_padded_sequence(padded, lengths, batch_first=True, enforce_sorted=False)\n```"
+      },
+      {
+        "name": "Unpacking Packed Sequences for RNNs",
+        "example": "Converting packed sequences back to padded form after processing.\n\n```python\nimport torch\nimport torch.nn.utils.rnn as rnn_utils\n\nsequences = [torch.tensor([1, 2, 3]), torch.tensor([4, 5])]\npadded = rnn_utils.pad_sequence(sequences, batch_first=True)\nlengths = torch.tensor([3, 2])\npacked = rnn_utils.pack_padded_sequence(padded, lengths, batch_first=True, enforce_sorted=False)\nunpacked, lengths_out = rnn_utils.pad_packed_sequence(packed, batch_first=True)\n```"
+      },
+      {
+        "name": "Distributed Data Parallel (DDP) Setup",
+        "example": "A minimal example of setting up DDP for distributed training.\n\n```python\nimport torch\nimport torch.distributed as dist\nimport torch.nn as nn\nimport torch.optim as optim\nfrom torch.nn.parallel import DistributedDataParallel as DDP\n\n# Initialize the process group (this requires proper environment variables set)\ndist.init_process_group(backend='gloo', init_method='env://')\n\nmodel = nn.Linear(10, 1).to('cuda')\nddp_model = DDP(model)\noptimizer = optim.SGD(ddp_model.parameters(), lr=0.001)\n# Continue training with ddp_model\n```"
+      }
+    ]
+  }
+  

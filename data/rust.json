@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Hello World",
+        "example": "A simple Rust program that prints **Hello, world!**.\n\n```rust\nfn main() {\n    // Entry point\n    println!(\"Hello, world!\");\n}\n```"
+      },
+      {
+        "name": "Variables and Mutability",
+        "example": "Declare immutable and mutable variables.\n\n```rust\nfn main() {\n    let x = 5; // immutable\n    let mut y = 10; // mutable\n    y += x; // y is now 15\n}\n```"
+      },
+      {
+        "name": "Constants",
+        "example": "Constants are always immutable.\n\n```rust\nconst MAX_POINTS: u32 = 100_000; // underscores improve readability\n```"
+      },
+      {
+        "name": "Scalar Data Types",
+        "example": "Examples of integers, floats, booleans, and characters.\n\n```rust\nfn main() {\n    let int_val: i32 = 42;\n    let float_val: f64 = 3.14;\n    let is_active: bool = true;\n    let letter: char = 'R';\n}\n```"
+      },
+      {
+        "name": "Compound Data Types",
+        "example": "Using tuples and arrays.\n\n```rust\nfn main() {\n    let tup: (i32, f64, u8) = (500, 6.4, 1);\n    let arr: [i32; 3] = [1, 2, 3];\n}\n```"
+      },
+      {
+        "name": "Functions",
+        "example": "Defining functions with parameters and return values.\n\n```rust\nfn add(a: i32, b: i32) -> i32 {\n    a + b // returns the sum\n}\n\nfn main() {\n    let sum = add(2, 3); // sum is 5\n}\n```"
+      },
+      {
+        "name": "If Expressions",
+        "example": "Using if-else conditions.\n\n```rust\nfn main() {\n    let num = 5;\n    if num > 0 {\n        // num is positive\n    } else {\n        // num is zero or negative\n    }\n}\n```"
+      },
+      {
+        "name": "Loop",
+        "example": "Infinite loop with a break condition.\n\n```rust\nfn main() {\n    let mut count = 0;\n    loop {\n        count += 1; // increment\n        if count == 3 { break; } // exit loop when count is 3\n    }\n}\n```"
+      },
+      {
+        "name": "While Loop",
+        "example": "Loop while a condition remains true.\n\n```rust\nfn main() {\n    let mut n = 3;\n    while n != 0 {\n        n -= 1; // decrement n until 0\n    }\n}\n```"
+      },
+      {
+        "name": "For Loop",
+        "example": "Iterate over a range.\n\n```rust\nfn main() {\n    for i in 1..4 { // i takes values 1, 2, 3\n        // process i\n    }\n}\n```"
+      },
+      {
+        "name": "Ownership",
+        "example": "Ownership moves on assignment.\n\n```rust\nfn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = s1; // s1 is moved to s2\n    // s1 is no longer valid here\n}\n```"
+      },
+      {
+        "name": "Borrowing",
+        "example": "Passing references to avoid transferring ownership.\n\n```rust\nfn main() {\n    let s = String::from(\"hello\");\n    let len = calculate_length(&s); // borrow s\n}\n\nfn calculate_length(s: &String) -> usize {\n    s.len() // return length without taking ownership\n}\n```"
+      },
+      {
+        "name": "Mutable Borrowing",
+        "example": "Use mutable references to modify data.\n\n```rust\nfn main() {\n    let mut s = String::from(\"hello\");\n    change(&mut s); // mutable borrow\n}\n\nfn change(s: &mut String) {\n    s.push_str(\" world\"); // modify s\n}\n```"
+      },
+      {
+        "name": "Slices",
+        "example": "Borrow a part of a collection using slices.\n\n```rust\nfn main() {\n    let arr = [1, 2, 3, 4, 5];\n    let slice = &arr[1..3]; // slice contains 2 and 3\n}\n```"
+      },
+      {
+        "name": "Structs",
+        "example": "Define and use a struct.\n\n```rust\nstruct User {\n    name: String,\n    age: u8,\n}\n\nfn main() {\n    let user = User { name: String::from(\"Alice\"), age: 30 };\n}\n```"
+      },
+      {
+        "name": "Enums",
+        "example": "Define an enum with multiple variants.\n\n```rust\nenum Direction {\n    Up,\n    Down,\n    Left,\n    Right,\n}\n\nfn main() {\n    let dir = Direction::Up;\n}\n```"
+      },
+      {
+        "name": "Pattern Matching",
+        "example": "Use match to handle enum variants.\n\n```rust\nenum Direction { Up, Down, Left, Right }\n\nfn main() {\n    let dir = Direction::Left;\n    match dir {\n        Direction::Up => {},\n        Direction::Down => {},\n        Direction::Left => {},\n        Direction::Right => {},\n    }\n}\n```"
+      },
+      {
+        "name": "Option Type",
+        "example": "Handling optional values with the Option enum.\n\n```rust\nfn main() {\n    let some_number: Option<i32> = Some(5);\n    let no_number: Option<i32> = None;\n}\n```"
+      },
+      {
+        "name": "Result Type",
+        "example": "Handling operations that may fail using Result.\n\n```rust\nfn divide(a: i32, b: i32) -> Result<i32, &'static str> {\n    if b == 0 {\n        Err(\"division by zero\")\n    } else {\n        Ok(a / b)\n    }\n}\n\nfn main() {\n    let result = divide(10, 2);\n}\n```"
+      },
+      {
+        "name": "Error Handling with match",
+        "example": "Using match to handle Result errors.\n\n```rust\nfn main() {\n    match divide(10, 0) {\n        Ok(val) => {},\n        Err(e) => {}, // handle error here\n    }\n}\n\nfn divide(a: i32, b: i32) -> Result<i32, &'static str> {\n    if b == 0 { Err(\"division by zero\") } else { Ok(a / b) }\n}\n```"
+      },
+      {
+        "name": "Defining a Trait",
+        "example": "Declare a trait with a method signature.\n\n```rust\ntrait Summary {\n    fn summarize(&self) -> String;\n}\n```"
+      },
+      {
+        "name": "Implementing a Trait",
+        "example": "Implement a trait for a struct.\n\n```rust\nstruct Article {\n    title: String,\n}\n\nimpl Summary for Article {\n    fn summarize(&self) -> String {\n        format!(\"Article: {}\", self.title) // returns a summary\n    }\n}\n```"
+      },
+      {
+        "name": "Generics",
+        "example": "Define a generic function to find the largest element in a slice.\n\n```rust\nfn largest<T: PartialOrd>(list: &[T]) -> &T {\n    let mut largest = &list[0];\n    for item in list {\n        if item > largest { largest = item; }\n    }\n    largest\n}\n```"
+      },
+      {
+        "name": "Lifetimes",
+        "example": "Annotate lifetimes in function signatures to ensure references are valid.\n\n```rust\nfn longest<'a>(x: &'a str, y: &'a str) -> &'a str {\n    if x.len() > y.len() { x } else { y }\n}\n```"
+      },
+      {
+        "name": "Closures",
+        "example": "Define a closure that adds two numbers.\n\n```rust\nfn main() {\n    let add = |a, b| a + b; // closure definition\n    let result = add(2, 3); // result is 5\n}\n```"
+      },
+      {
+        "name": "Iterators",
+        "example": "Iterate over a collection using the iterator pattern.\n\n```rust\nfn main() {\n    let v = vec![1, 2, 3];\n    for num in v.iter() {\n        // process each num\n    }\n}\n```"
+      },
+      {
+        "name": "Vectors",
+        "example": "Create a vector and push values onto it.\n\n```rust\nfn main() {\n    let mut vec = Vec::new();\n    vec.push(10);\n}\n```"
+      },
+      {
+        "name": "Strings",
+        "example": "Creating and modifying a String.\n\n```rust\nfn main() {\n    let mut s = String::from(\"Hello\");\n    s.push_str(\", world\"); // s becomes \"Hello, world\"\n}\n```"
+      },
+      {
+        "name": "Tuples",
+        "example": "Using tuples to group values and destructure them.\n\n```rust\nfn main() {\n    let tup = (500, 6.4, 1);\n    let (x, y, z) = tup; // destructuring the tuple\n}\n```"
+      },
+      {
+        "name": "Arrays",
+        "example": "Define a fixed-size array.\n\n```rust\nfn main() {\n    let arr = [1, 2, 3, 4, 5];\n}\n```"
+      },
+      {
+        "name": "Array Slices",
+        "example": "Slice an array to get a subset of its elements.\n\n```rust\nfn main() {\n    let arr = [1, 2, 3, 4, 5];\n    let slice = &arr[1..4]; // contains 2, 3, 4\n}\n```"
+      },
+      {
+        "name": "Destructuring",
+        "example": "Destructure structs to extract their fields.\n\n```rust\nstruct Point { x: i32, y: i32 }\n\nfn main() {\n    let p = Point { x: 10, y: 20 };\n    let Point { x, y } = p; // extract x and y\n}\n```"
+      },
+      {
+        "name": "Match Guard",
+        "example": "Use conditions within match arms to filter patterns.\n\n```rust\nfn main() {\n    let num = Some(4);\n    match num {\n        Some(x) if x > 3 => {}, // condition met\n        _ => {},\n    }\n}\n```"
+      },
+      {
+        "name": "Shadowing",
+        "example": "Declare a new variable with the same name to shadow the previous one.\n\n```rust\nfn main() {\n    let x = 5;\n    let x = x + 1; // shadows the previous x\n}\n```"
+      },
+      {
+        "name": "Macros",
+        "example": "Use macros like `vec!` to simplify code.\n\n```rust\nfn main() {\n    let v = vec![1, 2, 3]; // macro invocation creates a vector\n}\n```"
+      },
+      {
+        "name": "Box for Heap Allocation",
+        "example": "Use Box to allocate data on the heap.\n\n```rust\nfn main() {\n    let b = Box::new(5); // b points to an integer on the heap\n}\n```"
+      },
+      {
+        "name": "Reference Counting with Rc",
+        "example": "Use Rc for shared ownership in a single-threaded context.\n\n```rust\nuse std::rc::Rc;\n\nfn main() {\n    let a = Rc::new(10);\n    let b = Rc::clone(&a); // increases reference count\n}\n```"
+      },
+      {
+        "name": "Atomic Reference Counting with Arc",
+        "example": "Use Arc for shared ownership across threads.\n\n```rust\nuse std::sync::Arc;\n\nfn main() {\n    let a = Arc::new(10);\n    let b = Arc::clone(&a);\n}\n```"
+      },
+      {
+        "name": "Interior Mutability with RefCell",
+        "example": "Use RefCell to allow mutation even in an immutable context.\n\n```rust\nuse std::cell::RefCell;\n\nfn main() {\n    let data = RefCell::new(5);\n    *data.borrow_mut() += 1; // modify the inner value\n}\n```"
+      },
+      {
+        "name": "Newtype Pattern",
+        "example": "Create a distinct type by wrapping another type.\n\n```rust\nstruct Inches(i32);\n\nfn main() {\n    let length = Inches(10);\n}\n```"
+      },
+      {
+        "name": "For Loop with Iterator",
+        "example": "Using a for loop to iterate over an array using its iterator.\n\n```rust\nfn main() {\n    let numbers = [1, 2, 3];\n    for num in numbers.iter() {\n        // process num\n    }\n}\n```"
+      },
+      {
+        "name": "Iterator Methods: map and filter",
+        "example": "Chain iterator methods to transform collections.\n\n```rust\nfn main() {\n    let numbers = vec![1, 2, 3, 4];\n    let even: Vec<i32> = numbers.into_iter()\n        .filter(|x| x % 2 == 0)\n        .map(|x| x * 2)\n        .collect();\n}\n```"
+      },
+      {
+        "name": "Closure Capturing Environment",
+        "example": "Closures can capture variables from their surrounding scope.\n\n```rust\nfn main() {\n    let multiplier = 3;\n    let multiply = |x| x * multiplier;\n    let result = multiply(4); // result is 12\n}\n```"
+      },
+      {
+        "name": "Modules: Declaring a Module",
+        "example": "Define a module within a file using the `mod` keyword.\n\n```rust\nmod greetings {\n    pub fn hello() {\n        // Accessible outside the module\n    }\n}\n\nfn main() {\n    greetings::hello();\n}\n```"
+      },
+      {
+        "name": "Modules: Importing Items",
+        "example": "Use the `use` keyword to bring items into scope.\n\n```rust\nmod greetings {\n    pub fn hello() {}\n}\n\nuse greetings::hello;\n\nfn main() {\n    hello();\n}\n```"
+      },
+      {
+        "name": "Crates and Cargo",
+        "example": "Cargo manages dependencies and builds crates. (See Cargo.toml configuration)\n\n```toml\n[package]\nname = \"my_project\"\nversion = \"0.1.0\"\n\n[dependencies]\n```"
+      },
+      {
+        "name": "Unit Testing",
+        "example": "Define tests using the `#[test]` attribute.\n\n```rust\n#[cfg(test)]\nmod tests {\n    #[test]\n    fn test_add() {\n        assert_eq!(2 + 2, 4); // simple test\n    }\n}\n```"
+      },
+      {
+        "name": "Documentation Comments",
+        "example": "Use triple slashes for documentation comments.\n\n```rust\n/// Adds two numbers.\nfn add(a: i32, b: i32) -> i32 {\n    a + b\n}\n```"
+      },
+      {
+        "name": "Custom Iterator Implementation",
+        "example": "Implement the Iterator trait for a custom type.\n\n```rust\nstruct Counter {\n    count: u32,\n}\n\nimpl Counter {\n    fn new() -> Self { Counter { count: 0 } }\n}\n\nimpl Iterator for Counter {\n    type Item = u32;\n    fn next(&mut self) -> Option<Self::Item> {\n        self.count += 1;\n        if self.count < 6 { Some(self.count) } else { None }\n    }\n}\n```"
+      },
+      {
+        "name": "Concurrency with Threads",
+        "example": "Spawn a new thread using `std::thread`.\n\n```rust\nuse std::thread;\n\nfn main() {\n    let handle = thread::spawn(|| {\n        // Code executed in a new thread\n    });\n    handle.join().unwrap(); // Wait for the thread to finish\n}\n```"
+      },
+      {
+        "name": "Cell for Interior Mutability",
+        "example": "Use **Cell** to allow mutation of Copy types within an immutable structure.\n\n```rust\nuse std::cell::Cell;\n\nfn main() {\n    let data = Cell::new(5);\n    data.set(10); // update value\n    let value = data.get(); // value is 10\n}\n```"
+      },
+      {
+        "name": "Weak References with Rc",
+        "example": "Use **Rc** with **Weak** pointers to prevent reference cycles.\n\n```rust\nuse std::rc::{Rc, Weak};\n\nstruct Node {\n    value: i32,\n    next: Option<Rc<Node>>,\n    prev: Option<Weak<Node>>,\n}\n\nfn main() {\n    let a = Rc::new(Node { value: 1, next: None, prev: None });\n    let b = Rc::clone(&a);\n    // Downgrade creates a weak reference\n    let weak_ref: Weak<Node> = Rc::downgrade(&a);\n}\n```"
+      },
+      {
+        "name": "Mutex for Thread Safety",
+        "example": "Use a **Mutex** to allow safe shared access to data between threads.\n\n```rust\nuse std::sync::{Arc, Mutex};\nuse std::thread;\n\nfn main() {\n    let counter = Arc::new(Mutex::new(0));\n    let mut handles = vec![];\n\n    for _ in 0..5 {\n        let counter = Arc::clone(&counter);\n        let handle = thread::spawn(move || {\n            let mut num = counter.lock().unwrap();\n            *num += 1; // increment safely\n        });\n        handles.push(handle);\n    }\n\n    for handle in handles {\n        handle.join().unwrap();\n    }\n}\n```"
+      },
+      {
+        "name": "Atomic Types",
+        "example": "Use **Atomic** types for lock-free thread-safe operations.\n\n```rust\nuse std::sync::atomic::{AtomicUsize, Ordering};\n\nfn main() {\n    let counter = AtomicUsize::new(0);\n    counter.fetch_add(1, Ordering::SeqCst); // atomic increment\n}\n```"
+      },
+      {
+        "name": "Raw Pointers",
+        "example": "Create and use raw pointers in an unsafe block.\n\n```rust\nfn main() {\n    let num = 5;\n    let r1 = &num as *const i32; // raw pointer to num\n    let r2 = &num as *const i32;\n\n    unsafe {\n        // Dereferencing raw pointers is unsafe\n        let sum = *r1 + *r2; // sum is 10\n    }\n}\n```"
+      },
+      {
+        "name": "Unsafe Code Blocks",
+        "example": "Use an **unsafe** block to perform operations that the compiler cannot verify.\n\n```rust\nfn main() {\n    let mut num = 5;\n    let r = &mut num as *mut i32;\n    unsafe {\n        *r += 1; // modify value unsafely\n    }\n}\n```"
+      },
+      {
+        "name": "FFI: Calling a C Function",
+        "example": "Declare an external C function using the FFI interface.\n\n```rust\nextern \"C\" {\n    fn abs(input: i32) -> i32; // C standard library function\n}\n\nfn main() {\n    unsafe {\n        let result = abs(-10); // result is 10\n    }\n}\n```"
+      },
+      {
+        "name": "FFI: Extern Function Declaration",
+        "example": "Define a Rust function that can be called from C.\n\n```rust\n#[no_mangle] // prevent name mangling\npub extern \"C\" fn rust_function(x: i32) -> i32 {\n    x + 1 // simple operation\n}\n```"
+      },
+      {
+        "name": "Using Option with if let",
+        "example": "Simplify pattern matching on **Option** using `if let`.\n\n```rust\nfn main() {\n    let some_number = Some(7);\n    if let Some(n) = some_number {\n        // n is unwrapped here\n    }\n}\n```"
+      },
+      {
+        "name": "Using Option with match",
+        "example": "Pattern match on an **Option** to handle both Some and None cases.\n\n```rust\nfn main() {\n    let maybe_number: Option<i32> = None;\n    match maybe_number {\n        Some(n) => {}, // handle the number\n        None => {}     // handle absence\n    }\n}\n```"
+      },
+      {
+        "name": "Using Result with unwrap and expect",
+        "example": "Retrieve values from a **Result**, panicking on error.\n\n```rust\nfn might_fail(success: bool) -> Result<i32, &'static str> {\n    if success { Ok(42) } else { Err(\"failure\") }\n}\n\nfn main() {\n    let value = might_fail(true).unwrap(); // panics if Err\n    let value2 = might_fail(true).expect(\"Operation failed\");\n}\n```"
+      },
+      {
+        "name": "Type Aliases",
+        "example": "Create a type alias for a complex type.\n\n```rust\ntype Kilometers = i32;\n\nfn main() {\n    let distance: Kilometers = 5;\n}\n```"
+      },
+      {
+        "name": "Trait Bounds with where Clause",
+        "example": "Simplify function signatures using a `where` clause.\n\n```rust\nfn print_info<T>(item: T)\nwhere\n    T: std::fmt::Display + std::fmt::Debug,\n{\n    // item can be printed in various formats\n}\n```"
+      },
+      {
+        "name": "Using Default Trait",
+        "example": "Use the **Default** trait to create default values.\n\n```rust\n#[derive(Default)]\nstruct Config {\n    enabled: bool,\n    max_items: usize,\n}\n\nfn main() {\n    let config = Config::default(); // default values\n}\n```"
+      },
+      {
+        "name": "Clone Trait Example",
+        "example": "Use the **Clone** trait to duplicate data.\n\n```rust\n#[derive(Clone)]\nstruct Data {\n    value: i32,\n}\n\nfn main() {\n    let original = Data { value: 10 };\n    let duplicate = original.clone(); // deep copy\n}\n```"
+      },
+      {
+        "name": "Debug Trait Example",
+        "example": "Derive the **Debug** trait to enable formatting with `{:?}`.\n\n```rust\n#[derive(Debug)]\nstruct Point {\n    x: i32,\n    y: i32,\n}\n\nfn main() {\n    let p = Point { x: 3, y: 4 };\n    // Use {:?} to print debug information\n    // e.g., println!(\"{:?}\", p);\n}\n```"
+      },
+      {
+        "name": "Implementing PartialEq and Eq",
+        "example": "Derive **PartialEq** and **Eq** to compare instances.\n\n```rust\n#[derive(PartialEq, Eq)]\nstruct Item {\n    id: i32,\n}\n\nfn main() {\n    let a = Item { id: 1 };\n    let b = Item { id: 1 };\n    // a == b is true\n}\n```"
+      },
+      {
+        "name": "Using HashMap",
+        "example": "Utilize **HashMap** for key-value storage.\n\n```rust\nuse std::collections::HashMap;\n\nfn main() {\n    let mut scores = HashMap::new();\n    scores.insert(\"Alice\", 10);\n    scores.insert(\"Bob\", 20);\n}\n```"
+      },
+      {
+        "name": "Using BinaryHeap",
+        "example": "Use a **BinaryHeap** for priority queue operations.\n\n```rust\nuse std::collections::BinaryHeap;\n\nfn main() {\n    let mut heap = BinaryHeap::new();\n    heap.push(5);\n    heap.push(2);\n    heap.push(8);\n    // The largest element can be popped first\n}\n```"
+      },
+      {
+        "name": "Using BTreeMap",
+        "example": "Store sorted key-value pairs with a **BTreeMap**.\n\n```rust\nuse std::collections::BTreeMap;\n\nfn main() {\n    let mut map = BTreeMap::new();\n    map.insert(3, \"three\");\n    map.insert(1, \"one\");\n    map.insert(2, \"two\");\n}\n```"
+      },
+      {
+        "name": "Pattern Matching with Multiple Patterns",
+        "example": "Match multiple patterns using the `|` operator.\n\n```rust\nfn main() {\n    let value = 2;\n    match value {\n        1 | 2 => {}, // matches if value is 1 or 2\n        _ => {},\n    }\n}\n```"
+      },
+      {
+        "name": "Ref and Ref Mut in Patterns",
+        "example": "Use **ref** and **ref mut** to bind by reference in patterns.\n\n```rust\nfn main() {\n    let mut num = 5;\n    match num {\n        ref r => { /* r is a reference to num */ },\n    }\n    match &mut num {\n        ref mut r => { /* r is a mutable reference */ },\n    }\n}\n```"
+      },
+      {
+        "name": "Lifetime Elision Rules",
+        "example": "Demonstrate function signatures without explicit lifetimes.\n\n```rust\n// Compiler infers lifetimes in simple cases\nfn first_word(s: &str) -> &str {\n    let bytes = s.as_bytes();\n    for (i, &item) in bytes.iter().enumerate() {\n        if item == b' ' {\n            return &s[0..i];\n        }\n    }\n    s\n}\n```"
+      },
+      {
+        "name": "Using PhantomData",
+        "example": "Use **PhantomData** to mark unused generic type parameters.\n\n```rust\nuse std::marker::PhantomData;\n\nstruct MyContainer<T> {\n    _marker: PhantomData<T>,\n}\n\nfn main() {\n    let _container: MyContainer<u32> = MyContainer { _marker: PhantomData };\n}\n```"
+      },
+      {
+        "name": "Implementing Drop for Cleanup",
+        "example": "Customize resource cleanup by implementing the **Drop** trait.\n\n```rust\nstruct Custom;\n\nimpl Drop for Custom {\n    fn drop(&mut self) {\n        // cleanup code executed when value goes out of scope\n    }\n}\n\nfn main() {\n    let _c = Custom;\n}\n```"
+      },
+      {
+        "name": "Using std::mem::replace",
+        "example": "Replace the value at a mutable location, returning the old value.\n\n```rust\nfn main() {\n    let mut value = 5;\n    let old = std::mem::replace(&mut value, 10); // old is 5, value becomes 10\n}\n```"
+      },
+      {
+        "name": "Implementing From and Into",
+        "example": "Provide conversions between types using **From** and **Into**.\n\n```rust\nstruct MyInt(i32);\n\nimpl From<i32> for MyInt {\n    fn from(item: i32) -> Self {\n        MyInt(item)\n    }\n}\n\nfn main() {\n    let num: MyInt = 5.into();\n}\n```"
+      },
+      {
+        "name": "Iterator Adaptor: flat_map",
+        "example": "Flatten nested iterators with **flat_map**.\n\n```rust\nfn main() {\n    let nested = vec![vec![1, 2], vec![3, 4]];\n    let flat: Vec<_> = nested.into_iter().flat_map(|v| v).collect();\n    // flat is [1, 2, 3, 4]\n}\n```"
+      },
+      {
+        "name": "Iterator Adaptor: fold",
+        "example": "Accumulate values in an iterator using **fold**.\n\n```rust\nfn main() {\n    let numbers = vec![1, 2, 3, 4];\n    let sum = numbers.into_iter().fold(0, |acc, x| acc + x);\n    // sum is 10\n}\n```"
+      },
+      {
+        "name": "Implementing PartialOrd Manually",
+        "example": "Manually implement **PartialOrd** for custom comparison.\n\n```rust\n#[derive(Eq, PartialEq)]\nstruct Score(i32);\n\nimpl PartialOrd for Score {\n    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {\n        Some(self.0.cmp(&other.0))\n    }\n}\n\nfn main() {\n    let a = Score(10);\n    let b = Score(20);\n    // a < b evaluates to true\n}\n```"
+      },
+      {
+        "name": "Thread Sleep and Duration",
+        "example": "Pause execution for a specified duration using **thread::sleep**.\n\n```rust\nuse std::thread;\nuse std::time::Duration;\n\nfn main() {\n    thread::sleep(Duration::from_secs(2)); // sleeps for 2 seconds\n}\n```"
+      },
+      {
+        "name": "Pattern Matching with Ranges",
+        "example": "Use range patterns in a match statement.\n\n```rust\nfn main() {\n    let num = 15;\n    match num {\n        1..=10 => {}, // matches numbers from 1 to 10\n        11..=20 => {},\n        _ => {},\n    }\n}\n```"
+      },
+      {
+        "name": "Slice Patterns in Match",
+        "example": "Match on slices to destructure arrays.\n\n```rust\nfn main() {\n    let arr = [1, 2, 3, 4];\n    match arr.as_slice() {\n        [first, .., last] => { /* first and last elements available */ },\n        _ => {},\n    }\n}\n```"
+      },
+      {
+        "name": "Closure with move Keyword",
+        "example": "Capture ownership of variables inside a closure using **move**.\n\n```rust\nfn main() {\n    let text = String::from(\"hello\");\n    let consume = move || {\n        // text is moved into the closure\n        // use text here\n    };\n    consume();\n}\n```"
+      },
+      {
+        "name": "Async Function Basics",
+        "example": "Define an asynchronous function using **async fn**.\n\n```rust\nasync fn fetch_data() -> u32 {\n    // pretend to fetch data asynchronously\n    42\n}\n\n// To run async code, use an executor (e.g., Tokio or async-std)\n```\n"
+      },
+      {
+        "name": "Using .await in Async Functions",
+        "example": "Await the result of an asynchronous operation.\n\n```rust\nasync fn async_main() {\n    let result = fetch_data().await; // waits for fetch_data to complete\n}\n\nasync fn fetch_data() -> u32 {\n    42\n}\n```"
+      },
+      {
+        "name": "Future Trait Basics",
+        "example": "Understand that async functions return types implementing the **Future** trait.\n\n```rust\nuse std::future::Future;\n\nasync fn compute() -> i32 {\n    10\n}\n\nfn takes_future<F: Future<Output = i32>>(f: F) {\n    // f is a future that will resolve to i32\n}\n\nfn main() {\n    let fut = compute();\n    takes_future(fut);\n}\n```"
+      },
+      {
+        "name": "Channels for Inter-thread Communication",
+        "example": "Communicate between threads using channels.\n\n```rust\nuse std::sync::mpsc;\nuse std::thread;\n\nfn main() {\n    let (tx, rx) = mpsc::channel();\n\n    thread::spawn(move || {\n        tx.send(42).unwrap(); // send data\n    });\n\n    let received = rx.recv().unwrap(); // receive data\n}\n```"
+      },
+      {
+        "name": "Using mpsc::channel",
+        "example": "Another example of using multiple producers with a channel.\n\n```rust\nuse std::sync::mpsc;\nuse std::thread;\n\nfn main() {\n    let (tx, rx) = mpsc::channel();\n\n    for i in 0..3 {\n        let tx_clone = tx.clone();\n        thread::spawn(move || {\n            tx_clone.send(i).unwrap();\n        });\n    }\n\n    for _ in 0..3 {\n        let val = rx.recv().unwrap();\n        // process val\n    }\n}\n```"
+      },
+      {
+        "name": "Error Propagation with ? Operator",
+        "example": "Simplify error handling by propagating errors with **?**.\n\n```rust\nuse std::fs::File;\n\nfn read_file() -> std::io::Result<()> {\n    let _file = File::open(\"test.txt\")?; // propagates error if any\n    Ok(())\n}\n```"
+      },
+      {
+        "name": "Custom Error Type with enum",
+        "example": "Define a custom error type to represent various failure cases.\n\n```rust\nuse std::fmt;\n\n#[derive(Debug)]\nenum MyError {\n    NotFound,\n    PermissionDenied,\n}\n\nimpl fmt::Display for MyError {\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        write!(f, \"{:?}\", self)\n    }\n}\n\nfn do_something(flag: bool) -> Result<(), MyError> {\n    if flag { Ok(()) } else { Err(MyError::NotFound) }\n}\n```"
+      },
+      {
+        "name": "Implementing Display for Custom Types",
+        "example": "Customize string formatting by implementing **Display**.\n\n```rust\nuse std::fmt;\n\nstruct Point { x: i32, y: i32 }\n\nimpl fmt::Display for Point {\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        write!(f, \"({}, {})\", self.x, self.y)\n    }\n}\n\nfn main() {\n    let p = Point { x: 3, y: 4 };\n}\n```"
+      },
+      {
+        "name": "Destructuring in Match Patterns with Enums",
+        "example": "Destructure enum variants directly in a match.\n\n```rust\nenum Message {\n    Quit,\n    Move { x: i32, y: i32 },\n    Write(String),\n}\n\nfn main() {\n    let msg = Message::Move { x: 10, y: 20 };\n    match msg {\n        Message::Quit => {},\n        Message::Move { x, y } => { /* use x and y */ },\n        Message::Write(text) => { /* use text */ },\n    }\n}\n```"
+      },
+      {
+        "name": "Iterator with enumerate",
+        "example": "Use **enumerate** to access indices while iterating.\n\n```rust\nfn main() {\n    let vec = vec![\"a\", \"b\", \"c\"];\n    for (index, value) in vec.iter().enumerate() {\n        // index and value are available\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Macro with macro_rules!",
+        "example": "Define a simple macro using **macro_rules!**.\n\n```rust\nmacro_rules! say_hello {\n    () => {\n        // macro expands to the following code\n        println!(\"Hello, world!\");\n    };\n}\n\nfn main() {\n    // say_hello!(); would print \"Hello, world!\" if executed\n}\n```"
+      },
+      {
+        "name": "Using derive Macros",
+        "example": "Automatically implement common traits using **derive**.\n\n```rust\n#[derive(Debug, Clone, PartialEq)]\nstruct Person {\n    name: String,\n    age: u8,\n}\n\nfn main() {\n    let person = Person { name: String::from(\"Alice\"), age: 30 };\n    // Debug output: {:?}\n}\n```"
+      },
+      {
+        "name": "Lazy Static with once_cell",
+        "example": "Initialize static data lazily using the **once_cell** crate.\n\n```rust\nuse once_cell::sync::Lazy;\n\nstatic CONFIG: Lazy<String> = Lazy::new(|| {\n    // expensive computation\n    String::from(\"config data\")\n});\n\nfn main() {\n    let _config = &*CONFIG;\n}\n```"
+      },
+      {
+        "name": "Rc with RefCell for Shared Mutability",
+        "example": "Combine **Rc** and **RefCell** for shared mutable state.\n\n```rust\nuse std::rc::Rc;\nuse std::cell::RefCell;\n\nfn main() {\n    let shared = Rc::new(RefCell::new(5));\n    let shared_clone = Rc::clone(&shared);\n    *shared_clone.borrow_mut() += 1; // mutate the inner value\n}\n```"
+      },
+      {
+        "name": "Trait Objects for Dynamic Dispatch",
+        "example": "Use trait objects to achieve dynamic dispatch.\n\n```rust\ntrait Animal {\n    fn speak(&self);\n}\n\nstruct Dog;\n\nimpl Animal for Dog {\n    fn speak(&self) { /* bark */ }\n}\n\nfn main() {\n    let animal: Box<dyn Animal> = Box::new(Dog);\n    // animal.speak() calls Dog's implementation\n}\n```"
+      },
+      {
+        "name": "Using VecDeque",
+        "example": "Utilize **VecDeque** for efficient queue operations.\n\n```rust\nuse std::collections::VecDeque;\n\nfn main() {\n    let mut deque: VecDeque<i32> = VecDeque::new();\n    deque.push_back(1);\n    deque.push_front(2);\n    // deque now contains [2, 1]\n}\n```"
+      }
+    ]
+  }
+  
