@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Variables: var, let, and const",
+        "example": "Variables store data. Use **var** (function-scoped), **let** (block-scoped), and **const** (immutable binding).\n\n```js\nvar x = 10; // function-scoped\nlet y = 20; // block-scoped\nconst z = 30; // cannot be reassigned\n```"
+      },
+      {
+        "name": "Data Types",
+        "example": "JavaScript data types include **Number**, **String**, **Boolean**, **Null**, **Undefined**, **Symbol**, and **Object**.\n\n```js\nlet num = 42;        // Number\nlet str = \"Hello\";   // String\nlet flag = true;     // Boolean\nlet nothing = null;  // Null\nlet notDefined;      // Undefined\n```"
+      },
+      {
+        "name": "Basic Operators",
+        "example": "Arithmetic operators perform math operations.\n\n```js\nlet sum = 5 + 3;     // Addition\nlet diff = 10 - 2;   // Subtraction\nlet prod = 4 * 2;    // Multiplication\nlet quo = 20 / 5;    // Division\n```"
+      },
+      {
+        "name": "String Concatenation and Template Literals",
+        "example": "Concatenate strings using **+** or use template literals (backticks) for interpolation.\n\n```js\nlet greeting = \"Hello\" + \" World\"; // Concatenation\nlet name = \"Alice\";\nlet welcome = `Welcome, ${name}!`; // Template literal\n```"
+      },
+      {
+        "name": "Functions",
+        "example": "Functions encapsulate code for reuse.\n\n```js\nfunction greet(name) {\n  return \"Hello, \" + name; // Returns a greeting message\n}\n```"
+      },
+      {
+        "name": "Arrow Functions",
+        "example": "Arrow functions offer a concise syntax for function expressions.\n\n```js\nconst add = (a, b) => a + b; // Returns the sum of a and b\n```"
+      },
+      {
+        "name": "Function Parameters and Default Values",
+        "example": "Default parameters assign a default value if none is provided.\n\n```js\nfunction multiply(a, b = 2) {\n  return a * b; // b defaults to 2 if not passed\n}\n```"
+      },
+      {
+        "name": "Rest Parameters",
+        "example": "Rest parameters allow a function to accept an indefinite number of arguments.\n\n```js\nfunction sum(...numbers) {\n  return numbers.reduce((acc, n) => acc + n, 0); // Sums all arguments\n}\n```"
+      },
+      {
+        "name": "Spread Operator",
+        "example": "The spread operator expands arrays or objects into individual elements.\n\n```js\nconst arr1 = [1, 2, 3];\nconst arr2 = [...arr1, 4]; // Results in [1, 2, 3, 4]\n\nconst obj1 = { a: 1, b: 2 };\nconst obj2 = { ...obj1, c: 3 }; // Results in { a: 1, b: 2, c: 3 }\n```"
+      },
+      {
+        "name": "Objects and Properties",
+        "example": "Objects are collections of key-value pairs.\n\n```js\nconst person = {\n  name: \"Bob\",\n  age: 25\n}; // Object literal\n```"
+      },
+      {
+        "name": "Accessing Object Properties",
+        "example": "Access object properties using dot notation or bracket notation.\n\n```js\nconst user = { id: 1, username: \"alice\" };\nlet id = user.id;             // Dot notation\nlet username = user[\"username\"]; // Bracket notation\n```"
+      },
+      {
+        "name": "Destructuring Objects",
+        "example": "Destructuring extracts properties into variables.\n\n```js\nconst car = { make: \"Toyota\", model: \"Corolla\" };\nconst { make, model } = car; // Destructuring assignment\n```"
+      },
+      {
+        "name": "Arrays",
+        "example": "Arrays hold ordered lists of values.\n\n```js\nconst fruits = [\"apple\", \"banana\", \"cherry\"]; // Array literal\n```"
+      },
+      {
+        "name": "Array Methods: push, pop, shift, unshift",
+        "example": "Modify arrays with built-in methods.\n\n```js\nconst nums = [1, 2, 3];\nnums.push(4);    // Adds 4 at the end\nnums.pop();      // Removes the last element\nnums.unshift(0); // Adds 0 at the beginning\nnums.shift();    // Removes the first element\n```"
+      },
+      {
+        "name": "Array Iteration: for loop",
+        "example": "Use a **for** loop to iterate over an array.\n\n```js\nconst colors = [\"red\", \"green\", \"blue\"];\nfor (let i = 0; i < colors.length; i++) {\n  // Access colors[i]\n}\n```"
+      },
+      {
+        "name": "Array Iteration: forEach",
+        "example": "The **forEach** method executes a provided function once per array element.\n\n```js\nconst items = [\"a\", \"b\", \"c\"];\nitems.forEach(item => {\n  // Process each item\n});\n```"
+      },
+      {
+        "name": "Array Methods: map",
+        "example": "The **map** method transforms array elements.\n\n```js\nconst numbers = [1, 2, 3];\nconst squares = numbers.map(n => n * n); // Results in [1, 4, 9]\n```"
+      },
+      {
+        "name": "Array Methods: filter",
+        "example": "The **filter** method creates a new array with elements that pass a test.\n\n```js\nconst numbers = [1, 2, 3, 4, 5];\nconst evens = numbers.filter(n => n % 2 === 0); // Results in [2, 4]\n```"
+      },
+      {
+        "name": "Array Methods: reduce",
+        "example": "The **reduce** method reduces an array to a single value.\n\n```js\nconst numbers = [1, 2, 3, 4];\nconst sum = numbers.reduce((acc, n) => acc + n, 0); // Results in 10\n```"
+      },
+      {
+        "name": "Conditional Statements: if/else",
+        "example": "Use **if/else** to execute code based on conditions.\n\n```js\nconst age = 18;\nif (age >= 18) {\n  // Adult branch\n} else {\n  // Minor branch\n}\n```"
+      },
+      {
+        "name": "Conditional Statements: switch",
+        "example": "The **switch** statement selects one of many code blocks to run.\n\n```js\nconst fruit = \"apple\";\nswitch (fruit) {\n  case \"apple\":\n    // Handle apple\n    break;\n  case \"banana\":\n    // Handle banana\n    break;\n  default:\n    // Default case\n}\n```"
+      },
+      {
+        "name": "Ternary Operator",
+        "example": "The ternary operator provides an inline conditional.\n\n```js\nconst isMember = true;\nconst discount = isMember ? 0.1 : 0; // 10% discount if member\n```"
+      },
+      {
+        "name": "Logical Operators",
+        "example": "Logical operators combine or invert boolean values.\n\n```js\nconst a = true;\nconst b = false;\nconst both = a && b; // AND operator\nconst either = a || b; // OR operator\nconst notA = !a;      // NOT operator\n```"
+      },
+      {
+        "name": "Equality Operators",
+        "example": "Use **===** for strict equality and **==** for loose equality (with type coercion).\n\n```js\n1 === \"1\"; // false\n1 == \"1\";  // true\n```"
+      },
+      {
+        "name": "Loops: while loop",
+        "example": "A **while** loop continues until its condition is false.\n\n```js\nlet count = 0;\nwhile (count < 3) {\n  // Loop body\n  count++;\n}\n```"
+      },
+      {
+        "name": "Loops: do...while loop",
+        "example": "A **do...while** loop executes its block at least once before checking the condition.\n\n```js\nlet count = 0;\ndo {\n  // Loop body\n  count++;\n} while (count < 3);\n```"
+      },
+      {
+        "name": "Object Methods",
+        "example": "Objects can include functions known as methods.\n\n```js\nconst calculator = {\n  add(a, b) {\n    return a + b; // Method shorthand\n  }\n};\n```"
+      },
+      {
+        "name": "The 'this' Keyword in Objects",
+        "example": "The **this** keyword refers to the current object context.\n\n```js\nconst person = {\n  name: \"John\",\n  greet() {\n    return `Hello, ${this.name}`; // Accesses the object's name property\n  }\n};\n```"
+      },
+      {
+        "name": "Constructor Functions",
+        "example": "Constructor functions create objects with shared properties.\n\n```js\nfunction Person(name) {\n  this.name = name;\n}\nconst alice = new Person(\"Alice\");\n```"
+      },
+      {
+        "name": "Classes",
+        "example": "ES6 classes provide a cleaner syntax for object creation and inheritance.\n\n```js\nclass Animal {\n  constructor(name) {\n    this.name = name;\n  }\n  speak() {\n    return `${this.name} makes a noise`;\n  }\n}\n```"
+      },
+      {
+        "name": "Class Inheritance",
+        "example": "Classes can inherit properties and methods using the **extends** keyword.\n\n```js\nclass Dog extends Animal {\n  speak() {\n    return `${this.name} barks`;\n  }\n}\n```"
+      },
+      {
+        "name": "Getters and Setters",
+        "example": "Getters and setters control access to an object's properties.\n\n```js\nclass Rectangle {\n  constructor(width, height) {\n    this.width = width;\n    this.height = height;\n  }\n  get area() {\n    return this.width * this.height;\n  }\n  set area(value) {\n    // Read-only example; setter can be customized\n  }\n}\n```"
+      },
+      {
+        "name": "Static Methods in Classes",
+        "example": "Static methods belong to the class itself, not its instances.\n\n```js\nclass MathUtil {\n  static square(n) {\n    return n * n;\n  }\n}\n// Usage: MathUtil.square(5)\n```"
+      },
+      {
+        "name": "Closures",
+        "example": "Closures allow a function to access variables from its outer scope.\n\n```js\nfunction makeCounter() {\n  let count = 0;\n  return function() {\n    count++;\n    return count; // Retains access to 'count'\n  };\n}\n```"
+      },
+      {
+        "name": "Immediately Invoked Function Expression (IIFE)",
+        "example": "IIFEs run immediately after they are defined.\n\n```js\n(function() {\n  // Code runs immediately\n})();\n```"
+      },
+      {
+        "name": "Callbacks",
+        "example": "Callbacks are functions passed as arguments to be executed later.\n\n```js\nfunction fetchData(callback) {\n  // Simulate asynchronous work\n  callback(); // Execute callback when done\n}\n```"
+      },
+      {
+        "name": "Promises",
+        "example": "Promises represent the eventual completion (or failure) of an asynchronous operation.\n\n```js\nconst promise = new Promise((resolve, reject) => {\n  // Perform async task\n  resolve('Success');\n});\n```"
+      },
+      {
+        "name": "Async/Await",
+        "example": "The **async/await** syntax simplifies working with promises.\n\n```js\nasync function fetchData() {\n  const data = await promise; // Wait for promise resolution\n  return data;\n}\n```"
+      },
+      {
+        "name": "Error Handling with try/catch",
+        "example": "Use **try/catch** to gracefully handle errors.\n\n```js\ntry {\n  // Code that might throw an error\n} catch (error) {\n  // Handle the error\n}\n```"
+      },
+      {
+        "name": "JSON: Parse and Stringify",
+        "example": "Convert between JSON strings and JavaScript objects using **JSON.parse** and **JSON.stringify**.\n\n```js\nconst jsonString = '{\"name\":\"Bob\"}';\nconst obj = JSON.parse(jsonString);\nconst backToJson = JSON.stringify(obj);\n```"
+      },
+      {
+        "name": "Higher-Order Functions",
+        "example": "Functions that accept other functions as arguments or return them are called higher-order functions.\n\n```js\nfunction higherOrder(fn) {\n  return fn(); // Executes the passed-in function\n}\n```"
+      },
+      {
+        "name": "Arrow Functions and Lexical 'this'",
+        "example": "Arrow functions do not have their own **this**; they inherit it from the surrounding context.\n\n```js\nconst obj = {\n  value: 42,\n  regular: function() { return this.value; },\n  arrow: () => 42 // 'this' is not bound here\n};\n```"
+      },
+      {
+        "name": "Prototype Inheritance",
+        "example": "JavaScript objects can inherit properties via prototypes.\n\n```js\nfunction Person(name) {\n  this.name = name;\n}\nPerson.prototype.greet = function() {\n  return `Hello, ${this.name}`;\n};\n```"
+      },
+      {
+        "name": "Modules (ES6 import/export)",
+        "example": "ES6 modules allow code to be split across files using **export** and **import**.\n\n```js\n// In module.js\nexport const value = 10;\n\n// In another file\n// import { value } from './module.js';\n```"
+      },
+      {
+        "name": "Event Listeners (Browser)",
+        "example": "Attach events to DOM elements using event listeners.\n\n```js\ndocument.getElementById('btn').addEventListener('click', () => {\n  // Handle click event\n});\n```"
+      },
+      {
+        "name": "Dynamic Object Properties",
+        "example": "Compute property names dynamically in objects using bracket notation.\n\n```js\nconst key = 'dynamic';\nconst obj = {\n  [key]: 'value' // The key is computed from the variable 'key'\n};\n```"
+      },
+      {
+        "name": "Array.find and Array.findIndex",
+        "example": "Use **find** to locate an element and **findIndex** to get its index.\n\n```js\nconst users = [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }];\nconst alice = users.find(user => user.name === 'Alice');\nconst index = users.findIndex(user => user.name === 'Bob');\n```"
+      },
+      {
+        "name": "Using Set and Map",
+        "example": "ES6 introduces **Set** for unique values and **Map** for key-value pairs.\n\n```js\nconst mySet = new Set([1, 2, 3]);\nconst myMap = new Map();\nmyMap.set('a', 1);\n```"
+      },
+      {
+        "name": "Symbols",
+        "example": "Symbols are unique and immutable identifiers.\n\n```js\nconst sym1 = Symbol('id');\nconst sym2 = Symbol('id');\n// sym1 !== sym2\n```"
+      },
+      {
+        "name": "Function Binding: call, apply, and bind",
+        "example": "Use **call**, **apply**, and **bind** to control the **this** context in functions.\n\n```js\nfunction showName() {\n  return this.name;\n}\nconst obj = { name: 'Charlie' };\nshowName.call(obj);   // 'Charlie'\nshowName.apply(obj);  // 'Charlie'\nconst boundShowName = showName.bind(obj);\nboundShowName();    // 'Charlie'\n```"
+      },
+      {
+        "name": "Hoisting",
+        "example": "Variable and function declarations are hoisted to the top of their scope.\n\n```js\n// Variable hoisting\nconsole.log(hoistedVar); // undefined\nvar hoistedVar = 'I am hoisted';\n\n// Function declaration hoisting\nhoistedFunc();\nfunction hoistedFunc() {\n  // This works because the function is hoisted\n}\n```"
+      },
+      {
+        "name": "Block Scope with let and const",
+        "example": "Variables declared with let/const are limited to the block scope.\n\n```js\nif (true) {\n  let blockScoped = 'Inside block';\n  const constantValue = 'Constant';\n  // Accessible within this block\n}\n// blockScoped and constantValue are not accessible here\n```"
+      },
+      {
+        "name": "Temporal Dead Zone",
+        "example": "Variables declared with let/const cannot be accessed before declaration.\n\n```js\n// console.log(a); // ReferenceError: Cannot access 'a' before initialization\nlet a = 10;\n```"
+      },
+      {
+        "name": "Function Expression vs Declaration",
+        "example": "Function declarations are hoisted while function expressions are not.\n\n```js\n// Function declaration hoisted\nsayHello();\nfunction sayHello() {\n  // Works fine\n}\n\n// Function expression is not hoisted\n// sayHi(); // Error: sayHi is not defined\nconst sayHi = function() {\n  // Defined after declaration\n};\n```"
+      },
+      {
+        "name": "Callback Hell",
+        "example": "Nested callbacks can lead to hard-to-read code.\n\n```js\nasyncOperation1(result1 => {\n  asyncOperation2(result1, result2 => {\n    asyncOperation3(result2, result3 => {\n      // Deeply nested callbacks\n    });\n  });\n});\n```"
+      },
+      {
+        "name": "Promise Chaining",
+        "example": "Chain promises to avoid callback hell.\n\n```js\nfetchData()\n  .then(data => processData(data))\n  .then(result => {\n    // Process the result\n  })\n  .catch(error => {\n    // Handle error\n  });\n```"
+      },
+      {
+        "name": "Async Function Error Handling",
+        "example": "Use try/catch in async functions for error management.\n\n```js\nasync function loadData() {\n  try {\n    const data = await fetchData();\n    // Process data\n  } catch (error) {\n    // Handle error\n  }\n}\n```"
+      },
+      {
+        "name": "Array.concat",
+        "example": "Combine arrays using concat.\n\n```js\nconst arr1 = [1, 2];\nconst arr2 = [3, 4];\nconst combined = arr1.concat(arr2); // [1, 2, 3, 4]\n```"
+      },
+      {
+        "name": "Spread Operator with Arrays",
+        "example": "Merge arrays using the spread operator.\n\n```js\nconst arr1 = [1, 2];\nconst arr2 = [3, 4];\nconst combined = [...arr1, ...arr2];\n```"
+      },
+      {
+        "name": "Array Destructuring",
+        "example": "Extract array elements into variables.\n\n```js\nconst numbers = [10, 20, 30];\nconst [first, second] = numbers;\n```"
+      },
+      {
+        "name": "Nested Array Destructuring",
+        "example": "Destructure nested arrays.\n\n```js\nconst nested = [1, [2, 3]];\nconst [a, [b, c]] = nested;\n```"
+      },
+      {
+        "name": "Object.assign",
+        "example": "Merge objects using Object.assign.\n\n```js\nconst obj1 = { a: 1 };\nconst obj2 = { b: 2 };\nconst merged = Object.assign({}, obj1, obj2);\n```"
+      },
+      {
+        "name": "Object.entries",
+        "example": "Convert an object into an array of key-value pairs.\n\n```js\nconst obj = { a: 1, b: 2 };\nconst entries = Object.entries(obj); // [['a', 1], ['b', 2]]\n```"
+      },
+      {
+        "name": "Object.keys and Object.values",
+        "example": "Extract keys and values from an object.\n\n```js\nconst obj = { a: 1, b: 2 };\nconst keys = Object.keys(obj);   // ['a', 'b']\nconst values = Object.values(obj); // [1, 2]\n```"
+      },
+      {
+        "name": "Optional Chaining",
+        "example": "Safely access nested object properties.\n\n```js\nconst user = { profile: { age: 30 } };\nconst age = user.profile?.age; // 30 or undefined if profile is missing\n```"
+      },
+      {
+        "name": "Nullish Coalescing Operator",
+        "example": "Provide a default value for null or undefined.\n\n```js\nconst value = null;\nconst defaultValue = value ?? 'default';\n```"
+      },
+      {
+        "name": "BigInt",
+        "example": "BigInt is used to represent very large integers.\n\n```js\nconst big = 123456789012345678901234567890n;\n```"
+      },
+      {
+        "name": "WeakMap",
+        "example": "WeakMap holds objects weakly to help with garbage collection.\n\n```js\nconst wm = new WeakMap();\nlet obj = {};\nwm.set(obj, 'value');\n// 'obj' can be garbage collected when there are no other references\n```"
+      },
+      {
+        "name": "WeakSet",
+        "example": "WeakSet stores objects and allows garbage collection if there are no other references.\n\n```js\nconst ws = new WeakSet();\nlet obj = {};\nws.add(obj);\n// 'obj' is eligible for garbage collection\n```"
+      },
+      {
+        "name": "Regular Expressions",
+        "example": "Regex is used for pattern matching in strings.\n\n```js\nconst regex = /hello/i;\nconst result = regex.test('Hello world'); // true\n```"
+      },
+      {
+        "name": "Tagged Template Literals",
+        "example": "Tagged templates allow custom processing of template literals.\n\n```js\nfunction tag(strings, ...values) {\n  return strings[0] + values[0] + strings[1];\n}\nconst result = tag`Hello, ${'World'}!`;\n```"
+      },
+      {
+        "name": "Function Currying",
+        "example": "Convert a function with multiple arguments into a sequence of functions each taking one argument.\n\n```js\nfunction add(a) {\n  return function(b) {\n    return a + b;\n  };\n}\nconst addFive = add(5);\n// addFive(3) returns 8\n```"
+      },
+      {
+        "name": "Partial Application",
+        "example": "Fix some arguments of a function to create a new function.\n\n```js\nfunction multiply(a, b) {\n  return a * b;\n}\nconst double = multiply.bind(null, 2);\n// double(4) returns 8\n```"
+      },
+      {
+        "name": "Memoization",
+        "example": "Cache the results of function calls for improved performance.\n\n```js\nfunction memoize(fn) {\n  const cache = {};\n  return function(arg) {\n    if (cache[arg]) return cache[arg];\n    const result = fn(arg);\n    cache[arg] = result;\n    return result;\n  };\n}\n```"
+      },
+      {
+        "name": "Debouncing",
+        "example": "Delay execution of a function until a pause in events.\n\n```js\nfunction debounce(fn, delay) {\n  let timeout;\n  return function(...args) {\n    clearTimeout(timeout);\n    timeout = setTimeout(() => fn(...args), delay);\n  };\n}\n```"
+      },
+      {
+        "name": "Throttling",
+        "example": "Limit a function to execute only once in a specified time interval.\n\n```js\nfunction throttle(fn, limit) {\n  let lastCall = 0;\n  return function(...args) {\n    const now = Date.now();\n    if (now - lastCall >= limit) {\n      lastCall = now;\n      fn(...args);\n    }\n  };\n}\n```"
+      },
+      {
+        "name": "Recursive Functions",
+        "example": "A function that calls itself until a base condition is met.\n\n```js\nfunction factorial(n) {\n  if (n <= 1) return 1;\n  return n * factorial(n - 1);\n}\n```"
+      },
+      {
+        "name": "Tail Recursion",
+        "example": "Optimize recursion by passing the accumulator as a parameter.\n\n```js\nfunction tailFactorial(n, acc = 1) {\n  if (n === 0) return acc;\n  return tailFactorial(n - 1, n * acc);\n}\n```"
+      },
+      {
+        "name": "Event Loop and Call Stack",
+        "example": "Demonstrates asynchronous behavior with the call stack and event loop.\n\n```js\nconsole.log('Start');\nsetTimeout(() => console.log('Timeout'), 0);\nconsole.log('End');\n// Logs: Start, End, Timeout\n```"
+      },
+      {
+        "name": "Event Bubbling",
+        "example": "Events bubble from the target element up through the DOM tree.\n\n```js\n// In a browser environment:\ndocument.getElementById('child').addEventListener('click', e => {\n  // Child click handler\n});\ndocument.getElementById('parent').addEventListener('click', e => {\n  // Parent click handler, triggered after child\n});\n```"
+      },
+      {
+        "name": "Event Capturing",
+        "example": "Events can be intercepted on the way down the DOM tree during capturing phase.\n\n```js\ndocument.getElementById('parent').addEventListener('click', e => {\n  // Capturing phase handler\n}, true); // 'true' sets the listener for capturing\n```"
+      },
+      {
+        "name": "Event Delegation",
+        "example": "Handle events at a parent level instead of adding listeners to individual child elements.\n\n```js\ndocument.getElementById('list').addEventListener('click', e => {\n  if (e.target && e.target.matches('li')) {\n    // Process click on list item\n  }\n});\n```"
+      },
+      {
+        "name": "Local Storage",
+        "example": "Store data in the browser that persists even after the session ends.\n\n```js\nlocalStorage.setItem('key', 'value');\nconst value = localStorage.getItem('key');\n```"
+      },
+      {
+        "name": "Session Storage",
+        "example": "Store data for the duration of the page session.\n\n```js\nsessionStorage.setItem('sessionKey', 'value');\nconst value = sessionStorage.getItem('sessionKey');\n```"
+      },
+      {
+        "name": "Fetch API",
+        "example": "Make HTTP requests using the modern Fetch API.\n\n```js\nfetch('https://api.example.com/data')\n  .then(response => response.json())\n  .then(data => {\n    // Process data\n  });\n```"
+      },
+      {
+        "name": "XMLHttpRequest",
+        "example": "Legacy method for making HTTP requests.\n\n```js\nconst xhr = new XMLHttpRequest();\nxhr.open('GET', 'https://api.example.com/data');\nxhr.onload = function() {\n  // Process response\n};\nxhr.send();\n```"
+      },
+      {
+        "name": "Proxy Objects",
+        "example": "Intercept and customize operations on objects with Proxy.\n\n```js\nconst target = {};\nconst proxy = new Proxy(target, {\n  get(obj, prop) {\n    return prop in obj ? obj[prop] : 'default';\n  }\n});\n```"
+      },
+      {
+        "name": "Reflect API",
+        "example": "Use the Reflect API to perform operations on objects.\n\n```js\nconst obj = { a: 1 };\nReflect.set(obj, 'b', 2); // obj now has property b with value 2\n```"
+      },
+      {
+        "name": "Custom Iterators",
+        "example": "Implement a custom iterator by defining [Symbol.iterator].\n\n```js\nconst iterable = {\n  data: [1, 2, 3],\n  [Symbol.iterator]() {\n    let index = 0;\n    return {\n      next: () => {\n        if (index < this.data.length) {\n          return { value: this.data[index++], done: false };\n        } else {\n          return { done: true };\n        }\n      }\n    };\n  }\n};\n```"
+      },
+      {
+        "name": "Generator Functions",
+        "example": "Generators yield multiple values over time using the yield keyword.\n\n```js\nfunction* generator() {\n  yield 1;\n  yield 2;\n  yield 3;\n}\n```"
+      },
+      {
+        "name": "For...of Loop",
+        "example": "Iterate over any iterable object with a for...of loop.\n\n```js\nconst arr = [10, 20, 30];\nfor (const num of arr) {\n  // Process each number\n}\n```"
+      },
+      {
+        "name": "Symbol.iterator",
+        "example": "Define a custom iterator using the Symbol.iterator property.\n\n```js\nconst obj = {\n  data: [1, 2, 3],\n  [Symbol.iterator]() {\n    let index = 0;\n    return {\n      next: () => {\n        if (index < this.data.length) {\n          return { value: this.data[index++], done: false };\n        } else {\n          return { done: true };\n        }\n      }\n    };\n  }\n};\n```"
+      },
+      {
+        "name": "Async Generators",
+        "example": "Async generators yield promises and work with asynchronous iteration.\n\n```js\nasync function* asyncGenerator() {\n  yield Promise.resolve(1);\n  yield Promise.resolve(2);\n}\n```"
+      },
+      {
+        "name": "Dynamic Imports",
+        "example": "Dynamically import modules using the import() function.\n\n```js\nimport('./module.js').then(module => {\n  // Use imported module\n});\n```"
+      },
+      {
+        "name": "Private Fields in Classes",
+        "example": "Define private properties in classes using the # prefix.\n\n```js\nclass MyClass {\n  #privateField = 10;\n  getPrivate() {\n    return this.#privateField;\n  }\n}\n```"
+      },
+      {
+        "name": "Mixins",
+        "example": "Mixins add shared behavior to classes.\n\n```js\nconst mixin = {\n  greet() {\n    return 'Hello';\n  }\n};\n\nclass Person {}\nObject.assign(Person.prototype, mixin);\n```"
+      },
+      {
+        "name": "Optional Function Parameters",
+        "example": "Function parameters are optional and default to undefined if not provided.\n\n```js\nfunction greet(name) {\n  // 'name' is undefined if not provided\n  return `Hello, ${name || 'Guest'}`;\n}\n```"
+      },
+      {
+        "name": "Short-circuit Evaluation",
+        "example": "Use logical operators to set default values.\n\n```js\nconst result = someValue || 'default';\n```"
+      },
+      {
+        "name": "Using eval (Not Recommended)",
+        "example": "eval executes a string as code, which can be risky and is discouraged.\n\n```js\nconst code = \"2 + 2\";\nconst result = eval(code); // 4\n```"
+      },
+      {
+        "name": "Promise.all",
+        "example": "Wait for multiple promises to resolve concurrently with Promise.all.\n\n```js\nPromise.all([\n  fetch(url1),\n  fetch(url2)\n]).then(responses => {\n  // Process all responses\n});\n```"
+      }
+    ]
+  }
+  

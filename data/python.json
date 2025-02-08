@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Variables and Data Types",
+        "example": "In Python, you can store different types of data in variables. Here are some examples:\n\n```python\n# Integer assignment\nnum = 10  # integer\n\n# Float assignment\npi = 3.14  # float\n\n# String assignment\ngreeting = \"Hello, Python\"  # string\n\n# Boolean assignment\nflag = True  # boolean\n```\n"
+      },
+      {
+        "name": "Comments in Python",
+        "example": "Python supports single-line and multi-line comments. Use `#` for single-line comments and triple quotes for multi-line comments or docstrings:\n\n```python\n# This is a single-line comment\n\n\"\"\"\nThis is a multi-line comment or docstring.\nUseful for documentation.\n\"\"\"\n```\n"
+      },
+      {
+        "name": "Basic Arithmetic Operations",
+        "example": "Perform arithmetic operations like addition, subtraction, multiplication, and division:\n\n```python\na = 10\nb = 3\n\naddition = a + b      # 13\nsubtraction = a - b   # 7\nmultiplication = a * b  # 30\ndivision = a / b      # 3.333...\n```\n"
+      },
+      {
+        "name": "Strings and String Manipulation",
+        "example": "Strings in Python can be manipulated easily. Examples include concatenation, slicing, and case conversion:\n\n```python\ns = \"Hello, World!\"\n\n# Concatenation\ngreeting = \"Hello\" + \", \" + \"Python\"\n\n# Slicing\nfirst_five = s[:5]   # 'Hello'\n\n# Upper and lower case\nupper = s.upper()    # 'HELLO, WORLD!'\nlower = s.lower()    # 'hello, world!'\n```\n"
+      },
+      {
+        "name": "Lists",
+        "example": "Lists are ordered, mutable collections of items:\n\n```python\n# Creating a list\nfruits = [\"apple\", \"banana\", \"cherry\"]\n\n# Accessing elements\nfirst = fruits[0]   # 'apple'\n\n# Appending an element\nfruits.append(\"date\")\n```\n"
+      },
+      {
+        "name": "Tuples",
+        "example": "Tuples are immutable, ordered collections of items:\n\n```python\n# Creating a tuple\ncolors = (\"red\", \"green\", \"blue\")\n\n# Accessing elements\nfirst_color = colors[0]  # 'red'\n```\n"
+      },
+      {
+        "name": "Dictionaries",
+        "example": "Dictionaries store key-value pairs:\n\n```python\n# Creating a dictionary\nperson = {\"name\": \"Alice\", \"age\": 25}\n\n# Accessing values\nname = person[\"name\"]  # 'Alice'\n\n# Adding a new key-value pair\nperson[\"city\"] = \"New York\"\n```\n"
+      },
+      {
+        "name": "Sets",
+        "example": "Sets are unordered collections of unique items:\n\n```python\n# Creating a set\nunique_numbers = {1, 2, 3, 2}\n# unique_numbers becomes {1, 2, 3}\n\n# Adding an element\nunique_numbers.add(4)\n```\n"
+      },
+      {
+        "name": "Type Conversion",
+        "example": "Convert between different data types using built-in functions:\n\n```python\nnum_str = \"100\"\nnum_int = int(num_str)   # 100 as integer\n\nfloat_num = float(num_int)  # 100.0 as float\n\nint_str = str(num_int)   # '100' as string\n```\n"
+      },
+      {
+        "name": "User Input",
+        "example": "Collect user input from the console using the `input()` function. (Note: In non-interactive environments, this is illustrative.)\n\n```python\n# Uncomment the line below to use in an interactive environment\n# name = input(\"Enter your name: \")  # Waits for user input\n```\n"
+      },
+      {
+        "name": "Conditional Statements",
+        "example": "Use `if`, `elif`, and `else` to execute code based on conditions:\n\n```python\nx = 10\n\nif x > 10:\n    result = \"Greater than 10\"\nelif x == 10:\n    result = \"Equal to 10\"\nelse:\n    result = \"Less than 10\"\n```\n"
+      },
+      {
+        "name": "For Loop",
+        "example": "Iterate over a sequence using a for loop:\n\n```python\nnumbers = [1, 2, 3, 4, 5]\n\nfor num in numbers:\n    # Process each number\n    squared = num * num  # Square of the number\n```\n"
+      },
+      {
+        "name": "While Loop",
+        "example": "Use a while loop to execute code until a condition is false:\n\n```python\ni = 0\n\nwhile i < 5:\n    # Increment i until condition is met\n    i += 1  # i becomes 5 eventually\n```\n"
+      },
+      {
+        "name": "List Comprehensions",
+        "example": "Create new lists using concise syntax:\n\n```python\n# Square numbers from 0 to 4\nsquares = [x * x for x in range(5)]  # [0, 1, 4, 9, 16]\n```\n"
+      },
+      {
+        "name": "Functions",
+        "example": "Define reusable blocks of code using functions:\n\n```python\ndef greet(name):\n    # Return a greeting message\n    return f\"Hello, {name}!\"\n\n# Function call\ngreeting = greet(\"Alice\")\n```\n"
+      },
+      {
+        "name": "Lambda Functions",
+        "example": "Create small anonymous functions using lambda:\n\n```python\n# Lambda to add two numbers\nadd = lambda a, b: a + b\nresult = add(5, 3)  # 8\n```\n"
+      },
+      {
+        "name": "Exception Handling",
+        "example": "Handle errors gracefully using try-except blocks:\n\n```python\ntry:\n    result = 10 / 0  # Division by zero error\nexcept ZeroDivisionError:\n    result = \"Cannot divide by zero\"\n```\n"
+      },
+      {
+        "name": "File I/O",
+        "example": "Read from and write to files using context managers:\n\n```python\n# Writing to a file\nwith open('example.txt', 'w') as file:\n    file.write('Hello, file!')\n\n# Reading from a file\nwith open('example.txt', 'r') as file:\n    content = file.read()\n```\n"
+      },
+      {
+        "name": "Importing Modules",
+        "example": "Use the `import` statement to include external modules:\n\n```python\nimport math\n\n# Using math module to compute square root\nresult = math.sqrt(16)  # 4.0\n```\n"
+      },
+      {
+        "name": "Math Module",
+        "example": "The math module provides various mathematical functions:\n\n```python\nimport math\n\n# Trigonometric function\ncosine = math.cos(math.pi)  # -1.0\n```\n"
+      },
+      {
+        "name": "Random Module",
+        "example": "Generate random numbers and selections using the random module:\n\n```python\nimport random\n\n# Generate a random integer between 1 and 10\nrand_int = random.randint(1, 10)\n\n# Randomly select an item from a list\nitem = random.choice(['apple', 'banana', 'cherry'])\n```\n"
+      },
+      {
+        "name": "Date and Time",
+        "example": "Work with dates and times using the datetime module:\n\n```python\nfrom datetime import datetime\n\n# Current date and time\nnow = datetime.now()\n\n# Format the date\nformatted = now.strftime('%Y-%m-%d %H:%M')\n```\n"
+      },
+      {
+        "name": "Classes and Objects",
+        "example": "Define classes to create objects with attributes and methods:\n\n```python\nclass Person:\n    def __init__(self, name):\n        self.name = name  # Instance attribute\n\n    def greet(self):\n        return f\"Hello, {self.name}!\"\n\n# Create an object of Person\nalice = Person(\"Alice\")\n```\n"
+      },
+      {
+        "name": "Inheritance",
+        "example": "Inheritance allows new classes to extend existing ones:\n\n```python\nclass Animal:\n    def sound(self):\n        return \"Some sound\"\n\nclass Dog(Animal):\n    def sound(self):\n        return \"Bark\"\n\n# Dog inherits from Animal\nbuddy = Dog()\n```\n"
+      },
+      {
+        "name": "Polymorphism",
+        "example": "Different classes can implement the same method in their own way:\n\n```python\nclass Cat:\n    def speak(self):\n        return \"Meow\"\n\nclass Cow:\n    def speak(self):\n        return \"Moo\"\n\n# Both classes implement speak()\nanimals = [Cat(), Cow()]\n```\n"
+      },
+      {
+        "name": "Method Overriding",
+        "example": "Override a method in a subclass to change its behavior:\n\n```python\nclass Parent:\n    def greet(self):\n        return \"Hello from Parent\"\n\nclass Child(Parent):\n    def greet(self):\n        return \"Hello from Child\"\n```\n"
+      },
+      {
+        "name": "Static Methods and Class Methods",
+        "example": "Use @staticmethod and @classmethod for methods that don't access instance data:\n\n```python\nclass MathHelper:\n    @staticmethod\n    def add(a, b):\n        return a + b\n\n    @classmethod\n    def description(cls):\n        return f\"This is {cls.__name__} class\"\n```\n"
+      },
+      {
+        "name": "Properties (Getters and Setters)",
+        "example": "Control attribute access using properties:\n\n```python\nclass Celsius:\n    def __init__(self, temperature=0):\n        self._temperature = temperature\n\n    @property\n    def temperature(self):\n        return self._temperature\n\n    @temperature.setter\n    def temperature(self, value):\n        if value < -273.15:\n            raise ValueError(\"Temperature below -273.15 is not possible\")\n        self._temperature = value\n```\n"
+      },
+      {
+        "name": "Global and Local Variables",
+        "example": "Differentiate between variables defined inside and outside functions:\n\n```python\nx = \"global\"  # Global variable\n\ndef func():\n    x = \"local\"  # Local variable\n    return x\n```\n"
+      },
+      {
+        "name": "Recursion",
+        "example": "A function can call itself to solve problems recursively:\n\n```python\ndef factorial(n):\n    # Base case\n    if n == 0:\n        return 1\n    # Recursive call\n    return n * factorial(n - 1)\n\n# factorial(5) returns 120\n```\n"
+      },
+      {
+        "name": "Generators",
+        "example": "Generators yield items one at a time using the `yield` keyword:\n\n```python\ndef countdown(n):\n    while n > 0:\n        yield n  # Pause and return n\n        n -= 1\n\n# Using the generator\nfor number in countdown(3):\n    pass\n```\n"
+      },
+      {
+        "name": "Decorators",
+        "example": "Decorators modify the behavior of functions:\n\n```python\ndef my_decorator(func):\n    def wrapper(*args, **kwargs):\n        # Pre-processing\n        result = func(*args, **kwargs)\n        # Post-processing\n        return result\n    return wrapper\n\n@my_decorator\ndef say_hello():\n    return \"Hello!\"\n```\n"
+      },
+      {
+        "name": "List Slicing",
+        "example": "Extract parts of a list using slicing:\n\n```python\nnumbers = [0, 1, 2, 3, 4, 5]\n\n# Get elements from index 1 to 3\nslice_part = numbers[1:4]  # [1, 2, 3]\n```\n"
+      },
+      {
+        "name": "f-string Formatting",
+        "example": "Use f-strings for easier string formatting (Python 3.6+):\n\n```python\nname = \"Alice\"\nage = 30\nmessage = f\"{name} is {age} years old\"\n```\n"
+      },
+      {
+        "name": "str.format() Formatting",
+        "example": "Format strings using the `format()` method:\n\n```python\nname = \"Bob\"\nage = 25\nmessage = \"{} is {} years old\".format(name, age)\n```\n"
+      },
+      {
+        "name": "Regular Expressions",
+        "example": "Use the `re` module for pattern matching in strings:\n\n```python\nimport re\n\npattern = r\"\\d+\"  # One or more digits\ntext = \"There are 24 hours in a day\"\nmatch = re.search(pattern, text)\n```\n"
+      },
+      {
+        "name": "Enumerate Function",
+        "example": "Enumerate adds a counter to an iterable:\n\n```python\nitems = ['a', 'b', 'c']\n\nfor index, value in enumerate(items):\n    # index: position, value: item\n    pass\n```\n"
+      },
+      {
+        "name": "Zip Function",
+        "example": "Combine multiple iterables element-wise using `zip()`:\n\n```python\nnames = ['Alice', 'Bob', 'Charlie']\nages = [25, 30, 35]\n\nfor name, age in zip(names, ages):\n    # Pairs name with age\n    pass\n```\n"
+      },
+      {
+        "name": "Map Function",
+        "example": "Apply a function to all items in an iterable using `map()`:\n\n```python\ndef square(x):\n    return x * x\n\nnumbers = [1, 2, 3, 4]\n\nsquares = list(map(square, numbers))\n```\n"
+      },
+      {
+        "name": "Filter Function",
+        "example": "Filter items in an iterable using `filter()`:\n\n```python\ndef is_even(x):\n    return x % 2 == 0\n\nnumbers = [1, 2, 3, 4, 5, 6]\n\nevens = list(filter(is_even, numbers))\n```\n"
+      },
+      {
+        "name": "Reduce Function",
+        "example": "Use `functools.reduce()` to apply a function cumulatively:\n\n```python\nfrom functools import reduce\n\n# Multiply elements of a list\nnumbers = [1, 2, 3, 4]\nproduct = reduce(lambda a, b: a * b, numbers)\n```\n"
+      },
+      {
+        "name": "List Unpacking",
+        "example": "Assign elements of a list to variables in one line:\n\n```python\nvalues = [1, 2, 3]\na, b, c = values\n```\n"
+      },
+      {
+        "name": "Dictionary Comprehensions",
+        "example": "Create dictionaries using a concise syntax:\n\n```python\n# Square numbers as key-value pairs\nsquares = {x: x * x for x in range(5)}\n```\n"
+      },
+      {
+        "name": "Set Comprehensions",
+        "example": "Create sets using a similar syntax to list comprehensions:\n\n```python\n# Create a set of squares\nsquares_set = {x * x for x in range(5)}\n```\n"
+      },
+      {
+        "name": "Multi-line Strings",
+        "example": "Define strings that span multiple lines using triple quotes:\n\n```python\nmulti_line = \"\"\"\nThis is a multi-line string.\nIt spans several lines.\n\"\"\"\n```\n"
+      },
+      {
+        "name": "Ternary Operator",
+        "example": "Use a one-line conditional expression for simple decisions:\n\n```python\na = 5\n\n# One-line if-else assignment\nresult = \"Even\" if a % 2 == 0 else \"Odd\"\n```\n"
+      },
+      {
+        "name": "Iterators",
+        "example": "Create an iterator using `iter()` and retrieve elements with `next()`:\n\n```python\nitems = [10, 20, 30]\niterator = iter(items)\nfirst_item = next(iterator)  # 10\n```\n"
+      },
+      {
+        "name": "Using collections.Counter",
+        "example": "Count hashable objects using `Counter` from the collections module:\n\n```python\nfrom collections import Counter\n\nwords = ['apple', 'banana', 'apple', 'cherry']\ncount = Counter(words)\n```\n"
+      },
+      {
+        "name": "Using collections.defaultdict",
+        "example": "Simplify dictionary usage with default values using `defaultdict`:\n\n```python\nfrom collections import defaultdict\n\n# Default value of int is 0\ncounts = defaultdict(int)\n\nfor word in ['apple', 'banana', 'apple']:\n    counts[word] += 1\n```\n"
+      },
+      {
+        "name": "Context Managers with 'with' Statement",
+        "example": "Manage resources automatically using the `with` statement:\n\n```python\nwith open('example.txt', 'w') as file:\n    file.write('Managed by with')\n```\n"
+      },
+      {
+        "name": "List Methods",
+        "example": "Lists come with many methods for modifying them:\n\n```python\nfruits = ['apple', 'banana']\nfruits.append('cherry')      # Append an element\nfruits.extend(['date', 'elderberry'])  # Extend list with multiple items\nfruits.remove('banana')      # Remove an element\npopped = fruits.pop()        # Remove and return the last item\n```"
+      },
+      {
+        "name": "Tuple Unpacking",
+        "example": "Unpack tuple elements into variables:\n\n```python\ncoordinates = (10, 20, 30)\nx, y, z = coordinates  # x=10, y=20, z=30\n```"
+      },
+      {
+        "name": "Slicing Strings",
+        "example": "Extract substrings using slicing:\n\n```python\ntext = \"Hello, World!\"\nsub = text[7:12]  # 'World'\n```"
+      },
+      {
+        "name": "Using the range() Function",
+        "example": "Generate a sequence of numbers with range:\n\n```python\n# Generate numbers from 0 to 4\nfor i in range(5):\n    pass  # i takes values 0,1,2,3,4\n```"
+      },
+      {
+        "name": "Dictionary Methods",
+        "example": "Access dictionary keys, values, and items:\n\n```python\ndict_sample = {'a': 1, 'b': 2}\nkeys = dict_sample.keys()     # dict_keys(['a', 'b'])\nvalues = dict_sample.values()  # dict_values([1, 2])\nitems = dict_sample.items()    # dict_items([('a', 1), ('b', 2)])\n```"
+      },
+      {
+        "name": "Set Operations",
+        "example": "Perform union, intersection, and difference on sets:\n\n```python\na = {1, 2, 3}\nb = {3, 4, 5}\nunion = a | b          # {1, 2, 3, 4, 5}\nintersection = a & b   # {3}\ndifference = a - b     # {1, 2}\n```"
+      },
+      {
+        "name": "Comprehensions with Conditional",
+        "example": "List comprehensions can include conditions:\n\n```python\n# Squares of even numbers from 0 to 9\nsquares = [x * x for x in range(10) if x % 2 == 0]\n```"
+      },
+      {
+        "name": "Multiple Assignment",
+        "example": "Assign multiple variables in one line:\n\n```python\na, b, c = 1, 2, 3  # a=1, b=2, c=3\n```"
+      },
+      {
+        "name": "Swapping Variables",
+        "example": "Swap two variables without a temporary variable:\n\n```python\na = 5\nb = 10\n# Swap values\na, b = b, a  # Now a=10 and b=5\n```"
+      },
+      {
+        "name": "Default Function Arguments",
+        "example": "Functions can have default parameter values:\n\n```python\ndef greet(name, greeting='Hello'):\n    return f\"{greeting}, {name}!\"\n\n# greet('Alice') returns 'Hello, Alice!'\n```"
+      },
+      {
+        "name": "Variable-length Arguments",
+        "example": "Use *args for non-keyword arguments and **kwargs for keyword arguments:\n\n```python\ndef func(*args, **kwargs):\n    # args is a tuple; kwargs is a dict\n    pass\n```"
+      },
+      {
+        "name": "Docstrings",
+        "example": "Document functions using docstrings:\n\n```python\ndef add(a, b):\n    \"\"\"Return the sum of a and b.\"\"\"\n    return a + b\n```"
+      },
+      {
+        "name": "Type Hints",
+        "example": "Annotate function parameters and return types:\n\n```python\ndef add(a: int, b: int) -> int:\n    return a + b\n```"
+      },
+      {
+        "name": "F-strings with Expressions",
+        "example": "Embed expressions inside f-strings:\n\n```python\nx = 10\nresult = f\"{x} squared is {x * x}\"\n```"
+      },
+      {
+        "name": "String Formatting with format_map()",
+        "example": "Use a dictionary to format a string:\n\n```python\ndata = {'name': 'Alice', 'age': 30}\nmessage = \"{name} is {age} years old\".format_map(data)\n```"
+      },
+      {
+        "name": "Sorting Lists",
+        "example": "Sort a list using the sorted() function:\n\n```python\nnumbers = [4, 2, 5, 1, 3]\nsorted_numbers = sorted(numbers)  # [1, 2, 3, 4, 5]\n```"
+      },
+      {
+        "name": "Sorting with Custom Key",
+        "example": "Sort a list of tuples by the second element:\n\n```python\nitems = [(1, 'b'), (2, 'a')]\nsorted_items = sorted(items, key=lambda x: x[1])\n```"
+      },
+      {
+        "name": "Lambda in Sorting",
+        "example": "Use a lambda function to sort complex objects:\n\n```python\npeople = [{'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 25}]\nsorted_people = sorted(people, key=lambda person: person['age'])\n```"
+      },
+      {
+        "name": "Reversing a List",
+        "example": "Reverse a list using slicing or the reverse() method:\n\n```python\nnumbers = [1, 2, 3]\nreversed_numbers = numbers[::-1]  # [3, 2, 1]\nnumbers.reverse()          # In-place reversal\n```"
+      },
+      {
+        "name": "Using enumerate in List Comprehension",
+        "example": "Get index and value pairs in a list comprehension:\n\n```python\nitems = ['a', 'b', 'c']\nindexed = [(i, item) for i, item in enumerate(items)]\n```"
+      },
+      {
+        "name": "Using zip with Unpacking",
+        "example": "Combine lists and unpack zipped tuples:\n\n```python\nnames = ['Alice', 'Bob']\nages = [30, 25]\nzipped = list(zip(names, ages))   # [('Alice', 30), ('Bob', 25)]\n(name1, age1), (name2, age2) = zipped\n```"
+      },
+      {
+        "name": "Nested List Comprehension",
+        "example": "Flatten a 2D list using nested comprehensions:\n\n```python\nmatrix = [[1, 2], [3, 4]]\nflat = [num for row in matrix for num in row]  # [1, 2, 3, 4]\n```"
+      },
+      {
+        "name": "Using any() and all()",
+        "example": "Check conditions over an iterable:\n\n```python\nnumbers = [2, 4, 6]\nall_even = all(x % 2 == 0 for x in numbers)  # True\nany_odd = any(x % 2 != 0 for x in numbers)   # False\n```"
+      },
+      {
+        "name": "Using join() for Strings",
+        "example": "Join a list of strings into one string:\n\n```python\nwords = ['Join', 'these', 'words']\nsentence = ' '.join(words)  # 'Join these words'\n```"
+      },
+      {
+        "name": "Using split() for Strings",
+        "example": "Split a string into a list of words:\n\n```python\ntext = \"Split these words\"\nwords = text.split()  # ['Split', 'these', 'words']\n```"
+      },
+      {
+        "name": "Reading from a File Line by Line",
+        "example": "Iterate over each line in a file:\n\n```python\nwith open('sample.txt', 'r') as file:\n    for line in file:\n        pass  # Process each line\n```"
+      },
+      {
+        "name": "Writing to a File with Append Mode",
+        "example": "Append text to an existing file:\n\n```python\nwith open('sample.txt', 'a') as file:\n    file.write('New line\\n')\n```"
+      },
+      {
+        "name": "Handling Multiple Exceptions",
+        "example": "Catch multiple exceptions in one block:\n\n```python\ntry:\n    pass  # Code that may raise ValueError or TypeError\nexcept (ValueError, TypeError):\n    pass  # Handle exceptions\n```"
+      },
+      {
+        "name": "Using finally in try-except",
+        "example": "Execute code regardless of exceptions:\n\n```python\ntry:\n    pass\nexcept Exception:\n    pass\nfinally:\n    pass  # Always executes\n```"
+      },
+      {
+        "name": "Creating a Custom Exception",
+        "example": "Define your own exception by subclassing Exception:\n\n```python\nclass MyError(Exception):\n    pass\n\nraise MyError('An error occurred')\n```"
+      },
+      {
+        "name": "Using os.path for File Paths",
+        "example": "Join and manipulate file paths:\n\n```python\nimport os\npath = os.path.join('folder', 'file.txt')\n```"
+      },
+      {
+        "name": "Listing Directory Contents",
+        "example": "List files and directories using os.listdir():\n\n```python\nimport os\nfiles = os.listdir('.')  # List contents of current directory\n```"
+      },
+      {
+        "name": "Using shutil to Copy Files",
+        "example": "Copy a file from one location to another:\n\n```python\nimport shutil\nshutil.copy('source.txt', 'destination.txt')\n```"
+      },
+      {
+        "name": "Using json Module",
+        "example": "Serialize and deserialize JSON data:\n\n```python\nimport json\ndata = {'a': 1, 'b': 2}\njson_str = json.dumps(data)       # Convert to JSON string\ndata_back = json.loads(json_str)  # Parse JSON string\n```"
+      },
+      {
+        "name": "Using pprint for Pretty Print",
+        "example": "Pretty print complex data structures:\n\n```python\nfrom pprint import pprint\ndata = {'a': [1, 2, 3], 'b': {'nested': 'dict'}}\npprint(data)\n```"
+      },
+      {
+        "name": "Using time Module for Sleep",
+        "example": "Pause execution for a given number of seconds:\n\n```python\nimport time\ntime.sleep(1)  # Sleep for 1 second\n```"
+      },
+      {
+        "name": "Using sys.argv for Command-line Arguments",
+        "example": "Access command-line arguments using sys.argv:\n\n```python\nimport sys\nargs = sys.argv  # List of command-line arguments\n```"
+      },
+      {
+        "name": "Using logging Module",
+        "example": "Set up basic logging for your application:\n\n```python\nimport logging\nlogging.basicConfig(level=logging.INFO)\nlogging.info('This is an info message')\n```"
+      },
+      {
+        "name": "Using traceback Module",
+        "example": "Capture and print stack traces:\n\n```python\nimport traceback\ntry:\n    1/0\nexcept Exception:\n    trace = traceback.format_exc()\n```"
+      },
+      {
+        "name": "Using itertools: count",
+        "example": "Generate an infinite sequence of numbers:\n\n```python\nimport itertools\ncounter = itertools.count(10)  # Starts at 10\nfirst = next(counter)  # 10\n```"
+      },
+      {
+        "name": "Using itertools: cycle",
+        "example": "Cycle through an iterable infinitely:\n\n```python\nimport itertools\ncolors = ['red', 'green', 'blue']\ncycler = itertools.cycle(colors)\nnext_color = next(cycler)  # 'red'\n```"
+      },
+      {
+        "name": "Using itertools: combinations",
+        "example": "Generate combinations of elements from a list:\n\n```python\nimport itertools\nitems = [1, 2, 3]\ncomb = list(itertools.combinations(items, 2))  # [(1, 2), (1, 3), (2, 3)]\n```"
+      },
+      {
+        "name": "Using functools.lru_cache",
+        "example": "Cache the results of a function call:\n\n```python\nfrom functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fib(n):\n    if n < 2:\n        return n\n    return fib(n-1) + fib(n-2)\n```"
+      },
+      {
+        "name": "Using copy: Shallow Copy",
+        "example": "Make a shallow copy of a list:\n\n```python\nimport copy\noriginal = [1, [2, 3]]\nshallow = copy.copy(original)\n```"
+      },
+      {
+        "name": "Using copy: Deep Copy",
+        "example": "Create a deep copy of a nested structure:\n\n```python\nimport copy\noriginal = [1, [2, 3]]\ndeep = copy.deepcopy(original)\n```"
+      },
+      {
+        "name": "Using operator Module",
+        "example": "Use functions from the operator module for functional programming:\n\n```python\nimport operator\nitems = [('a', 3), ('b', 1)]\nitems_sorted = sorted(items, key=operator.itemgetter(1))\n```"
+      },
+      {
+        "name": "Using math.pow and Exponentiation",
+        "example": "Raise numbers to a power using math.pow or **:\n\n```python\nimport math\nresult1 = math.pow(2, 3)  # 8.0\nresult2 = 2 ** 3          # 8\n```"
+      },
+      {
+        "name": "Using Complex Numbers",
+        "example": "Work with complex numbers in Python:\n\n```python\nc = 3 + 4j\nreal_part = c.real  # 3.0\nimag_part = c.imag  # 4.0\n```"
+      },
+      {
+        "name": "Using bin, oct, hex Conversions",
+        "example": "Convert integers to binary, octal, and hexadecimal strings:\n\n```python\nnum = 42\nbinary = bin(num)       # '0b101010'\noctal = oct(num)        # '0o52'\nhexadecimal = hex(num)  # '0x2a'\n```"
+      },
+      {
+        "name": "Using List Slicing with Step",
+        "example": "Extract elements from a list using a step in slicing:\n\n```python\nnumbers = [0, 1, 2, 3, 4, 5, 6]\nstep_slice = numbers[::2]  # [0, 2, 4, 6]\n```"
+      }
+    ]
+  }
+  

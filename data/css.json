@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Introduction to CSS",
+        "example": "CSS is used to style HTML elements.\n\n```css\n/* Basic CSS style */\nbody {\n  background-color: #f0f0f0; /* light grey background */\n  color: #333; /* dark text color */\n}\n```"
+      },
+      {
+        "name": "Inline CSS",
+        "example": "Inline CSS applies styles directly to an HTML element.\n\n```html\n<!-- Inline CSS example -->\n<p style=\"color: blue;\">This text is blue.</p>\n```"
+      },
+      {
+        "name": "Internal CSS",
+        "example": "Internal CSS is defined in the head section of an HTML document.\n\n```html\n<!-- Internal CSS example -->\n<head>\n  <style>\n    p {\n      font-size: 16px; /* sets paragraph font size */\n    }\n  </style>\n</head>\n```"
+      },
+      {
+        "name": "External CSS",
+        "example": "External CSS is linked via an external stylesheet.\n\n```html\n<!-- External CSS linking -->\n<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n\n/* In styles.css */\nh1 {\n  color: red; /* red header text */\n}\n```"
+      },
+      {
+        "name": "Basic CSS Syntax",
+        "example": "CSS uses selectors and declarations to style elements.\n\n```css\n/* Basic CSS Syntax */\nselector {\n  property: value; /* declaration */\n}\n```"
+      },
+      {
+        "name": "Element Selectors",
+        "example": "Selects HTML elements by their tag name.\n\n```css\n/* Element selector for all paragraphs */\np {\n  color: green; /* text color */\n}\n```"
+      },
+      {
+        "name": "ID Selectors",
+        "example": "Selects an element by its unique ID.\n\n```css\n/* ID selector for unique element */\n#header {\n  background-color: #ccc; /* grey background */\n}\n```"
+      },
+      {
+        "name": "Class Selectors",
+        "example": "Selects elements by their class attribute.\n\n```css\n/* Class selector for elements */\n.button {\n  padding: 10px; /* spacing inside element */\n  background-color: blue;\n}\n```"
+      },
+      {
+        "name": "Descendant Selectors",
+        "example": "Selects elements that are inside another element.\n\n```css\n/* Descendant selector example */\nnav a {\n  color: white; /* links inside nav */\n}\n```"
+      },
+      {
+        "name": "Child Selectors",
+        "example": "Selects direct children of an element.\n\n```css\n/* Child selector: direct children only */\nul > li {\n  list-style-type: none; /* remove bullets */\n}\n```"
+      },
+      {
+        "name": "Adjacent Sibling Selectors",
+        "example": "Selects an element immediately following another.\n\n```css\n/* Adjacent sibling selector */\nh1 + p {\n  margin-top: 0; /* remove top margin of paragraph following h1 */\n}\n```"
+      },
+      {
+        "name": "General Sibling Selectors",
+        "example": "Selects all siblings after a specified element.\n\n```css\n/* General sibling selector */\nh1 ~ p {\n  color: gray; /* gray text for paragraphs after h1 */\n}\n```"
+      },
+      {
+        "name": "Attribute Selectors",
+        "example": "Selects elements based on attribute values.\n\n```css\n/* Attribute selector example */\na[target=\"_blank\"] {\n  color: red; /* links opening in new tab */\n}\n```"
+      },
+      {
+        "name": "CSS Comments",
+        "example": "Comments help explain your code and are ignored by browsers.\n\n```css\n/* This is a CSS comment */\nbody {\n  margin: 0; /* Reset margin */\n}\n```"
+      },
+      {
+        "name": "Color Property",
+        "example": "Sets the text color of an element.\n\n```css\n/* Set text color */\nh2 {\n  color: #2a9d8f; /* teal color */\n}\n```"
+      },
+      {
+        "name": "Background Color Property",
+        "example": "Sets the background color of an element.\n\n```css\n/* Set background color */\ndiv {\n  background-color: #e9c46a; /* light yellow */\n}\n```"
+      },
+      {
+        "name": "Font Size Property",
+        "example": "Controls the size of text.\n\n```css\n/* Set font size */\np {\n  font-size: 18px; /* text size */\n}\n```"
+      },
+      {
+        "name": "Font Family Property",
+        "example": "Specifies the typeface for text.\n\n```css\n/* Set font family */\nbody {\n  font-family: Arial, sans-serif; /* fallback fonts */\n}\n```"
+      },
+      {
+        "name": "Text Align Property",
+        "example": "Aligns text horizontally within its container.\n\n```css\n/* Center align text */\nh1 {\n  text-align: center;\n}\n```"
+      },
+      {
+        "name": "Line Height Property",
+        "example": "Sets the spacing between lines of text.\n\n```css\n/* Set line height */\np {\n  line-height: 1.6; /* line spacing */\n}\n```"
+      },
+      {
+        "name": "Margin Property",
+        "example": "Adds space around elements, outside their borders.\n\n```css\n/* Margin example */\n.box {\n  margin: 20px; /* space outside element */\n}\n```"
+      },
+      {
+        "name": "Padding Property",
+        "example": "Adds space inside elements, between content and border.\n\n```css\n/* Padding example */\n.box {\n  padding: 15px; /* space inside element */\n}\n```"
+      },
+      {
+        "name": "Border Property",
+        "example": "Adds a border around elements.\n\n```css\n/* Border example */\n.container {\n  border: 2px solid black; /* black border */\n}\n```"
+      },
+      {
+        "name": "Width Property",
+        "example": "Sets the width of an element.\n\n```css\n/* Set element width */\n.image {\n  width: 100px; /* fixed width */\n}\n```"
+      },
+      {
+        "name": "Height Property",
+        "example": "Sets the height of an element.\n\n```css\n/* Set element height */\n.image {\n  height: 100px; /* fixed height */\n}\n```"
+      },
+      {
+        "name": "CSS Box Model",
+        "example": "Describes layout with margin, border, padding, and content areas.\n\n```css\n/* Box model example */\n.box {\n  margin: 10px;  /* outer space */\n  border: 1px solid #000; /* border */\n  padding: 5px;  /* inner space */\n  width: 200px;  /* content width */\n}\n```"
+      },
+      {
+        "name": "Display Property: Block",
+        "example": "Elements with display:block take up full width.\n\n```css\n/* Block display */\ndiv {\n  display: block;\n}\n```"
+      },
+      {
+        "name": "Display Property: Inline",
+        "example": "Elements with display:inline only take the necessary width.\n\n```css\n/* Inline display */\nspan {\n  display: inline;\n}\n```"
+      },
+      {
+        "name": "Display Property: Inline-block",
+        "example": "Elements behave like inline elements but can have set dimensions.\n\n```css\n/* Inline-block display */\nimg {\n  display: inline-block;\n  width: 50px;\n  height: 50px;\n}\n```"
+      },
+      {
+        "name": "Position Property: Static",
+        "example": "Default positioning; elements follow the normal document flow.\n\n```css\n/* Static positioning */\n.element {\n  position: static;\n}\n```"
+      },
+      {
+        "name": "Position Property: Relative",
+        "example": "Positions an element relative to its normal position.\n\n```css\n/* Relative positioning */\n.element {\n  position: relative;\n  top: 10px; /* moves element down */\n}\n```"
+      },
+      {
+        "name": "Position Property: Absolute",
+        "example": "Positions an element relative to its nearest positioned ancestor.\n\n```css\n/* Absolute positioning */\n.container {\n  position: relative;\n}\n.child {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n```"
+      },
+      {
+        "name": "Position Property: Fixed",
+        "example": "Positions an element relative to the viewport, staying fixed on scroll.\n\n```css\n/* Fixed positioning */\n.header {\n  position: fixed;\n  top: 0;\n  width: 100%;\n}\n```"
+      },
+      {
+        "name": "Overflow Property",
+        "example": "Controls what happens when content overflows an element's box.\n\n```css\n/* Overflow control */\n.container {\n  overflow: hidden; /* hide overflow */\n}\n```"
+      },
+      {
+        "name": "Float Property",
+        "example": "Floats an element to the left or right, allowing text to wrap around it.\n\n```css\n/* Float element */\n.image {\n  float: left;\n  margin-right: 10px;\n}\n```"
+      },
+      {
+        "name": "Clear Property",
+        "example": "Prevents elements from wrapping around floated elements.\n\n```css\n/* Clear floats */\n.clearfix {\n  clear: both;\n}\n```"
+      },
+      {
+        "name": "Z-index Property",
+        "example": "Controls the stacking order of positioned elements.\n\n```css\n/* Z-index example */\n.element {\n  position: relative;\n  z-index: 2; /* appears above elements with lower z-index */\n}\n```"
+      },
+      {
+        "name": "Background Images",
+        "example": "Sets an image as the background of an element.\n\n```css\n/* Background image */\n.hero {\n  background-image: url('hero.jpg'); /* image URL */\n  background-size: cover;\n}\n```"
+      },
+      {
+        "name": "Gradients",
+        "example": "Creates smooth color transitions using gradients.\n\n```css\n/* Linear gradient background */\n.gradient {\n  background: linear-gradient(to right, #ff7e5f, #feb47b);\n}\n```"
+      },
+      {
+        "name": "Opacity Property",
+        "example": "Sets the transparency level of an element.\n\n```css\n/* Set opacity */\n.overlay {\n  opacity: 0.5; /* 50% transparent */\n}\n```"
+      },
+      {
+        "name": "Visibility Property",
+        "example": "Toggles the visibility of an element without affecting layout.\n\n```css\n/* Visibility example */\n.hidden {\n  visibility: hidden; /* element is hidden but takes space */\n}\n```"
+      },
+      {
+        "name": "Text Decoration Property",
+        "example": "Adds decorations such as underlines to text.\n\n```css\n/* Underline text */\na {\n  text-decoration: underline;\n}\n```"
+      },
+      {
+        "name": "Text Transform Property",
+        "example": "Transforms text case, such as uppercase or lowercase.\n\n```css\n/* Transform text */\nh2 {\n  text-transform: uppercase; /* converts text to uppercase */\n}\n```"
+      },
+      {
+        "name": "Letter Spacing Property",
+        "example": "Adjusts the spacing between letters.\n\n```css\n/* Letter spacing */\nh1 {\n  letter-spacing: 2px;\n}\n```"
+      },
+      {
+        "name": "Word Spacing Property",
+        "example": "Adjusts the spacing between words.\n\n```css\n/* Word spacing */\np {\n  word-spacing: 5px;\n}\n```"
+      },
+      {
+        "name": "Line Height for Readability",
+        "example": "Improves text readability by adjusting line height.\n\n```css\n/* Adjust line height for readability */\n.article p {\n  line-height: 1.8;\n}\n```"
+      },
+      {
+        "name": "List Styles",
+        "example": "Customize the appearance of lists.\n\n```css\n/* Remove bullets from list */\nul {\n  list-style: none;\n}\n\n/* Custom list marker */\nli::before {\n  content: \"• \";\n  color: blue;\n}\n```"
+      },
+      {
+        "name": "Pseudo-class: :hover",
+        "example": "Styles an element when the mouse hovers over it.\n\n```css\n/* Hover effect */\nbutton:hover {\n  background-color: #333;\n  color: white;\n}\n```"
+      },
+      {
+        "name": "Pseudo-class: :active",
+        "example": "Styles an element when it is active or clicked.\n\n```css\n/* Active state */\nbutton:active {\n  transform: scale(0.98); /* slight shrink */\n}\n```"
+      },
+      {
+        "name": "Pseudo-class: :focus",
+        "example": "Styles an element when it receives focus.\n\n```css\n/* Focus state */\ninput:focus {\n  border-color: blue;\n  outline: none;\n}\n```"
+      },
+      {
+        "name": "Pseudo-class: :nth-child",
+        "example": "Selects elements based on their position in a parent.\n\n```css\n/* Select every even list item */\nli:nth-child(even) {\n  background-color: #f2f2f2;\n}\n```"
+      },
+      {
+        "name": "Pseudo-class: :first-child",
+        "example": "Selects the first child element of its parent.\n\n```css\n/* First child style */\nul li:first-child {\n  font-weight: bold;\n}\n```"
+      },
+      {
+        "name": "Pseudo-class: :last-child",
+        "example": "Selects the last child element of its parent.\n\n```css\n/* Last child style */\nul li:last-child {\n  font-style: italic;\n}\n```"
+      },
+      {
+        "name": "Pseudo-element: ::before",
+        "example": "Inserts content before an element's content.\n\n```css\n/* Before pseudo-element */\nh3::before {\n  content: \"★ \"; /* star before heading */\n}\n```"
+      },
+      {
+        "name": "Pseudo-element: ::after",
+        "example": "Inserts content after an element's content.\n\n```css\n/* After pseudo-element */\nh3::after {\n  content: \" ★\"; /* star after heading */\n}\n```"
+      },
+      {
+        "name": "CSS Transitions",
+        "example": "Smoothly animate changes to property values.\n\n```css\n/* Transition effect */\n.box {\n  transition: background-color 0.3s ease;\n}\n.box:hover {\n  background-color: #ccc;\n}\n```"
+      },
+      {
+        "name": "CSS Animations: Keyframes",
+        "example": "Define complex animations using keyframes.\n\n```css\n/* Keyframes animation */\n@keyframes slideIn {\n  from { transform: translateX(-100%); }\n  to { transform: translateX(0); }\n}\n.element {\n  animation: slideIn 0.5s forwards;\n}\n```"
+      },
+      {
+        "name": "Transform: Translate",
+        "example": "Moves an element along the X and Y axes.\n\n```css\n/* Translate transform */\n.move {\n  transform: translate(50px, 100px);\n}\n```"
+      },
+      {
+        "name": "Transform: Rotate",
+        "example": "Rotates an element by a specified angle.\n\n```css\n/* Rotate transform */\n.rotate {\n  transform: rotate(45deg);\n}\n```"
+      },
+      {
+        "name": "Transform: Scale",
+        "example": "Resizes an element proportionally.\n\n```css\n/* Scale transform */\n.scale {\n  transform: scale(1.5); /* enlarge 50% */\n}\n```"
+      },
+      {
+        "name": "Transform: Skew",
+        "example": "Skews an element along the X and Y axes.\n\n```css\n/* Skew transform */\n.skew {\n  transform: skew(20deg, 10deg);\n}\n```"
+      },
+      {
+        "name": "Flexbox: Container",
+        "example": "Defines an element as a flex container.\n\n```css\n/* Flex container */\n.container {\n  display: flex;\n}\n```"
+      },
+      {
+        "name": "Flexbox: Flex Direction",
+        "example": "Sets the direction in which flex items are laid out.\n\n```css\n/* Flex direction */\n.container {\n  display: flex;\n  flex-direction: row; /* horizontal layout */\n}\n```"
+      },
+      {
+        "name": "Flexbox: Justify Content",
+        "example": "Aligns flex items along the main axis.\n\n```css\n/* Justify content */\n.container {\n  display: flex;\n  justify-content: center; /* center items horizontally */\n}\n```"
+      },
+      {
+        "name": "Flexbox: Align Items",
+        "example": "Aligns flex items along the cross axis.\n\n```css\n/* Align items vertically */\n.container {\n  display: flex;\n  align-items: center; /* center items vertically */\n}\n```"
+      },
+      {
+        "name": "Flexbox: Flex Wrap",
+        "example": "Allows flex items to wrap onto multiple lines.\n\n```css\n/* Enable wrapping */\n.container {\n  display: flex;\n  flex-wrap: wrap;\n}\n```"
+      },
+      {
+        "name": "Flexbox: Order",
+        "example": "Changes the order of flex items within a container.\n\n```css\n/* Order property */\n.item {\n  order: 2; /* order position */\n}\n```"
+      },
+      {
+        "name": "Flexbox: Flex Grow",
+        "example": "Allows flex items to grow and fill available space.\n\n```css\n/* Flex grow */\n.item {\n  flex-grow: 1; /* item grows to fill container */\n}\n```"
+      },
+      {
+        "name": "Flexbox: Flex Shrink",
+        "example": "Allows flex items to shrink if necessary.\n\n```css\n/* Flex shrink */\n.item {\n  flex-shrink: 1; /* item can shrink */\n}\n```"
+      },
+      {
+        "name": "Flexbox: Align Self",
+        "example": "Overrides the container's alignment for an individual flex item.\n\n```css\n/* Align self */\n.item {\n  align-self: flex-start; /* align item individually */\n}\n```"
+      },
+      {
+        "name": "Grid: Container",
+        "example": "Defines an element as a grid container.\n\n```css\n/* Grid container */\n.grid {\n  display: grid;\n}\n```"
+      },
+      {
+        "name": "Grid: Grid Template Columns",
+        "example": "Specifies column sizes in a grid layout.\n\n```css\n/* Define columns */\n.grid {\n  display: grid;\n  grid-template-columns: 1fr 2fr; /* two columns with different widths */\n}\n```"
+      },
+      {
+        "name": "Grid: Grid Template Rows",
+        "example": "Specifies row sizes in a grid layout.\n\n```css\n/* Define rows */\n.grid {\n  display: grid;\n  grid-template-rows: auto auto; /* two rows */\n}\n```"
+      },
+      {
+        "name": "Grid: Grid Gap",
+        "example": "Sets the gap between grid items.\n\n```css\n/* Grid gap */\n.grid {\n  display: grid;\n  grid-gap: 10px; /* spacing between items */\n}\n```"
+      },
+      {
+        "name": "Grid: Grid Area",
+        "example": "Assigns a grid item to a named area within the grid.\n\n```css\n/* Grid area */\n.header {\n  grid-area: header;\n}\n```"
+      },
+      {
+        "name": "Grid: Grid Auto Flow",
+        "example": "Controls the automatic placement of grid items.\n\n```css\n/* Grid auto flow */\n.grid {\n  display: grid;\n  grid-auto-flow: row; /* fill rows first */\n}\n```"
+      },
+      {
+        "name": "Media Queries: Introduction",
+        "example": "Apply different styles based on viewport size or device.\n\n```css\n/* Basic media query */\n@media (max-width: 600px) {\n  body {\n    background-color: lightblue;\n  }\n}\n```"
+      },
+      {
+        "name": "Media Queries: Min-width",
+        "example": "Applies styles for viewports above a minimum width.\n\n```css\n/* Media query min-width */\n@media (min-width: 768px) {\n  .container {\n    width: 750px;\n  }\n}\n```"
+      },
+      {
+        "name": "Media Queries: Max-width",
+        "example": "Applies styles for viewports below a maximum width.\n\n```css\n/* Media query max-width */\n@media (max-width: 480px) {\n  .menu {\n    display: none;\n  }\n}\n```"
+      },
+      {
+        "name": "CSS Specificity",
+        "example": "Determines which styles are applied when selectors conflict.\n\n```css\n/* Specificity example */\n/* ID selectors have higher specificity than class selectors */\n#unique {\n  color: red;\n}\n.button {\n  color: blue;\n}\n```"
+      },
+      {
+        "name": "CSS Inheritance",
+        "example": "Some CSS properties are inherited by child elements.\n\n```css\n/* Inheritance example */\nbody {\n  font-family: 'Helvetica', sans-serif; /* inherited by children */\n}\n```"
+      },
+      {
+        "name": "CSS Variables: Custom Properties",
+        "example": "Define reusable values with CSS custom properties.\n\n```css\n/* Define and use a CSS variable */\n:root {\n  --main-color: #3498db;\n}\n.header {\n  background-color: var(--main-color);\n}\n```"
+      },
+      {
+        "name": "CSS !important Rule",
+        "example": "Overrides normal specificity to enforce a style.\n\n```css\n/* !important usage */\np {\n  color: black !important; /* forces black color */\n}\n```"
+      },
+      {
+        "name": "CSS Combinators Overview",
+        "example": "Combine selectors to target specific elements.\n\n```css\n/* Descendant, child, and sibling combinators */\ndiv p { }    /* descendant */\nul > li { }  /* child */\nh1 + p { }   /* adjacent sibling */\n```"
+      },
+      {
+        "name": "CSS Sibling Combinators",
+        "example": "Target sibling elements using combinators.\n\n```css\n/* Sibling combinators */\nh2 ~ p {\n  color: gray; /* style paragraphs following an h2 */\n}\n```"
+      },
+      {
+        "name": "Universal Selector",
+        "example": "Selects all elements on the page.\n\n```css\n/* Universal selector resets margins */\n* {\n  margin: 0;\n  padding: 0;\n}\n```"
+      },
+      {
+        "name": "Grouping Selectors",
+        "example": "Apply the same styles to multiple selectors at once.\n\n```css\n/* Group selectors */\nh1, h2, h3 {\n  color: darkslategray;\n}\n```"
+      },
+      {
+        "name": "Styling Forms",
+        "example": "Customize the appearance of form elements.\n\n```css\n/* Style input and button */\ninput[type=\"text\"] {\n  border: 1px solid #ccc;\n  padding: 8px;\n}\nbutton {\n  background-color: #28a745;\n  color: white;\n}\n```"
+      },
+      {
+        "name": "Styling Tables",
+        "example": "Customize table appearance and layout.\n\n```css\n/* Table styling */\ntable {\n  border-collapse: collapse;\n}\ntd, th {\n  border: 1px solid #ddd;\n  padding: 8px;\n}\n```"
+      },
+      {
+        "name": "Styling Lists",
+        "example": "Customize the look of lists and list items.\n\n```css\n/* List styling */\nul {\n  list-style-type: square;\n}\n```"
+      },
+      {
+        "name": "Styling Links",
+        "example": "Customize link colors and decorations.\n\n```css\n/* Link styling */\na {\n  color: #0066cc;\n  text-decoration: none;\n}\n```"
+      },
+      {
+        "name": "Styling Buttons",
+        "example": "Style buttons for better visual appeal.\n\n```css\n/* Button styling */\nbutton {\n  background-color: #007bff;\n  border: none;\n  color: white;\n  padding: 10px 20px;\n  cursor: pointer;\n}\n```"
+      },
+      {
+        "name": "Using Vendor Prefixes",
+        "example": "Ensure cross-browser compatibility with vendor prefixes.\n\n```css\n/* Vendor prefixes example */\n.element {\n  -webkit-transform: rotate(45deg);\n  -ms-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n```"
+      },
+      {
+        "name": "Custom Fonts with @font-face",
+        "example": "Load and use custom fonts in your designs.\n\n```css\n/* @font-face rule */\n@font-face {\n  font-family: 'MyFont';\n  src: url('myfont.woff2') format('woff2');\n}\nbody {\n  font-family: 'MyFont', sans-serif;\n}\n```"
+      },
+      {
+        "name": "Box Shadow",
+        "example": "Adds a shadow around elements for depth.\n\n```css\n/* Box shadow effect */\n.card {\n  box-shadow: 0 4px 8px rgba(0,0,0,0.2);\n}\n```"
+      },
+      {
+        "name": "Text Shadow",
+        "example": "Adds a shadow effect to text.\n\n```css\n/* Text shadow effect */\nh1 {\n  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\n}\n```"
+      },
+      {
+        "name": "Responsive Images",
+        "example": "Ensure images scale properly on different screens.\n\n```css\n/* Responsive image */\nimg {\n  max-width: 100%;\n  height: auto;\n}\n```"
+      },
+      {
+        "name": "CSS Resets",
+        "example": "Normalize default browser styles with a CSS reset.\n\n```css\n/* Simple CSS reset */\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n```"
+      },
+      {
+        "name": "Using calc() Function",
+        "example": "Perform calculations to set dynamic property values.\n\n```css\n/* calc() function */\n.container {\n  width: calc(100% - 20px); /* dynamic width */\n}\n```"
+      },
+      {
+        "name": "Using attr() Function in Content",
+        "example": "Insert attribute values into content using attr().\n\n```css\n/* attr() function */\na::after {\n  content: \" (\" attr(href) \")\"; /* shows link URL */\n}\n```"
+      }
+    ]
+  }
+  

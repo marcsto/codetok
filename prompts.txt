@@ -1,0 +1,74 @@
+#template
+I want to learn python. Teach me it's core concepts. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 5 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+"name": "Name for example 1",
+"example": "Example using markdown for both code and explanation",
+},
+
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
+# kotlin-java
+# Gemini 2.0 Flash
+I'm a java programmer who wants to learn Kotlin. Teach me what's different about Kotlin compared to Java. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 5 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.).
+
+Here's an example format:
+{
+examples: [
+{
+"name": "Name for example 1",
+"example": "Example, using markdown for both code and explanation",
+},
+
+{
+"name": "Name for example 2",
+"example": "Example, using markdown for both code and explanation",
+},
+]
+}
+
+# python-beginner
+# ChatGPT o3-mini-high
+# https://chatgpt.com/c/67a6cb85-72a8-8009-9fa9-c47779fdd262
+
+I want to learn python. Teach me it's core concepts. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+"name": "Variables and Data Types",
+        "example": "In Python, you can store different types of data in variables. Here are some examples:\n\n```python\n# Integer assignment\nnum = 10  # 10\n\n# Float assignment\npi = 3.14  # 3.14\n\n# String assignment\ngreeting = \"Hello, Python\"  # Hello, Python\n\n# Boolean assignment\nflag = True  # True\n\nprint(num)      # 10\nprint(pi)       # 3.14\nprint(greeting) # Hello, Python\nprint(flag)     # True\n```\n"
+},
+
+{
+"name": "Name for example 2",
+"example": "Example, using markdown for both code and explanation"
+},
+]
+}
+
+#javascript-beginner
+I want to learn javascript. Teach me it's core concepts. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}

@@ -1,0 +1,404 @@
+{
+    "examples": [
+      {
+        "name": "Introduction to TensorFlow",
+        "example": "TensorFlow is an open‐source machine learning framework.\n\n```python\nimport tensorflow as tf\n# TensorFlow imported; use tf.__version__ to check the version\n```"
+      },
+      {
+        "name": "Creating Tensors",
+        "example": "Tensors are multi-dimensional arrays in TensorFlow.\n\n```python\nimport tensorflow as tf\n# Create a 2x2 tensor\ntensor = tf.constant([[1, 2], [3, 4]])\n```"
+      },
+      {
+        "name": "Tensor Shapes",
+        "example": "Tensors have shapes that define their dimensions.\n\n```python\nimport tensorflow as tf\ntensor = tf.constant([[1, 2, 3], [4, 5, 6]])  # Shape: (2, 3)\n# tensor.shape returns (2, 3)\n```"
+      },
+      {
+        "name": "Tensor Data Types",
+        "example": "Specify tensor data types like tf.float32 or tf.int32.\n\n```python\nimport tensorflow as tf\ntensor = tf.constant([1.0, 2.0], dtype=tf.float32)  # Floating point tensor\n```"
+      },
+      {
+        "name": "Basic Tensor Operations",
+        "example": "Perform element-wise operations on tensors.\n\n```python\nimport tensorflow as tf\na = tf.constant([1, 2])\nb = tf.constant([3, 4])\nsum_tensor = a + b  # Result: [4, 6]\n```"
+      },
+      {
+        "name": "Tensor Broadcasting",
+        "example": "Broadcasting allows operations on tensors with different shapes.\n\n```python\nimport tensorflow as tf\na = tf.constant([[1, 2, 3]])    # Shape: (1, 3)\nb = tf.constant([[1], [2]])   # Shape: (2, 1)\nresult = a + b  # Resulting shape: (2, 3)\n```"
+      },
+      {
+        "name": "Creating Variables",
+        "example": "Variables store mutable state in TensorFlow.\n\n```python\nimport tensorflow as tf\nvar = tf.Variable([1, 2, 3])\nvar.assign([4, 5, 6])  # Update the variable\n```"
+      },
+      {
+        "name": "Creating Constants",
+        "example": "Constants hold immutable values.\n\n```python\nimport tensorflow as tf\nconst = tf.constant(10)  # A constant value\n```"
+      },
+      {
+        "name": "Eager Execution in TF2",
+        "example": "TensorFlow 2.x runs operations immediately (eager execution).\n\n```python\nimport tensorflow as tf\nresult = tf.constant([1, 2]) + tf.constant([3, 4])  # Immediate computation\n```"
+      },
+      {
+        "name": "Using tf.function for Graph Execution",
+        "example": "tf.function converts a Python function into a graph for better performance.\n\n```python\nimport tensorflow as tf\n@tf.function\n def add(a, b):\n     return a + b\n\nresult = add(tf.constant(1), tf.constant(2))\n```"
+      },
+      {
+        "name": "Building a Computational Graph",
+        "example": "Define operations as nodes in a computational graph.\n\n```python\nimport tensorflow as tf\na = tf.constant(2)\nb = tf.constant(3)\nproduct = a * b  # Represents a multiplication node in the graph\n```"
+      },
+      {
+        "name": "Automatic Differentiation",
+        "example": "Use tf.GradientTape to automatically compute gradients.\n\n```python\nimport tensorflow as tf\nx = tf.Variable(3.0)\nwith tf.GradientTape() as tape:\n    y = x * x  # y = x^2\n# Gradient dy/dx = 2*x\ngrad = tape.gradient(y, x)  # Expected: 6.0\n```"
+      },
+      {
+        "name": "Gradient Calculation Example",
+        "example": "Compute the gradient of a simple function with respect to its variable.\n\n```python\nimport tensorflow as tf\nx = tf.Variable(5.0)\nwith tf.GradientTape() as tape:\n    y = 3 * x ** 2\n# Gradient dy/dx = 6*x\ngrad = tape.gradient(y, x)  # Expected: 30.0\n```"
+      },
+      {
+        "name": "Simple Linear Regression",
+        "example": "Train a linear model using gradient descent.\n\n```python\nimport tensorflow as tf\n# Define variables for slope (W) and intercept (b)\nW = tf.Variable(0.0)\nb = tf.Variable(0.0)\n\n# Sample data: y = 2x + 1\nx_train = tf.constant([1, 2, 3], dtype=tf.float32)\ny_train = tf.constant([3, 5, 7], dtype=tf.float32)\n\nlearning_rate = 0.01\nfor _ in range(100):\n    with tf.GradientTape() as tape:\n        y_pred = W * x_train + b\n        loss = tf.reduce_mean((y_train - y_pred) ** 2)\n    dW, db = tape.gradient(loss, [W, b])\n    W.assign_sub(learning_rate * dW)\n    b.assign_sub(learning_rate * db)\n# W and b will approximate 2 and 1\n```"
+      },
+      {
+        "name": "Keras Model Subclassing",
+        "example": "Subclass tf.keras.Model to define a custom model.\n\n```python\nimport tensorflow as tf\nclass MyModel(tf.keras.Model):\n    def __init__(self):\n        super(MyModel, self).__init__()\n        self.dense = tf.keras.layers.Dense(1)\n    def call(self, inputs):\n        return self.dense(inputs)\n\nmodel = MyModel()\n```"
+      },
+      {
+        "name": "Sequential Model",
+        "example": "Build a model by stacking layers sequentially.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, activation='relu'),\n    tf.keras.layers.Dense(1)\n])\n```"
+      },
+      {
+        "name": "Adding Layers in Keras",
+        "example": "Add layers to a Sequential model to build a deep network.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential()\nmodel.add(tf.keras.layers.Dense(32, activation='relu'))\nmodel.add(tf.keras.layers.Dense(16, activation='relu'))\nmodel.add(tf.keras.layers.Dense(1))\n```"
+      },
+      {
+        "name": "Compiling a Model",
+        "example": "Configure the model with an optimizer, loss function, and metrics.\n\n```python\nimport tensorflow as tf\nmodel.compile(optimizer='adam', loss='mse', metrics=['mae'])\n```"
+      },
+      {
+        "name": "Training a Model with model.fit",
+        "example": "Train a model using the fit method.\n\n```python\nimport tensorflow as tf\n# Generate dummy data\nx = tf.random.normal((100, 1))\ny = 3 * x + 2\n\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(1)\n])\nmodel.compile(optimizer='sgd', loss='mse')\nmodel.fit(x, y, epochs=5)  # Train for 5 epochs\n```"
+      },
+      {
+        "name": "Evaluating a Model",
+        "example": "Assess model performance using the evaluate method.\n\n```python\nimport tensorflow as tf\nloss = model.evaluate(x, y)  # Returns the loss value\n```"
+      },
+      {
+        "name": "Making Predictions",
+        "example": "Generate predictions using model.predict.\n\n```python\nimport tensorflow as tf\npredictions = model.predict(x)  # Returns an array of predictions\n```"
+      },
+      {
+        "name": "Saving a Keras Model",
+        "example": "Save the entire model (architecture and weights) for later use.\n\n```python\nimport tensorflow as tf\nmodel.save('my_model.h5')  # Saved in HDF5 format\n```"
+      },
+      {
+        "name": "Loading a Keras Model",
+        "example": "Load a previously saved model.\n\n```python\nimport tensorflow as tf\nloaded_model = tf.keras.models.load_model('my_model.h5')\n```"
+      },
+      {
+        "name": "Using TensorFlow Datasets",
+        "example": "Create datasets using tf.data from tensors.\n\n```python\nimport tensorflow as tf\ndataset = tf.data.Dataset.from_tensor_slices([1, 2, 3])\n```"
+      },
+      {
+        "name": "Data Preprocessing with tf.data",
+        "example": "Transform dataset elements using the map function.\n\n```python\nimport tensorflow as tf\ndef square(x):\n    return x * x\n\ndataset = tf.data.Dataset.from_tensor_slices([1, 2, 3])\ndataset = dataset.map(square)  # Each element is squared\n```"
+      },
+      {
+        "name": "Batching Data",
+        "example": "Combine consecutive elements into batches for training.\n\n```python\nimport tensorflow as tf\ndataset = tf.data.Dataset.range(10)\ndataset = dataset.batch(3)  # Batch size of 3\n```"
+      },
+      {
+        "name": "Caching Data",
+        "example": "Cache the dataset in memory for performance improvements.\n\n```python\nimport tensorflow as tf\ndataset = tf.data.Dataset.range(5)\ndataset = dataset.cache()  # Data is cached in memory\n```"
+      },
+      {
+        "name": "Prefetching Data",
+        "example": "Overlap data preprocessing and model execution using prefetching.\n\n```python\nimport tensorflow as tf\ndataset = tf.data.Dataset.range(10)\ndataset = dataset.prefetch(buffer_size=2)\n```"
+      },
+      {
+        "name": "Custom Training Loop",
+        "example": "Implement a custom training loop using tf.GradientTape.\n\n```python\nimport tensorflow as tf\n# Dummy data\nx = tf.random.normal((10, 1))\ny = 2 * x + 1\n\nmodel = tf.keras.Sequential([tf.keras.layers.Dense(1)])\noptimizer = tf.keras.optimizers.SGD(learning_rate=0.01)\n\nfor epoch in range(5):\n    with tf.GradientTape() as tape:\n        predictions = model(x)\n        loss = tf.reduce_mean((y - predictions) ** 2)\n    gradients = tape.gradient(loss, model.trainable_variables)\n    optimizer.apply_gradients(zip(gradients, model.trainable_variables))\n```"
+      },
+      {
+        "name": "Using tf.nn Module",
+        "example": "Access low-level neural network operations via tf.nn.\n\n```python\nimport tensorflow as tf\n# Apply the ReLU activation function\nresult = tf.nn.relu([-1, 2])  # Negative values become 0\n```"
+      },
+      {
+        "name": "Activation Functions",
+        "example": "Common activation functions include relu, sigmoid, and softmax.\n\n```python\nimport tensorflow as tf\n# Sigmoid activation\nresult = tf.nn.sigmoid([0.0, 2.0])\n```"
+      },
+      {
+        "name": "Loss Functions in TensorFlow",
+        "example": "Utilize built-in loss functions such as MeanSquaredError.\n\n```python\nimport tensorflow as tf\nloss_fn = tf.keras.losses.MeanSquaredError()\nloss = loss_fn([1, 2], [1.5, 2.5])  # Computes the MSE loss\n```"
+      },
+      {
+        "name": "Optimizers: Gradient Descent",
+        "example": "Optimize models using the SGD (Gradient Descent) optimizer.\n\n```python\nimport tensorflow as tf\noptimizer = tf.keras.optimizers.SGD(learning_rate=0.01)\n```"
+      },
+      {
+        "name": "Optimizers: Adam",
+        "example": "Adam is an adaptive optimizer that is widely used.\n\n```python\nimport tensorflow as tf\noptimizer = tf.keras.optimizers.Adam(learning_rate=0.001)\n```"
+      },
+      {
+        "name": "TensorBoard Summaries",
+        "example": "Log metrics for visualization using TensorBoard.\n\n```python\nimport tensorflow as tf\nwriter = tf.summary.create_file_writer('logs/')\nwith writer.as_default():\n    tf.summary.scalar('loss', 0.5, step=1)  # Log a scalar metric\n```"
+      },
+      {
+        "name": "Custom Keras Layer",
+        "example": "Create a custom layer by subclassing tf.keras.layers.Layer.\n\n```python\nimport tensorflow as tf\nclass MyLayer(tf.keras.layers.Layer):\n    def __init__(self, units=32):\n        super(MyLayer, self).__init__()\n        self.units = units\n    def build(self, input_shape):\n        self.w = self.add_weight(shape=(input_shape[-1], self.units), initializer='random_normal')\n    def call(self, inputs):\n        return tf.matmul(inputs, self.w)\n```"
+      },
+      {
+        "name": "Custom Loss Function",
+        "example": "Define a custom loss function for model training.\n\n```python\nimport tensorflow as tf\ndef custom_loss(y_true, y_pred):\n    return tf.reduce_mean(tf.abs(y_true - y_pred))\n\n# Use in model.compile(loss=custom_loss)\n```"
+      },
+      {
+        "name": "Custom Metric",
+        "example": "Define a custom evaluation metric.\n\n```python\nimport tensorflow as tf\ndef custom_metric(y_true, y_pred):\n    return tf.reduce_mean(tf.square(y_true - y_pred))\n\n# Pass custom_metric to model.compile(metrics=[custom_metric])\n```"
+      },
+      {
+        "name": "Model Checkpoints",
+        "example": "Save model checkpoints during training to avoid losing progress.\n\n```python\nimport tensorflow as tf\ncheckpoint = tf.keras.callbacks.ModelCheckpoint('checkpoint.h5', save_best_only=True)\n# Use in model.fit(callbacks=[checkpoint])\n```"
+      },
+      {
+        "name": "Early Stopping",
+        "example": "Stop training early if the model performance stops improving.\n\n```python\nimport tensorflow as tf\nearly_stop = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)\n# Use in model.fit(callbacks=[early_stop])\n```"
+      },
+      {
+        "name": "Learning Rate Scheduling",
+        "example": "Adjust the learning rate during training using a schedule.\n\n```python\nimport tensorflow as tf\nlr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(\n    initial_learning_rate=0.1,\n    decay_steps=100,\n    decay_rate=0.96\n)\noptimizer = tf.keras.optimizers.SGD(learning_rate=lr_schedule)\n```"
+      },
+      {
+        "name": "Data Augmentation with tf.image",
+        "example": "Apply image transformations for data augmentation.\n\n```python\nimport tensorflow as tf\n# Randomly flip an image horizontally\naugmented_image = tf.image.random_flip_left_right(tf.zeros([100, 100, 3]))\n```"
+      },
+      {
+        "name": "Convolutional Neural Network (CNN)",
+        "example": "Define a simple CNN for image classification tasks.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),\n    tf.keras.layers.MaxPooling2D((2, 2)),\n    tf.keras.layers.Flatten(),\n    tf.keras.layers.Dense(10, activation='softmax')\n])\n```"
+      },
+      {
+        "name": "Recurrent Neural Network (RNN)",
+        "example": "Define a simple RNN for processing sequence data.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.SimpleRNN(50, input_shape=(10, 8)),\n    tf.keras.layers.Dense(1)\n])\n```"
+      },
+      {
+        "name": "LSTM Example",
+        "example": "Use LSTM layers for improved sequence modeling.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.LSTM(64, input_shape=(20, 10)),\n    tf.keras.layers.Dense(1)\n])\n```"
+      },
+      {
+        "name": "Using Embeddings",
+        "example": "Convert categorical data into dense vector representations using embeddings.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Embedding(input_dim=1000, output_dim=64, input_length=10),\n    tf.keras.layers.Flatten(),\n    tf.keras.layers.Dense(1)\n])\n```"
+      },
+      {
+        "name": "Transfer Learning",
+        "example": "Leverage pre-trained models for new tasks with transfer learning.\n\n```python\nimport tensorflow as tf\nbase_model = tf.keras.applications.MobileNetV2(\n    input_shape=(224, 224, 3),\n    include_top=False,\n    weights='imagenet'\n)\n# Freeze the base model\nbase_model.trainable = False\n```"
+      },
+      {
+        "name": "Fine-Tuning Models",
+        "example": "Unfreeze some layers of a pre-trained model to fine-tune it.\n\n```python\nimport tensorflow as tf\n# Unfreeze the last 50 layers of the base model\nfor layer in base_model.layers[-50:]:\n    layer.trainable = True\n```"
+      },
+      {
+        "name": "Device Placement",
+        "example": "Specify which device (CPU or GPU) to run operations on.\n\n```python\nimport tensorflow as tf\nwith tf.device('/GPU:0'):\n    a = tf.constant([1.0, 2.0])\n```"
+      },
+      {
+        "name": "Working with GPU",
+        "example": "Check available GPUs and run operations on them.\n\n```python\nimport tensorflow as tf\n# List available GPUs\ntf.config.list_physical_devices('GPU')\n```"
+      },
+      {
+        "name": "Custom Gradient with tf.custom_gradient",
+        "example": "Define a function with a custom gradient.\n\n```python\nimport tensorflow as tf\n\n@tf.custom_gradient\n def my_square(x):\n     y = x * x\n     def grad(dy):\n         return dy * 2 * x  # Custom gradient: derivative of x^2\n     return y, grad\n\nresult = my_square(tf.constant(3.0))\n```"
+      },
+      {
+        "name": "TensorFlow RaggedTensor",
+        "example": "Use RaggedTensors for non-uniform shapes.\n\n```python\nimport tensorflow as tf\nrt = tf.ragged.constant([[1, 2], [3, 4, 5]])\n# RaggedTensor with varying row lengths\n```"
+      },
+      {
+        "name": "Working with Sparse Tensors",
+        "example": "Sparse tensors save memory for data with many zeros.\n\n```python\nimport tensorflow as tf\nindices = [[0, 0], [1, 2]]\nvalues = [1, 2]\nshape = [3, 4]\nsp = tf.sparse.SparseTensor(indices, values, shape)\n```"
+      },
+      {
+        "name": "Using tf.TensorArray",
+        "example": "TensorArray stores dynamic arrays in a graph.\n\n```python\nimport tensorflow as tf\nn = 5\nta = tf.TensorArray(dtype=tf.int32, size=n)\nfor i in range(n):\n    ta = ta.write(i, i * i)\nresult = ta.stack()  # Tensor: [0, 1, 4, 9, 16]\n```"
+      },
+      {
+        "name": "Control Flow with tf.while_loop",
+        "example": "Perform loops in graph mode using tf.while_loop.\n\n```python\nimport tensorflow as tf\ni = tf.constant(0)\ncondition = lambda i: tf.less(i, 5)\nbody = lambda i: (i + 1,)\nresult = tf.while_loop(condition, body, [i])\n# Result: (5,)\n```"
+      },
+      {
+        "name": "Using tf.autograph",
+        "example": "Convert Python code with loops into graph code.\n\n```python\nimport tensorflow as tf\n@tf.function\n def compute_sum(n):\n     total = 0\n     for i in tf.range(n):\n         total += i\n     return total\n\nresult = compute_sum(10)  # Graph-converted loop\n```"
+      },
+      {
+        "name": "Keras Functional API",
+        "example": "Build complex models using the Functional API.\n\n```python\nimport tensorflow as tf\ninputs = tf.keras.Input(shape=(32,))\nx = tf.keras.layers.Dense(64, activation='relu')(inputs)\noutputs = tf.keras.layers.Dense(10)(x)\nmodel = tf.keras.Model(inputs, outputs)\n```"
+      },
+      {
+        "name": "Multiple Inputs Model",
+        "example": "Create a model that accepts multiple inputs.\n\n```python\nimport tensorflow as tf\ninput_a = tf.keras.Input(shape=(16,))\ninput_b = tf.keras.Input(shape=(8,))\nconcat = tf.keras.layers.Concatenate()([input_a, input_b])\nx = tf.keras.layers.Dense(32, activation='relu')(concat)\noutput = tf.keras.layers.Dense(1)(x)\nmodel = tf.keras.Model([input_a, input_b], output)\n```"
+      },
+      {
+        "name": "Multiple Outputs Model",
+        "example": "Define a model with multiple outputs.\n\n```python\nimport tensorflow as tf\ninputs = tf.keras.Input(shape=(32,))\nx = tf.keras.layers.Dense(64, activation='relu')(inputs)\noutput1 = tf.keras.layers.Dense(1, name='regression')(x)\noutput2 = tf.keras.layers.Dense(10, activation='softmax', name='classification')(x)\nmodel = tf.keras.Model(inputs, [output1, output2])\n```"
+      },
+      {
+        "name": "Lambda Layers in Keras",
+        "example": "Apply inline functions with Lambda layers.\n\n```python\nimport tensorflow as tf\ninputs = tf.keras.Input(shape=(10,))\nx = tf.keras.layers.Lambda(lambda x: x ** 2)(inputs)  # Square inputs\nmodel = tf.keras.Model(inputs, x)\n```"
+      },
+      {
+        "name": "Concatenating Layers",
+        "example": "Merge outputs from different layers.\n\n```python\nimport tensorflow as tf\ninput1 = tf.keras.Input(shape=(16,))\ninput2 = tf.keras.Input(shape=(16,))\nconcat = tf.keras.layers.Concatenate()([input1, input2])\noutput = tf.keras.layers.Dense(1)(concat)\nmodel = tf.keras.Model([input1, input2], output)\n```"
+      },
+      {
+        "name": "Save Model Weights Only",
+        "example": "Save just the model weights for later use.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\nmodel.save_weights('weights.h5')\n```"
+      },
+      {
+        "name": "Load Model Weights",
+        "example": "Load saved weights into a model.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\nmodel.load_weights('weights.h5')\n```"
+      },
+      {
+        "name": "Quantizing a Model",
+        "example": "Prepare a model for quantization (TFLite).\n\n```python\nimport tensorflow as tf\n# This is a placeholder; quantization happens during conversion to TFLite\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\n```"
+      },
+      {
+        "name": "Convert to TFLite Model",
+        "example": "Convert a Keras model to TFLite format.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\nmodel.save('saved_model')\nconverter = tf.lite.TFLiteConverter.from_saved_model('saved_model')\ntflite_model = converter.convert()\n```"
+      },
+      {
+        "name": "TensorFlow Hub Module",
+        "example": "Load a pre-trained module from TensorFlow Hub.\n\n```python\nimport tensorflow as tf\nimport tensorflow_hub as hub\nmodule_url = \"https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4\"\nfeature_extractor = hub.KerasLayer(module_url, input_shape=(224,224,3))\n```"
+      },
+      {
+        "name": "Distribution Strategy: MirroredStrategy",
+        "example": "Use multiple GPUs with MirroredStrategy.\n\n```python\nimport tensorflow as tf\nstrategy = tf.distribute.MirroredStrategy()\nwith strategy.scope():\n    model = tf.keras.Sequential([\n        tf.keras.layers.Dense(10, input_shape=(20,))\n    ])\n```"
+      },
+      {
+        "name": "Distribution Strategy: TPUStrategy",
+        "example": "Leverage TPUs using TPUStrategy.\n\n```python\nimport tensorflow as tf\nresolver = tf.distribute.cluster_resolver.TPUClusterResolver()\ntf.config.experimental_connect_to_cluster(resolver)\ntf.tpu.experimental.initialize_tpu_system(resolver)\nstrategy = tf.distribute.TPUStrategy(resolver)\nwith strategy.scope():\n    model = tf.keras.Sequential([\n        tf.keras.layers.Dense(10, input_shape=(20,))\n    ])\n```"
+      },
+      {
+        "name": "Gradient Clipping",
+        "example": "Prevent exploding gradients by clipping.\n\n```python\nimport tensorflow as tf\noptimizer = tf.keras.optimizers.SGD(learning_rate=0.01, clipnorm=1.0)\n```"
+      },
+      {
+        "name": "Mixed Precision Training",
+        "example": "Use mixed precision for faster training.\n\n```python\nimport tensorflow as tf\nfrom tensorflow.keras import mixed_precision\nmixed_precision.set_global_policy('mixed_float16')\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\n```"
+      },
+      {
+        "name": "Using tf.debugging.assert_*",
+        "example": "Add assertions to catch errors.\n\n```python\nimport tensorflow as tf\ntensor = tf.constant([1, 2, 3])\ntf.debugging.assert_equal(tf.shape(tensor)[0], 3)  # Assert tensor has 3 elements\n```"
+      },
+      {
+        "name": "Custom Callback: LearningRateScheduler",
+        "example": "Adjust learning rate during training.\n\n```python\nimport tensorflow as tf\n def scheduler(epoch, lr):\n     return lr * 0.9  # Decay learning rate\n\nlr_callback = tf.keras.callbacks.LearningRateScheduler(scheduler)\n# Use in model.fit(callbacks=[lr_callback])\n```"
+      },
+      {
+        "name": "Custom Callback: PrintModelMetrics",
+        "example": "Create a callback to print metrics at epoch end.\n\n```python\nimport tensorflow as tf\nclass PrintMetrics(tf.keras.callbacks.Callback):\n    def on_epoch_end(self, epoch, logs=None):\n        # logs contains metric results\n        print(f\"Epoch {epoch} metrics: {logs}\")\n\n# Use in model.fit(callbacks=[PrintMetrics()])\n```"
+      },
+      {
+        "name": "TensorBoard Embedding Visualization",
+        "example": "Log embeddings for visualization in TensorBoard.\n\n```python\nimport tensorflow as tf\nwriter = tf.summary.create_file_writer('logs/embeddings')\nwith writer.as_default():\n    tf.summary.embedding('my_embedding', tf.random.normal([10, 5]), step=0)\n```"
+      },
+      {
+        "name": "Custom Layer with Multiple Weights",
+        "example": "Create a custom layer managing multiple weight variables.\n\n```python\nimport tensorflow as tf\nclass MultiWeightLayer(tf.keras.layers.Layer):\n    def build(self, input_shape):\n        self.w1 = self.add_weight(shape=(input_shape[-1], 10), initializer='random_normal')\n        self.w2 = self.add_weight(shape=(10, 1), initializer='random_normal')\n    def call(self, inputs):\n        x = tf.matmul(inputs, self.w1)\n        return tf.matmul(x, self.w2)\n```"
+      },
+      {
+        "name": "Sub-classed Model with Multiple Outputs",
+        "example": "Define a model subclass returning multiple outputs.\n\n```python\nimport tensorflow as tf\nclass MultiOutputModel(tf.keras.Model):\n    def __init__(self):\n        super(MultiOutputModel, self).__init__()\n        self.dense = tf.keras.layers.Dense(10, activation='relu')\n        self.out1 = tf.keras.layers.Dense(1)\n        self.out2 = tf.keras.layers.Dense(1)\n    def call(self, inputs):\n        x = self.dense(inputs)\n        return self.out1(x), self.out2(x)\n\nmodel = MultiOutputModel()\n```"
+      },
+      {
+        "name": "Saving Model as SavedModel",
+        "example": "Save a model in the SavedModel format.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\nmodel.save('saved_model_dir')\n```"
+      },
+      {
+        "name": "Loading SavedModel",
+        "example": "Load a model saved in the SavedModel format.\n\n```python\nimport tensorflow as tf\nloaded_model = tf.keras.models.load_model('saved_model_dir')\n```"
+      },
+      {
+        "name": "Building a Siamese Network",
+        "example": "Construct a Siamese network architecture for similarity tasks.\n\n```python\nimport tensorflow as tf\n# Shared network\ninput = tf.keras.Input(shape=(128,))\nshared = tf.keras.layers.Dense(64, activation='relu')\nencoded1 = shared(input)\nencoded2 = shared(input)\n# Compute L1 distance\nl1_distance = tf.keras.layers.Lambda(lambda tensors: tf.abs(tensors[0] - tensors[1]))([encoded1, encoded2])\noutput = tf.keras.layers.Dense(1, activation='sigmoid')(l1_distance)\nmodel = tf.keras.Model(input, output)\n```"
+      },
+      {
+        "name": "Image Preprocessing with tf.image.resize",
+        "example": "Resize images using tf.image.resize.\n\n```python\nimport tensorflow as tf\nimage = tf.zeros([100, 100, 3])\nresized_image = tf.image.resize(image, [50, 50])\n```"
+      },
+      {
+        "name": "Data Augmentation: Random Crop",
+        "example": "Randomly crop images for augmentation.\n\n```python\nimport tensorflow as tf\nimage = tf.zeros([100, 100, 3])\ncropped_image = tf.image.random_crop(image, size=[80, 80, 3])\n```"
+      },
+      {
+        "name": "Data Augmentation: Random Brightness",
+        "example": "Adjust image brightness randomly.\n\n```python\nimport tensorflow as tf\nimage = tf.zeros([100, 100, 3])\nbright_image = tf.image.random_brightness(image, max_delta=0.2)\n```"
+      },
+      {
+        "name": "Tokenizer for Text",
+        "example": "Convert text to sequences using Tokenizer.\n\n```python\nimport tensorflow as tf\nfrom tensorflow.keras.preprocessing.text import Tokenizer\ntexts = ['hello world', 'tensorflow']\ntokenizer = Tokenizer(num_words=100)\ntokenizer.fit_on_texts(texts)\nsequences = tokenizer.texts_to_sequences(texts)\n```"
+      },
+      {
+        "name": "Sequence Padding",
+        "example": "Pad sequences to the same length.\n\n```python\nimport tensorflow as tf\nfrom tensorflow.keras.preprocessing.sequence import pad_sequences\nsequences = [[1, 2, 3], [4, 5]]\npadded = pad_sequences(sequences, padding='post')\n```"
+      },
+      {
+        "name": "Custom Learning Rate Scheduler Callback",
+        "example": "Implement a custom callback to adjust learning rate.\n\n```python\nimport tensorflow as tf\nclass CustomLRScheduler(tf.keras.callbacks.Callback):\n    def on_epoch_end(self, epoch, logs=None):\n        new_lr = self.model.optimizer.lr * 0.95\n        tf.keras.backend.set_value(self.model.optimizer.lr, new_lr)\n\n# Use in model.fit(callbacks=[CustomLRScheduler()])\n```"
+      },
+      {
+        "name": "One-hot Encoding Labels",
+        "example": "Convert class labels to one-hot encoded vectors.\n\n```python\nimport tensorflow as tf\nfrom tensorflow.keras.utils import to_categorical\nlabels = [0, 1, 2]\none_hot = to_categorical(labels, num_classes=3)\n```"
+      },
+      {
+        "name": "Time Series Forecasting Model",
+        "example": "Build an RNN for time series data.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.SimpleRNN(50, input_shape=(10, 1)),\n    tf.keras.layers.Dense(1)\n])\n```"
+      },
+      {
+        "name": "AutoEncoder Example",
+        "example": "Build a simple autoencoder.\n\n```python\nimport tensorflow as tf\n# Encoder\ninput_img = tf.keras.Input(shape=(28, 28, 1))\nencoded = tf.keras.layers.Flatten()(input_img)\nencoded = tf.keras.layers.Dense(64, activation='relu')(encoded)\n# Decoder\ndecoded = tf.keras.layers.Dense(28*28, activation='sigmoid')(encoded)\ndecoded = tf.keras.layers.Reshape((28, 28, 1))(decoded)\n\nautoencoder = tf.keras.Model(input_img, decoded)\n```"
+      },
+      {
+        "name": "Variational Autoencoder (VAE) Skeleton",
+        "example": "Outline a basic VAE structure.\n\n```python\nimport tensorflow as tf\nfrom tensorflow.keras import layers\n# Encoder\ninputs = tf.keras.Input(shape=(28, 28, 1))\nx = layers.Flatten()(inputs)\nx = layers.Dense(64, activation='relu')(x)\n# Mean and log variance\nz_mean = layers.Dense(2)(x)\nz_log_var = layers.Dense(2)(x)\n# Sampling layer\n\ndef sampling(args):\n    z_mean, z_log_var = args\n    epsilon = tf.random.normal(shape=tf.shape(z_mean))\n    return z_mean + tf.exp(0.5 * z_log_var) * epsilon\n\nz = layers.Lambda(sampling)([z_mean, z_log_var])\n\nvae = tf.keras.Model(inputs, z)\n```"
+      },
+      {
+        "name": "Implementing GANs",
+        "example": "Sketch a basic GAN architecture.\n\n```python\nimport tensorflow as tf\n# Generator model\ndef build_generator():\n    model = tf.keras.Sequential([\n        tf.keras.layers.Dense(128, activation='relu', input_shape=(100,)),\n        tf.keras.layers.Dense(28*28, activation='sigmoid'),\n        tf.keras.layers.Reshape((28, 28))\n    ])\n    return model\n\n# Discriminator model\ndef build_discriminator():\n    model = tf.keras.Sequential([\n        tf.keras.layers.Flatten(input_shape=(28, 28)),\n        tf.keras.layers.Dense(128, activation='relu'),\n        tf.keras.layers.Dense(1, activation='sigmoid')\n    ])\n    return model\n```"
+      },
+      {
+        "name": "Style Transfer Example",
+        "example": "Outline a style transfer model (simplified).\n\n```python\nimport tensorflow as tf\n# This is a simplified placeholder\ncontent = tf.keras.Input(shape=(224, 224, 3))\nstyle = tf.keras.Input(shape=(224, 224, 3))\n# Merge features for style transfer\nmerged = tf.keras.layers.Concatenate()([content, style])\noutput = tf.keras.layers.Conv2D(3, (3, 3), padding='same')(merged)\nmodel = tf.keras.Model([content, style], output)\n```"
+      },
+      {
+        "name": "Reinforcement Learning: Policy Gradient",
+        "example": "Sketch a simple policy gradient framework.\n\n```python\nimport tensorflow as tf\n# Placeholder for policy network\ndef policy_network(state):\n    return tf.keras.layers.Dense(2, activation='softmax')(state)\n\n# Compute loss based on action probabilities (simplified)\n```"
+      },
+      {
+        "name": "TensorFlow Serving Export",
+        "example": "Export a model for serving.\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, input_shape=(20,))\n])\nmodel.save('exported_model', save_format='tf')\n```"
+      },
+      {
+        "name": "Create Dataset from CSV",
+        "example": "Read CSV data into a tf.data.Dataset.\n\n```python\nimport tensorflow as tf\ndataset = tf.data.experimental.make_csv_dataset(\n    'data.csv', batch_size=32, label_name='target', num_epochs=1\n)\n```"
+      },
+      {
+        "name": "Write TFRecord File",
+        "example": "Serialize data and write to a TFRecord file.\n\n```python\nimport tensorflow as tf\n# Serialize example (placeholder)\nwith tf.io.TFRecordWriter('data.tfrecord') as writer:\n    # Write serialized examples\n    pass\n```"
+      },
+      {
+        "name": "Read TFRecord File",
+        "example": "Parse TFRecord files into a dataset.\n\n```python\nimport tensorflow as tf\nraw_dataset = tf.data.TFRecordDataset('data.tfrecord')\n# Parsing logic goes here\n```"
+      },
+      {
+        "name": "Static Vocabulary Lookup",
+        "example": "Use a lookup table for vocabulary mapping.\n\n```python\nimport tensorflow as tf\nvocab = ['a', 'b', 'c']\ninit = tf.lookup.KeyValueTensorInitializer(\n    keys=vocab,\n    values=tf.constant([0, 1, 2])\n)\ntable = tf.lookup.StaticVocabularyTable(init, num_oov_buckets=1)\nresult = table.lookup(tf.constant(['a', 'd']))\n```"
+      },
+      {
+        "name": "Custom Activation Function",
+        "example": "Define a custom activation function.\n\n```python\nimport tensorflow as tf\ndef custom_relu(x):\n    return tf.maximum(0.1 * x, x)  # Leaky ReLU\n\nlayer = tf.keras.layers.Dense(10, activation=custom_relu)\n```"
+      },
+      {
+        "name": "Clipping Tensor Values",
+        "example": "Clip tensor values to a specified range.\n\n```python\nimport tensorflow as tf\ntensor = tf.constant([-5, 0, 5], dtype=tf.float32)\nclipped = tf.clip_by_value(tensor, clip_value_min=0, clip_value_max=4)\n```"
+      },
+      {
+        "name": "Stable LogSumExp",
+        "example": "Compute log-sum-exp in a numerically stable way.\n\n```python\nimport tensorflow as tf\ntensor = tf.constant([1.0, 2.0, 3.0])\nresult = tf.math.reduce_logsumexp(tensor)  \n```"
+      }
+    ]
+  }
