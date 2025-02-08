@@ -28,7 +28,7 @@
     /* Improve the appearance of code blocks */
     pre {
       background-color: #1e1e1e !important;
-      padding: 10px;
+      padding: 4px;
       border-radius: 4px;
       overflow-x: auto;
       white-space: pre-wrap;
@@ -79,7 +79,7 @@
       border-radius: 4px;
       /* Ensure the example never exceeds the viewport width and add some padding */
       box-sizing: border-box;
-      padding: 16px;
+      padding: 12px;
       margin: 0 auto;
 
       /* Initially no transform; will be adjusted by JS. Center it */
@@ -172,7 +172,10 @@
 
         // Create and append the heading for the example name
         const heading = document.createElement('h2');
-        heading.textContent = example.name;
+        const link = document.createElement('a');
+        link.href = `https://chatgpt.com/?q=Explain the following ${selectedLanguage} concept: ${example.name}`;
+        link.textContent = example.name; // Set the link text
+        heading.appendChild(link); // Append the link to the heading
         exampleDiv.appendChild(heading);
 
         // Convert the markdown to HTML using marked
@@ -207,13 +210,12 @@
     function getInitialPage() {
       // Get the page from the URL, or local store, or 0 if not set
       const urlParams = new URLSearchParams(window.location.search);
-      const page = parseInt(urlParams.get('page')) || parseInt(localStorage.getItem(selectedLanguage + "_page")) || 0;
+      const page = parseInt(urlParams.get('page')) || parseInt(localStorage.getItem(selectedLanguage + "_page_max")) || 0;
       return page;
     }
 
     function showCurrentPage(disableTransition = false) {
       // Print the call stack
-      console.trace();
       console.log("showCurrentPage " + currentPage);
       if (disableTransition) {
         pagesContainer.style.transition = 'none';
@@ -229,17 +231,21 @@
       const url = new URL(window.location);
       url.searchParams.set('page', currentPage);
       window.history.replaceState({}, '', url);
-      
+
       // Store the current page for this language in localStorage
       localStorage.setItem(selectedLanguage + "_page", currentPage);
-
+      let maxPage = localStorage.getItem(selectedLanguage + "_page_max") || 0;
+      if (currentPage > maxPage) {
+        localStorage.setItem(selectedLanguage + "_page_max", currentPage);
+      } else if (currentPage < maxPage) {
+        // TODO: Show 'Go to last seen' button
+      }
+      
     }
 
-    
-      
     const wrapper = document.querySelector('.wrapper');
     totalPages = document.querySelectorAll('.page').length;
-    let currentPage = 0;
+    let currentPage = localStorage.getItem(selectedLanguage + "_page") || 0;
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
@@ -256,6 +262,7 @@
       // Only consider a single touch
       if (e.touches.length !== 1) return;
       startY = e.touches[0].clientY;
+      currentY = startY;
       isDragging = true;
       // Remove any transition so the container follows the finger immediately
       pagesContainer.style.transition = 'none';
@@ -297,6 +304,7 @@
 
     function handleMouseDown(e) {
       startY = e.clientY;
+      currentY = e.clientY;
       isDragging = true;
       pagesContainer.style.transition = 'none';
     }
@@ -313,11 +321,16 @@
       if (!isDragging) return;
       isDragging = false;
       const diff = currentY - startY;
+      
+      
       if (diff < -threshold && currentPage < totalPages - 1) {
         currentPage++;
       }
       else if (diff > threshold && currentPage > 0) {
         currentPage--;
+      } else {
+        
+        return;
       }
       showCurrentPage();
     }
