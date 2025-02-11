@@ -22,6 +22,7 @@ Give an LLM one of the following prompts (I used ChatGPT o3-mini-high. I recomme
 (See prompts.txt for more examples)
 
 Example prompt:
+
 I've been programming in Python for several years. Teach me advanced concepts that will make me a better programmer as well as best practices. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs.
 
 Here's an example format:
@@ -39,6 +40,7 @@ examples: [
 }
 
 -----------
+
 Once it has generated 50, ask it to "Generate 50 more". Note: Doing it this way gave better results than asking for 100 directly as it made the examples too small when asking for the 100 at a time.
 
 Note the example shown in the prompt is important: In this case I asked it for a python program but gave it a javascript example so it would have enough context to generate the right style of examples but it recognized that the javascript example wasn't the right thing so it didn't just re-use it.
