@@ -21,9 +21,6 @@
       color: #3794ff;
     }
 
-    code {
-      background: #282c34 !important;
-    }
 
     welcome {
       background-color: #1e1e1e;
@@ -37,9 +34,14 @@
       overflow-x: auto;
       white-space: pre-wrap;
     }
+    
+    /* Col length is 41 on pixel */
+
     code {
       font-family: Consolas, 'Courier New', monospace;
       font-size: 0.95em;
+
+      background: #282c34 !important;
 
       white-space: pre-wrap;      /* CSS3: preserves newlines and wraps text */
       word-wrap: break-word;      /* Legacy IE support */
@@ -154,7 +156,8 @@
     // Attach the function to the button click
     //fsButton.addEventListener('click', toggleFullscreen);
   </script>
-
+  <script src="https://unpkg.com/prettier@2.8.8/standalone.js"></script>
+  <script src="https://unpkg.com/prettier@2.8.8/parser-babel.js"></script>
   <script>
     
     /**
@@ -186,6 +189,27 @@
         const htmlContent = marked.parse(example.example, {
           // Use highlight.js for code block highlighting
           highlight: function(code, lang) {
+            
+            let printWidth = 150;
+            // Make print width 40 on mobile
+            if (window.innerWidth < 600) {
+              printWidth = 40;
+            }
+
+            // code = prettier.format(code, {
+            //   parser: "babel",
+            //   plugins: window.prettierPlugins,
+            //   singleQuote: true,
+            //   printWidth: printWidth,
+            //   semi: true
+            // });
+
+            // Assuming `code` is the string of your JavaScript code:
+            //code = prettier.format(code, prettierOptions);
+
+            // Tell hljs to ignoreUnescapedHTML
+            hljs.configure({ ignoreUnescapedHTML: true });
+
             if (lang && hljs.getLanguage(lang)) {
               return hljs.highlight(code, { language: lang }).value;
             }
@@ -249,7 +273,7 @@
 
     const wrapper = document.querySelector('.wrapper');
     totalPages = document.querySelectorAll('.page').length;
-    let currentPage = localStorage.getItem(selectedLanguage + "_page") || 0;
+    let currentPage = localStorage.getItem(selectedLanguage + "_page_max") || 0;
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
@@ -395,16 +419,12 @@
         const contentWidth = contentRect.width;
         const contentHeight = contentRect.height;
         
-        console.log("cwh", contentWidth, contentHeight);
-        console.log("awh",availableWidth, availableHeight);
-
         // Calculate the scale factor needed on each axis
         const scaleX = availableWidth / contentWidth;
         const scaleY = availableHeight / contentHeight;
         
         // Use the smaller scale so that both width and height fit
         var scale = Math.min(scaleX, scaleY); // The 1 prevents scaling up beyond natural size
-        console.log("scale", scale);
         
         if (scale >= 1) {
           scale = 1;

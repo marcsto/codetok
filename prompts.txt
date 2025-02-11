@@ -16,6 +16,26 @@ examples: [
 ]
 }
 
+# Template for -narrow.json
+Update the code in these examples so that, when possible, it fits within 40 columns, putting line breaks where necessary and proper indentation.
+
+# Template for advanced
+I've been programming in Python for several years. Teach me advanced concepts that will make me a better programmer as well as best practices. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 50 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.). Users won't be able to run the code, so provide comments when appropriate. Keep the comments short. Don't add print statements if comments already explain outputs. 
+
+Here's an example format:
+{
+examples: [
+{
+        "name": "Functions and Arrow Functions",
+        "example": "Functions perform tasks; arrow functions offer a shorter syntax.\n\n```js\n// Traditional function\nfunction greet(user) {\n  return \"Hello, \" + user;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```"
+      },
+{
+"name": "Name for example 2",
+"example": "Example using markdown for both code and explanation",
+},
+]
+}
+
 # kotlin-java
 # Gemini 2.0 Flash
 I'm a java programmer who wants to learn Kotlin. Teach me what's different about Kotlin compared to Java. Split this into small examples that can be consumed on a single page on a phone. I'm building a database of these, so please provide 5 examples. Provide the output in markdown so I can store it in a database and render it later on my website in a way that will preserve the formatting (bold text, coding blocks etc.).
