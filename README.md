@@ -15,7 +15,7 @@ Visit https://marc.ai/codetok/
 
 # How to add a new language
 * Option 1: Request one in the issues tab or email me at marcsto@gmail.com
-* Option 2: Use an LLM to create a new language file (see below).
+* Option 2: Use an LLM to create a new language file (see below). Add it to the data directory (you can see other examples there). Update index.html to point to it.
 
 # Using an LLM to generate a tutorial for a new langauge
 Give an LLM one of the following prompts (I used ChatGPT o3-mini-high. I recommend using whatever is the best model at the time of writing even if it's slow).
