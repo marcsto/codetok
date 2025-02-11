@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Custom Autograd Function",
+        "example": "Implement custom autograd function using torch.autograd.Function.\n\n```python\nimport torch\n\nclass MyReLU(torch.autograd.Function):\n    @staticmethod\n    def forward(ctx, input):\n        ctx.save_for_backward(input)\n        return input.clamp(min=0)  # ReLU\n\n    @staticmethod\n    def backward(ctx, grad_output):\n        input, = ctx.saved_tensors\n        grad_input = grad_output.clone()\n        grad_input[input < 0] = 0\n        return grad_input\n\n# Usage example\nx = torch.randn(5, requires_grad=True)\ny = MyReLU.apply(x)\ny.sum().backward()\n```\n"
+      },
+      {
+        "name": "Modular Model Design with nn.Module",
+        "example": "Define models by subclassing nn.Module for clean architecture.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass SimpleModel(nn.Module):\n    def __init__(self, in_features, out_features):\n        super(SimpleModel, self).__init__()\n        self.fc = nn.Linear(in_features, out_features)\n\n    def forward(self, x):\n        return self.fc(x)\n\n# Instantiate model\nmodel = SimpleModel(10, 2)\n```\n"
+      },
+      {
+        "name": "Using nn.functional vs Module Layers",
+        "example": "Use nn.functional for stateless operations and modules for stateful layers.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass FunctionalVsModule(nn.Module):\n    def __init__(self, in_features, out_features):\n        super().__init__()\n        self.fc = nn.Linear(in_features, out_features)\n\n    def forward(self, x):\n        out1 = self.fc(x)  # using module layer\n        out2 = F.linear(x, self.fc.weight, self.fc.bias)  # using functional API\n        return out1, out2\n\nmodel = FunctionalVsModule(10, 2)\n```\n"
+      },
+      {
+        "name": "Custom Dataset and DataLoader",
+        "example": "Implement a custom Dataset for flexible data handling.\n\n```python\nimport torch\nfrom torch.utils.data import Dataset, DataLoader\n\nclass MyDataset(Dataset):\n    def __init__(self, data, targets):\n        self.data = data\n        self.targets = targets\n\n    def __len__(self):\n        return len(self.data)\n\n    def __getitem__(self, idx):\n        return self.data[idx], self.targets[idx]\n\n# Sample data\ndata = torch.randn(100, 10)\ntargets = torch.randint(0, 2, (100,))\ndataset = MyDataset(data, targets)\nloader = DataLoader(dataset, batch_size=16, shuffle=True)\n```\n"
+      },
+      {
+        "name": "Optimizer and Learning Rate Scheduler",
+        "example": "Combine optimizer with a learning rate scheduler for dynamic learning rates.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.SGD(model.parameters(), lr=0.1)\nscheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)\n\n# In training loop:\n# optimizer.step()\n# scheduler.step() after each epoch\n```\n"
+      },
+      {
+        "name": "Mixed Precision Training with AMP",
+        "example": "Leverage torch.cuda.amp for faster mixed precision training on GPUs.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom torch.cuda.amp import autocast, GradScaler\n\nmodel = nn.Linear(10, 2).cuda()\noptimizer = optim.Adam(model.parameters(), lr=0.001)\nscaler = GradScaler()\n\n# Training step\ndata = torch.randn(16, 10).cuda()\ntarget = torch.randn(16, 2).cuda()\n\noptimizer.zero_grad()\nwith autocast():\n    output = model(data)\n    loss = nn.MSELoss()(output, target)\nscaler.scale(loss).backward()\nscaler.step(optimizer)\nscaler.update()\n```\n"
+      },
+      {
+        "name": "Gradient Clipping",
+        "example": "Prevent exploding gradients by clipping them.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\nloss_fn = nn.MSELoss()\n\ndata = torch.randn(16, 10)\ntarget = torch.randn(16, 2)\noptimizer.zero_grad()\noutput = model(data)\nloss = loss_fn(output, target)\nloss.backward()\ntorch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)  # clip gradients\noptimizer.step()\n```\n"
+      },
+      {
+        "name": "Distributed Data Parallel (DDP)",
+        "example": "Wrap your model with DDP for multi-GPU training.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.distributed as dist\nfrom torch.nn.parallel import DistributedDataParallel as DDP\n\n# Initialize process group externally, e.g., dist.init_process_group(backend='nccl')\nmodel = nn.Linear(10, 2).cuda()\nddp_model = DDP(model)\n\n# Forward pass with ddp_model\ninput = torch.randn(16, 10).cuda()\noutput = ddp_model(input)\n```\n"
+      },
+      {
+        "name": "Model Parallelism",
+        "example": "Distribute model layers across multiple GPUs.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass ParallelModel(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.part1 = nn.Linear(10, 50).to('cuda:0')\n        self.part2 = nn.Linear(50, 2).to('cuda:1')\n\n    def forward(self, x):\n        x = x.to('cuda:0')\n        x = self.part1(x)\n        x = x.to('cuda:1')\n        return self.part2(x)\n\nmodel = ParallelModel()\n```\n"
+      },
+      {
+        "name": "Saving and Loading Checkpoints",
+        "example": "Store and restore model and optimizer states using state_dict.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\n\n# Save checkpoint\ncheckpoint = {\n    'model_state_dict': model.state_dict(),\n    'optimizer_state_dict': optimizer.state_dict()\n}\ntorch.save(checkpoint, 'checkpoint.pth')\n\n# Load checkpoint\ncheckpoint = torch.load('checkpoint.pth')\nmodel.load_state_dict(checkpoint['model_state_dict'])\noptimizer.load_state_dict(checkpoint['optimizer_state_dict'])\n```\n"
+      },
+      {
+        "name": "Anomaly Detection in Autograd",
+        "example": "Enable anomaly detection to debug issues during backward passes.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\ndata = torch.randn(16, 10, requires_grad=True)\n\nwith torch.autograd.set_detect_anomaly(True):\n    output = model(data)\n    loss = output.sum()\n    loss.backward()  # Raises error if anomaly is detected\n```\n"
+      },
+      {
+        "name": "JIT Tracing for Performance",
+        "example": "Optimize model performance using torch.jit.trace.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MyModel(nn.Module):\n    def forward(self, x):\n        return x * 2\n\nmodel = MyModel()\nexample_input = torch.randn(1, 3)\ntraced_model = torch.jit.trace(model, example_input)\n# traced_model can be saved or further optimized\n```\n"
+      },
+      {
+        "name": "Using Forward and Backward Hooks",
+        "example": "Attach hooks to inspect inputs, outputs, and gradients.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndef forward_hook(module, input, output):\n    # Inspect forward pass data\n    pass\n\ndef backward_hook(module, grad_input, grad_output):\n    # Inspect backward pass gradients\n    pass\n\nmodel = nn.Linear(10, 2)\nmodel.register_forward_hook(forward_hook)\nmodel.register_backward_hook(backward_hook)\n\n# Forward and backward passes will trigger hooks\n```\n"
+      },
+      {
+        "name": "Custom nn.Module Layer",
+        "example": "Create a custom layer by subclassing nn.Module.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass CustomLayer(nn.Module):\n    def __init__(self, in_features, out_features):\n        super().__init__()\n        self.weight = nn.Parameter(torch.randn(in_features, out_features))\n    \n    def forward(self, x):\n        return x @ self.weight\n\n# Use the custom layer\nlayer = CustomLayer(10, 5)\n```\n"
+      },
+      {
+        "name": "Parameter Initialization",
+        "example": "Initialize model parameters using custom strategies.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.nn.init as init\n\nmodel = nn.Linear(10, 2)\ninit.kaiming_normal_(model.weight, nonlinearity='relu')  # Kaiming initialization\n```\n"
+      },
+      {
+        "name": "Normalization Layers",
+        "example": "Apply BatchNorm or LayerNorm for stable training.\n\n```python\nimport torch\nimport torch.nn as nn\n\nbatch_norm = nn.BatchNorm1d(num_features=10)\nlayer_norm = nn.LayerNorm(normalized_shape=10)\n\nx = torch.randn(16, 10)\nout1 = batch_norm(x)\nout2 = layer_norm(x)\n```\n"
+      },
+      {
+        "name": "Gradient Accumulation",
+        "example": "Accumulate gradients over multiple mini-batches to simulate larger batches.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\nloss_fn = nn.MSELoss()\n\naccumulation_steps = 4\noptimizer.zero_grad()\n\nfor i in range(8):  # Simulate multiple batches\n    data = torch.randn(16, 10)\n    target = torch.randn(16, 2)\n    output = model(data)\n    loss = loss_fn(output, target) / accumulation_steps\n    loss.backward()\n    if (i + 1) % accumulation_steps == 0:\n        optimizer.step()\n        optimizer.zero_grad()\n```\n"
+      },
+      {
+        "name": "Data Augmentation with torchvision.transforms",
+        "example": "Apply a series of transforms for data augmentation.\n\n```python\nfrom torchvision import transforms\nfrom PIL import Image\n\ntransform = transforms.Compose([\n    transforms.RandomResizedCrop(224),\n    transforms.RandomHorizontalFlip(),\n    transforms.ToTensor(),\n])\n\n# Apply transform to an image:\n# image = Image.open('path/to/image.jpg')\n# transformed_image = transform(image)\n```\n"
+      },
+      {
+        "name": "Custom Collate Function in DataLoader",
+        "example": "Define a custom collate_fn to handle variable input shapes.\n\n```python\nimport torch\nfrom torch.utils.data import DataLoader\n\ndef custom_collate(batch):\n    data, targets = zip(*batch)\n    data = torch.stack(data)\n    targets = torch.tensor(targets)\n    return data, targets\n\n# Usage in DataLoader:\n# loader = DataLoader(dataset, batch_size=16, collate_fn=custom_collate)\n```\n"
+      },
+      {
+        "name": "Memory Profiling in PyTorch",
+        "example": "Monitor GPU memory usage during training for optimization.\n\n```python\nimport torch\n\nallocated = torch.cuda.memory_allocated()  # Bytes allocated on GPU\nreserved = torch.cuda.memory_reserved()       # Total reserved memory\n# Use these values for profiling memory usage\n```\n"
+      },
+      {
+        "name": "Using torch.no_grad() for Inference",
+        "example": "Disable gradient calculation during inference to save memory.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\nmodel.eval()  # Set model to evaluation mode\nwith torch.no_grad():\n    data = torch.randn(16, 10)\n    output = model(data)\n```\n"
+      },
+      {
+        "name": "Device Agnostic Code",
+        "example": "Write code that runs on CPU or GPU based on availability.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndevice = torch.device('cuda' if torch.cuda.is_available() else 'cpu')\nmodel = nn.Linear(10, 2).to(device)\ndata = torch.randn(16, 10).to(device)\noutput = model(data)\n```\n"
+      },
+      {
+        "name": "Lambda Layers in nn.Sequential",
+        "example": "Embed lambda functions as layers using a custom Lambda module.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass LambdaLayer(nn.Module):\n    def __init__(self, func):\n        super().__init__()\n        self.func = func\n    def forward(self, x):\n        return self.func(x)\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.ReLU(),\n    LambdaLayer(lambda x: x * 2)  # Custom lambda layer\n)\n```\n"
+      },
+      {
+        "name": "Parameter Groups in Optimizers",
+        "example": "Assign different learning rates to different parameter groups.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.ReLU(),\n    nn.Linear(20, 2)\n)\noptimizer = optim.Adam([\n    {'params': model[0].parameters(), 'lr': 0.001},\n    {'params': model[2].parameters(), 'lr': 0.01}\n])\n```\n"
+      },
+      {
+        "name": "Modular Code Structure",
+        "example": "Organize code into separate modules for maintainability.\n\n```python\n# file: model.py\nimport torch.nn as nn\n\nclass MyModel(nn.Module):\n    def __init__(self, input_size, num_classes):\n        super().__init__()\n        self.fc = nn.Linear(input_size, num_classes)\n\n    def forward(self, x):\n        return self.fc(x)\n\n# file: train.py\nfrom model import MyModel\n# Instantiate and use MyModel in the training loop.\n```\n"
+      },
+      {
+        "name": "Combining Multiple Losses",
+        "example": "Weight and sum different loss functions for multi-objective learning.\n\n```python\nimport torch\nimport torch.nn as nn\n\noutput = torch.randn(16, 2)\ntarget = torch.randn(16, 2)\nloss_fn1 = nn.MSELoss()\nloss_fn2 = nn.L1Loss()\nloss = 0.7 * loss_fn1(output, target) + 0.3 * loss_fn2(output, target)\n```\n"
+      },
+      {
+        "name": "Learning Rate Finder",
+        "example": "Experiment with a range of learning rates to find the optimal value.\n\n```python\n# Pseudocode for a learning rate finder\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.SGD(model.parameters(), lr=1e-7)\nloss_fn = nn.MSELoss()\n\n# Gradually increase lr and record loss to plot later.\n```\n"
+      },
+      {
+        "name": "Fine-Tuning Pre-trained Models",
+        "example": "Freeze feature extractors and fine-tune the classifier on a new task.\n\n```python\nimport torch\nimport torch.nn as nn\nfrom torchvision import models\n\nmodel = models.resnet18(pretrained=True)\nfor param in model.parameters():\n    param.requires_grad = False  # Freeze layers\n\nmodel.fc = nn.Linear(model.fc.in_features, 10)  # New classifier\n# Only model.fc will be trained.\n```\n"
+      },
+      {
+        "name": "Switching between train() and eval()",
+        "example": "Set model modes correctly for training and inference.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\nmodel.train()  # Training mode\n# ... training code ...\nmodel.eval()   # Evaluation mode\n# ... inference code ...\n```\n"
+      },
+      {
+        "name": "Custom Callbacks in Training Loops",
+        "example": "Integrate callback functions for custom behaviors during training.\n\n```python\ndef on_epoch_end(epoch, logs):\n    # Custom logic at the end of an epoch\n    pass\n\n# In your training loop:\nfor epoch in range(10):\n    # ... training code ...\n    logs = {'loss': 0.5}  # Example log\n    on_epoch_end(epoch, logs)\n```\n"
+      },
+      {
+        "name": "TensorBoard Logging in PyTorch",
+        "example": "Log training metrics to TensorBoard for visualization.\n\n```python\nimport torch\nfrom torch.utils.tensorboard import SummaryWriter\n\nwriter = SummaryWriter(log_dir='./logs')\n# In training loop:\n# writer.add_scalar('Loss/train', loss_value, global_step)\nwriter.close()\n```\n"
+      },
+      {
+        "name": "Using PyTorch Lightning",
+        "example": "Adopt PyTorch Lightning for cleaner and more organized training code.\n\n```python\nimport pytorch_lightning as pl\nimport torch.nn as nn\nimport torch\n\nclass LitModel(pl.LightningModule):\n    def __init__(self):\n        super().__init__()\n        self.layer = nn.Linear(10, 2)\n    \n    def forward(self, x):\n        return self.layer(x)\n    \n    def training_step(self, batch, batch_idx):\n        x, y = batch\n        loss = nn.MSELoss()(self(x), y)\n        return loss\n    \n    def configure_optimizers(self):\n        return torch.optim.Adam(self.parameters(), lr=0.001)\n\n# Trainer handles the training loop\n# trainer = pl.Trainer(max_epochs=10)\n# trainer.fit(LitModel(), dataloader)\n```\n"
+      },
+      {
+        "name": "Gradient Checkpointing",
+        "example": "Use checkpointing to trade compute for memory during backpropagation.\n\n```python\nimport torch\nimport torch.nn as nn\nfrom torch.utils.checkpoint import checkpoint\n\nclass CheckpointedModel(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.fc1 = nn.Linear(10, 50)\n        self.fc2 = nn.Linear(50, 2)\n\n    def forward(self, x):\n        x = checkpoint(self.fc1, x)  # Checkpointing fc1\n        x = self.fc2(x)\n        return x\n\nmodel = CheckpointedModel()\n```\n"
+      },
+      {
+        "name": "Handling Sparse Gradients",
+        "example": "Work with sparse gradients, useful in embedding layers.\n\n```python\nimport torch\nimport torch.nn as nn\n\nembedding = nn.Embedding(1000, 64, sparse=True)\noptimizer = torch.optim.SparseAdam(embedding.parameters(), lr=0.01)\n\nindices = torch.randint(0, 1000, (32,))\noutput = embedding(indices)\nloss = output.sum()\nloss.backward()\noptimizer.step()\n```\n"
+      },
+      {
+        "name": "Handling Variable-length Sequences",
+        "example": "Use pack_padded_sequence for RNNs with variable-length inputs.\n\n```python\nimport torch\nimport torch.nn.utils.rnn as rnn_utils\n\n# Example sequences of varying lengths\nsequences = [torch.randn(5, 10), torch.randn(3, 10), torch.randn(4, 10)]\nlengths = [5, 3, 4]\npadded = rnn_utils.pad_sequence(sequences, batch_first=True)\npacked = rnn_utils.pack_padded_sequence(padded, lengths, batch_first=True, enforce_sorted=False)\n# Use 'packed' in RNNs\n```\n"
+      },
+      {
+        "name": "Exporting Models to ONNX",
+        "example": "Convert PyTorch models to ONNX format for interoperability.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MyModel(nn.Module):\n    def forward(self, x):\n        return x * 2\n\nmodel = MyModel()\ndummy_input = torch.randn(1, 3)\ntorch.onnx.export(model, dummy_input, 'model.onnx')\n```\n"
+      },
+      {
+        "name": "Profiling with torch.profiler",
+        "example": "Identify performance bottlenecks using torch.profiler.\n\n```python\nimport torch\nimport torch.profiler\n\nwith torch.profiler.profile(\n    activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA],\n    record_shapes=True\n) as prof:\n    x = torch.randn(16, 10).cuda()\n    y = torch.randn(16, 2).cuda()\n    result = x @ torch.randn(10, 2).cuda()\n\n# Use prof.key_averages().table() to view profiling results\n```\n"
+      },
+      {
+        "name": "Multi-task Learning",
+        "example": "Design a model to handle multiple tasks with shared representations.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MultiTaskModel(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.shared = nn.Linear(10, 50)\n        self.task1 = nn.Linear(50, 2)\n        self.task2 = nn.Linear(50, 3)\n    \n    def forward(self, x):\n        shared_repr = self.shared(x)\n        out1 = self.task1(shared_repr)\n        out2 = self.task2(shared_repr)\n        return out1, out2\n\nmodel = MultiTaskModel()\n```\n"
+      },
+      {
+        "name": "Inspecting Autograd Graph",
+        "example": "Examine the autograd graph to debug complex computations.\n\n```python\nimport torch\n\nx = torch.randn(3, requires_grad=True)\ny = x * 2\nz = y.sum()\nz.backward()\n\n# Access grad_fn to inspect the computation graph\ngraph = z.grad_fn\n```\n"
+      },
+      {
+        "name": "Monitoring Gradients with Hooks",
+        "example": "Use hooks to log or modify gradients during backpropagation.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndef grad_logger(module, grad_input, grad_output):\n    # Log gradient norms or modify gradients\n    pass\n\nlayer = nn.Linear(10, 2)\nlayer.register_backward_hook(grad_logger)\n# During backward pass, grad_logger is called.\n```\n"
+      },
+      {
+        "name": "Loss Scaling for Mixed Precision",
+        "example": "Scale losses to maintain precision during mixed-precision training.\n\n```python\nimport torch\nfrom torch.cuda.amp import GradScaler\n\nscaler = GradScaler()\n# In training loop:\n# scaler.scale(loss).backward()\n# scaler.step(optimizer)\n# scaler.update()\n```\n"
+      },
+      {
+        "name": "Functional Programming in Data Preprocessing",
+        "example": "Use Python's functional tools for concise data transformations.\n\n```python\n# Example: filtering and mapping over dataset items\ndata = list(range(10))\nprocessed = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, data)))\n# 'processed' contains squares of even numbers\n```\n"
+      },
+      {
+        "name": "Custom Training Loop with Gradient Accumulation",
+        "example": "Build a flexible training loop that manually accumulates gradients.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\nloss_fn = nn.MSELoss()\naccum_steps = 4\n\nfor i in range(8):  # Simulate iterations\n    data = torch.randn(16, 10)\n    target = torch.randn(16, 2)\n    output = model(data)\n    loss = loss_fn(output, target) / accum_steps\n    loss.backward()\n    if (i + 1) % accum_steps == 0:\n        optimizer.step()\n        optimizer.zero_grad()\n```\n"
+      },
+      {
+        "name": "Using CUDA Streams for Asynchronous Operations",
+        "example": "Utilize CUDA streams to perform concurrent GPU tasks.\n\n```python\nimport torch\n\nstream = torch.cuda.Stream()\nwith torch.cuda.stream(stream):\n    a = torch.randn(100, device='cuda')\n    b = torch.randn(100, device='cuda')\n    c = a + b  # Runs asynchronously on the stream\n# Synchronize if necessary: stream.synchronize()\n```\n"
+      },
+      {
+        "name": "Optimizing DataLoader Parameters",
+        "example": "Set num_workers and pin_memory for efficient data loading.\n\n```python\nfrom torch.utils.data import DataLoader\n\n# Use appropriate parameters:\n# DataLoader(dataset, batch_size=32, num_workers=4, pin_memory=True)\n```\n"
+      },
+      {
+        "name": "Evaluating BatchNorm in Eval Mode",
+        "example": "Ensure BatchNorm layers use running statistics during evaluation.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.BatchNorm1d(20),\n    nn.ReLU()\n)\nmodel.eval()  # BatchNorm uses stored mean/variance\n```\n"
+      },
+      {
+        "name": "Memory Pinning for CPU-to-GPU Transfer",
+        "example": "Enable faster transfers by pinning memory in DataLoader.\n\n```python\nfrom torch.utils.data import DataLoader\n\n# Example:\n# loader = DataLoader(dataset, batch_size=32, pin_memory=True)\n```\n"
+      },
+      {
+        "name": "Higher Order Gradients",
+        "example": "Compute gradients of gradients by enabling create_graph.\n\n```python\nimport torch\n\nx = torch.tensor(2.0, requires_grad=True)\ny = x ** 2\ngrad1 = torch.autograd.grad(y, x, create_graph=True)[0]\n# Compute second derivative\ngrad2 = torch.autograd.grad(grad1, x)[0]\n```\n"
+      },
+      {
+        "name": "Custom Learning Rate Scheduler",
+        "example": "Implement a custom scheduler by subclassing _LRScheduler.\n\n```python\nimport torch\nfrom torch.optim.lr_scheduler import _LRScheduler\n\nclass CustomLRScheduler(_LRScheduler):\n    def __init__(self, optimizer, last_epoch=-1):\n        super().__init__(optimizer, last_epoch)\n    \n    def get_lr(self):\n        return [base_lr / (self.last_epoch + 1) for base_lr in self.base_lrs]\n\n# Usage:\noptimizer = torch.optim.SGD([torch.zeros(1)], lr=0.1)\nscheduler = CustomLRScheduler(optimizer)\n# Call scheduler.step() each epoch\n```\n"
+      },
+      {
+        "name": "Dynamic Computation Graphs with Control Flow",
+        "example": "Utilize Python control flow in forward pass for dynamic architectures.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass DynamicNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.layers = nn.ModuleList([nn.Linear(10, 10) for _ in range(5)])\n    \n    def forward(self, x, num_layers):\n        for layer in self.layers[:num_layers]:\n            x = torch.relu(layer(x))\n        return x\n\nmodel = DynamicNet()\n# Forward pass with a dynamic number of layers\noutput = model(torch.randn(16, 10), num_layers=3)\n```\n"
+      },
+      {
+        "name": "DataParallel for Inference",
+        "example": "Leverage nn.DataParallel to run inference on multiple GPUs.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\nparallel_model = nn.DataParallel(model)  # Wrap model\ninput = torch.randn(16, 10).cuda()\noutput = parallel_model(input)  # Runs on all available GPUs\n```"
+      },
+      {
+        "name": "Custom Loss Function with autograd",
+        "example": "Create a custom loss by subclassing nn.Module.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass CustomMSELoss(nn.Module):\n    def forward(self, input, target):\n        return ((input - target) ** 2).mean()\n\nloss_fn = CustomMSELoss()\n```"
+      },
+      {
+        "name": "Extracting Gradients with torch.autograd.grad",
+        "example": "Use torch.autograd.grad to compute gradients manually.\n\n```python\nimport torch\n\nx = torch.tensor(2.0, requires_grad=True)\ny = x ** 3\ngrad, = torch.autograd.grad(y, x, create_graph=True)  # grad = 3*x^2\n```"
+      },
+      {
+        "name": "Dynamic Model Freezing",
+        "example": "Freeze specific layers during training dynamically.\n\n```python\nimport torch.nn as nn\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.ReLU(),\n    nn.Linear(20, 2)\n)\n\n# Freeze parameters of the first layer\nfor name, param in model.named_parameters():\n    if '0' in name:\n        param.requires_grad = False\n```"
+      },
+      {
+        "name": "Mixed Loss with Uncertainty Weighting",
+        "example": "Combine multiple losses with learnable uncertainty weights.\n\n```python\nimport torch\n\n# Learnable log variances\nlog_var1 = torch.tensor(0.0, requires_grad=True)\nlog_var2 = torch.tensor(0.0, requires_grad=True)\n\nloss1 = torch.tensor(1.0)  # Dummy loss 1\nloss2 = torch.tensor(2.0)  # Dummy loss 2\n\nloss = torch.exp(-log_var1) * loss1 + torch.exp(-log_var2) * loss2 + (log_var1 + log_var2)\n```"
+      },
+      {
+        "name": "Advanced Model Parameter Grouping",
+        "example": "Group parameters with different weight decay values.\n\n```python\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.ReLU(),\n    nn.Linear(20, 2)\n)\n\noptimizer = optim.Adam([\n    {'params': model[0].parameters(), 'weight_decay': 1e-4},\n    {'params': model[2].parameters(), 'weight_decay': 1e-2}\n], lr=0.001)\n```"
+      },
+      {
+        "name": "Lazy Modules Initialization",
+        "example": "Use LazyLinear to infer input features at first use.\n\n```python\nimport torch\nimport torch.nn as nn\n\nlazy_layer = nn.LazyLinear(2)  # in_features is inferred\noutput = lazy_layer(torch.randn(16, 10))  \n```"
+      },
+      {
+        "name": "Custom Weight Initialization for Submodules",
+        "example": "Apply custom initialization to submodules in a network.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.nn.init as init\n\nclass CustomNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.fc = nn.Linear(10, 2)\n        self._init_weights()\n\n    def _init_weights(self):\n        init.xavier_uniform_(self.fc.weight)  # Xavier initialization\n\n    def forward(self, x):\n        return self.fc(x)\n\nnet = CustomNet()\n```"
+      },
+      {
+        "name": "Integrating PyTorch with NumPy",
+        "example": "Convert NumPy arrays to tensors for seamless integration.\n\n```python\nimport torch\nimport numpy as np\n\nnp_array = np.random.rand(5, 5)\ntensor = torch.from_numpy(np_array)  # Shared memory\n```"
+      },
+      {
+        "name": "Memory-efficient Evaluation with torch.inference_mode",
+        "example": "Use torch.inference_mode for faster, memory-efficient inference.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\nmodel.eval()\nwith torch.inference_mode():\n    data = torch.randn(16, 10)\n    output = model(data)\n```"
+      },
+      {
+        "name": "TorchScript with Control Flow using torch.jit.script",
+        "example": "Script models with control flow for optimization and deployment.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass ScriptedModule(nn.Module):\n    def forward(self, x):\n        if x.sum() > 0:\n            return x * 2\n        else:\n            return x - 2\n\nscripted = torch.jit.script(ScriptedModule())\n```"
+      },
+      {
+        "name": "Dynamic Quantization Example",
+        "example": "Apply dynamic quantization to reduce model size and latency.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\ndq_model = torch.quantization.quantize_dynamic(\n    model, {nn.Linear}, dtype=torch.qint8\n)\n```"
+      },
+      {
+        "name": "Static Quantization Example",
+        "example": "Prepare and convert a model for static quantization.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.quantization\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.ReLU(),\n    nn.Linear(20, 2)\n)\n\nmodel.qconfig = torch.quantization.get_default_qconfig('fbgemm')\ntorch.quantization.prepare(model, inplace=True)\n# Calibration with representative data should occur here\ntorch.quantization.convert(model, inplace=True)\n```"
+      },
+      {
+        "name": "Weight Pruning with torch.nn.utils.prune",
+        "example": "Prune a percentage of weights to sparsify the model.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.nn.utils.prune as prune\n\nlayer = nn.Linear(10, 2)\nprune.random_unstructured(layer, name=\"weight\", amount=0.3)  # Prune 30% of weights\n```"
+      },
+      {
+        "name": "Spectral Normalization",
+        "example": "Apply spectral normalization to stabilize training in GANs.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.nn.utils.spectral_norm as spectral_norm\n\nlayer = nn.Linear(10, 2)\nlayer = spectral_norm(layer)  # Normalize weight spectrum\n```"
+      },
+      {
+        "name": "Exponential Moving Average (EMA) Model",
+        "example": "Maintain an EMA of model weights for smoother evaluation.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\nema_model = nn.Linear(10, 2)\nema_model.load_state_dict(model.state_dict())\n\ndef update_ema(ema_model, model, alpha=0.99):\n    for ema_param, param in zip(ema_model.parameters(), model.parameters()):\n        ema_param.data.mul_(alpha).add_(param.data, alpha=1 - alpha)\n\n# Call update_ema(ema_model, model) during training updates\n```"
+      },
+      {
+        "name": "Adversarial Training: FGSM Attack Example",
+        "example": "Implement FGSM to generate adversarial examples.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndef fgsm_attack(model, data, target, epsilon):\n    data.requires_grad = True\n    output = model(data)\n    loss = nn.CrossEntropyLoss()(output, target)\n    loss.backward()\n    perturbed_data = data + epsilon * data.grad.sign()\n    return perturbed_data\n\n# Use fgsm_attack(model, data, target, epsilon) in training\n```"
+      },
+      {
+        "name": "Mixup Data Augmentation",
+        "example": "Implement mixup to blend inputs and labels for regularization.\n\n```python\nimport torch\n\ndef mixup_data(x, y, alpha=1.0):\n    lam = torch.distributions.Beta(alpha, alpha).sample().item()\n    batch_size = x.size(0)\n    index = torch.randperm(batch_size)\n    mixed_x = lam * x + (1 - lam) * x[index]\n    y_a, y_b = y, y[index]\n    return mixed_x, y_a, y_b, lam\n\n# Use in training: mix inputs and compute loss accordingly\n```"
+      },
+      {
+        "name": "Label Smoothing in CrossEntropy",
+        "example": "Incorporate label smoothing to mitigate overconfidence.\n\n```python\nimport torch\nimport torch.nn.functional as F\n\ndef label_smoothing_loss(input, target, smoothing=0.1):\n    n_classes = input.size(1)\n    true_dist = torch.zeros_like(input)\n    true_dist.fill_(smoothing / (n_classes - 1))\n    true_dist.scatter_(1, target.data.unsqueeze(1), 1 - smoothing)\n    return torch.mean(torch.sum(-true_dist * F.log_softmax(input, dim=1), dim=1))\n\n# Use with model outputs and targets\n```"
+      },
+      {
+        "name": "OneCycleLR Scheduler",
+        "example": "Employ OneCycleLR for dynamic learning rate scheduling.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.SGD(model.parameters(), lr=0.1)\n\nscheduler = optim.lr_scheduler.OneCycleLR(\n    optimizer, max_lr=0.1, steps_per_epoch=10, epochs=5\n)\n```"
+      },
+      {
+        "name": "Cosine Annealing LR Scheduler",
+        "example": "Use cosine annealing to gradually reduce the learning rate.\n\n```python\nimport torch.optim as optim\n\noptimizer = optim.Adam([torch.zeros(1)], lr=0.01)\nscheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=50)\n```"
+      },
+      {
+        "name": "WeightedRandomSampler in DataLoader",
+        "example": "Balance imbalanced classes using WeightedRandomSampler.\n\n```python\nimport torch\nfrom torch.utils.data import DataLoader, WeightedRandomSampler, TensorDataset\n\ndata = torch.randn(100, 10)\ntargets = torch.randint(0, 2, (100,))\ndataset = TensorDataset(data, targets)\n\n# Compute weights for each class\nclass_sample_count = torch.tensor([\n    (targets == t).sum() for t in torch.unique(targets, sorted=True)\n])\nweights = 1. / class_sample_count.float()\nsample_weights = weights[targets]\n\nsampler = WeightedRandomSampler(sample_weights, num_samples=len(sample_weights), replacement=True)\nloader = DataLoader(dataset, batch_size=16, sampler=sampler)\n```"
+      },
+      {
+        "name": "DistributedSampler for DDP",
+        "example": "Ensure each process gets a unique subset of the data.\n\n```python\nimport torch\nfrom torch.utils.data import DataLoader, DistributedSampler, TensorDataset\n\ndata = torch.randn(100, 10)\ntargets = torch.randint(0, 2, (100,))\ndataset = TensorDataset(data, targets)\n\nsampler = DistributedSampler(dataset)\nloader = DataLoader(dataset, batch_size=16, sampler=sampler)\n```"
+      },
+      {
+        "name": "Custom Collate for Multi-modal Data",
+        "example": "Define a collate function to handle inputs of different types.\n\n```python\nimport torch\n\ndef multimodal_collate(batch):\n    images, texts = zip(*batch)\n    images = torch.stack(images)\n    # texts remain as a list\n    return images, texts\n\n# Use with DataLoader: DataLoader(dataset, collate_fn=multimodal_collate)\n```"
+      },
+      {
+        "name": "Multiple Optimizers for Different Submodules",
+        "example": "Assign distinct optimizers for separate parts of the model.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nclass MultiOptModel(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.feature = nn.Linear(10, 20)\n        self.classifier = nn.Linear(20, 2)\n    def forward(self, x):\n        x = self.feature(x)\n        return self.classifier(x)\n\nmodel = MultiOptModel()\noptimizer1 = optim.SGD(model.feature.parameters(), lr=0.01)\noptimizer2 = optim.Adam(model.classifier.parameters(), lr=0.001)\n```"
+      },
+      {
+        "name": "Differential Learning Rates for Fine-Tuning",
+        "example": "Apply different learning rates to frozen and trainable layers.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nfrom torchvision import models\n\nmodel = models.resnet18(pretrained=True)\nfor param in model.parameters():\n    param.requires_grad = False  # Freeze all layers\n\nmodel.fc = nn.Linear(model.fc.in_features, 10)  # New classifier\noptimizer = optim.Adam([\n    {'params': model.fc.parameters(), 'lr': 0.01},\n    {'params': model.layer4.parameters(), 'lr': 0.001}\n])\n```"
+      },
+      {
+        "name": "Checkpointing Best Model during Training",
+        "example": "Save model state when a new best validation loss is achieved.\n\n```python\nimport torch\n\ndef save_best_model(model, best_loss, current_loss, filepath):\n    if current_loss < best_loss:\n        torch.save(model.state_dict(), filepath)  # Save best model\n        best_loss = current_loss\n    return best_loss\n\n# Use inside your training loop\n```"
+      },
+      {
+        "name": "Early Stopping Implementation",
+        "example": "Stop training if validation loss doesn't improve for a set number of epochs.\n\n```python\nclass EarlyStopping:\n    def __init__(self, patience=5):\n        self.patience = patience\n        self.counter = 0\n        self.best_loss = None\n    def step(self, loss):\n        if self.best_loss is None or loss < self.best_loss:\n            self.best_loss = loss\n            self.counter = 0\n        else:\n            self.counter += 1\n        return self.counter >= self.patience\n\n# Use: if early_stopping.step(val_loss): break\n```"
+      },
+      {
+        "name": "Using torch.fx for Model Transformation",
+        "example": "Trace the model to obtain a graph representation for analysis.\n\n```python\nimport torch\nimport torch.fx as fx\nimport torch.nn as nn\n\nclass MyModel(nn.Module):\n    def forward(self, x):\n        return x * 2\n\nmodel = MyModel()\ntraced = fx.symbolic_trace(model)\n# Inspect traced.graph for the computational graph\n```"
+      },
+      {
+        "name": "Unit Testing PyTorch Modules",
+        "example": "Write simple tests to verify module behavior.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndef test_linear_layer():\n    layer = nn.Linear(10, 2)\n    x = torch.randn(5, 10)\n    y = layer(x)\n    assert y.shape == (5, 2)\n\n# Run test\ntest_linear_layer()\n```"
+      },
+      {
+        "name": "Reproducibility: Setting Random Seeds",
+        "example": "Fix seeds for torch, numpy, and Python random for reproducible results.\n\n```python\nimport torch\nimport random\nimport numpy as np\n\ntorch.manual_seed(42)\nnp.random.seed(42)\nrandom.seed(42)\n```"
+      },
+      {
+        "name": "Ensuring Deterministic Algorithms",
+        "example": "Configure PyTorch backend for deterministic behavior.\n\n```python\nimport torch\n\ntorch.backends.cudnn.deterministic = True\ntorch.backends.cudnn.benchmark = False\n```"
+      },
+      {
+        "name": "Custom CUDA Device Placement",
+        "example": "Manually place submodules on different GPUs.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndevice0 = torch.device('cuda:0')\ndevice1 = torch.device('cuda:1')\n\nlayer1 = nn.Linear(10, 20).to(device0)\nlayer2 = nn.Linear(20, 2).to(device1)\n\ndef forward(x):\n    x = x.to(device0)\n    x = layer1(x)\n    x = x.to(device1)\n    return layer2(x)\n```"
+      },
+      {
+        "name": "Profiling with torch.autograd.profiler",
+        "example": "Profile operations to identify performance bottlenecks.\n\n```python\nimport torch\nimport torch.autograd.profiler as profiler\n\nwith profiler.profile() as prof:\n    x = torch.randn(16, 10)\n    y = x * 2\n# Inspect prof.key_averages() for performance metrics\n```"
+      },
+      {
+        "name": "Using Weights & Biases (WandB) for Experiment Tracking",
+        "example": "Integrate WandB to log metrics and track experiments.\n\n```python\nimport wandb\n\nwandb.init(project='my_project')\n# During training: wandb.log({'loss': loss_value})\nwandb.finish()\n```"
+      },
+      {
+        "name": "Using Captum for Model Interpretability",
+        "example": "Apply integrated gradients to interpret model predictions.\n\n```python\nimport torch\nimport torch.nn as nn\nfrom captum.attr import IntegratedGradients\n\nmodel = nn.Linear(10, 2)\nig = IntegratedGradients(model)\n# Compute attributions: ig.attribute(input, target)\n```"
+      },
+      {
+        "name": "Pipeline Parallelism",
+        "example": "Distribute different parts of a model across GPUs in a pipeline.\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass PipelineModule(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.part1 = nn.Linear(10, 20).to('cuda:0')\n        self.part2 = nn.Linear(20, 2).to('cuda:1')\n    def forward(self, x):\n        x = x.to('cuda:0')\n        x = self.part1(x)\n        x = x.to('cuda:1')\n        return self.part2(x)\n\nmodel = PipelineModule()\n```"
+      },
+      {
+        "name": "Handling Variable Batch Sizes",
+        "example": "Ensure your model adapts to inputs with different batch sizes.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Linear(10, 2)\nfor batch_size in [1, 16, 32]:\n    x = torch.randn(batch_size, 10)\n    y = model(x)\n    # Model output shape adapts to batch_size\n```"
+      },
+      {
+        "name": "Advanced DataLoader with Prefetching",
+        "example": "Configure DataLoader with prefetch_factor for efficient loading.\n\n```python\nfrom torch.utils.data import DataLoader, Dataset\n\nclass MyDataset(Dataset):\n    def __getitem__(self, index):\n        # Simulate I/O-bound data retrieval\n        return index, index\n    def __len__(self):\n        return 100\n\ndataset = MyDataset()\nloader = DataLoader(dataset, batch_size=8, num_workers=4, prefetch_factor=2)\n```"
+      },
+      {
+        "name": "Using Asynchronous Data Transfers",
+        "example": "Pin memory and use non-blocking transfers for efficiency.\n\n```python\nimport torch\n\ndata = torch.randn(16, 10)\ndata = data.pin_memory()  # Enable async transfer\n data = data.to('cuda', non_blocking=True)\n```"
+      },
+      {
+        "name": "Gradient Accumulation with Multiple Losses",
+        "example": "Accumulate gradients over multiple mini-batches and losses.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.Adam(model.parameters(), lr=0.001)\nloss_fn = nn.MSELoss()\naccum_steps = 4\n\nfor i in range(8):\n    x = torch.randn(16, 10)\n    target1 = torch.randn(16, 2)\n    target2 = torch.randn(16, 2)\n    output = model(x)\n    loss1 = loss_fn(output, target1)\n    loss2 = loss_fn(output, target2)\n    loss = (loss1 + loss2) / accum_steps\n    loss.backward()\n    if (i + 1) % accum_steps == 0:\n        optimizer.step()\n        optimizer.zero_grad()\n```"
+      },
+      {
+        "name": "Custom Regularization Hook",
+        "example": "Register a backward hook to add custom regularization to gradients.\n\n```python\nimport torch\nimport torch.nn as nn\n\ndef l2_regularization_hook(module, grad_input, grad_output):\n    for param in module.parameters():\n        if param.grad is not None:\n            param.grad += 0.01 * param.data  # L2 regularization\n\nlayer = nn.Linear(10, 2)\nlayer.register_backward_hook(l2_regularization_hook)\n```"
+      },
+      {
+        "name": "Custom BatchNorm Momentum Scheduler",
+        "example": "Adjust BatchNorm momentum during training for better convergence.\n\n```python\nimport torch\nimport torch.nn as nn\n\nmodel = nn.Sequential(\n    nn.Linear(10, 20),\n    nn.BatchNorm1d(20),\n    nn.ReLU()\n)\n\n# Dynamically adjust momentum\nfor module in model.modules():\n    if isinstance(module, nn.BatchNorm1d):\n        module.momentum = 0.1  \n```"
+      },
+      {
+        "name": "Storing Intermediate Activations for Debugging",
+        "example": "Use forward hooks to capture and inspect intermediate outputs.\n\n```python\nimport torch\nimport torch.nn as nn\n\nactivations = {}\n\ndef hook(module, input, output):\n    activations['output'] = output\n\nlayer = nn.Linear(10, 2)\nlayer.register_forward_hook(hook)\n\nx = torch.randn(16, 10)\n_ = layer(x)\n# 'activations' now contains the layer's output\n```"
+      },
+      {
+        "name": "Implementing Gradient Penalty for GANs",
+        "example": "Compute a gradient penalty to enforce Lipschitz constraints.\n\n```python\nimport torch\n\ndef gradient_penalty(discriminator, real_data, fake_data):\n    alpha = torch.rand(real_data.size(0), 1)\n    interpolates = alpha * real_data + (1 - alpha) * fake_data\n    interpolates.requires_grad_(True)\n    d_interpolates = discriminator(interpolates)\n    gradients = torch.autograd.grad(\n        outputs=d_interpolates,\n        inputs=interpolates,\n        grad_outputs=torch.ones_like(d_interpolates),\n        create_graph=True\n    )[0]\n    penalty = ((gradients.norm(2, dim=1) - 1) ** 2).mean()\n    return penalty\n```"
+      },
+      {
+        "name": "Dual Backward Pass for Meta-Learning",
+        "example": "Perform a second-order gradient computation for meta-learning.\n\n```python\nimport torch\n\nx = torch.tensor(1.0, requires_grad=True)\ny = x * 2\ngrad1 = torch.autograd.grad(y, x, create_graph=True)[0]\n# Second derivative computation\nz = grad1 * 3\ngrad2 = torch.autograd.grad(z, x)[0]\n```"
+      },
+      {
+        "name": "Custom Optimizer with Closure for LBFGS",
+        "example": "Use a closure function with the LBFGS optimizer.\n\n```python\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\n\nmodel = nn.Linear(10, 2)\noptimizer = optim.LBFGS(model.parameters())\n\ndef closure():\n    optimizer.zero_grad()\n    output = model(torch.randn(16, 10))\n    loss = (output ** 2).mean()\n    loss.backward()\n    return loss\n\noptimizer.step(closure)\n```"
+      },
+      {
+        "name": "Multi-GPU Synchronization",
+        "example": "Ensure all GPU operations complete with torch.cuda.synchronize.\n\n```python\nimport torch\n\ntorch.cuda.synchronize()  # Blocks until all GPU kernels are finished\n```"
+      },
+      {
+        "name": "Advanced Memory Format: channels_last for Conv2d",
+        "example": "Optimize convolution performance using channels_last memory format.\n\n```python\nimport torch\nimport torch.nn as nn\n\nconv = nn.Conv2d(3, 16, kernel_size=3).to(memory_format=torch.channels_last)\ninput = torch.randn(1, 3, 224, 224).to(memory_format=torch.channels_last)\noutput = conv(input)\n```"
+      },
+      {
+        "name": "Asynchronous Prefetcher for DataLoader",
+        "example": "Implement a custom prefetcher to asynchronously load data onto the GPU.\n\n```python\nimport torch\nfrom torch.utils.data import DataLoader\n\nclass DataPrefetcher:\n    def __init__(self, loader):\n        self.loader = iter(loader)\n        self.stream = torch.cuda.Stream()\n        self.preload()\n\n    def preload(self):\n        try:\n            self.next_input, self.next_target = next(self.loader)\n        except StopIteration:\n            self.next_input = None\n            self.next_target = None\n            return\n        with torch.cuda.stream(self.stream):\n            self.next_input = self.next_input.cuda(non_blocking=True)\n            self.next_target = self.next_target.cuda(non_blocking=True)\n\n    def next(self):\n        torch.cuda.current_stream().wait_stream(self.stream)\n        input = self.next_input\n        target = self.next_target\n        self.preload()\n        return input, target\n\n# Usage: prefetcher = DataPrefetcher(dataloader)\n```"
+      }
+    ]
+  }
+  

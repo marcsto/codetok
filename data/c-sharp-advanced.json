@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Immutable Types with Readonly Struct",
+        "example": "Use readonly to enforce immutability on a struct.\n\n```csharp\npublic readonly struct Point {\n    public int X { get; }\n    public int Y { get; }\n\n    public Point(int x, int y) => (X, Y) = (x, y);\n}\n```"
+      },
+      {
+        "name": "Records for Immutable Data",
+        "example": "Records provide value-based equality and immutability.\n\n```csharp\npublic record Person(string FirstName, string LastName);\n```"
+      },
+      {
+        "name": "Pattern Matching with Switch Expression",
+        "example": "Switch expressions simplify conditional logic using pattern matching.\n\n```csharp\npublic static string GetDayType(DayOfWeek day) => day switch {\n    DayOfWeek.Saturday or DayOfWeek.Sunday => \"Weekend\",\n    _ => \"Weekday\"\n};\n```"
+      },
+      {
+        "name": "Async/Await and Task",
+        "example": "Async methods improve responsiveness by using the Task-based asynchronous pattern.\n\n```csharp\npublic async Task<int> FetchDataAsync()\n{\n    await Task.Delay(100); // simulate async work\n    return 42;\n}\n```"
+      },
+      {
+        "name": "LINQ Query with Deferred Execution",
+        "example": "LINQ queries are composed and executed only when iterated.\n\n```csharp\nvar numbers = Enumerable.Range(1, 10);\nvar evenNumbers = numbers.Where(n => n % 2 == 0);\n// evenNumbers is executed upon enumeration\n```"
+      },
+      {
+        "name": "Extension Methods for Cleaner Code",
+        "example": "Extension methods add functionality to existing types without modifying them.\n\n```csharp\npublic static class StringExtensions\n{\n    public static bool IsNullOrEmpty(this string str) => string.IsNullOrEmpty(str);\n}\n\n// Usage: \"hello\".IsNullOrEmpty();\n```"
+      },
+      {
+        "name": "Nullable Reference Types",
+        "example": "Enable nullable reference types for safer null handling.\n\n```csharp\n#nullable enable\npublic class User\n{\n    public string Name { get; set; } // non-nullable\n    public string? Email { get; set; } // nullable\n}\n#nullable disable\n```"
+      },
+      {
+        "name": "Local Functions for Encapsulation",
+        "example": "Local functions help encapsulate helper logic within a method.\n\n```csharp\npublic int Calculate(int value)\n{\n    int Helper(int x) => x * 2; // local function\n    return Helper(value) + 10;\n}\n```"
+      },
+      {
+        "name": "Tuples for Multiple Return Values",
+        "example": "Tuples allow returning multiple values from a method without a custom type.\n\n```csharp\npublic (int Sum, int Product) Compute(int a, int b) => (a + b, a * b);\n```"
+      },
+      {
+        "name": "Delegates and Func/Action",
+        "example": "Delegates represent methods and can be used with Func, Action, or Predicate.\n\n```csharp\nFunc<int, int, int> add = (x, y) => x + y;\nAction<string> greet = name => { /* greet user */ };\n```"
+      },
+      {
+        "name": "Events and Custom EventArgs",
+        "example": "Use events with custom EventArgs to implement the publisher-subscriber pattern.\n\n```csharp\npublic class ThresholdReachedEventArgs : EventArgs {\n    public int Threshold { get; init; }\n}\n\npublic class Counter\n{\n    public event EventHandler<ThresholdReachedEventArgs> ThresholdReached;\n    \n    protected virtual void OnThresholdReached(int threshold) {\n        ThresholdReached?.Invoke(this, new ThresholdReachedEventArgs { Threshold = threshold });\n    }\n}\n```"
+      },
+      {
+        "name": "Expression-bodied Members",
+        "example": "Use expression-bodied members for concise method and property definitions.\n\n```csharp\npublic class Calculator\n{\n    public int Add(int a, int b) => a + b;\n    public override string ToString() => \"Calculator instance\";\n}\n```"
+      },
+      {
+        "name": "Using Statement with IDisposable",
+        "example": "The using statement ensures resources are disposed of properly.\n\n```csharp\nusing (var stream = new FileStream(\"file.txt\", FileMode.Open))\n{\n    // Work with stream\n}\n```"
+      },
+      {
+        "name": "Generics with Constraints",
+        "example": "Use generics with constraints to enforce type requirements.\n\n```csharp\npublic T CreateInstance<T>() where T : new()\n{\n    return new T();\n}\n```"
+      },
+      {
+        "name": "Default Interface Implementations",
+        "example": "Interfaces can provide default implementations for members (C# 8+).\n\n```csharp\npublic interface ILogger\n{\n    void Log(string message);\n    void LogError(string message) => Log($\"Error: {message}\");\n}\n```"
+      },
+      {
+        "name": "Covariance and Contravariance in Generics",
+        "example": "Covariance and contravariance enable flexible assignment compatibility.\n\n```csharp\nIEnumerable<string> strings = new List<string>(); // covariance\nAction<object> act = s => { }; // contravariance with delegates\n```"
+      },
+      {
+        "name": "Reflection to Inspect Types",
+        "example": "Use reflection to inspect types and their members at runtime.\n\n```csharp\nvar properties = typeof(Person).GetProperties();\n// Iterate over properties as needed\n```"
+      },
+      {
+        "name": "Dynamic Type Usage",
+        "example": "The dynamic type bypasses compile-time type checking for more flexible code.\n\n```csharp\ndynamic expando = new System.Dynamic.ExpandoObject();\nexpando.Name = \"Dynamic User\";\n```"
+      },
+      {
+        "name": "Relational Pattern Matching",
+        "example": "Use relational patterns in switch expressions for range checks.\n\n```csharp\npublic string GetGrade(int score) => score switch {\n    >= 90 => \"A\",\n    >= 80 => \"B\",\n    >= 70 => \"C\",\n    _ => \"F\"\n};\n```"
+      },
+      {
+        "name": "Null Coalescing Operator",
+        "example": "The null coalescing operator provides a default value for null expressions.\n\n```csharp\nstring message = null;\nstring output = message ?? \"Default message\";\n```"
+      },
+      {
+        "name": "Operator Overloading Example",
+        "example": "Overload operators to enable custom behavior for user-defined types.\n\n```csharp\npublic struct Complex\n{\n    public double Real { get; }\n    public double Imaginary { get; }\n\n    public Complex(double real, double imaginary) => (Real, Imaginary) = (real, imaginary);\n\n    public static Complex operator +(Complex a, Complex b) => \n        new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);\n}\n```"
+      },
+      {
+        "name": "Init-only Properties for Immutability",
+        "example": "Use init-only setters to allow properties to be set only during initialization.\n\n```csharp\npublic class Car\n{\n    public string Make { get; init; }\n    public string Model { get; init; }\n}\n\n// Usage: var car = new Car { Make = \"Ford\", Model = \"Mustang\" };\n```"
+      },
+      {
+        "name": "Record Inheritance",
+        "example": "Records can inherit from other records, maintaining immutability and value equality.\n\n```csharp\npublic record Animal(string Name);\npublic record Dog(string Name, string Breed) : Animal(Name);\n```"
+      },
+      {
+        "name": "File-scoped Namespace (C# 10)",
+        "example": "File-scoped namespaces reduce indentation and improve readability.\n\n```csharp\nnamespace MyApp;\n\npublic class Program\n{\n    // Code here\n}\n```"
+      },
+      {
+        "name": "Top-level Statements (C# 9)",
+        "example": "Top-level statements simplify small programs by removing boilerplate code.\n\n```csharp\nusing System;\n\nConsole.WriteLine(\"Hello, World!\");\n```"
+      },
+      {
+        "name": "Pattern Matching with 'is not null'",
+        "example": "Use 'is not null' to check for non-null values concisely.\n\n```csharp\nobject obj = \"data\";\nif (obj is not null) { /* Proceed with non-null object */ }\n```"
+      },
+      {
+        "name": "Null Conditional Operator",
+        "example": "The ?. operator safely accesses members, returning null if the receiver is null.\n\n```csharp\nstring text = null;\nint? length = text?.Length;\n```"
+      },
+      {
+        "name": "Returning Multiple Values with Tuples",
+        "example": "Return multiple values from a method using named tuples.\n\n```csharp\npublic (int Min, int Max) FindMinMax(int[] numbers)\n{\n    int min = numbers.Min();\n    int max = numbers.Max();\n    return (min, max);\n}\n```"
+      },
+      {
+        "name": "Span<T> for Performance",
+        "example": "Span<T> allows efficient, memory-safe access to contiguous memory regions.\n\n```csharp\nSpan<int> numbers = stackalloc int[5] { 1, 2, 3, 4, 5 };\n// Use 'numbers' without heap allocation\n```"
+      },
+      {
+        "name": "Memory<T> Usage",
+        "example": "Memory<T> represents contiguous memory and can be used in asynchronous operations.\n\n```csharp\nMemory<byte> buffer = new byte[1024];\n// Pass 'buffer' to async methods without copying data\n```"
+      },
+      {
+        "name": "Using ValueTask for Efficiency",
+        "example": "ValueTask reduces allocations in high-performance async code when results are often available synchronously.\n\n```csharp\npublic ValueTask<int> GetNumberAsync(bool quick)\n{\n    if (quick) return new ValueTask<int>(42);\n    return new ValueTask<int>(Task.Run(() => 42));\n}\n```"
+      },
+      {
+        "name": "Thread-safe Collections with ConcurrentDictionary",
+        "example": "ConcurrentDictionary provides safe access in multi-threaded scenarios.\n\n```csharp\nvar dict = new ConcurrentDictionary<int, string>();\ndict.TryAdd(1, \"One\");\n```"
+      },
+      {
+        "name": "Immutable Collections",
+        "example": "Immutable collections from System.Collections.Immutable help avoid side effects.\n\n```csharp\nusing System.Collections.Immutable;\n\nvar list = ImmutableList.Create<int>(1, 2, 3);\nvar newList = list.Add(4);\n```"
+      },
+      {
+        "name": "Polymorphism with Virtual and Override",
+        "example": "Virtual methods allow derived classes to provide custom behavior.\n\n```csharp\npublic class Animal {\n    public virtual string Speak() => \"...\";\n}\n\npublic class Dog : Animal {\n    public override string Speak() => \"Bark\";\n}\n```"
+      },
+      {
+        "name": "Explicit Interface Implementation",
+        "example": "Explicitly implement interface members to hide them from the public API.\n\n```csharp\npublic interface IPrintable { void Print(); }\n\npublic class Document : IPrintable {\n    void IPrintable.Print() { /* Print logic */ }\n}\n```"
+      },
+      {
+        "name": "Partial Classes and Methods",
+        "example": "Split a class across multiple files using partial classes and methods.\n\n```csharp\n// File1.cs\npublic partial class MyClass {\n    partial void OnInitialize();\n    public void Initialize() => OnInitialize();\n}\n\n// File2.cs\npublic partial class MyClass {\n    partial void OnInitialize() { /* Initialization */ }\n}\n```"
+      },
+      {
+        "name": "Dispose Pattern Implementation",
+        "example": "Implement IDisposable to free unmanaged resources correctly.\n\n```csharp\npublic class ResourceHolder : IDisposable\n{\n    private bool _disposed;\n    public void Dispose()\n    {\n        if (!_disposed) {\n            // Clean up resources\n            _disposed = true;\n        }\n        GC.SuppressFinalize(this);\n    }\n    ~ResourceHolder() => Dispose();\n}\n```"
+      },
+      {
+        "name": "Locking for Thread Safety",
+        "example": "Use the lock keyword to synchronize access to shared resources.\n\n```csharp\nprivate readonly object _lock = new object();\npublic void ThreadSafeMethod()\n{\n    lock (_lock) {\n        // Critical section\n    }\n}\n```"
+      },
+      {
+        "name": "Lazy Initialization",
+        "example": "Lazy<T> defers object creation until it is needed.\n\n```csharp\nprivate readonly Lazy<HeavyObject> _lazyObj = new Lazy<HeavyObject>(() => new HeavyObject());\n\npublic HeavyObject Obj => _lazyObj.Value;\n```"
+      },
+      {
+        "name": "Singleton Pattern",
+        "example": "Implement a thread-safe singleton using lazy initialization.\n\n```csharp\npublic sealed class Singleton\n{\n    private static readonly Lazy<Singleton> _instance = new Lazy<Singleton>(() => new Singleton());\n    public static Singleton Instance => _instance.Value;\n    private Singleton() { }\n}\n```"
+      },
+      {
+        "name": "Factory Pattern",
+        "example": "Encapsulate object creation using a factory method.\n\n```csharp\npublic abstract class Product { }\npublic class ConcreteProduct : Product { }\n\npublic static class ProductFactory\n{\n    public static Product CreateProduct() => new ConcreteProduct();\n}\n```"
+      },
+      {
+        "name": "Strategy Pattern",
+        "example": "Use the strategy pattern to select an algorithm at runtime.\n\n```csharp\npublic interface ISortingStrategy { void Sort(int[] array); }\n\npublic class QuickSort : ISortingStrategy {\n    public void Sort(int[] array) { /* Quick sort logic */ }\n}\n\npublic class SortedContext\n{\n    private readonly ISortingStrategy _strategy;\n    public SortedContext(ISortingStrategy strategy) => _strategy = strategy;\n    public void SortArray(int[] array) => _strategy.Sort(array);\n}\n```"
+      },
+      {
+        "name": "Observer Pattern",
+        "example": "Implement the observer pattern to allow objects to subscribe to events.\n\n```csharp\npublic interface IObserver { void Update(); }\n\npublic class Subject\n{\n    private readonly List<IObserver> _observers = new();\n    public void Attach(IObserver observer) => _observers.Add(observer);\n    public void Notify() { foreach (var obs in _observers) obs.Update(); }\n}\n```"
+      },
+      {
+        "name": "Decorator Pattern",
+        "example": "Use decorators to add behavior to objects dynamically.\n\n```csharp\npublic interface IService { void Execute(); }\n\npublic class BaseService : IService {\n    public void Execute() { /* Base execution */ }\n}\n\npublic class ServiceDecorator : IService {\n    private readonly IService _inner;\n    public ServiceDecorator(IService inner) => _inner = inner;\n    public void Execute() {\n        // Additional behavior\n        _inner.Execute();\n    }\n}\n```"
+      },
+      {
+        "name": "Parallel Programming with TPL",
+        "example": "Use Parallel.ForEach for simple parallel execution.\n\n```csharp\nvar items = Enumerable.Range(0, 10);\nParallel.ForEach(items, item => {\n    // Process each item in parallel\n});\n```"
+      },
+      {
+        "name": "Parallel LINQ (PLINQ)",
+        "example": "PLINQ enables parallel processing of LINQ queries for performance.\n\n```csharp\nvar results = Enumerable.Range(1, 1000)\n    .AsParallel()\n    .Where(n => n % 2 == 0)\n    .ToArray();\n```"
+      },
+      {
+        "name": "Custom Exception Creation",
+        "example": "Create custom exceptions to represent domain-specific errors.\n\n```csharp\npublic class MyCustomException : Exception\n{\n    public MyCustomException(string message) : base(message) { }\n}\n```"
+      },
+      {
+        "name": "Expression Trees Compilation",
+        "example": "Build and compile expression trees for dynamic code generation.\n\n```csharp\nExpression<Func<int, int>> expr = num => num * num;\nvar square = expr.Compile();\n// square(5) returns 25\n```"
+      },
+      {
+        "name": "Using C# Source Generators",
+        "example": "Source generators analyze your code and generate additional source at compile time.\n\n```csharp\n// Minimal example: create an attribute for auto-generation\n[AttributeUsage(AttributeTargets.Class)]\npublic class AutoNotifyAttribute : Attribute { }\n\n// The generator (in a separate project) would scan for this attribute and generate code.\n```"
+      },
+      {
+        "name": "Unit Testing Best Practices with xUnit",
+        "example": "Write small, isolated tests using xUnit for maintainable code.\n\n```csharp\nusing Xunit;\n\npublic class CalculatorTests\n{\n    [Fact]\n    public void Add_ReturnsCorrectSum()\n    {\n        var calc = new Calculator();\n        int result = calc.Add(2, 3);\n        // Assert.Equal(5, result); // Use xUnit assertions\n    }\n}\n```"
+      },
+      {
+        "name": "In Parameters for Structs",
+        "example": "Use `in` parameters to avoid copying large structs.\n\n```csharp\npublic struct LargeStruct {\n    public int A, B, C, D;\n}\n\npublic void Process(in LargeStruct ls) {\n    // ls is passed by reference, read-only\n}\n```"
+      },
+      {
+        "name": "Async Streams with IAsyncEnumerable",
+        "example": "Async streams allow asynchronous iteration over data.\n\n```csharp\npublic async IAsyncEnumerable<int> GetNumbersAsync()\n{\n    for (int i = 0; i < 5; i++) {\n        await Task.Delay(100); // Simulate async work\n        yield return i;\n    }\n}\n```"
+      },
+      {
+        "name": "CancellationToken in Async Methods",
+        "example": "Use CancellationToken to cancel asynchronous operations.\n\n```csharp\npublic async Task DoWorkAsync(CancellationToken cancellationToken)\n{\n    for (int i = 0; i < 10; i++) {\n        cancellationToken.ThrowIfCancellationRequested();\n        await Task.Delay(100, cancellationToken);\n    }\n}\n```"
+      },
+      {
+        "name": "Yield Return for Custom Iterators",
+        "example": "Yield return simplifies implementing iterators.\n\n```csharp\npublic IEnumerable<int> GetEvenNumbers(int max)\n{\n    for (int i = 0; i <= max; i++) {\n        if (i % 2 == 0) yield return i;\n    }\n}\n```"
+      },
+      {
+        "name": "Type Pattern Matching in If Statement",
+        "example": "Type pattern matching simplifies type checking and casting.\n\n```csharp\nobject obj = \"Hello\";\nif (obj is string s) {\n    // s is already cast to string\n}\n```"
+      },
+      {
+        "name": "Null-Forgiving Operator",
+        "example": "Use the null-forgiving operator (!) to suppress nullable warnings.\n\n```csharp\n#nullable enable\nstring? maybeNull = GetValue();\nstring value = maybeNull!; // Assert non-null\n\nstring? GetValue() => \"Not null\";\n#nullable disable\n```"
+      },
+      {
+        "name": "Implementing IComparable",
+        "example": "Implement IComparable for custom sorting.\n\n```csharp\npublic class Person : IComparable<Person>\n{\n    public string Name { get; set; }\n    public int CompareTo(Person other) => Name.CompareTo(other.Name);\n}\n```"
+      },
+      {
+        "name": "Implementing IEquatable",
+        "example": "Implement IEquatable for value equality.\n\n```csharp\npublic class Product : IEquatable<Product>\n{\n    public int Id { get; set; }\n    public bool Equals(Product other) => other != null && Id == other.Id;\n}\n```"
+      },
+      {
+        "name": "System.Text.Json Serialization",
+        "example": "Serialize and deserialize objects using System.Text.Json.\n\n```csharp\nusing System.Text.Json;\n\nvar person = new { Name = \"Alice\", Age = 30 };\nstring json = JsonSerializer.Serialize(person);\nvar deserialized = JsonSerializer.Deserialize<dynamic>(json);\n```"
+      },
+      {
+        "name": "Pattern Matching with Property Patterns",
+        "example": "Use property patterns in switch statements for complex matching.\n\n```csharp\npublic record Employee(string Name, int Age);\n\nstring GetCategory(Employee emp) => emp switch {\n    { Age: < 30 } => \"Junior\",\n    { Age: >= 30 } => \"Senior\",\n    _ => \"Unknown\"\n};\n```"
+      },
+      {
+        "name": "Using the ??= Operator",
+        "example": "Use null-coalescing assignment to simplify lazy initialization.\n\n```csharp\nList<int> numbers = null;\nnumbers ??= new List<int>();\nnumbers.Add(1);\n```"
+      },
+      {
+        "name": "Custom Indexers in Classes",
+        "example": "Define indexers to allow array-like access to objects.\n\n```csharp\npublic class Week\n{\n    private string[] days = new string[7];\n    public string this[int index] {\n        get => days[index];\n        set => days[index] = value;\n    }\n}\n```"
+      },
+      {
+        "name": "Using Named Arguments",
+        "example": "Named arguments improve readability in method calls.\n\n```csharp\npublic void Display(string message, int count) { }\n\nDisplay(message: \"Hello\", count: 5);\n```"
+      },
+      {
+        "name": "Using Default Parameter Values",
+        "example": "Default values simplify method overloading.\n\n```csharp\npublic void Log(string message, bool verbose = false) { }\n\nLog(\"Test\");\n```"
+      },
+      {
+        "name": "Tuple Deconstruction in Method Call",
+        "example": "Deconstruct tuples for cleaner variable assignment.\n\n```csharp\n(int sum, int product) = Compute(3, 4);\n\n(int Compute(int a, int b)) => (a + b, a * b);\n```"
+      },
+      {
+        "name": "Record Structs for Value Semantics",
+        "example": "Record structs provide immutability with value semantics.\n\n```csharp\npublic readonly record struct Coordinate(int X, int Y);\n```"
+      },
+      {
+        "name": "Deconstruction in ForEach",
+        "example": "Deconstruct tuples directly in foreach loops.\n\n```csharp\nvar points = new[] { (X:1, Y:2), (X:3, Y:4) };\nforeach (var (x, y) in points) {\n    // Use x and y\n}\n```"
+      },
+      {
+        "name": "Using Interlocked for Thread Safety",
+        "example": "Interlocked ensures atomic operations for simple counters.\n\n```csharp\nint counter = 0;\nInterlocked.Increment(ref counter);\n```"
+      },
+      {
+        "name": "Using SemaphoreSlim for Async Lock",
+        "example": "SemaphoreSlim provides asynchronous locking.\n\n```csharp\nprivate readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);\n\npublic async Task CriticalSectionAsync()\n{\n    await _semaphore.WaitAsync();\n    try { /* Protected code */ }\n    finally { _semaphore.Release(); }\n}\n```"
+      },
+      {
+        "name": "Implementing Custom Enumerator",
+        "example": "Implement IEnumerable and IEnumerator for custom collections.\n\n```csharp\npublic class Range : IEnumerable<int>\n{\n    private int _start, _end;\n    public Range(int start, int end) { _start = start; _end = end; }\n    public IEnumerator<int> GetEnumerator() {\n        for (int i = _start; i <= _end; i++) yield return i;\n    }\n    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();\n}\n```"
+      },
+      {
+        "name": "Using ThreadLocal<T>",
+        "example": "ThreadLocal<T> provides data unique to each thread.\n\n```csharp\nThreadLocal<int> threadId = new ThreadLocal<int>(() => Thread.CurrentThread.ManagedThreadId);\nint id = threadId.Value;\n```"
+      },
+      {
+        "name": "Using System.Threading.Channels",
+        "example": "Channels facilitate producer-consumer scenarios with async streams.\n\n```csharp\nvar channel = Channel.CreateUnbounded<int>();\n// Producers write to channel.Writer; consumers read from channel.Reader\n```"
+      },
+      {
+        "name": "Using AggregateException",
+        "example": "AggregateException handles multiple exceptions from parallel tasks.\n\n```csharp\ntry {\n    Task.WaitAll(task1, task2);\n} catch (AggregateException ex) {\n    // Process ex.InnerExceptions\n}\n```"
+      },
+      {
+        "name": "Using AsyncLocal<T>",
+        "example": "AsyncLocal<T> flows data through async calls.\n\n```csharp\nAsyncLocal<string> context = new AsyncLocal<string>();\ncontext.Value = \"User123\";\n```"
+      },
+      {
+        "name": "Switch Expression with Tuple Patterns",
+        "example": "Switch expressions can match tuple patterns for multi-value checks.\n\n```csharp\nstring GetStatus((bool, bool) state) => state switch {\n    (true, true) => \"Both true\",\n    (true, false) => \"First true\",\n    (false, true) => \"Second true\",\n    _ => \"Both false\"\n};\n```"
+      },
+      {
+        "name": "Covariant Return Types",
+        "example": "Override methods with more derived return types for flexibility.\n\n```csharp\npublic class Base { }\npublic class Derived : Base { }\npublic class Factory\n{\n    public virtual Base Create() => new Base();\n}\npublic class DerivedFactory : Factory\n{\n    public override Derived Create() => new Derived();\n}\n```"
+      },
+      {
+        "name": "Overriding Equals and GetHashCode",
+        "example": "Properly override equality members for value comparison.\n\n```csharp\npublic class Point {\n    public int X { get; set; }\n    public int Y { get; set; }\n    public override bool Equals(object obj) => obj is Point p && X == p.X && Y == p.Y;\n    public override int GetHashCode() => HashCode.Combine(X, Y);\n}\n```"
+      },
+      {
+        "name": "Custom Conversion Operators",
+        "example": "Define implicit or explicit conversions for custom types.\n\n```csharp\npublic class Celsius {\n    public double Degrees { get; set; }\n    public static implicit operator Fahrenheit(Celsius c) => new Fahrenheit { Degrees = c.Degrees * 9 / 5 + 32 };\n}\npublic class Fahrenheit { public double Degrees { get; set; } }\n```"
+      },
+      {
+        "name": "Custom Attributes",
+        "example": "Create custom attributes to add metadata to code.\n\n```csharp\n[AttributeUsage(AttributeTargets.Class)]\npublic class DocumentationAttribute : Attribute {\n    public string Description { get; }\n    public DocumentationAttribute(string description) => Description = description;\n}\n\n[Documentation(\"Example class\")]\npublic class Sample { }\n```"
+      },
+      {
+        "name": "INotifyPropertyChanged Implementation",
+        "example": "Implement INotifyPropertyChanged for data binding.\n\n```csharp\npublic class ObservableObject : INotifyPropertyChanged {\n    public event PropertyChangedEventHandler PropertyChanged;\n    protected void OnPropertyChanged(string propertyName) => \n        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));\n}\n```"
+      },
+      {
+        "name": "Using Caller Info Attributes",
+        "example": "Caller attributes simplify logging and debugging.\n\n```csharp\npublic void Log(string message, [CallerMemberName] string caller = \"\") {\n    // Log message with caller info\n}\n```"
+      },
+      {
+        "name": "Async Main Method",
+        "example": "Define async Main for asynchronous entry points.\n\n```csharp\npublic static async Task Main(string[] args) {\n    await Task.Delay(100);\n}\n```"
+      },
+      {
+        "name": "Static Local Functions",
+        "example": "Static local functions avoid capturing outer variables.\n\n```csharp\npublic void Process() {\n    static int Square(int x) => x * x;\n    int result = Square(4);\n}\n```"
+      },
+      {
+        "name": "Conditional Attributes",
+        "example": "Conditional attributes control method calls in different builds.\n\n```csharp\n[Conditional(\"DEBUG\")]\npublic void DebugLog(string message) { }\n```"
+      },
+      {
+        "name": "Custom Dynamic Object with IDynamicMetaObjectProvider",
+        "example": "Implement dynamic behavior by extending DynamicObject.\n\n```csharp\npublic class DynamicDictionary : DynamicObject {\n    private readonly Dictionary<string, object> _dict = new();\n    public override bool TryGetMember(GetMemberBinder binder, out object result) => \n        _dict.TryGetValue(binder.Name, out result);\n    public override bool TrySetMember(SetMemberBinder binder, object value) {\n        _dict[binder.Name] = value; return true;\n    }\n}\n```"
+      },
+      {
+        "name": "Extension Methods on IEnumerable",
+        "example": "Extend IEnumerable with custom LINQ-like methods.\n\n```csharp\npublic static class EnumerableExtensions {\n    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source) where T : class =>\n        source.Where(item => item != null)!;\n}\n```"
+      },
+      {
+        "name": "Using 'using' Declaration",
+        "example": "Simplify resource management with the using declaration (C# 8+).\n\n```csharp\nusing var stream = new FileStream(\"file.txt\", FileMode.Open);\n// stream is disposed at end of scope\n```"
+      },
+      {
+        "name": "Raw String Literals (C# 11)",
+        "example": "Use raw string literals for multi-line strings without escape sequences.\n\n```csharp\nstring json = \"\"\"\n{\n  \"name\": \"value\"\n}\n\"\"\";\n```"
+      },
+      {
+        "name": "Static Constructors for Initialization",
+        "example": "Static constructors initialize static members before use.\n\n```csharp\npublic class Config {\n    public static readonly string ConnectionString;\n    static Config() {\n        ConnectionString = \"Data Source=...\";\n    }\n}\n```"
+      },
+      {
+        "name": "Sealed Classes for Inheritance Prevention",
+        "example": "Seal classes to prevent further inheritance.\n\n```csharp\npublic sealed class Utility { }\n```"
+      },
+      {
+        "name": "Using the nameof Operator",
+        "example": "The nameof operator helps with refactoring and error messages.\n\n```csharp\npublic void Validate(string parameter) {\n    if (parameter == null) throw new ArgumentNullException(nameof(parameter));\n}\n```"
+      },
+      {
+        "name": "Expression-bodied Constructors",
+        "example": "Use expression-bodied syntax for concise constructors.\n\n```csharp\npublic class Box {\n    public int Length { get; }\n    public Box(int length) => Length = length;\n}\n```"
+      },
+      {
+        "name": "Discards in Pattern Matching",
+        "example": "Use discards (_) to ignore irrelevant pattern parts.\n\n```csharp\npublic string GetInfo(object obj) => obj switch {\n    (int, _) => \"Tuple with int\",\n    _ => \"Other\"\n};\n```"
+      },
+      {
+        "name": "Chained Null-conditional Operators",
+        "example": "Chain null-conditional operators for safe member access.\n\n```csharp\nvar length = myObj?.Property?.Length;\n```"
+      },
+      {
+        "name": "Conditional Access with Indexers",
+        "example": "Use null-conditional operator with indexers to avoid null refs.\n\n```csharp\nvar item = myList?[0];\n```"
+      },
+      {
+        "name": "Asynchronous Exception Handling",
+        "example": "Handle exceptions in async methods with try-catch.\n\n```csharp\npublic async Task ExecuteAsync() {\n    try {\n        await Task.Run(() => throw new Exception());\n    } catch (Exception ex) {\n        // Handle exception\n    }\n}\n```"
+      },
+      {
+        "name": "Immutable Collections: ImmutableDictionary",
+        "example": "ImmutableDictionary prevents accidental modifications.\n\n```csharp\nusing System.Collections.Immutable;\n\nvar dict = ImmutableDictionary.CreateBuilder<int, string>();\ndict.Add(1, \"One\");\nvar immutableDict = dict.ToImmutable();\n```"
+      },
+      {
+        "name": "Static Lambdas to Avoid Captures",
+        "example": "Static lambdas don't capture outer variables, improving performance.\n\n```csharp\nFunc<int, int> square = static x => x * x;\n```"
+      },
+      {
+        "name": "Caller Argument Expression (C# 10)",
+        "example": "Use CallerArgumentExpression to capture the expression passed to a parameter.\n\n```csharp\npublic void CheckNotNull(object obj, [CallerArgumentExpression(\"obj\")] string paramName = null) {\n    if (obj == null) throw new ArgumentNullException(paramName);\n}\n```"
+      },
+      {
+        "name": "Using 'with' Expressions to Clone Records",
+        "example": "Use 'with' to create modified copies of immutable records.\n\n```csharp\npublic record Person(string Name, int Age);\n\nvar person1 = new Person(\"Alice\", 30);\nvar person2 = person1 with { Age = 31 };\n```"
+      }
+    ]
+  }
+  

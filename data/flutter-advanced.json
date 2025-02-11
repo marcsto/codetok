@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Dart Futures and async/await",
+        "example": "Async functions allow non-blocking operations.\n\n```dart\nFuture<String> fetchData() async {\n  // Simulate network delay\n  await Future.delayed(Duration(seconds: 2));\n  return 'Data loaded';\n}\n\n// Usage example\nvoid loadData() async {\n  String data = await fetchData();\n  // Data is now available\n}\n```"
+      },
+      {
+        "name": "Dart Streams and StreamBuilder",
+        "example": "Streams emit multiple asynchronous events.\n\n```dart\nStream<int> counterStream() async* {\n  for (int i = 1; i <= 5; i++) {\n    await Future.delayed(Duration(seconds: 1));\n    yield i; // Emit count\n  }\n}\n\n// Widget example using StreamBuilder\nStreamBuilder<int>(\n  stream: counterStream(),\n  builder: (context, snapshot) {\n    if (!snapshot.hasData) return CircularProgressIndicator();\n    return Text('Count: ${snapshot.data}');\n  },\n);\n```"
+      },
+      {
+        "name": "Custom Painter for Drawing",
+        "example": "CustomPainter enables drawing custom graphics.\n\n```dart\nclass MyPainter extends CustomPainter {\n  @override\n  void paint(Canvas canvas, Size size) {\n    final paint = Paint()..color = Colors.blue;\n    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 50, paint);\n  }\n\n  @override\n  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;\n}\n\n// Usage in a widget\nCustomPaint(\n  size: Size(200, 200),\n  painter: MyPainter(),\n);\n```"
+      },
+      {
+        "name": "Animation with AnimationController and Tween",
+        "example": "Use AnimationController and Tween for smooth animations.\n\n```dart\nclass MyAnimatedWidget extends StatefulWidget {\n  @override\n  _MyAnimatedWidgetState createState() => _MyAnimatedWidgetState();\n}\n\nclass _MyAnimatedWidgetState extends State<MyAnimatedWidget>\n    with SingleTickerProviderStateMixin {\n  late AnimationController _controller;\n  late Animation<double> _animation;\n\n  @override\n  void initState() {\n    super.initState();\n    _controller = AnimationController(\n      duration: Duration(seconds: 2),\n      vsync: this,\n    )..repeat(reverse: true);\n    _animation = Tween<double>(begin: 0, end: 100).animate(_controller);\n  }\n\n  @override\n  void dispose() {\n    _controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return AnimatedBuilder(\n      animation: _animation,\n      builder: (context, child) {\n        return Container(\n          width: _animation.value,\n          height: _animation.value,\n          color: Colors.red,\n        );\n      },\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Provider for State Management",
+        "example": "Use Provider to manage and update state.\n\n```dart\nclass Counter with ChangeNotifier {\n  int _count = 0;\n  int get count => _count;\n\n  void increment() {\n    _count++;\n    notifyListeners(); // Notify listeners to rebuild\n  }\n}\n\n// Wrap MaterialApp with ChangeNotifierProvider\nChangeNotifierProvider(\n  create: (_) => Counter(),\n  child: MyApp(),\n);\n```"
+      },
+      {
+        "name": "Bloc Pattern Example",
+        "example": "Bloc pattern separates business logic from UI.\n\n```dart\n// Event\nabstract class CounterEvent {}\nclass IncrementEvent extends CounterEvent {}\n\n// Bloc\nclass CounterBloc extends Bloc<CounterEvent, int> {\n  CounterBloc() : super(0) {\n    on<IncrementEvent>((event, emit) => emit(state + 1));\n  }\n}\n\n// Usage in a widget\nBlocProvider(\n  create: (_) => CounterBloc(),\n  child: BlocBuilder<CounterBloc, int>(\n    builder: (context, count) {\n      return Text('Count: $count');\n    },\n  ),\n);\n```"
+      },
+      {
+        "name": "Dependency Injection with GetIt",
+        "example": "GetIt enables dependency injection for services.\n\n```dart\nfinal getIt = GetIt.instance;\n\nclass ApiService {\n  // Service implementation\n}\n\nvoid setup() {\n  getIt.registerLazySingleton<ApiService>(() => ApiService());\n}\n\n// Retrieve service\nvar api = getIt<ApiService>();\n```"
+      },
+      {
+        "name": "Extension Methods in Dart",
+        "example": "Extensions add functionality to existing types.\n\n```dart\nextension StringExtensions on String {\n  String get capitalize => this[0].toUpperCase() + substring(1);\n}\n\n// Usage\nfinal name = 'flutter';\nfinal capitalized = name.capitalize;\n```"
+      },
+      {
+        "name": "Mixin Usage in Dart",
+        "example": "Mixins allow code reuse across classes.\n\n```dart\nmixin Logger {\n  void log(String message) {\n    // Log message\n  }\n}\n\nclass MyService with Logger {\n  void doSomething() {\n    log('Action performed');\n  }\n}\n```"
+      },
+      {
+        "name": "Null Safety Best Practices",
+        "example": "Leverage Dart's null safety to prevent runtime errors.\n\n```dart\nString? nullableText;\nlate final String nonNullableText;\n\nvoid init() {\n  nonNullableText = 'Initialized';\n}\n\nString greet(String? name) {\n  return 'Hello, ${name ?? 'Guest'}'; // Use null-aware operator\n}\n```"
+      },
+      {
+        "name": "Generics in Dart",
+        "example": "Generics enable type safety for collections and methods.\n\n```dart\nclass Box<T> {\n  T value;\n  Box(this.value);\n}\n\nvar intBox = Box<int>(10);\nvar strBox = Box<String>('Dart');\n```"
+      },
+      {
+        "name": "Custom Theme Extension",
+        "example": "Extend ThemeData to include custom properties.\n\n```dart\nextension CustomTheme on ThemeData {\n  Color get customColor => Colors.teal;\n}\n\n// Usage in a widget\nContainer(\n  color: Theme.of(context).customColor,\n);\n```"
+      },
+      {
+        "name": "Advanced Routing with Navigator 2.0",
+        "example": "Navigator 2.0 offers declarative routing.\n\n```dart\nclass MyRouterDelegate extends RouterDelegate<PageConfiguration>\n    with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {\n  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();\n\n  @override\n  Widget build(BuildContext context) {\n    return Navigator(\n      key: navigatorKey,\n      pages: [MaterialPage(child: HomeScreen())],\n      onPopPage: (route, result) {\n        return route.didPop(result);\n      },\n    );\n  }\n\n  @override\n  Future<void> setNewRoutePath(PageConfiguration configuration) async {}\n}\n```"
+      },
+      {
+        "name": "Custom InheritedWidget",
+        "example": "InheritedWidget propagates data down the widget tree.\n\n```dart\nclass MyInheritedWidget extends InheritedWidget {\n  final int data;\n  const MyInheritedWidget({Key? key, required this.data, required Widget child})\n      : super(key: key, child: child);\n\n  static MyInheritedWidget? of(BuildContext context) =>\n      context.dependOnInheritedWidgetOfExactType<MyInheritedWidget>();\n\n  @override\n  bool updateShouldNotify(MyInheritedWidget oldWidget) => data != oldWidget.data;\n}\n\n// Usage in widget tree\nMyInheritedWidget(\n  data: 42,\n  child: MyChildWidget(),\n);\n```"
+      },
+      {
+        "name": "ValueNotifier and ValueListenableBuilder",
+        "example": "ValueNotifier provides simple reactive programming.\n\n```dart\nValueNotifier<int> counter = ValueNotifier<int>(0);\n\n// Usage in widget\nValueListenableBuilder<int>(\n  valueListenable: counter,\n  builder: (context, value, child) {\n    return Text('Counter: $value');\n  },\n);\n\n// Update counter\ncounter.value++;\n```"
+      },
+      {
+        "name": "AnimatedBuilder for Custom Animations",
+        "example": "AnimatedBuilder rebuilds on animation value changes.\n\n```dart\nclass RotateWidget extends StatefulWidget {\n  @override\n  _RotateWidgetState createState() => _RotateWidgetState();\n}\n\nclass _RotateWidgetState extends State<RotateWidget>\n    with SingleTickerProviderStateMixin {\n  late AnimationController _controller;\n\n  @override\n  void initState() {\n    _controller = AnimationController(duration: Duration(seconds: 3), vsync: this)\n      ..repeat();\n    super.initState();\n  }\n\n  @override\n  void dispose() {\n    _controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return AnimatedBuilder(\n      animation: _controller,\n      child: Icon(Icons.sync),\n      builder: (context, child) {\n        return Transform.rotate(\n          angle: _controller.value * 2 * 3.1416,\n          child: child,\n        );\n      },\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Platform Channels for Native Communication",
+        "example": "Platform channels enable communication with native code.\n\n```dart\nimport 'package:flutter/services.dart';\n\nclass NativeBridge {\n  static const platform = MethodChannel('com.example/native');\n\n  Future<String> getNativeData() async {\n    try {\n      final String result = await platform.invokeMethod('getData');\n      return result;\n    } catch (e) {\n      return 'Error';\n    }\n  }\n}\n```"
+      },
+      {
+        "name": "Using Isolates and compute Function",
+        "example": "Isolates offload heavy computations from the UI thread.\n\n```dart\n// Heavy computation function\nint heavyTask(int n) {\n  return n * n;\n}\n\n// Using compute to run in a separate isolate\nFuture<int> runHeavyTask(int value) async {\n  return await compute(heavyTask, value);\n}\n```"
+      },
+      {
+        "name": "Slivers for Custom Scroll Effects",
+        "example": "Slivers allow custom scrollable areas.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverAppBar(\n      expandedHeight: 150,\n      flexibleSpace: FlexibleSpaceBar(title: Text('SliverAppBar')),\n    ),\n    SliverList(\n      delegate: SliverChildBuilderDelegate(\n        (context, index) => ListTile(title: Text('Item #$index')),\n        childCount: 20,\n      ),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "Responsive Layout with LayoutBuilder and MediaQuery",
+        "example": "Adapt UI based on screen size.\n\n```dart\nLayoutBuilder(\n  builder: (context, constraints) {\n    if (constraints.maxWidth > 600) {\n      return Row(\n        children: [Expanded(child: Text('Wide Layout'))],\n      );\n    } else {\n      return Column(\n        children: [Text('Narrow Layout')],\n      );\n    }\n  },\n);\n```"
+      },
+      {
+        "name": "Widget Testing Best Practices",
+        "example": "Use widget tests to verify UI behavior.\n\n```dart\ntestWidgets('MyWidget has a title', (WidgetTester tester) async {\n  await tester.pumpWidget(MaterialApp(home: MyWidget()));\n  expect(find.text('My Title'), findsOneWidget);\n});\n```"
+      },
+      {
+        "name": "Unit Testing in Flutter",
+        "example": "Unit tests verify individual functions.\n\n```dart\nint add(int a, int b) => a + b;\n\nvoid main() {\n  test('addition test', () {\n    expect(add(2, 3), 5);\n  });\n}\n```"
+      },
+      {
+        "name": "Integration Testing Example",
+        "example": "Integration tests simulate real user interactions.\n\n```dart\n// Example using flutter_test and integration_test packages\nvoid main() {\n  IntegrationTestWidgetsFlutterBinding.ensureInitialized();\n\n  testWidgets('full app test', (tester) async {\n    await tester.pumpWidget(MyApp());\n    // Simulate tap and navigation\n    await tester.tap(find.byIcon(Icons.add));\n    await tester.pumpAndSettle();\n    // Verify outcome\n    expect(find.text('1'), findsOneWidget);\n  });\n}\n```"
+      },
+      {
+        "name": "Using const Constructors for Performance",
+        "example": "Use const constructors to reduce rebuilds.\n\n```dart\nclass MyWidget extends StatelessWidget {\n  const MyWidget({Key? key}) : super(key: key);\n\n  @override\n  Widget build(BuildContext context) {\n    return const Text('Hello');\n  }\n}\n```"
+      },
+      {
+        "name": "Widget Keys and State Preservation",
+        "example": "Keys preserve state when widgets reorder.\n\n```dart\nListView(\n  children: [\n    Text('Item 1', key: ValueKey('item1')),\n    Text('Item 2', key: ValueKey('item2')),\n  ],\n);\n```"
+      },
+      {
+        "name": "Debugging with Flutter DevTools",
+        "example": "DevTools help diagnose performance and layout issues.\n\n```dart\n// Launch DevTools with:\n// flutter pub global run devtools\n// Connect via your browser at http://localhost:9100\n```"
+      },
+      {
+        "name": "Advanced Error Handling with FlutterError.onError",
+        "example": "Customize error handling in Flutter.\n\n```dart\nvoid main() {\n  FlutterError.onError = (FlutterErrorDetails details) {\n    // Log error or report to a service\n  };\n  runApp(MyApp());\n}\n```"
+      },
+      {
+        "name": "Setting Up Logging with Logger Package",
+        "example": "Use the logger package for structured logging.\n\n```dart\nimport 'package:logger/logger.dart';\n\nfinal logger = Logger();\n\nvoid doSomething() {\n  logger.i('Info log');\n  logger.e('Error log');\n}\n```"
+      },
+      {
+        "name": "Custom Route Transitions using PageRouteBuilder",
+        "example": "Define custom page transitions for navigation.\n\n```dart\nNavigator.of(context).push(PageRouteBuilder(\n  pageBuilder: (context, animation, secondaryAnimation) => NextPage(),\n  transitionsBuilder: (context, animation, secondaryAnimation, child) {\n    final tween = Tween(begin: Offset(1, 0), end: Offset.zero);\n    return SlideTransition(\n      position: animation.drive(tween),\n      child: child,\n    );\n  },\n));\n```"
+      },
+      {
+        "name": "Hero Animations Advanced Techniques",
+        "example": "Hero animations create smooth transitions between screens.\n\n```dart\n// Hero widget on source screen\nHero(\n  tag: 'hero-tag',\n  child: Image.asset('image.png'),\n);\n\n// Hero widget on destination screen\nHero(\n  tag: 'hero-tag',\n  child: Image.asset('image.png'),\n);\n```"
+      },
+      {
+        "name": "ReorderableListView for Dynamic Lists",
+        "example": "ReorderableListView allows drag-and-drop reordering.\n\n```dart\nReorderableListView(\n  children: List.generate(5, (index) => ListTile(\n    key: ValueKey(index),\n    title: Text('Item $index'),\n  )),\n  onReorder: (oldIndex, newIndex) {\n    // Handle reordering logic\n  },\n);\n```"
+      },
+      {
+        "name": "AnimatedList for Dynamic Item Animations",
+        "example": "AnimatedList animates list item insertions and removals.\n\n```dart\nfinal GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();\n\nAnimatedList(\n  key: listKey,\n  initialItemCount: items.length,\n  itemBuilder: (context, index, animation) {\n    return SizeTransition(\n      sizeFactor: animation,\n      child: ListTile(title: Text(items[index])),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Advanced Gesture Detection with GestureDetector",
+        "example": "GestureDetector handles complex touch interactions.\n\n```dart\nGestureDetector(\n  onDoubleTap: () {\n    // Handle double tap\n  },\n  child: Container(\n    color: Colors.blue,\n    width: 100,\n    height: 100,\n  ),\n);\n```"
+      },
+      {
+        "name": "Custom RenderBox for Custom Layouts",
+        "example": "Create custom layout by extending RenderBox.\n\n```dart\nclass MyRenderBox extends RenderBox {\n  @override\n  void performLayout() {\n    size = constraints.biggest; // Use available space\n  }\n  \n  @override\n  void paint(PaintingContext context, Offset offset) {\n    final paint = Paint()..color = Colors.green;\n    context.canvas.drawRect(offset & size, paint);\n  }\n}\n```"
+      },
+      {
+        "name": "StreamController for Manual Stream Control",
+        "example": "StreamController manually manages stream events.\n\n```dart\nfinal controller = StreamController<int>();\n\n// Add data\ncontroller.sink.add(10);\n\n// Listen to stream\ncontroller.stream.listen((data) {\n  // Process data\n});\n\n// Dispose controller\ncontroller.close();\n```"
+      },
+      {
+        "name": "Advanced ChangeNotifier with Provider",
+        "example": "Advanced state management with ChangeNotifier.\n\n```dart\nclass AdvancedCounter extends ChangeNotifier {\n  int _count = 0;\n  int get count => _count;\n  \n  void increment() {\n    _count++;\n    notifyListeners();\n  }\n}\n\n// Provider setup remains similar to basic Provider.\n```"
+      },
+      {
+        "name": "Using compute for Heavy Computation",
+        "example": "Offload heavy tasks using compute.\n\n```dart\nint heavyComputation(int n) {\n  return n * n;\n}\n\nFuture<int> computeSquare(int value) async {\n  return await compute(heavyComputation, value);\n}\n```"
+      },
+      {
+        "name": "Using FutureBuilder for Asynchronous Data",
+        "example": "FutureBuilder rebuilds widget when a Future completes.\n\n```dart\nFuture<String> fetchMessage() async {\n  return 'Hello from Future';\n}\n\nFutureBuilder<String>(\n  future: fetchMessage(),\n  builder: (context, snapshot) {\n    if (snapshot.connectionState == ConnectionState.waiting)\n      return CircularProgressIndicator();\n    if (snapshot.hasError) return Text('Error');\n    return Text(snapshot.data!);\n  },\n);\n```"
+      },
+      {
+        "name": "Custom NavigatorObserver Implementation",
+        "example": "NavigatorObserver monitors route changes.\n\n```dart\nclass MyNavigatorObserver extends NavigatorObserver {\n  @override\n  void didPush(Route route, Route? previousRoute) {\n    // Route pushed\n  }\n  \n  @override\n  void didPop(Route route, Route? previousRoute) {\n    // Route popped\n  }\n}\n\n// Attach observer in MaterialApp\nMaterialApp(\n  navigatorObservers: [MyNavigatorObserver()],\n  home: HomeScreen(),\n);\n```"
+      },
+      {
+        "name": "Custom PageRoute Transitions",
+        "example": "PageRouteBuilder customizes page transitions.\n\n```dart\nNavigator.of(context).push(PageRouteBuilder(\n  pageBuilder: (context, animation, secondaryAnimation) => DetailPage(),\n  transitionsBuilder: (context, animation, secondaryAnimation, child) {\n    return FadeTransition(\n      opacity: animation,\n      child: child,\n    );\n  },\n));\n```"
+      },
+      {
+        "name": "SliverAppBar with FlexibleSpace",
+        "example": "SliverAppBar offers collapsible app bars.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverAppBar(\n      expandedHeight: 200,\n      flexibleSpace: FlexibleSpaceBar(\n        title: Text('Collapsible AppBar'),\n      ),\n    ),\n    SliverList(\n      delegate: SliverChildBuilderDelegate(\n        (context, index) => ListTile(title: Text('Item $index')),\n        childCount: 20,\n      ),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "State Restoration with RestorationMixin",
+        "example": "Enable state restoration with RestorationMixin.\n\n```dart\nclass MyRestorableWidget extends StatefulWidget {\n  @override\n  _MyRestorableWidgetState createState() => _MyRestorableWidgetState();\n}\n\nclass _MyRestorableWidgetState extends State<MyRestorableWidget>\n    with RestorationMixin {\n  final RestorableInt _counter = RestorableInt(0);\n\n  @override\n  String get restorationId => 'my_restorable_widget';\n\n  @override\n  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {\n    registerForRestoration(_counter, 'counter');\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Text('Counter: ${_counter.value}');\n  }\n}\n```"
+      },
+      {
+        "name": "Flutter Hooks for State Management",
+        "example": "Flutter Hooks simplify stateful widgets.\n\n```dart\nimport 'package:flutter_hooks/flutter_hooks.dart';\n\nclass HookCounter extends HookWidget {\n  @override\n  Widget build(BuildContext context) {\n    final counter = useState(0);\n\n    return Column(\n      children: [\n        Text('Count: ${counter.value}'),\n        ElevatedButton(\n          onPressed: () => counter.value++,\n          child: Text('Increment'),\n        ),\n      ],\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Complex Forms with Form and TextFormField",
+        "example": "Manage complex forms with validation.\n\n```dart\nfinal _formKey = GlobalKey<FormState>();\n\nForm(\n  key: _formKey,\n  child: Column(\n    children: [\n      TextFormField(\n        validator: (value) {\n          if (value == null || value.isEmpty) return 'Required';\n          return null;\n        },\n      ),\n      ElevatedButton(\n        onPressed: () {\n          if (_formKey.currentState!.validate()) {\n            // Process data\n          }\n        },\n        child: Text('Submit'),\n      ),\n    ],\n  ),\n);\n```"
+      },
+      {
+        "name": "Internationalization (i18n) with Flutter",
+        "example": "Localize apps using Flutter's localization tools.\n\n```dart\n// In pubspec.yaml, add flutter_localizations\n// In MaterialApp:\nMaterialApp(\n  localizationsDelegates: [\n    GlobalMaterialLocalizations.delegate,\n    GlobalWidgetsLocalizations.delegate,\n  ],\n  supportedLocales: [Locale('en'), Locale('es')],\n);\n```"
+      },
+      {
+        "name": "Custom ScrollPhysics Implementation",
+        "example": "Create custom scroll behavior by extending ScrollPhysics.\n\n```dart\nclass CustomScrollPhysics extends ScrollPhysics {\n  const CustomScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);\n\n  @override\n  CustomScrollPhysics applyTo(ScrollPhysics? ancestor) {\n    return CustomScrollPhysics(parent: buildParent(ancestor));\n  }\n\n  @override\n  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {\n    // Modify offset\n    return offset * 0.5;\n  }\n}\n\n// Usage in ListView\nListView(\n  physics: CustomScrollPhysics(),\n  children: List.generate(10, (index) => ListTile(title: Text('Item $index'))),\n);\n```"
+      },
+      {
+        "name": "Advanced List Animations with Implicit Animations",
+        "example": "Implicit animations simplify animated UI changes.\n\n```dart\nAnimatedContainer(\n  duration: Duration(seconds: 1),\n  width: 100,\n  height: 100,\n  color: Colors.blue,\n  // Change properties to animate automatically\n);\n```"
+      },
+      {
+        "name": "Using MediaQuery for Adaptive Layouts",
+        "example": "MediaQuery provides screen dimensions and orientation.\n\n```dart\nWidget build(BuildContext context) {\n  final size = MediaQuery.of(context).size;\n  return Container(\n    width: size.width * 0.8,\n    height: size.height * 0.5,\n    color: Colors.orange,\n  );\n}\n```"
+      },
+      {
+        "name": "Widget Lifecycle and Memory Management",
+        "example": "Manage widget lifecycle with initState and dispose.\n\n```dart\nclass MyLifecycleWidget extends StatefulWidget {\n  @override\n  _MyLifecycleWidgetState createState() => _MyLifecycleWidgetState();\n}\n\nclass _MyLifecycleWidgetState extends State<MyLifecycleWidget> {\n  @override\n  void initState() {\n    super.initState();\n    // Initialization\n  }\n  \n  @override\n  void dispose() {\n    // Cleanup resources\n    super.dispose();\n  }\n  \n  @override\n  Widget build(BuildContext context) {\n    return Container();\n  }\n}\n```"
+      },
+      {
+        "name": "Platform Adaptive Widgets",
+        "example": "Build adaptive UIs for Android and iOS.\n\n```dart\nWidget build(BuildContext context) {\n  if (Theme.of(context).platform == TargetPlatform.iOS) {\n    return CupertinoButton(\n      child: Text('iOS Button'),\n      onPressed: () {},\n    );\n  } else {\n    return ElevatedButton(\n      child: Text('Android Button'),\n      onPressed: () {},\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Custom InheritedModel for Fine-Grained Updates",
+        "example": "InheritedModel allows selective rebuilds based on aspects.\n\n```dart\nclass MyInheritedModel extends InheritedModel<String> {\n  final int value;\n\n  const MyInheritedModel({required this.value, required Widget child}) : super(child: child);\n\n  static MyInheritedModel? of(BuildContext context, String aspect) {\n    return InheritedModel.inheritFrom<MyInheritedModel>(context, aspect: aspect);\n  }\n\n  @override\n  bool updateShouldNotify(MyInheritedModel oldWidget) => value != oldWidget.value;\n\n  @override\n  bool updateShouldNotifyDependent(MyInheritedModel oldWidget, Set<String> dependencies) {\n    return dependencies.contains('value') && value != oldWidget.value;\n  }\n}\n```"
+      },
+      {
+        "name": "Using freezed for Immutable Classes",
+        "example": "Freezed generates immutable classes with union types.\n\n```dart\nimport 'package:freezed_annotation/freezed_annotation.dart';\n\npart 'example.freezed.dart';\n\n@freezed\nclass User with _$User {\n  const factory User({required String name, required int age}) = _User;\n}\n```"
+      },
+      {
+        "name": "Using Equatable for Value Equality",
+        "example": "Equatable simplifies value comparisons in Dart.\n\n```dart\nimport 'package:equatable/equatable.dart';\n\nclass Person extends Equatable {\n  final String name;\n  final int age;\n\n  Person(this.name, this.age);\n\n  @override\n  List<Object> get props => [name, age];\n}\n```"
+      },
+      {
+        "name": "Advanced JSON Serialization with built_value",
+        "example": "built_value provides robust JSON serialization.\n\n```dart\nimport 'package:built_value/built_value.dart';\nimport 'package:built_value/serializer.dart';\n\npart 'book.g.dart';\n\nabstract class Book implements Built<Book, BookBuilder> {\n  String get title;\n\n  Book._();\n  factory Book([void Function(BookBuilder) updates]) = _$Book;\n}\n```"
+      },
+      {
+        "name": "Code Generation with build_runner",
+        "example": "Automate code generation with build_runner.\n\n```bash\nflutter pub run build_runner build\n```"
+      },
+      {
+        "name": "Using Riverpod for State Management",
+        "example": "Riverpod simplifies state management without BuildContext.\n\n```dart\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\n\nfinal counterProvider = StateProvider<int>((ref) => 0);\n\n// Usage in a widget:\nConsumer(builder: (context, watch, child) {\n  final count = watch(counterProvider).state;\n  return Text('Count: $count');\n});\n```"
+      },
+      {
+        "name": "Using MobX for Reactive State Management",
+        "example": "MobX uses observables and actions for reactivity.\n\n```dart\nimport 'package:mobx/mobx.dart';\n\npart 'counter.g.dart';\n\nclass Counter = _Counter with _$Counter;\n\nabstract class _Counter with Store {\n  @observable\n  int value = 0;\n\n  @action\n  void increment() {\n    value++;\n  }\n}\n```"
+      },
+      {
+        "name": "Using GetX for Navigation and State Management",
+        "example": "GetX offers simple state management and routing.\n\n```dart\nimport 'package:get/get.dart';\n\nclass CounterController extends GetxController {\n  var count = 0.obs;\n  void increment() => count++;\n}\n\n// Navigate:\nGet.to(NextPage());\n```"
+      },
+      {
+        "name": "Custom Error Widget for Error Boundaries",
+        "example": "Display custom UI when errors occur in the widget tree.\n\n```dart\nErrorWidget.builder = (FlutterErrorDetails details) {\n  return Center(child: Text('Something went wrong!'));\n};\n```"
+      },
+      {
+        "name": "Using Sentry for Crash Reporting",
+        "example": "Integrate Sentry to capture and report crashes.\n\n```dart\nimport 'package:sentry_flutter/sentry_flutter.dart';\n\nFuture<void> main() async {\n  await SentryFlutter.init(\n    (options) => options.dsn = 'YOUR_DSN',\n    appRunner: () => runApp(MyApp()),\n  );\n}\n```"
+      },
+      {
+        "name": "Implementing a Service Locator Pattern",
+        "example": "Centralize dependency management with a service locator.\n\n```dart\nclass ServiceLocator {\n  static final ServiceLocator _instance = ServiceLocator._internal();\n  factory ServiceLocator() => _instance;\n  ServiceLocator._internal();\n\n  final _services = <Type, dynamic>{};\n\n  void register<T>(T service) {\n    _services[T] = service;\n  }\n\n  T get<T>() => _services[T];\n}\n```"
+      },
+      {
+        "name": "Implementing a Debounce Function",
+        "example": "Debounce prevents rapid function calls.\n\n```dart\nclass Debouncer {\n  final int milliseconds;\n  VoidCallback? action;\n  Timer? _timer;\n\n  Debouncer({required this.milliseconds});\n\n  run(VoidCallback action) {\n    _timer?.cancel();\n    _timer = Timer(Duration(milliseconds: milliseconds), action);\n  }\n}\n```"
+      },
+      {
+        "name": "Using AnimatedSwitcher for Widget Transitions",
+        "example": "AnimatedSwitcher transitions between widgets smoothly.\n\n```dart\nAnimatedSwitcher(\n  duration: Duration(milliseconds: 300),\n  child: Text('New Text', key: ValueKey<String>('new')),\n);\n```"
+      },
+      {
+        "name": "Custom Loading Indicator with Animation",
+        "example": "Build a custom loading indicator using animations.\n\n```dart\nclass CustomLoader extends StatefulWidget {\n  @override\n  _CustomLoaderState createState() => _CustomLoaderState();\n}\n\nclass _CustomLoaderState extends State<CustomLoader> with SingleTickerProviderStateMixin {\n  late AnimationController _controller;\n\n  @override\n  void initState() {\n    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1))\n      ..repeat();\n    super.initState();\n  }\n\n  @override\n  void dispose() {\n    _controller.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return RotationTransition(\n      turns: _controller,\n      child: Icon(Icons.sync),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Using Custom Clipper for Unique Shapes",
+        "example": "Clip widgets into custom shapes using CustomClipper.\n\n```dart\nclass DiagonalClipper extends CustomClipper<Path> {\n  @override\n  Path getClip(Size size) {\n    var path = Path();\n    path.lineTo(0, size.height - 50);\n    path.lineTo(size.width, size.height);\n    path.lineTo(size.width, 0);\n    path.close();\n    return path;\n  }\n\n  @override\n  bool shouldReclip(CustomClipper<Path> oldClipper) => false;\n}\n\nClipPath(\n  clipper: DiagonalClipper(),\n  child: Container(color: Colors.blue, height: 200),\n);\n```"
+      },
+      {
+        "name": "Optimizing List Performance with ListView.builder",
+        "example": "Use ListView.builder for efficient list rendering.\n\n```dart\nListView.builder(\n  itemCount: 1000,\n  itemBuilder: (context, index) {\n    return ListTile(title: Text('Item $index'));\n  },\n);\n```"
+      },
+      {
+        "name": "SliverGrid for Complex Grid Layouts",
+        "example": "SliverGrid creates flexible grid layouts.\n\n```dart\nCustomScrollView(\n  slivers: [\n    SliverGrid(\n      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(\n        crossAxisCount: 2,\n      ),\n      delegate: SliverChildBuilderDelegate(\n        (context, index) => Container(\n          margin: EdgeInsets.all(8),\n          color: Colors.teal,\n        ),\n        childCount: 10,\n      ),\n    ),\n  ],\n);\n```"
+      },
+      {
+        "name": "Using MediaQuery for Orientation Changes",
+        "example": "Adapt layout based on device orientation.\n\n```dart\nWidget build(BuildContext context) {\n  final orientation = MediaQuery.of(context).orientation;\n  return orientation == Orientation.portrait\n    ? Column(children: [Text('Portrait')])\n    : Row(children: [Text('Landscape')]);\n}\n```"
+      },
+      {
+        "name": "Creating a Custom Form Field",
+        "example": "Extend FormField to create custom form widgets.\n\n```dart\nclass CustomFormField extends FormField<String> {\n  CustomFormField({\n    Key? key,\n    String? initialValue,\n    FormFieldSetter<String>? onSaved,\n    FormFieldValidator<String>? validator,\n  }) : super(\n    key: key,\n    initialValue: initialValue,\n    onSaved: onSaved,\n    validator: validator,\n    builder: (state) {\n      return TextField(\n        onChanged: state.didChange,\n        decoration: InputDecoration(errorText: state.errorText),\n      );\n    },\n  );\n}\n```"
+      },
+      {
+        "name": "Focus Management with FocusNode",
+        "example": "Use FocusNode to control keyboard focus.\n\n```dart\nFocusNode myFocusNode = FocusNode();\n\nTextField(\n  focusNode: myFocusNode,\n);\n\n// Later: myFocusNode.requestFocus();\n```"
+      },
+      {
+        "name": "Implementing a Password Strength Meter",
+        "example": "Visual feedback for password strength using regex.\n\n```dart\nWidget passwordStrength(String password) {\n  double strength = (password.length / 12).clamp(0, 1);\n  return LinearProgressIndicator(value: strength);\n}\n```"
+      },
+      {
+        "name": "Using Cupertino Widgets for iOS Design",
+        "example": "Build native iOS-styled UIs with Cupertino widgets.\n\n```dart\nCupertinoButton(\n  child: Text('Press'),\n  onPressed: () {},\n);\n```"
+      },
+      {
+        "name": "Using AnimatedOpacity for Fading Effects",
+        "example": "Animate opacity changes smoothly.\n\n```dart\nAnimatedOpacity(\n  opacity: 0.0,\n  duration: Duration(seconds: 1),\n  child: Text('Fade Out'),\n);\n```"
+      },
+      {
+        "name": "Custom Dialogs with showDialog",
+        "example": "Create custom modal dialogs.\n\n```dart\nshowDialog(\n  context: context,\n  builder: (context) => AlertDialog(\n    title: Text('Custom Dialog'),\n    content: Text('Dialog content here.'),\n  ),\n);\n```"
+      },
+      {
+        "name": "Implementing a Custom SnackBar",
+        "example": "Customize SnackBar appearance and behavior.\n\n```dart\nfinal snackBar = SnackBar(\n  content: Text('Custom SnackBar'),\n  backgroundColor: Colors.purple,\n);\nScaffoldMessenger.of(context).showSnackBar(snackBar);\n```"
+      },
+      {
+        "name": "Advanced Custom Painter for Complex Shapes",
+        "example": "Use CustomPainter for intricate graphics.\n\n```dart\nclass ComplexPainter extends CustomPainter {\n  @override\n  void paint(Canvas canvas, Size size) {\n    final paint = Paint()..color = Colors.orange;\n    // Draw a complex shape\n    canvas.drawPath(Path()\n      ..moveTo(0, 0)\n      ..lineTo(size.width, 0)\n      ..lineTo(size.width / 2, size.height)\n      ..close(), paint);\n  }\n\n  @override\n  bool shouldRepaint(CustomPainter oldDelegate) => false;\n}\n\nCustomPaint(\n  size: Size(200, 200),\n  painter: ComplexPainter(),\n);\n```"
+      },
+      {
+        "name": "Using TweenSequence for Complex Animations",
+        "example": "Chain multiple tweens for complex animations.\n\n```dart\nAnimationController controller = AnimationController(\n  duration: Duration(seconds: 3), vsync: this);\n\nfinal animation = TweenSequence([\n  TweenSequenceItem(tween: Tween(begin: 0.0, end: 50.0), weight: 1),\n  TweenSequenceItem(tween: Tween(begin: 50.0, end: 0.0), weight: 1),\n]).animate(controller);\n```"
+      },
+      {
+        "name": "Chaining Animations with AnimationController",
+        "example": "Sequence multiple animations using listeners.\n\n```dart\nAnimationController controller = AnimationController(\n  duration: Duration(seconds: 4), vsync: this);\n\nAnimation<double> firstHalf = Tween(begin: 0.0, end: 100.0).animate(\n  CurvedAnimation(parent: controller, curve: Interval(0.0, 0.5))\n);\n\nAnimation<double> secondHalf = Tween(begin: 100.0, end: 0.0).animate(\n  CurvedAnimation(parent: controller, curve: Interval(0.5, 1.0))\n);\n\ncontroller.forward();\n```"
+      },
+      {
+        "name": "Combining Multiple Animations with AnimatedBuilder",
+        "example": "Use AnimatedBuilder to rebuild widgets with multiple animations.\n\n```dart\nAnimationController controller = AnimationController(\n  duration: Duration(seconds: 2), vsync: this);\n\nAnimation<double> sizeAnimation = Tween(begin: 50.0, end: 150.0).animate(controller);\nAnimation<double> opacityAnimation = Tween(begin: 0.5, end: 1.0).animate(controller);\n\nAnimatedBuilder(\n  animation: controller,\n  builder: (context, child) {\n    return Opacity(\n      opacity: opacityAnimation.value,\n      child: Container(\n        width: sizeAnimation.value,\n        height: sizeAnimation.value,\n        color: Colors.red,\n      ),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Using Future.wait for Parallel Async Operations",
+        "example": "Run multiple Futures concurrently.\n\n```dart\nFuture<void> loadData() async {\n  await Future.wait([\n    fetchData1(),\n    fetchData2(),\n  ]);\n}\n```"
+      },
+      {
+        "name": "Custom Cache Manager for Offline Support",
+        "example": "Implement caching to improve offline performance.\n\n```dart\nclass CustomCacheManager {\n  final _cache = <String, dynamic>{};\n\n  dynamic get(String key) => _cache[key];\n  void set(String key, dynamic value) => _cache[key] = value;\n}\n```"
+      },
+      {
+        "name": "Implementing a Retry Mechanism for Network Calls",
+        "example": "Retry network requests on failure.\n\n```dart\nFuture<T> retry<T>(Future<T> Function() task, {int retries = 3}) async {\n  for (int i = 0; i < retries; i++) {\n    try {\n      return await task();\n    } catch (_) {\n      if (i == retries - 1) rethrow;\n    }\n  }\n  throw Exception('Retries exhausted');\n}\n```"
+      },
+      {
+        "name": "Using the http package for REST APIs",
+        "example": "Fetch data from REST endpoints using the http package.\n\n```dart\nimport 'package:http/http.dart' as http;\n\nFuture<http.Response> fetchData() {\n  return http.get(Uri.parse('https://api.example.com/data'));\n}\n```"
+      },
+      {
+        "name": "GraphQL Integration with graphql_flutter",
+        "example": "Query GraphQL endpoints with graphql_flutter.\n\n```dart\nimport 'package:graphql_flutter/graphql_flutter.dart';\n\nfinal HttpLink httpLink = HttpLink('https://api.example.com/graphql');\n\nValueNotifier<GraphQLClient> client = ValueNotifier(\n  GraphQLClient(\n    link: httpLink,\n    cache: GraphQLCache(store: InMemoryStore()),\n  ),\n);\n```"
+      },
+      {
+        "name": "Firebase Firestore Stream Integration",
+        "example": "Listen to Firestore collections using streams.\n\n```dart\nStreamBuilder<QuerySnapshot>(\n  stream: FirebaseFirestore.instance.collection('items').snapshots(),\n  builder: (context, snapshot) {\n    if (!snapshot.hasData) return CircularProgressIndicator();\n    return ListView(\n      children: snapshot.data!.docs.map((doc) => ListTile(title: Text(doc['name']))).toList(),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Firebase Authentication with StreamBuilder",
+        "example": "React to authentication state changes.\n\n```dart\nStreamBuilder<User?>(\n  stream: FirebaseAuth.instance.authStateChanges(),\n  builder: (context, snapshot) {\n    if (snapshot.connectionState == ConnectionState.active) {\n      return snapshot.data != null ? HomePage() : LoginPage();\n    }\n    return CircularProgressIndicator();\n  },\n);\n```"
+      },
+      {
+        "name": "Implementing a Custom ThemeSwitcher",
+        "example": "Toggle themes dynamically in your app.\n\n```dart\nclass ThemeSwitcher extends StatefulWidget {\n  @override\n  _ThemeSwitcherState createState() => _ThemeSwitcherState();\n}\n\nclass _ThemeSwitcherState extends State<ThemeSwitcher> {\n  bool isDark = false;\n\n  @override\n  Widget build(BuildContext context) {\n    return Switch(\n      value: isDark,\n      onChanged: (val) {\n        setState(() { isDark = val; });\n      },\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Using Provider with MultiProvider Setup",
+        "example": "Manage multiple providers using MultiProvider.\n\n```dart\nMultiProvider(\n  providers: [\n    ChangeNotifierProvider(create: (_) => Counter()),\n    Provider(create: (_) => SomeService()),\n  ],\n  child: MyApp(),\n);\n```"
+      },
+      {
+        "name": "Using Selector for Performance Optimization",
+        "example": "Rebuild only when specific data changes with Selector.\n\n```dart\nSelector<Counter, int>(\n  selector: (context, counter) => counter.value,\n  builder: (context, value, child) => Text('Count: $value'),\n);\n```"
+      },
+      {
+        "name": "Using AnimatedList with Remove Item Animation",
+        "example": "Animate list item removal gracefully.\n\n```dart\nfinal GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();\n\nAnimatedList(\n  key: listKey,\n  initialItemCount: items.length,\n  itemBuilder: (context, index, animation) {\n    return SizeTransition(\n      sizeFactor: animation,\n      child: ListTile(title: Text(items[index])),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Using ScrollController for Infinite Scrolling",
+        "example": "Detect scroll position to load more data.\n\n```dart\nScrollController _controller = ScrollController();\n\n_controller.addListener(() {\n  if (_controller.position.atEdge && _controller.position.pixels != 0) {\n    // Load more data\n  }\n});\n\nListView(controller: _controller);\n```"
+      },
+      {
+        "name": "Implementing Pull-to-Refresh with RefreshIndicator",
+        "example": "Enable pull-to-refresh in list views.\n\n```dart\nRefreshIndicator(\n  onRefresh: () async {\n    // Refresh logic\n  },\n  child: ListView(\n    children: [ListTile(title: Text('Item'))],\n  ),\n);\n```"
+      },
+      {
+        "name": "Using DraggableScrollableSheet for Bottom Sheets",
+        "example": "Create interactive, draggable bottom sheets.\n\n```dart\nDraggableScrollableSheet(\n  builder: (context, scrollController) {\n    return Container(\n      color: Colors.blue[100],\n      child: ListView(\n        controller: scrollController,\n        children: List.generate(20, (index) => ListTile(title: Text('Item $index'))),\n      ),\n    );\n  },\n);\n```"
+      },
+      {
+        "name": "Building a Custom Navigation Drawer",
+        "example": "Customize your drawer for a unique navigation experience.\n\n```dart\nDrawer(\n  child: ListView(\n    children: [\n      DrawerHeader(child: Text('Header')),\n      ListTile(title: Text('Item 1')),\n    ],\n  ),\n);\n```"
+      },
+      {
+        "name": "Using Hero with FlightShuttleBuilder for Custom Transitions",
+        "example": "Customize hero animations between routes.\n\n```dart\nHero(\n  tag: 'hero-tag',\n  flightShuttleBuilder: (\n    flightContext,\n    animation,\n    flightDirection,\n    fromHeroContext,\n    toHeroContext,\n  ) {\n    return RotationTransition(\n      turns: animation,\n      child: toHeroContext.widget,\n    );\n  },\n  child: Image.asset('image.png'),\n);\n```"
+      },
+      {
+        "name": "Using RouteSettings for Passing Arguments",
+        "example": "Pass data between routes using RouteSettings.\n\n```dart\nNavigator.pushNamed(\n  context,\n  '/detail',\n  arguments: {'id': 42},\n);\n\n// In onGenerateRoute, access settings.arguments\n```"
+      },
+      {
+        "name": "Using onGenerateRoute for Dynamic Routing",
+        "example": "Handle dynamic route generation centrally.\n\n```dart\nMaterialApp(\n  onGenerateRoute: (settings) {\n    if (settings.name == '/detail') {\n      final args = settings.arguments as Map;\n      return MaterialPageRoute(\n        builder: (context) => DetailPage(id: args['id']),\n      );\n    }\n    return null;\n  },\n);\n```"
+      },
+      {
+        "name": "Implementing Deep Linking in Flutter",
+        "example": "Support deep linking to specific app content.\n\n```dart\nMaterialApp(\n  initialRoute: '/',\n  routes: {\n    '/': (context) => HomePage(),\n    '/detail': (context) => DetailPage(),\n  },\n  // Additional deep link configuration\n);\n```"
+      },
+      {
+        "name": "Custom Widget Composition for Reusable UI",
+        "example": "Compose widgets to create reusable components.\n\n```dart\nclass CustomCard extends StatelessWidget {\n  final Widget child;\n  const CustomCard({required this.child});\n\n  @override\n  Widget build(BuildContext context) {\n    return Card(\n      margin: EdgeInsets.all(8),\n      child: Padding(\n        padding: EdgeInsets.all(16),\n        child: child,\n      ),\n    );\n  }\n}\n```"
+      },
+      {
+        "name": "Effective Use of const for Immutable Widgets",
+        "example": "Use const constructors to optimize rebuilds.\n\n```dart\nconst Text('Immutable Text');\n```"
+      }
+    ]
+  }
+  

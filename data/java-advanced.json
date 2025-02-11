@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Generics for Type Safety",
+        "example": "Generics provide compile-time type safety.\n\n```java\n// Generic class example\npublic class Box<T> {\n    private T content;\n    public void set(T content) { this.content = content; }\n    public T get() { return content; }\n}\n```"
+      },
+      {
+        "name": "Lambda Expressions",
+        "example": "Simplify anonymous classes using lambdas.\n\n```java\nList<String> names = Arrays.asList(\"Alice\", \"Bob\");\nnames.forEach(name -> System.out.println(name)); // Lambda for iteration\n```"
+      },
+      {
+        "name": "Streams API",
+        "example": "Process collections in a functional style.\n\n```java\nList<Integer> numbers = Arrays.asList(1, 2, 3, 4);\nList<Integer> squared = numbers.stream()\n    .map(n -> n * n)\n    .collect(Collectors.toList());\n```"
+      },
+      {
+        "name": "Optional Class",
+        "example": "Avoid null checks with Optional.\n\n```java\nOptional<String> optional = Optional.of(\"value\");\noptional.ifPresent(val -> { /* use val */ });\n```"
+      },
+      {
+        "name": "ExecutorService for Concurrency",
+        "example": "Manage threads efficiently with ExecutorService.\n\n```java\nExecutorService executor = Executors.newFixedThreadPool(2);\nexecutor.submit(() -> { /* task code */ });\nexecutor.shutdown();\n```"
+      },
+      {
+        "name": "Immutable Objects",
+        "example": "Create objects that cannot be modified after creation.\n\n```java\npublic final class Person {\n    private final String name;\n    public Person(String name) { this.name = name; }\n    public String getName() { return name; }\n}\n```"
+      },
+      {
+        "name": "Overriding equals() and hashCode()",
+        "example": "Implement both methods for correct behavior in collections.\n\n```java\n@Override\npublic boolean equals(Object o) {\n    if (this == o) return true;\n    if (!(o instanceof Person)) return false;\n    Person p = (Person) o;\n    return Objects.equals(name, p.name);\n}\n\n@Override\npublic int hashCode() {\n    return Objects.hash(name);\n}\n```"
+      },
+      {
+        "name": "Builder Pattern",
+        "example": "Simplify object creation when many parameters are involved.\n\n```java\npublic class Car {\n    private final String make;\n    private final String model;\n\n    private Car(Builder builder) {\n        this.make = builder.make;\n        this.model = builder.model;\n    }\n\n    public static class Builder {\n        private String make;\n        private String model;\n        public Builder setMake(String make) { this.make = make; return this; }\n        public Builder setModel(String model) { this.model = model; return this; }\n        public Car build() { return new Car(this); }\n    }\n}\n```"
+      },
+      {
+        "name": "Factory Pattern",
+        "example": "Encapsulate object creation logic to simplify client code.\n\n```java\npublic interface Shape { void draw(); }\n\npublic class Circle implements Shape {\n    public void draw() { /* drawing circle */ }\n}\n\npublic class ShapeFactory {\n    public static Shape createShape(String type) {\n        if (\"circle\".equalsIgnoreCase(type)) return new Circle();\n        // Add more shapes as needed\n        return null;\n    }\n}\n```"
+      },
+      {
+        "name": "Singleton Pattern",
+        "example": "Ensure a class has only one instance throughout the application.\n\n```java\npublic class Singleton {\n    private static final Singleton instance = new Singleton();\n    private Singleton() {}\n    public static Singleton getInstance() { return instance; }\n}\n```"
+      },
+      {
+        "name": "Dependency Injection",
+        "example": "Inject dependencies to decouple components and improve testability.\n\n```java\npublic class Service {\n    private final Repository repo;\n    public Service(Repository repo) { this.repo = repo; }\n}\n```"
+      },
+      {
+        "name": "Custom Annotations",
+        "example": "Define metadata for classes or methods using custom annotations.\n\n```java\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.TYPE)\npublic @interface MyAnnotation {\n    String value();\n}\n```"
+      },
+      {
+        "name": "Reflection API",
+        "example": "Access class metadata and manipulate objects at runtime.\n\n```java\nClass<?> clazz = Class.forName(\"com.example.MyClass\");\n// Inspect methods and fields via reflection\n```"
+      },
+      {
+        "name": "Method References",
+        "example": "Use concise syntax for passing methods as parameters.\n\n```java\nList<String> list = Arrays.asList(\"a\", \"b\");\nlist.forEach(System.out::println); // Method reference\n```"
+      },
+      {
+        "name": "Parallel Streams",
+        "example": "Process collections in parallel to improve performance.\n\n```java\nList<Integer> numbers = Arrays.asList(1, 2, 3, 4);\nList<Integer> results = numbers.parallelStream()\n    .map(n -> n * 2)\n    .collect(Collectors.toList());\n```"
+      },
+      {
+        "name": "Custom Functional Interface",
+        "example": "Create a custom interface with a single abstract method for lambdas.\n\n```java\n@FunctionalInterface\npublic interface Processor<T> {\n    T process(T input);\n}\n```"
+      },
+      {
+        "name": "Default Methods in Interfaces",
+        "example": "Provide a default implementation in an interface.\n\n```java\npublic interface MyInterface {\n    default void log(String message) { /* log message */ }\n}\n```"
+      },
+      {
+        "name": "Try-with-Resources",
+        "example": "Automatically close resources when done.\n\n```java\ntry (BufferedReader br = new BufferedReader(new FileReader(\"file.txt\"))) {\n    // Use br here\n}\n```"
+      },
+      {
+        "name": "Custom Exceptions",
+        "example": "Define exceptions for specific error conditions.\n\n```java\npublic class MyException extends Exception {\n    public MyException(String message) { super(message); }\n}\n```"
+      },
+      {
+        "name": "Checked vs Unchecked Exceptions",
+        "example": "Understand the difference between exceptions that must be caught and those that don't.\n\n```java\n// Checked: must be declared or handled\npublic void read() throws IOException { /* code */ }\n\n// Unchecked: extends RuntimeException\npublic void compute() { throw new IllegalArgumentException(); }\n```"
+      },
+      {
+        "name": "Volatile Keyword",
+        "example": "Ensure visibility of changes to variables across threads.\n\n```java\nprivate volatile boolean active = true; // Shared across threads\n```"
+      },
+      {
+        "name": "Immutable Collections",
+        "example": "Create unmodifiable views of collections.\n\n```java\nList<String> list = new ArrayList<>();\nList<String> immutableList = Collections.unmodifiableList(list);\n```"
+      },
+      {
+        "name": "Record Types (Java 16+)",
+        "example": "Define concise data carrier classes with records.\n\n```java\npublic record Point(int x, int y) { }\n```"
+      },
+      {
+        "name": "Sealed Classes (Java 17+)",
+        "example": "Restrict which classes can extend a given class.\n\n```java\npublic sealed class Shape permits Circle, Rectangle { }\n```"
+      },
+      {
+        "name": "Pattern Matching for instanceof",
+        "example": "Simplify type checks and casting.\n\n```java\nif (obj instanceof String s) {\n    // Use s directly without explicit cast\n}\n```"
+      },
+      {
+        "name": "Custom Collectors",
+        "example": "Create collectors for custom reduction operations.\n\n```java\nCollector<Integer, ?, List<Integer>> toListCollector = Collectors.toList();\n// Customize collector if needed\n```"
+      },
+      {
+        "name": "CompletableFuture for Async",
+        "example": "Chain asynchronous tasks using CompletableFuture.\n\n```java\nCompletableFuture.supplyAsync(() -> \"result\")\n    .thenApply(result -> result.toUpperCase());\n```"
+      },
+      {
+        "name": "ForkJoinPool",
+        "example": "Leverage divide-and-conquer parallelism with ForkJoinPool.\n\n```java\nForkJoinPool pool = new ForkJoinPool();\n// Submit recursive tasks to the pool\n```"
+      },
+      {
+        "name": "Var Keyword (Java 10+)",
+        "example": "Use local variable type inference for brevity.\n\n```java\nvar list = new ArrayList<String>(); // Inferred as ArrayList<String>\n```"
+      },
+      {
+        "name": "Switch Expressions (Java 14+)",
+        "example": "Use switch as an expression to return values directly.\n\n```java\nint numLetters = switch (day) {\n    case MONDAY, FRIDAY, SUNDAY -> 6;\n    case TUESDAY -> 7;\n    default -> 0;\n};\n```"
+      },
+      {
+        "name": "Text Blocks (Java 15+)",
+        "example": "Simplify multi-line string literals with text blocks.\n\n```java\nString json = \"\"\"\n{\n  \"key\": \"value\"\n}\n\"\"\";\n```"
+      },
+      {
+        "name": "Local Variable Type Inference in Lambdas",
+        "example": "Use 'var' in lambda parameters for clarity.\n\n```java\nBiFunction<Integer, Integer, Integer> add = (var a, var b) -> a + b;\n```"
+      },
+      {
+        "name": "Effective Final in Lambdas",
+        "example": "Variables used in lambdas must be effectively final.\n\n```java\nString message = \"Hello\"; // Not modified later\nRunnable r = () -> { System.out.println(message); };\n```"
+      },
+      {
+        "name": "Synchronized Collections",
+        "example": "Wrap collections for thread-safe operations.\n\n```java\nList<String> syncList = Collections.synchronizedList(new ArrayList<>());\n```"
+      },
+      {
+        "name": "Optional in Streams",
+        "example": "Combine Optional and Stream API to handle potential empty results.\n\n```java\nOptional<Integer> max = list.stream().max(Integer::compareTo);\n```"
+      },
+      {
+        "name": "Lambda Exception Handling",
+        "example": "Handle checked exceptions in lambdas by wrapping them.\n\n```java\nFunction<String, Integer> parse = s -> {\n    try { \n        return Integer.parseInt(s); \n    } catch (NumberFormatException e) { \n        throw new RuntimeException(e); \n    }\n};\n```"
+      },
+      {
+        "name": "Immutable vs Unmodifiable Collections",
+        "example": "Immutable collections cannot change; unmodifiable collections are read-only views.\n\n```java\n// Immutable collection\nList<String> immutable = List.of(\"a\", \"b\");\n```"
+      },
+      {
+        "name": "Builder vs Telescoping Constructors",
+        "example": "Prefer builder pattern over multiple constructors for clarity.\n\n```java\n// Builder pattern improves readability for many parameters.\n```"
+      },
+      {
+        "name": "Method Overriding Best Practices",
+        "example": "Always use the @Override annotation when overriding methods.\n\n```java\n@Override\npublic String toString() { return \"Custom toString\"; }\n```"
+      },
+      {
+        "name": "Generics Wildcards",
+        "example": "Use ? extends T and ? super T for flexible APIs.\n\n```java\npublic void process(List<? extends Number> list) { /* code */ }\n```"
+      },
+      {
+        "name": "Type Erasure",
+        "example": "Generic type information is erased at runtime; design accordingly.\n\n```java\n// Cannot determine T at runtime; be cautious with instanceof checks\n```"
+      },
+      {
+        "name": "Nested vs Inner Classes",
+        "example": "Static nested classes don't hold a reference to the outer class.\n\n```java\npublic class Outer {\n    static class Nested { }\n    class Inner { }\n}\n```"
+      },
+      {
+        "name": "EnumSet and EnumMap",
+        "example": "Use EnumSet and EnumMap for efficient enum-based collections.\n\n```java\nEnumSet<Day> days = EnumSet.of(Day.MONDAY, Day.FRIDAY);\n```"
+      },
+      {
+        "name": "Resource Bundles for i18n",
+        "example": "Externalize strings for internationalization using resource bundles.\n\n```java\nResourceBundle rb = ResourceBundle.getBundle(\"Messages\");\nString greeting = rb.getString(\"greeting\");\n```"
+      },
+      {
+        "name": "Custom ClassLoader",
+        "example": "Load classes dynamically by extending ClassLoader.\n\n```java\npublic class MyClassLoader extends ClassLoader {\n    // Override findClass to load classes\n}\n```"
+      },
+      {
+        "name": "Reflection to Access Private Fields",
+        "example": "Access and modify private fields via reflection (use with caution).\n\n```java\nField field = MyClass.class.getDeclaredField(\"value\");\nfield.setAccessible(true);\n```"
+      },
+      {
+        "name": "Dynamic Proxy",
+        "example": "Intercept method calls at runtime using dynamic proxies.\n\n```java\nInvocationHandler handler = (proxy, method, args) -> {\n    // Intercept method calls\n    return null;\n};\nObject proxy = Proxy.newProxyInstance(\n    MyInterface.class.getClassLoader(), \n    new Class[]{MyInterface.class}, handler);\n```"
+      },
+      {
+        "name": "Lombok for Immutable Data Structures",
+        "example": "Reduce boilerplate with Lombok annotations for immutable classes.\n\n```java\n@Data\n@AllArgsConstructor\npublic class DataHolder {\n    private final String data;\n}\n```"
+      },
+      {
+        "name": "Processing Files with Streams",
+        "example": "Use Files.lines() to process file content as a stream.\n\n```java\ntry (Stream<String> lines = Files.lines(Path.of(\"file.txt\"))) {\n    lines.forEach(System.out::println);\n}\n```"
+      },
+      {
+        "name": "JUnit 5 Testing",
+        "example": "Write unit tests using JUnit 5 annotations.\n\n```java\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.*;\n\nclass MyTests {\n    @Test\n    void testMethod() {\n        assertEquals(2, 1 + 1);\n    }\n}\n```"
+      },
+      {
+        "name": "Observer Pattern",
+        "example": "Implement observer pattern to decouple components.\n\n```java\npublic interface Observer {\n    void update(String message);\n}\n\npublic class Subject {\n    private List<Observer> observers = new ArrayList<>();\n    public void addObserver(Observer obs) { observers.add(obs); }\n    public void notifyObservers(String message) {\n        for (Observer obs : observers) {\n            obs.update(message);\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Decorator Pattern",
+        "example": "Dynamically add responsibilities to objects.\n\n```java\npublic interface Component {\n    String operation();\n}\n\npublic class ConcreteComponent implements Component {\n    public String operation() { return \"Concrete\"; }\n}\n\npublic abstract class Decorator implements Component {\n    protected Component component;\n    public Decorator(Component component) { this.component = component; }\n    public String operation() { return component.operation(); }\n}\n\npublic class ConcreteDecorator extends Decorator {\n    public ConcreteDecorator(Component component) { super(component); }\n    public String operation() { return \"Decorator(\" + super.operation() + \")\"; }\n}\n```"
+      },
+      {
+        "name": "Strategy Pattern",
+        "example": "Encapsulate interchangeable algorithms.\n\n```java\npublic interface Strategy {\n    int execute(int a, int b);\n}\n\npublic class Addition implements Strategy {\n    public int execute(int a, int b) { return a + b; }\n}\n\npublic class Calculator {\n    private Strategy strategy;\n    public Calculator(Strategy strategy) { this.strategy = strategy; }\n    public int calculate(int a, int b) { return strategy.execute(a, b); }\n}\n```"
+      },
+      {
+        "name": "Adapter Pattern",
+        "example": "Convert one interface to another.\n\n```java\npublic interface Target {\n    void request();\n}\n\npublic class Adaptee {\n    public void specificRequest() { /* specialized code */ }\n}\n\npublic class Adapter implements Target {\n    private Adaptee adaptee;\n    public Adapter(Adaptee adaptee) { this.adaptee = adaptee; }\n    public void request() { adaptee.specificRequest(); }\n}\n```"
+      },
+      {
+        "name": "Command Pattern",
+        "example": "Encapsulate a request as an object.\n\n```java\npublic interface Command {\n    void execute();\n}\n\npublic class Light {\n    public void turnOn() { /* light on */ }\n}\n\npublic class LightOnCommand implements Command {\n    private Light light;\n    public LightOnCommand(Light light) { this.light = light; }\n    public void execute() { light.turnOn(); }\n}\n```"
+      },
+      {
+        "name": "Memento Pattern",
+        "example": "Capture and restore object state.\n\n```java\npublic class Memento {\n    private final String state;\n    public Memento(String state) { this.state = state; }\n    public String getState() { return state; }\n}\n\npublic class Originator {\n    private String state;\n    public void setState(String state) { this.state = state; }\n    public Memento save() { return new Memento(state); }\n    public void restore(Memento memento) { this.state = memento.getState(); }\n}\n```"
+      },
+      {
+        "name": "Mediator Pattern",
+        "example": "Centralize communication between objects.\n\n```java\npublic interface Mediator {\n    void notify(Component sender, String event);\n}\n\npublic abstract class Component {\n    protected Mediator mediator;\n    public Component(Mediator mediator) { this.mediator = mediator; }\n}\n\npublic class ComponentA extends Component {\n    public ComponentA(Mediator mediator) { super(mediator); }\n    public void doA() { mediator.notify(this, \"A\"); }\n}\n\npublic class ComponentB extends Component {\n    public ComponentB(Mediator mediator) { super(mediator); }\n    public void doB() { mediator.notify(this, \"B\"); }\n}\n\npublic class ConcreteMediator implements Mediator {\n    private ComponentA componentA;\n    private ComponentB componentB;\n    public void setComponentA(ComponentA a) { this.componentA = a; }\n    public void setComponentB(ComponentB b) { this.componentB = b; }\n    public void notify(Component sender, String event) {\n        // Coordinate communication\n    }\n}\n```"
+      },
+      {
+        "name": "Composite Pattern",
+        "example": "Compose objects into tree structures.\n\n```java\npublic interface Component {\n    void operation();\n}\n\npublic class Leaf implements Component {\n    public void operation() { /* leaf operation */ }\n}\n\npublic class Composite implements Component {\n    private List<Component> children = new ArrayList<>();\n    public void add(Component component) { children.add(component); }\n    public void operation() { children.forEach(Component::operation); }\n}\n```"
+      },
+      {
+        "name": "Flyweight Pattern",
+        "example": "Share common state to reduce memory usage.\n\n```java\npublic interface Flyweight {\n    void operation();\n}\n\npublic class ConcreteFlyweight implements Flyweight {\n    private final String intrinsicState;\n    public ConcreteFlyweight(String state) { this.intrinsicState = state; }\n    public void operation() { /* use intrinsicState */ }\n}\n\npublic class FlyweightFactory {\n    private Map<String, Flyweight> pool = new HashMap<>();\n    public Flyweight getFlyweight(String key) {\n        return pool.computeIfAbsent(key, k -> new ConcreteFlyweight(k));\n    }\n}\n```"
+      },
+      {
+        "name": "Chain of Responsibility Pattern",
+        "example": "Pass requests along a chain of handlers.\n\n```java\npublic abstract class Handler {\n    protected Handler next;\n    public void setNext(Handler next) { this.next = next; }\n    public abstract void handle(String request);\n}\n\npublic class ConcreteHandler extends Handler {\n    public void handle(String request) {\n        if (/* can handle */ false) { /* process */ }\n        else if (next != null) { next.handle(request); }\n    }\n}\n```"
+      },
+      {
+        "name": "State Pattern",
+        "example": "Change behavior based on internal state.\n\n```java\npublic interface State {\n    void handle(Context context);\n}\n\npublic class Context {\n    private State state;\n    public void setState(State state) { this.state = state; }\n    public void request() { state.handle(this); }\n}\n\npublic class ConcreteStateA implements State {\n    public void handle(Context context) { /* handle state A */ }\n}\n```"
+      },
+      {
+        "name": "Template Method Pattern",
+        "example": "Define the skeleton of an algorithm.\n\n```java\npublic abstract class AbstractClass {\n    public final void templateMethod() {\n        primitiveOperation1();\n        primitiveOperation2();\n    }\n    protected abstract void primitiveOperation1();\n    protected abstract void primitiveOperation2();\n}\n```"
+      },
+      {
+        "name": "Visitor Pattern",
+        "example": "Separate operations from object structure.\n\n```java\npublic interface Visitor {\n    void visit(Element element);\n}\n\npublic interface Element {\n    void accept(Visitor visitor);\n}\n\npublic class ConcreteElement implements Element {\n    public void accept(Visitor visitor) { visitor.visit(this); }\n}\n```"
+      },
+      {
+        "name": "CountDownLatch",
+        "example": "Synchronize threads until a count reaches zero.\n\n```java\nCountDownLatch latch = new CountDownLatch(3);\n// Threads call latch.countDown() when done\nlatch.await(); // Waits for count to reach zero\n```"
+      },
+      {
+        "name": "CyclicBarrier",
+        "example": "Synchronize a fixed number of threads at a barrier.\n\n```java\nCyclicBarrier barrier = new CyclicBarrier(3);\n// Each thread calls barrier.await() to sync\n```"
+      },
+      {
+        "name": "Semaphore",
+        "example": "Control access to a shared resource.\n\n```java\nSemaphore semaphore = new Semaphore(2);\n// Acquire and release permits as needed\n```"
+      },
+      {
+        "name": "ReentrantLock",
+        "example": "Explicit lock with advanced features.\n\n```java\nReentrantLock lock = new ReentrantLock();\nlock.lock();\ntry {\n    // critical section\n} finally {\n    lock.unlock();\n}\n```"
+      },
+      {
+        "name": "ReadWriteLock",
+        "example": "Separate locks for reading and writing.\n\n```java\nReadWriteLock rwLock = new ReentrantReadWriteLock();\nrwLock.readLock().lock();\ntry {\n    // read operations\n} finally {\n    rwLock.readLock().unlock();\n}\n```"
+      },
+      {
+        "name": "BlockingQueue",
+        "example": "Thread-safe queue for producer-consumer scenarios.\n\n```java\nBlockingQueue<String> queue = new ArrayBlockingQueue<>(10);\n// Use queue.put() and queue.take()\n```"
+      },
+      {
+        "name": "Future",
+        "example": "Represent asynchronous computation results.\n\n```java\nExecutorService executor = Executors.newSingleThreadExecutor();\nFuture<Integer> future = executor.submit(() -> 42);\n// future.get() returns 42\nexecutor.shutdown();\n```"
+      },
+      {
+        "name": "Callable Interface",
+        "example": "Task that returns a result and may throw exceptions.\n\n```java\nCallable<String> task = () -> \"result\";\n// Submit task to executor service\n```"
+      },
+      {
+        "name": "Java 8 Date/Time API",
+        "example": "Use modern date and time classes.\n\n```java\nLocalDate date = LocalDate.now();\nLocalTime time = LocalTime.now();\nLocalDateTime dateTime = LocalDateTime.now();\n```"
+      },
+      {
+        "name": "ZonedDateTime",
+        "example": "Handle date and time with time zone info.\n\n```java\nZonedDateTime zdt = ZonedDateTime.now(ZoneId.of(\"UTC\"));\n```"
+      },
+      {
+        "name": "Predicate Interface",
+        "example": "Evaluate boolean conditions.\n\n```java\nPredicate<Integer> isEven = x -> x % 2 == 0;\n```"
+      },
+      {
+        "name": "Supplier Interface",
+        "example": "Supply values without input.\n\n```java\nSupplier<String> supplier = () -> \"supplied value\";\n```"
+      },
+      {
+        "name": "Consumer Interface",
+        "example": "Consume input without returning a result.\n\n```java\nConsumer<String> printer = s -> System.out.println(s);\n```"
+      },
+      {
+        "name": "Function Interface",
+        "example": "Transform input to output.\n\n```java\nFunction<Integer, String> toString = Object::toString;\n```"
+      },
+      {
+        "name": "BiFunction Interface",
+        "example": "Operate on two inputs to produce an output.\n\n```java\nBiFunction<Integer, Integer, Integer> multiply = (a, b) -> a * b;\n```"
+      },
+      {
+        "name": "UnaryOperator Interface",
+        "example": "Operate on a single operand of the same type.\n\n```java\nUnaryOperator<Integer> square = x -> x * x;\n```"
+      },
+      {
+        "name": "BinaryOperator Interface",
+        "example": "Operate on two operands of the same type.\n\n```java\nBinaryOperator<Integer> sum = (a, b) -> a + b;\n```"
+      },
+      {
+        "name": "Annotations in Dependency Injection",
+        "example": "Use annotations to inject dependencies.\n\n```java\npublic class Service {\n    @Inject\n    private Repository repository; // DI annotation\n}\n```"
+      },
+      {
+        "name": "Spring Boot REST Controllers",
+        "example": "Build RESTful APIs using Spring Boot.\n\n```java\n@RestController\npublic class MyController {\n    @GetMapping(\"/hello\")\n    public String hello() { return \"Hello World\"; }\n}\n```"
+      },
+      {
+        "name": "Spring Boot @Autowired",
+        "example": "Inject beans automatically.\n\n```java\n@Service\npublic class MyService {\n    @Autowired\n    private MyRepository repository;\n}\n```"
+      },
+      {
+        "name": "Spring Boot @Value Annotation",
+        "example": "Inject property values from configuration.\n\n```java\n@Component\npublic class ConfigBean {\n    @Value(\"${app.name}\")\n    private String appName;\n}\n```"
+      },
+      {
+        "name": "Spring Boot Application Properties",
+        "example": "Bind external configurations to POJOs.\n\n```java\n@ConfigurationProperties(prefix = \"app\")\npublic class AppProperties {\n    private String name;\n    // getters and setters\n}\n```"
+      },
+      {
+        "name": "Spring Boot Exception Handling",
+        "example": "Handle exceptions globally using @ControllerAdvice.\n\n```java\n@ControllerAdvice\npublic class GlobalExceptionHandler {\n    @ExceptionHandler(Exception.class)\n    public ResponseEntity<String> handle(Exception e) {\n        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());\n    }\n}\n```"
+      },
+      {
+        "name": "Spring AOP",
+        "example": "Apply cross-cutting concerns with aspects.\n\n```java\n@Aspect\n@Component\npublic class LoggingAspect {\n    @Before(\"execution(* com.example.*.*(..))\")\n    public void logBefore() { /* logging */ }\n}\n```"
+      },
+      {
+        "name": "Custom AOP with AspectJ",
+        "example": "Define custom aspects using AspectJ annotations.\n\n```java\n@Aspect\npublic class CustomAspect {\n    @Around(\"execution(* *(..))\")\n    public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {\n        return pjp.proceed();\n    }\n}\n```"
+      },
+      {
+        "name": "StampedLock",
+        "example": "Use stamped locks for optimistic locking.\n\n```java\nStampedLock stampedLock = new StampedLock();\nlong stamp = stampedLock.readLock();\ntry {\n    // read operations\n} finally {\n    stampedLock.unlockRead(stamp);\n}\n```"
+      },
+      {
+        "name": "Phaser",
+        "example": "Synchronize threads in phases.\n\n```java\nPhaser phaser = new Phaser(1); // register self\n// Additional threads register and call phaser.arriveAndAwaitAdvance()\n```"
+      },
+      {
+        "name": "Effective Java: Minimize Mutability",
+        "example": "Create immutable classes to avoid side effects.\n\n```java\npublic final class ImmutableClass {\n    private final int value;\n    public ImmutableClass(int value) { this.value = value; }\n    public int getValue() { return value; }\n}\n```"
+      },
+      {
+        "name": "Effective Java: Favor Composition",
+        "example": "Prefer composition over inheritance.\n\n```java\npublic class Car {\n    private Engine engine;\n    public Car(Engine engine) { this.engine = engine; }\n    public void start() { engine.start(); }\n}\n```"
+      },
+      {
+        "name": "Effective Java: Document Inheritance",
+        "example": "Document subclass behavior with proper JavaDocs.\n\n```java\n/**\n * Subclass with documented behavior.\n */\npublic class Subclass extends Superclass {\n    @Override\n    public void method() { super.method(); }\n}\n```"
+      },
+      {
+        "name": "Effective Java: Interfaces vs Abstract Classes",
+        "example": "Use interfaces with default methods for flexibility.\n\n```java\npublic interface MyInterface {\n    default void doSomething() { /* default implementation */ }\n}\n\npublic abstract class MyAbstractClass {\n    abstract void doSomething();\n}\n```"
+      },
+      {
+        "name": "Effective Java: Overriding Methods",
+        "example": "Override methods with the @Override annotation.\n\n```java\npublic class Base {\n    public void display() { /* base display */ }\n}\n\npublic class Derived extends Base {\n    @Override\n    public void display() { /* derived display */ }\n}\n```"
+      },
+      {
+        "name": "Effective Java: Static Factory Methods",
+        "example": "Use static methods to create instances.\n\n```java\npublic class Product {\n    private Product() { }\n    public static Product create() { return new Product(); }\n}\n```"
+      },
+      {
+        "name": "Java Garbage Collection Overview",
+        "example": "GC runs automatically; tuning is done via JVM options.\n\n```java\n// Suggest GC (not guaranteed)\nSystem.gc();\n```"
+      },
+      {
+        "name": "Soft and Weak References",
+        "example": "Manage memory with reference types.\n\n```java\nSoftReference<Object> softRef = new SoftReference<>(new Object());\nWeakReference<Object> weakRef = new WeakReference<>(new Object());\n```"
+      },
+      {
+        "name": "JVM: Tuning Garbage Collection",
+        "example": "Tune GC with JVM flags like -XX:+UseG1GC.\n\n```java\n// Configure JVM options externally\n```"
+      },
+      {
+        "name": "JVM: Heap and Stack Memory",
+        "example": "Heap for objects; stack for method calls and primitives.\n\n```java\n// Heap: dynamic memory, Stack: call frames\n```"
+      }
+    ]
+  }
+  

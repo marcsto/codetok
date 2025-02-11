@@ -130,6 +130,7 @@
 <body>
   <header>
     <h1>CodeTok</h1>
+    Improve your coding skills with bite-sized tutorials.
   </header>
   <div class="container">
     
@@ -146,11 +147,9 @@
         <div class="option" onclick="selectLanguage(this, 'ios')">iOS</div>
         <div class="option" onclick="selectLanguage(this, 'java')">Java</div>
         <div class="option" onclick="selectLanguage(this, 'javascript')">Javascript</div>
-        <div class="option" onclick="selectLanguage(this, 'pytorch')">PyTorch</div>
         <div class="option" onclick="selectLanguage(this, 'python')">Python</div>
         <div class="option" onclick="selectLanguage(this, 'rust')">Rust</div>
         <div class="option" onclick="selectLanguage(this, 'swift')">Swift</div>
-        <div class="option" onclick="selectLanguage(this, 'tensorflow')">TensorFlow</div>
         <div class="option" onclick="selectLanguage(this, 'typescript')">TypeScript</div>
       </div>
     </div>
@@ -166,17 +165,64 @@
     </div>
     
     <!-- Advanced Topics Section -->
-    <div class="section" id="advanced">
-      <h2>Advanced Topics</h2>
+    <div class="section" id="ml">
+      <h2>Machine Learning</h2>
       <div class="options">
         <div class="option" onclick="selectLanguage(this, 'llm')">Large Language Models (LLMs, Transformers etc.)</div>
         <div class="option" onclick="selectLanguage(this, 'neural-networks')">Neural Network Tips & Tricks</div>
-        <div class="option" onclick="selectLanguage(this, 'python-advanced')">Advanced Python</div>
+        <div class="option" onclick="selectLanguage(this, 'pytorch')">PyTorch</div>
+        <div class="option" onclick="selectLanguage(this, 'pytorch-advanced')">Advanced PyTorch</div>
+        <div class="option" onclick="selectLanguage(this, 'tensorflow')">TensorFlow</div>
+        <div class="option" onclick="selectLanguage(this, 'tensorflow-advanced')">Advanced TensorFlow</div>
         <!-- Additional advanced topics -->
       </div>
     </div>
+
+    <div class="section" id="advanced">
+      <h2>Advanced Topics</h2>
+      <div class="options">
+        <div class="option" onclick="selectLanguage(this, 'android-advanced')">Advanced Android</div>
+        <div class="option" onclick="selectLanguage(this, 'c-advanced')">Advanced C</div>
+        <div class="option" onclick="selectLanguage(this, 'c-plusplus-advanced')">Advanced C++</div>
+        <div class="option" onclick="selectLanguage(this, 'c-sharp-advanced')">Advanced C#</div>
+        <div class="option" onclick="selectLanguage(this, 'css-advanced')">Advanced CSS</div>
+        <div class="option" onclick="selectLanguage(this, 'flutter-advanced')">Advanced Flutter</div>
+        <div class="option" onclick="selectLanguage(this, 'ios-advanced')">Advanced iOS</div>
+        <div class="option" onclick="selectLanguage(this, 'java-advanced')">Advanced Java</div>
+        <div class="option" onclick="selectLanguage(this, 'javascript-advanced')">Advanced Javascript</div>
+        <div class="option" onclick="selectLanguage(this, 'python-advanced')">Advanced Python</div>
+        <div class="option" onclick="selectLanguage(this, 'rust-advanced')">Advanced Rust</div>
+        <div class="option" onclick="selectLanguage(this, 'swift-advanced')">Advanced Swift</div>
+        <div class="option" onclick="selectLanguage(this, 'typescript-advanced')">Advanced TypeScript</div>
+      </div>
+    </div>
     
+  
+
+    <div class="container">
+      <div class="section" id="contact">
+        <!-- h2 with inline style that sets margin bottom to 2 px -->
+        <h2 style="margin-bottom: 2px;">Contact</h2><br />
+          <ul>
+            <li>
+            Encounter an issue or have a suggestion? Please
+            <a href="https://github.com/marcsto/codetok/issues" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: underline;">file an issue on GitHub</a>
+            or
+            <a href="mailto:marcsto@gmail.com" style="color: #fff; text-decoration: underline;">email me</a>.<br />
+          </li>
+          <li>
+            Interested in contributing a new language? Check out the
+            <a href="https://github.com/marcsto/codetok" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: underline;">open source code</a>.<br />
+          </li>
+          <li>
+            Author: Marc Stogaitis
+          </li>
+        </ul>
+      </div>  
+    </div>
   </div>
+  
+    
   
   <script>
     let selectedLanguage = null;

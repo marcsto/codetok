@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Protocol Oriented Programming",
+        "example": "Protocols define blueprints for methods and properties. Use protocol extensions for default implementations.\n\n```swift\nprotocol Drivable {\n    func startEngine()\n}\n\nextension Drivable {\n    func startEngine() {\n        // Default engine start\n    }\n}\n\nstruct Car: Drivable {}\n```"
+      },
+      {
+        "name": "Value vs Reference Types",
+        "example": "Structs are value types and classes are reference types, affecting copying behavior.\n\n```swift\nstruct Point {\n    var x: Int\n    var y: Int\n}\n\nclass Person {\n    var name: String\n    init(name: String) { self.name = name }\n}\n```"
+      },
+      {
+        "name": "Generics in Swift",
+        "example": "Generics enable reusable code for any type.\n\n```swift\nfunc swapValues<T>(_ a: inout T, _ b: inout T) {\n    let temp = a\n    a = b\n    b = temp\n}\n```"
+      },
+      {
+        "name": "Memory Management with ARC",
+        "example": "Use weak references to avoid retain cycles.\n\n```swift\nclass Owner {\n    var pet: Pet?\n}\n\nclass Pet {\n    weak var owner: Owner?\n}\n```"
+      },
+      {
+        "name": "Concurrency with GCD",
+        "example": "DispatchQueue manages concurrent tasks easily.\n\n```swift\nDispatchQueue.global(qos: .background).async {\n    // Perform background task\n    DispatchQueue.main.async {\n        // Update UI on main thread\n    }\n}\n```"
+      },
+      {
+        "name": "Using OperationQueue",
+        "example": "OperationQueue provides advanced task management.\n\n```swift\nlet queue = OperationQueue()\nqueue.addOperation {\n    // Background operation\n}\n```"
+      },
+      {
+        "name": "Combine Basics",
+        "example": "Combine provides a declarative Swift API for handling events.\n\n```swift\nimport Combine\n\nlet publisher = [1, 2, 3].publisher\nlet subscription = publisher.sink { value in\n    // Process value\n}\n```"
+      },
+      {
+        "name": "Async/Await in Swift",
+        "example": "Async/await simplifies asynchronous code.\n\n```swift\nfunc fetchData() async throws -> Data {\n    // Async network call\n    return Data()\n}\n\nTask {\n    do {\n        let data = try await fetchData()\n        // Use data\n    } catch {\n        // Handle error\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Environment Values",
+        "example": "Environment values pass data through the view hierarchy.\n\n```swift\nimport SwiftUI\n\nstruct ContentView: View {\n    @Environment(\\.colorScheme) var colorScheme\n\n    var body: some View {\n        Text(\"Hello, World!\")\n            .foregroundColor(colorScheme == .dark ? .white : .black)\n    }\n}\n```"
+      },
+      {
+        "name": "MVVM Design Pattern",
+        "example": "MVVM separates concerns into Model, View, and ViewModel.\n\n```swift\nclass ViewModel: ObservableObject {\n    @Published var text = \"Hello, MVVM!\"\n}\n\nstruct ContentView: View {\n    @ObservedObject var viewModel = ViewModel()\n    var body: some View {\n        Text(viewModel.text)\n    }\n}\n```"
+      },
+      {
+        "name": "Dependency Injection",
+        "example": "Inject dependencies to improve testability and decouple components.\n\n```swift\nprotocol Service {\n    func fetchData()\n}\n\nclass RealService: Service {\n    func fetchData() { /*...*/ }\n}\n\nclass ViewModel {\n    let service: Service\n    init(service: Service) {\n        self.service = service\n    }\n}\n```"
+      },
+      {
+        "name": "Protocol Extensions",
+        "example": "Extend protocols to provide shared functionality across conforming types.\n\n```swift\nprotocol Drawable {\n    func draw()\n}\n\nextension Drawable {\n    func draw() {\n        // Default drawing implementation\n    }\n}\n\nstruct Circle: Drawable {}\n```"
+      },
+      {
+        "name": "Custom Operators",
+        "example": "Define custom operators to simplify expressions and domain-specific tasks.\n\n```swift\ninfix operator **\n\nfunc **(lhs: Int, rhs: Int) -> Int {\n    return Int(pow(Double(lhs), Double(rhs)))\n}\n```"
+      },
+      {
+        "name": "Functional Programming Techniques",
+        "example": "Use map, filter, and reduce for clean and expressive data transformations.\n\n```swift\nlet numbers = [1, 2, 3, 4]\nlet squared = numbers.map { $0 * $0 }\nlet even = numbers.filter { $0 % 2 == 0 }\nlet sum = numbers.reduce(0, +)\n```"
+      },
+      {
+        "name": "Error Handling with do-try-catch",
+        "example": "Handle errors using Swift's built-in error handling model.\n\n```swift\nenum DataError: Error {\n    case invalidData\n}\n\nfunc loadData() throws -> String {\n    throw DataError.invalidData\n}\n\ndo {\n    let data = try loadData()\n    // Use data\n} catch {\n    // Handle error\n}\n```"
+      },
+      {
+        "name": "Custom Error Types",
+        "example": "Define your own error types for more descriptive failure handling.\n\n```swift\nenum NetworkError: Error {\n    case badURL\n    case noData\n}\n\nfunc fetch() throws {\n    throw NetworkError.badURL\n}\n```"
+      },
+      {
+        "name": "Enums with Associated Values",
+        "example": "Enums can carry associated values to represent complex state.\n\n```swift\nenum Result<T> {\n    case success(T)\n    case failure(Error)\n}\n\nlet result: Result<Int> = .success(42)\n```"
+      },
+      {
+        "name": "Using Optionals with guard",
+        "example": "Use guard statements to safely unwrap optionals and exit early if nil.\n\n```swift\nfunc process(value: Int?) {\n    guard let value = value else { return } // Exit if nil\n    // Use unwrapped value\n}\n```"
+      },
+      {
+        "name": "Advanced Closures and Capture Lists",
+        "example": "Manage memory in closures by capturing self weakly to avoid retain cycles.\n\n```swift\nclass Downloader {\n    var completion: (() -> Void)?\n    func start() {\n        // Capture self weakly\n        completion = { [weak self] in\n            // Use self safely\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Preventing Memory Leaks",
+        "example": "Use weak and unowned references to prevent retain cycles in object graphs.\n\n```swift\nclass Parent {\n    var child: Child?\n}\n\nclass Child {\n    unowned var parent: Parent\n    init(parent: Parent) { self.parent = parent }\n}\n```"
+      },
+      {
+        "name": "Thread Safety with DispatchQueue",
+        "example": "Ensure thread safety by serializing access to shared resources using DispatchQueue.\n\n```swift\nclass ThreadSafeCounter {\n    private var value = 0\n    private let queue = DispatchQueue(label: \"counterQueue\")\n\n    func increment() {\n        queue.sync { value += 1 } // Thread-safe update\n    }\n}\n```"
+      },
+      {
+        "name": "Modular Code Organization",
+        "example": "Separate functionality using extensions to keep your classes focused and organized.\n\n```swift\nclass User {}\n\nextension User {\n    func login() { /*...*/ }\n}\n\nextension User {\n    func logout() { /*...*/ }\n}\n```"
+      },
+      {
+        "name": "Unit Testing with XCTest",
+        "example": "Write unit tests using XCTest to verify the behavior of your code.\n\n```swift\nimport XCTest\n\nclass MyTests: XCTestCase {\n    func testExample() {\n        XCTAssertEqual(2 + 2, 4) // Simple test\n    }\n}\n```"
+      },
+      {
+        "name": "UI Testing Best Practices",
+        "example": "Automate UI tests with XCUIApplication to simulate user interactions.\n\n```swift\nimport XCTest\n\nclass MyUITests: XCTestCase {\n    func testLoginFlow() {\n        let app = XCUIApplication()\n        app.launch()\n        // Interact with UI elements\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Package Manager",
+        "example": "Use SPM for dependency management and to modularize your projects.\n\n```swift\n// swift-tools-version:5.3\nimport PackageDescription\n\nlet package = Package(\n    name: \"MyLibrary\",\n    products: [\n        .library(name: \"MyLibrary\", targets: [\"MyLibrary\"])\n    ],\n    targets: [\n        .target(name: \"MyLibrary\", dependencies: [])\n    ]\n)\n```"
+      },
+      {
+        "name": "Code Organization with Extensions",
+        "example": "Extensions group related methods to keep class definitions concise.\n\n```swift\nclass Calculator {}\n\nextension Calculator {\n    func add(_ a: Int, _ b: Int) -> Int { a + b }\n}\n```"
+      },
+      {
+        "name": "Singleton Pattern",
+        "example": "Singletons provide a shared instance across the app, but use them judiciously.\n\n```swift\nclass Manager {\n    static let shared = Manager()\n    private init() { }\n}\n```"
+      },
+      {
+        "name": "Pitfalls of Singletons",
+        "example": "Overusing singletons can lead to tight coupling and testing challenges.\n\n```swift\n// Consider dependency injection over singletons for improved testability.\n```"
+      },
+      {
+        "name": "Lazy Initialization",
+        "example": "Lazy properties initialize only on first access, saving resources upfront.\n\n```swift\nclass DataLoader {\n    lazy var data: [String] = {\n        // Load data when needed\n        return [\"Item1\", \"Item2\"]\n    }()\n}\n```"
+      },
+      {
+        "name": "Computed Properties",
+        "example": "Computed properties calculate values dynamically without storing data.\n\n```swift\nstruct Rectangle {\n    var width: Double\n    var height: Double\n    var area: Double { width * height } // Computed value\n}\n```"
+      },
+      {
+        "name": "Property Wrappers",
+        "example": "Property wrappers encapsulate common property behavior for reuse.\n\n```swift\n@propertyWrapper\nstruct Clamped {\n    private var value: Int\n    let range: ClosedRange<Int>\n\n    init(wrappedValue: Int, _ range: ClosedRange<Int>) {\n        self.range = range\n        self.value = min(max(wrappedValue, range.lowerBound), range.upperBound)\n    }\n\n    var wrappedValue: Int {\n        get { value }\n        set { value = min(max(newValue, range.lowerBound), range.upperBound) }\n    }\n}\n\nstruct Example {\n    @Clamped(0...10) var number: Int = 5\n}\n```"
+      },
+      {
+        "name": "Observability with @Published",
+        "example": "Use @Published in an ObservableObject to automatically notify views of changes.\n\n```swift\nimport Combine\n\nclass ViewModel: ObservableObject {\n    @Published var count: Int = 0\n}\n```"
+      },
+      {
+        "name": "Error Propagation with throws",
+        "example": "Functions can throw errors to propagate failure conditions.\n\n```swift\nfunc riskyOperation() throws {\n    // Operation that may fail\n    throw NSError(domain: \"Error\", code: 1, userInfo: nil)\n}\n\nfunc perform() {\n    do {\n        try riskyOperation()\n    } catch {\n        // Handle error\n    }\n}\n```"
+      },
+      {
+        "name": "Result Type Usage",
+        "example": "The Result type provides a clear way to represent success or failure.\n\n```swift\nenum DataError: Error {\n    case notFound\n}\n\nfunc fetchData(completion: (Result<String, DataError>) -> Void) {\n    // Return success or failure\n    completion(.success(\"Data loaded\"))\n}\n```"
+      },
+      {
+        "name": "Using defer for Cleanup",
+        "example": "The defer statement schedules cleanup code to run just before exiting a scope.\n\n```swift\nfunc process() {\n    defer { // Cleanup code\n        // Release resources\n    }\n    // Function logic\n}\n```"
+      },
+      {
+        "name": "Memory Optimization with autoreleasepool",
+        "example": "Use autoreleasepool in loops to control memory usage in intensive tasks.\n\n```swift\nfor _ in 0..<1000 {\n    autoreleasepool {\n        // Process data in a contained scope\n    }\n}\n```"
+      },
+      {
+        "name": "Generics with Protocol Constraints",
+        "example": "Restrict generic types with protocol constraints to ensure required functionality.\n\n```swift\nfunc find<T: Equatable>(element: T, in array: [T]) -> Int? {\n    return array.firstIndex(of: element)\n}\n```"
+      },
+      {
+        "name": "Associated Types in Protocols",
+        "example": "Associated types let protocols be more flexible and reusable.\n\n```swift\nprotocol Container {\n    associatedtype Item\n    var items: [Item] { get set }\n}\n\nstruct IntContainer: Container {\n    var items: [Int] = []\n}\n```"
+      },
+      {
+        "name": "Opaque Return Types",
+        "example": "Opaque types hide concrete types while preserving protocol conformance.\n\n```swift\nfunc makeView() -> some View {\n    Text(\"Hello\")\n}\n```"
+      },
+      {
+        "name": "Type Erasure with AnyPublisher",
+        "example": "Use type erasure in Combine to abstract away complex publisher types.\n\n```swift\nimport Combine\n\nfunc fetch() -> AnyPublisher<String, Never> {\n    Just(\"Hello\")\n        .eraseToAnyPublisher()\n}\n```"
+      },
+      {
+        "name": "Custom Collection Types",
+        "example": "Conform to the Collection protocol to create custom, iterable types.\n\n```swift\nstruct MyCollection: Collection {\n    private var data = [Int]()\n    var startIndex: Int { data.startIndex }\n    var endIndex: Int { data.endIndex }\n    subscript(position: Int) -> Int { data[position] }\n    func index(after i: Int) -> Int { data.index(after: i) }\n}\n```"
+      },
+      {
+        "name": "Operator Overloading",
+        "example": "Customize operators to work naturally with your own types.\n\n```swift\nstruct Vector {\n    var x: Double, y: Double\n}\n\nfunc +(lhs: Vector, rhs: Vector) -> Vector {\n    return Vector(x: lhs.x + rhs.x, y: lhs.y + rhs.y)\n}\n```"
+      },
+      {
+        "name": "Pattern Matching in Swift",
+        "example": "Use pattern matching in switch statements for clear and concise branching.\n\n```swift\nenum Media {\n    case book(title: String)\n    case movie(title: String)\n}\n\nlet item = Media.book(title: \"1984\")\n\nswitch item {\ncase .book(let title):\n    // Handle book case\n    break\ncase .movie(let title):\n    // Handle movie case\n    break\n}\n```"
+      },
+      {
+        "name": "Using NSCache for Caching",
+        "example": "NSCache efficiently caches objects and auto-purges under memory pressure.\n\n```swift\nlet cache = NSCache<NSString, UIImage>()\ncache.setObject(UIImage(), forKey: \"imageKey\")\n```"
+      },
+      {
+        "name": "DispatchWorkItem Cancellation",
+        "example": "Cancel work items to manage and abort asynchronous tasks when needed.\n\n```swift\nlet workItem = DispatchWorkItem {\n    // Perform task\n}\nDispatchQueue.global().async(execute: workItem)\nworkItem.cancel() // Cancel if needed\n```"
+      },
+      {
+        "name": "Background Tasks with BGTaskScheduler",
+        "example": "Schedule background tasks to update content when the app is not active.\n\n```swift\nimport BackgroundTasks\n\nfunc scheduleAppRefresh() {\n    let request = BGAppRefreshTaskRequest(identifier: \"com.example.refresh\")\n    request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60)\n    do {\n        try BGTaskScheduler.shared.submit(request)\n    } catch {\n        // Handle error\n    }\n}\n```"
+      },
+      {
+        "name": "Lazy Sequences for Performance",
+        "example": "Use lazy sequences to defer computation until needed, improving performance.\n\n```swift\nlet numbers = Array(1...1000)\nlet lazyNumbers = numbers.lazy.map { $0 * 2 }\n```"
+      },
+      {
+        "name": "Performance Tuning with Instruments",
+        "example": "Use Instruments from Xcode to profile and optimize your app's performance.\n\n```swift\n// Run Instruments to identify bottlenecks and memory issues.\n```"
+      },
+      {
+        "name": "SOLID Principles in Swift",
+        "example": "Apply SOLID principles to write maintainable, scalable, and testable code.\n\n```swift\n// Single Responsibility: Each class should have one responsibility.\n// Open/Closed: Extend behavior without modifying existing code.\n```"
+      },
+      {
+        "name": "Advanced SwiftUI Animations",
+        "example": "Create smooth animations using implicit and explicit animations in SwiftUI.\n\n```swift\nimport SwiftUI\n\nstruct AnimatedView: View {\n    @State private var scale: CGFloat = 1.0\n\n    var body: some View {\n        Text(\"Animate\")\n            .scaleEffect(scale)\n            .onTapGesture {\n                withAnimation(.spring()) {\n                    scale = scale == 1.0 ? 1.5 : 1.0\n                }\n            }\n    }\n}\n```"
+      },
+      {
+        "name": "Reactive Programming with RxSwift",
+        "example": "RxSwift provides reactive streams for event handling.\n\n```swift\nimport RxSwift\n\nlet disposeBag = DisposeBag()\nlet observable = Observable.of(1, 2, 3)\n\nobservable.subscribe(onNext: { value in\n    // Process value\n}).disposed(by: disposeBag)\n```"
+      },
+      {
+        "name": "Combine Advanced Operators",
+        "example": "Combine operators like flatMap, debounce, and filter manage asynchronous streams.\n\n```swift\nimport Combine\n\nlet publisher = PassthroughSubject<Int, Never>()\npublisher\n    .filter { $0 % 2 == 0 }\n    .debounce(for: .seconds(0.5), scheduler: RunLoop.main)\n    .sink { value in\n        // Process debounced even value\n    }\n```"
+      },
+      {
+        "name": "Custom CAAnimation",
+        "example": "Create custom animations using Core Animation.\n\n```swift\nimport UIKit\n\nlet animation = CABasicAnimation(keyPath: \"opacity\")\nanimation.fromValue = 0.0\nanimation.toValue = 1.0\nanimation.duration = 1.0\n// Add animation to layer\n```"
+      },
+      {
+        "name": "UIViewPropertyAnimator",
+        "example": "UIViewPropertyAnimator provides interruptible animations in UIKit.\n\n```swift\nlet animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {\n    // Animation changes\n}\nanimator.startAnimation()\n```"
+      },
+      {
+        "name": "Custom View Transitions",
+        "example": "Use UIViewControllerAnimatedTransitioning to create custom transitions.\n\n```swift\nclass CustomTransition: NSObject, UIViewControllerAnimatedTransitioning {\n    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {\n        return 0.5\n    }\n    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {\n        // Custom animation logic\n    }\n}\n```"
+      },
+      {
+        "name": "Using SnapKit for Auto Layout",
+        "example": "SnapKit simplifies Auto Layout constraints in code.\n\n```swift\nimport SnapKit\n\nlet view = UIView()\nview.snp.makeConstraints { make in\n    make.center.equalToSuperview()\n    make.width.height.equalTo(100)\n}\n```"
+      },
+      {
+        "name": "Custom Collection View Layout",
+        "example": "Subclass UICollectionViewLayout to create custom layouts.\n\n```swift\nclass CustomLayout: UICollectionViewLayout {\n    // Override layout methods for custom layout\n}\n```"
+      },
+      {
+        "name": "Using Instruments Time Profiler",
+        "example": "Time Profiler in Instruments helps identify performance bottlenecks.\n\n```swift\n// Launch Instruments and select Time Profiler to record performance data.\n```"
+      },
+      {
+        "name": "Advanced Auto Layout Debugging",
+        "example": "Set symbolic breakpoints for Auto Layout errors to diagnose issues.\n\n```swift\n// Enable Auto Layout debugging by adding an exception breakpoint for UIViewAlertForUnsatisfiableConstraints.\n```"
+      },
+      {
+        "name": "Swift Concurrency: TaskGroup",
+        "example": "TaskGroup allows concurrent execution of tasks with structured concurrency.\n\n```swift\nimport Foundation\n\nfunc performConcurrentTasks() async {\n    await withTaskGroup(of: String.self) { group in\n        group.addTask { return \"Task 1\" }\n        group.addTask { return \"Task 2\" }\n        for await result in group {\n            // Process result\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Concurrency: async let",
+        "example": "Use async let to run asynchronous tasks concurrently.\n\n```swift\nfunc fetchData() async -> (String, String) {\n    async let first = fetchFirstData()\n    async let second = fetchSecondData()\n    return await (first, second)\n}\n\nfunc fetchFirstData() async -> String { \"First\" }\nfunc fetchSecondData() async -> String { \"Second\" }\n```"
+      },
+      {
+        "name": "Swift Concurrency: Actors",
+        "example": "Actors protect mutable state in concurrent environments.\n\n```swift\nactor DataManager {\n    var data: [String] = []\n    func add(_ item: String) {\n        data.append(item)\n    }\n}\n```"
+      },
+      {
+        "name": "Swift Concurrency: Cancellation",
+        "example": "Check for cancellation in asynchronous tasks to exit early.\n\n```swift\nfunc fetch() async throws -> Data {\n    try Task.checkCancellation()\n    // Perform network call\n    return Data()\n}\n```"
+      },
+      {
+        "name": "Custom Transition Animations in SwiftUI",
+        "example": "Define custom transitions in SwiftUI with the .transition modifier.\n\n```swift\nimport SwiftUI\n\nstruct FadeTransition: ViewModifier {\n    func body(content: Content) -> some View {\n        content.transition(.opacity)\n    }\n}\n\n// Usage: .modifier(FadeTransition())\n```"
+      },
+      {
+        "name": "Dynamic Type Support",
+        "example": "Support Dynamic Type by using preferred fonts that adjust to user settings.\n\n```swift\nlabel.font = UIFont.preferredFont(forTextStyle: .body)\nlabel.adjustsFontForContentSizeCategory = true\n```"
+      },
+      {
+        "name": "Accessibility Best Practices",
+        "example": "Ensure your app is accessible by using accessibility identifiers and labels.\n\n```swift\nbutton.accessibilityLabel = \"Submit Button\"\n```"
+      },
+      {
+        "name": "Custom UIControl Subclass",
+        "example": "Subclass UIControl to create custom interactive controls.\n\n```swift\nclass CustomSwitch: UIControl {\n    // Override touches and state changes\n}\n```"
+      },
+      {
+        "name": "App Extensions: Today Widget",
+        "example": "Create a Today widget to show app info in the Notification Center.\n\n```swift\n// Implement widget extension with NCWidgetProviding protocol.\n```"
+      },
+      {
+        "name": "Core Data Advanced Fetch Requests",
+        "example": "Use NSFetchRequest with predicates and sort descriptors for complex queries.\n\n```swift\nlet request: NSFetchRequest<Entity> = Entity.fetchRequest()\nrequest.predicate = NSPredicate(format: \"name CONTAINS[cd] %@\", \"search\")\n```"
+      },
+      {
+        "name": "NSFetchedResultsController Usage",
+        "example": "NSFetchedResultsController manages Core Data data for table views.\n\n```swift\nlet fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)\n```"
+      },
+      {
+        "name": "Optimizing Core Data with Batch Updates",
+        "example": "Batch updates modify Core Data records efficiently without loading objects into memory.\n\n```swift\nlet batchUpdate = NSBatchUpdateRequest(entityName: \"Entity\")\nbatchUpdate.propertiesToUpdate = [\"attribute\": newValue]\n```"
+      },
+      {
+        "name": "Data Synchronization with CloudKit",
+        "example": "CloudKit enables seamless data synchronization across devices.\n\n```swift\n// Configure CKDatabase and CKRecordZone for sync\n```"
+      },
+      {
+        "name": "Push Notifications Handling",
+        "example": "Implement UNUserNotificationCenterDelegate for managing push notifications.\n\n```swift\nimport UserNotifications\n\nclass NotificationManager: NSObject, UNUserNotificationCenterDelegate {\n    // Handle notification responses\n}\n```"
+      },
+      {
+        "name": "In-App Purchases Setup",
+        "example": "Implement StoreKit to handle in-app purchases and subscriptions.\n\n```swift\nimport StoreKit\n\nclass IAPManager: NSObject, SKProductsRequestDelegate {\n    // Request and process products\n}\n```"
+      },
+      {
+        "name": "Localization Best Practices",
+        "example": "Use NSLocalizedString to support multiple languages.\n\n```swift\nlet title = NSLocalizedString(\"welcome_title\", comment: \"Welcome screen title\")\n```"
+      },
+      {
+        "name": "VIPER Architecture",
+        "example": "VIPER divides code into View, Interactor, Presenter, Entity, and Router for better separation of concerns.\n\n```swift\n// Each module is separated to adhere to single responsibility principles.\n```"
+      },
+      {
+        "name": "Builder Pattern in Swift",
+        "example": "Use the builder pattern to construct complex objects step-by-step.\n\n```swift\nclass CarBuilder {\n    private var car = Car()\n    func setColor(_ color: String) -> CarBuilder { car.color = color; return self }\n    func build() -> Car { return car }\n}\n```"
+      },
+      {
+        "name": "Adapter Pattern in Swift",
+        "example": "Adapter pattern lets incompatible interfaces work together.\n\n```swift\nprotocol Target {\n    func request()\n}\n\nclass Adaptee {\n    func specificRequest() { /*...*/ }\n}\n\nclass Adapter: Target {\n    private let adaptee: Adaptee\n    init(adaptee: Adaptee) { self.adaptee = adaptee }\n    func request() { adaptee.specificRequest() }\n}\n```"
+      },
+      {
+        "name": "Facade Pattern in Swift",
+        "example": "Facade pattern simplifies interactions with complex subsystems.\n\n```swift\nclass SystemA { func operation() { /*...*/ } }\nclass SystemB { func operation() { /*...*/ } }\n\nclass Facade {\n    let systemA = SystemA()\n    let systemB = SystemB()\n    func perform() {\n        systemA.operation()\n        systemB.operation()\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftLint for Code Quality",
+        "example": "SwiftLint enforces Swift style and conventions in your project.\n\n```yaml\n# .swiftlint.yml configuration\nopt_in_rules:\n  - force_cast\n```"
+      },
+      {
+        "name": "Unit Testing with Mocks",
+        "example": "Use mock objects to isolate units for testing.\n\n```swift\nprotocol ServiceProtocol {\n    func fetch()\n}\n\nclass MockService: ServiceProtocol {\n    func fetch() { /* simulate response */ }\n}\n```"
+      },
+      {
+        "name": "Snapshot Testing with iOSSnapshotTestCase",
+        "example": "Capture and compare UI snapshots to catch visual regressions.\n\n```swift\n// Use FBSnapshotTestCase to verify UI appearance.\n```"
+      },
+      {
+        "name": "Memory Leak Detection with Instruments",
+        "example": "Instruments' Leaks tool identifies memory leaks during runtime.\n\n```swift\n// Run the Leaks instrument to profile memory usage.\n```"
+      },
+      {
+        "name": "Advanced Debugging with LLDB",
+        "example": "LLDB commands help inspect and modify variables during debugging.\n\n```swift\n// Use 'po' to print objects in LLDB.\n```"
+      },
+      {
+        "name": "Custom URLSession Configuration",
+        "example": "Configure URLSession for customized network behavior.\n\n```swift\nlet config = URLSessionConfiguration.default\nconfig.timeoutIntervalForRequest = 30\nlet session = URLSession(configuration: config)\n```"
+      },
+      {
+        "name": "Using Combine's URLSession",
+        "example": "Combine integrates with URLSession to handle network requests reactively.\n\n```swift\nimport Combine\n\nlet publisher = URLSession.shared.dataTaskPublisher(for: URL(string: \"https://example.com\")!)\n```"
+      },
+      {
+        "name": "Dependency Management with Carthage",
+        "example": "Carthage builds dependencies as frameworks for integration in your project.\n\n```bash\n# Cartfile\ngithub \"Alamofire/Alamofire\" ~> 5.4\n```"
+      },
+      {
+        "name": "Advanced Generics: Associated Types",
+        "example": "Associated types in protocols enable flexible generic programming.\n\n```swift\nprotocol Container {\n    associatedtype Item\n    mutating func append(_ item: Item)\n}\n```"
+      },
+      {
+        "name": "Higher-Order Functions in Swift",
+        "example": "Functions that take other functions as parameters promote abstraction.\n\n```swift\nfunc transform(numbers: [Int], using operation: (Int) -> Int) -> [Int] {\n    numbers.map { operation($0) }\n}\n```"
+      },
+      {
+        "name": "Custom Result Builders in Swift",
+        "example": "Result builders simplify DSL creation in Swift (e.g., SwiftUI view building).\n\n```swift\n@resultBuilder\nstruct ArrayBuilder {\n    static func buildBlock<T>(_ components: T...) -> [T] { components }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Previews Customization",
+        "example": "Customize SwiftUI previews for various device configurations.\n\n```swift\nstruct ContentView_Previews: PreviewProvider {\n    static var previews: some View {\n        ContentView()\n            .previewDevice(\"iPhone 13\")\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI Dynamic Lists",
+        "example": "Use List with Identifiable items for dynamic content in SwiftUI.\n\n```swift\nstruct Item: Identifiable {\n    let id = UUID()\n    let name: String\n}\n\nstruct ItemList: View {\n    let items: [Item]\n    var body: some View {\n        List(items) { item in\n            Text(item.name)\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Custom View Modifiers in SwiftUI",
+        "example": "Encapsulate view styles in custom modifiers for reusability.\n\n```swift\nstruct TitleModifier: ViewModifier {\n    func body(content: Content) -> some View {\n        content.font(.title).foregroundColor(.blue)\n    }\n}\n\nextension View {\n    func titleStyle() -> some View {\n        self.modifier(TitleModifier())\n    }\n}\n```"
+      },
+      {
+        "name": "Designing Robust APIs with Combine",
+        "example": "Combine-based APIs promote reactive patterns in networking layers.\n\n```swift\nimport Combine\n\nstruct APIClient {\n    func fetchData() -> AnyPublisher<Data, URLError> {\n        URLSession.shared.dataTaskPublisher(for: URL(string: \"https://example.com\")!)\n            .map { $0.data }\n            .eraseToAnyPublisher()\n    }\n}\n```"
+      },
+      {
+        "name": "Safe Area Layout in SwiftUI",
+        "example": "Respect safe areas using the safeAreaInset and ignoresSafeArea modifiers.\n\n```swift\nstruct SafeAreaView: View {\n    var body: some View {\n        Text(\"Content\")\n            .padding()\n            .background(Color.gray)\n            .ignoresSafeArea(edges: .bottom)\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Drawings with Core Graphics",
+        "example": "Override draw(_:) in UIView to perform custom drawing using Core Graphics.\n\n```swift\nclass CustomView: UIView {\n    override func draw(_ rect: CGRect) {\n        guard let context = UIGraphicsGetCurrentContext() else { return }\n        // Custom drawing code\n    }\n}\n```"
+      },
+      {
+        "name": "Handling Deep Links in iOS",
+        "example": "Parse URLs to navigate to specific parts of your app.\n\n```swift\nfunc application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {\n    // Handle deep link\n    return true\n}\n```"
+      },
+      {
+        "name": "Using Keychain for Secure Storage",
+        "example": "Store sensitive data securely using Keychain Services.\n\n```swift\nimport Security\n\n// Use Keychain APIs to add, query, and delete items.\n```"
+      },
+      {
+        "name": "Implementing Feature Flags",
+        "example": "Feature flags allow toggling features without new releases.\n\n```swift\nstruct FeatureFlags {\n    static let newUI = true\n}\n```"
+      },
+      {
+        "name": "Immutable Data Structures in Swift",
+        "example": "Favor immutability to improve safety and predictability in your code.\n\n```swift\nstruct ImmutablePoint {\n    let x: Double\n    let y: Double\n}\n```"
+      }
+    ]
+  }
+  

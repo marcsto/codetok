@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "CSS Variables (Custom Properties)",
+        "example": "Custom properties allow dynamic theming.\n\n```css\n:root {\n  --primary-color: #3498db;\n}\n\n.header {\n  background-color: var(--primary-color);\n}\n```"
+      },
+      {
+        "name": "Nested Calculations with calc()",
+        "example": "Use calc() to compute dynamic values.\n\n```css\n.container {\n  width: calc(100% - 2rem);\n  padding: calc(1rem + 2px);\n}\n```"
+      },
+      {
+        "name": "CSS Grid Layout: Basic Example",
+        "example": "Define a simple three-column grid layout.\n\n```css\n.grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  gap: 1rem;\n}\n```"
+      },
+      {
+        "name": "CSS Flexbox Layout: Basic Example",
+        "example": "Use flexbox for horizontal alignment.\n\n```css\n.flex {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n```"
+      },
+      {
+        "name": "Advanced Flexbox Alignment",
+        "example": "Control wrapping and content alignment with flexbox.\n\n```css\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  align-content: stretch;\n  justify-content: center;\n}\n```"
+      },
+      {
+        "name": "Responsive Design with Media Queries",
+        "example": "Adapt styles based on viewport size.\n\n```css\n@media (max-width: 600px) {\n  .responsive {\n    font-size: 14px;\n  }\n}\n```"
+      },
+      {
+        "name": "Advanced Selectors: :nth-child",
+        "example": "Style odd list items using the :nth-child selector.\n\n```css\n.list li:nth-child(odd) {\n  background-color: #f0f0f0;\n}\n```"
+      },
+      {
+        "name": "Advanced Selectors: :not()",
+        "example": "Exclude specific elements from styling.\n\n```css\n.nav a:not(.active) {\n  opacity: 0.6;\n}\n```"
+      },
+      {
+        "name": "CSS Pseudo-Elements: ::before and ::after",
+        "example": "Insert decorative content before elements.\n\n```css\n.button::before {\n  content: '🔥';\n  margin-right: 0.5rem;\n}\n```"
+      },
+      {
+        "name": "CSS Transitions",
+        "example": "Smoothly animate property changes.\n\n```css\n.card {\n  transition: transform 0.3s ease;\n}\n\n.card:hover {\n  transform: scale(1.05);\n}\n```"
+      },
+      {
+        "name": "CSS Animations with Keyframes",
+        "example": "Define animations using keyframes.\n\n```css\n@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n.element {\n  animation: fadeIn 1s ease-in;\n}\n```"
+      },
+      {
+        "name": "CSS @supports Feature Queries",
+        "example": "Apply styles only if a feature is supported.\n\n```css\n@supports (display: grid) {\n  .container {\n    display: grid;\n  }\n}\n```"
+      },
+      {
+        "name": "CSS Counters for Lists",
+        "example": "Automatically number sections or list items.\n\n```css\n.counter {\n  counter-reset: section;\n}\n\n.counter h2::before {\n  counter-increment: section;\n  content: counter(section) \". \";\n}\n```"
+      },
+      {
+        "name": "CSS Child Combinator Selector",
+        "example": "Target only direct child elements.\n\n```css\n.parent > .child {\n  margin: 1rem;\n}\n```"
+      },
+      {
+        "name": "CSS Adjacent Sibling Selector",
+        "example": "Style an element that immediately follows another.\n\n```css\n.heading + p {\n  margin-top: 0;\n}\n```"
+      },
+      {
+        "name": "CSS General Sibling Selector",
+        "example": "Select all siblings after a given element.\n\n```css\n.title ~ .description {\n  color: #555;\n}\n```"
+      },
+      {
+        "name": "Understanding Specificity and Inheritance",
+        "example": "More specific selectors override general ones.\n\n```css\n/* ID selector has higher specificity */\n#header .nav a {\n  color: red;\n}\n\n.nav a {\n  color: blue;\n}\n```"
+      },
+      {
+        "name": "CSS Variables with Fallback Values",
+        "example": "Provide a fallback if the variable is undefined.\n\n```css\n.button {\n  background-color: var(--btn-bg, #007BFF);\n}\n```"
+      },
+      {
+        "name": "CSS Clip-Path for Custom Shapes",
+        "example": "Clip an element into a circle shape.\n\n```css\n.avatar {\n  clip-path: circle(50%);\n}\n```"
+      },
+      {
+        "name": "CSS Filters for Image Effects",
+        "example": "Apply visual effects like grayscale and brightness.\n\n```css\n.image {\n  filter: grayscale(50%) brightness(1.2);\n}\n```"
+      },
+      {
+        "name": "CSS Blend Modes",
+        "example": "Combine elements with mix-blend-mode for creative effects.\n\n```css\n.overlay {\n  background: rgba(0, 0, 0, 0.5);\n  mix-blend-mode: multiply;\n}\n```"
+      },
+      {
+        "name": "Advanced Typography with Font Smoothing",
+        "example": "Improve text rendering on different platforms.\n\n```css\n.text {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n```"
+      },
+      {
+        "name": "CSS Multi-column Layout",
+        "example": "Split text content into multiple columns.\n\n```css\n.article {\n  column-count: 2;\n  column-gap: 1rem;\n}\n```"
+      },
+      {
+        "name": "CSS Object-fit and Object-position",
+        "example": "Ensure images cover containers appropriately.\n\n```css\n.img-fit {\n  width: 100%;\n  height: 300px;\n  object-fit: cover;\n  object-position: center;\n}\n```"
+      },
+      {
+        "name": "CSS Scroll Snap",
+        "example": "Create a smooth snapping scroll experience.\n\n```css\n.container {\n  scroll-snap-type: x mandatory;\n  overflow-x: scroll;\n}\n\n.item {\n  scroll-snap-align: center;\n}\n```"
+      },
+      {
+        "name": "CSS Sticky Positioning",
+        "example": "Keep an element fixed within its parent during scroll.\n\n```css\n.header {\n  position: sticky;\n  top: 0;\n}\n```"
+      },
+      {
+        "name": "Z-index Best Practices",
+        "example": "Manage stacking context with controlled z-index values.\n\n```css\n.modal {\n  position: relative;\n  z-index: 1000;\n}\n\n.backdrop {\n  position: fixed;\n  z-index: 999;\n}\n```"
+      },
+      {
+        "name": "CSS Subgrid (Experimental)",
+        "example": "Align nested grids using subgrid (experimental support).\n\n```css\n.parent {\n  display: grid;\n  grid-template-columns: 1fr 2fr;\n}\n\n.child {\n  display: subgrid;\n  grid-column: span 2;\n}\n```"
+      },
+      {
+        "name": "Advanced CSS Gradients: Linear Gradient",
+        "example": "Create a linear gradient background.\n\n```css\n.button {\n  background: linear-gradient(45deg, #f06, #4a90e2);\n}\n```"
+      },
+      {
+        "name": "Advanced CSS Gradients: Radial Gradient",
+        "example": "Apply a radial gradient for a soft transition.\n\n```css\n.card {\n  background: radial-gradient(circle, #fff, #ccc);\n}\n```"
+      },
+      {
+        "name": "Advanced CSS Gradients: Conic Gradient",
+        "example": "Use a conic gradient for a pie-chart effect.\n\n```css\n.dial {\n  background: conic-gradient(red, yellow, green, blue, red);\n}\n```"
+      },
+      {
+        "name": "CSS Logical Properties",
+        "example": "Write internationalized layouts using logical properties.\n\n```css\n.box {\n  margin-inline-start: 1rem;\n  padding-block: 2rem;\n}\n```"
+      },
+      {
+        "name": "Custom Fonts with @font-face",
+        "example": "Import and use custom fonts in your design.\n\n```css\n@font-face {\n  font-family: 'CustomFont';\n  src: url('customfont.woff2') format('woff2');\n}\n\n.body {\n  font-family: 'CustomFont', sans-serif;\n}\n```"
+      },
+      {
+        "name": "CSS Units: rem, em, vh, vw",
+        "example": "Combine relative and viewport units for flexible sizing.\n\n```css\n.text {\n  font-size: 1.2rem;\n  line-height: 1.5em;\n}\n\n.fullscreen {\n  width: 100vw;\n  height: 100vh;\n}\n```"
+      },
+      {
+        "name": "CSS Clamp for Fluid Typography",
+        "example": "Fluidly scale typography with the clamp() function.\n\n```css\nh1 {\n  font-size: clamp(1.5rem, 5vw, 3rem);\n}\n```"
+      },
+      {
+        "name": "CSS Grid Auto Placement",
+        "example": "Automatically fill grid cells with responsive design.\n\n```css\n.grid-auto {\n  display: grid;\n  grid-auto-flow: dense;\n  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));\n  gap: 10px;\n}\n```"
+      },
+      {
+        "name": "CSS Grid Named Areas",
+        "example": "Use named grid areas for semantic layout control.\n\n```css\n.grid {\n  display: grid;\n  grid-template-areas:\n    \"header header\"\n    \"sidebar content\"\n    \"footer footer\";\n}\n\n.header { grid-area: header; }\n.sidebar { grid-area: sidebar; }\n.content { grid-area: content; }\n.footer { grid-area: footer; }\n```"
+      },
+      {
+        "name": "CSS Grid Template Areas",
+        "example": "Define complex layouts with grid template areas.\n\n```css\n.grid {\n  display: grid;\n  grid-template-rows: auto 1fr auto;\n  grid-template-columns: 200px 1fr;\n  grid-template-areas:\n    \"nav header\"\n    \"nav main\"\n    \"nav footer\";\n}\n\n.nav { grid-area: nav; }\n.header { grid-area: header; }\n.main { grid-area: main; }\n.footer { grid-area: footer; }\n```"
+      },
+      {
+        "name": "CSS Masking for Visual Effects",
+        "example": "Apply an image mask to create unique visual styles.\n\n```css\n.masked {\n  -webkit-mask-image: url('mask.png');\n  mask-image: url('mask.png');\n}\n```"
+      },
+      {
+        "name": "CSS 3D Transforms",
+        "example": "Rotate elements in 3D space for depth effects.\n\n```css\n.cube {\n  transform: rotateY(45deg) rotateX(30deg);\n  transform-style: preserve-3d;\n}\n```"
+      },
+      {
+        "name": "CSS Perspective and Transform Style",
+        "example": "Add depth using perspective and preserve 3D transforms.\n\n```css\n.scene {\n  perspective: 800px;\n}\n\n.object {\n  transform: rotateY(45deg);\n  transform-style: preserve-3d;\n}\n```"
+      },
+      {
+        "name": "CSS Animation Timing with steps()",
+        "example": "Create a stepped animation effect using steps().\n\n```css\n@keyframes blink {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0; }\n}\n\n.blink {\n  animation: blink 1s steps(5, end) infinite;\n}\n```"
+      },
+      {
+        "name": "CSS Easing Functions",
+        "example": "Customize transition timing with cubic-bezier easing.\n\n```css\n.box {\n  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);\n}\n```"
+      },
+      {
+        "name": "CSS Modular Scale for Typography",
+        "example": "Maintain a consistent typographic rhythm using a scale.\n\n```css\n:root {\n  --scale-ratio: 1.25;\n  --base-size: 16px;\n}\n\nh1 { font-size: calc(var(--base-size) * var(--scale-ratio) * var(--scale-ratio)); }\n h2 { font-size: calc(var(--base-size) * var(--scale-ratio)); }\n p { font-size: var(--base-size); }\n```"
+      },
+      {
+        "name": "Multiple Backgrounds in CSS",
+        "example": "Layer several backgrounds on one element.\n\n```css\n.hero {\n  background: url('bg1.jpg'), url('bg2.png');\n  background-position: center, top right;\n  background-repeat: no-repeat, repeat;\n}\n```"
+      },
+      {
+        "name": "Background-clip and Background-origin",
+        "example": "Control where backgrounds are painted and clipped.\n\n```css\n.box {\n  background: #ff6347;\n  background-clip: padding-box;\n  background-origin: border-box;\n}\n```"
+      },
+      {
+        "name": "Using the :is() Pseudo-Class",
+        "example": "Simplify complex selectors with :is().\n\n```css\n:is(h1, h2, h3) {\n  margin-bottom: 0.5em;\n}\n```"
+      },
+      {
+        "name": "Using the :where() Pseudo-Class",
+        "example": "Reset styles with zero specificity using :where().\n\n```css\n:where(.btn, .link) {\n  text-decoration: none;\n  color: inherit;\n}\n```"
+      },
+      {
+        "name": "Optimizing CSS with will-change",
+        "example": "Hint the browser about upcoming changes for smoother animations.\n\n```css\n.animated {\n  will-change: transform, opacity;\n}\n```"
+      },
+      {
+        "name": "CSS Best Practices: BEM Methodology",
+        "example": "Structure CSS classes using the BEM naming convention.\n\n```css\n/* Block */\n.button { }\n\n/* Element */\n.button__icon { }\n\n/* Modifier */\n.button--primary { }\n```"
+      },
+      {
+        "name": "Cascade Layers with @layer",
+        "example": "Cascade layers control the order of CSS rules.\n\n```css\n@layer reset, defaults, components;\n\n@layer components {\n  .btn { color: blue; }\n}\n```"
+      },
+      {
+        "name": "Container Queries",
+        "example": "Style elements based on the container's dimensions.\n\n```css\n@container (min-width: 500px) {\n  .child {\n    font-size: 1.5rem;\n  }\n}\n```"
+      },
+      {
+        "name": "Aspect Ratio Property",
+        "example": "Maintain a consistent aspect ratio for elements.\n\n```css\n.video {\n  aspect-ratio: 16 / 9;\n  width: 100%;\n}\n```"
+      },
+      {
+        "name": "Vertical Text with Writing Modes",
+        "example": "Rotate text vertically using writing modes.\n\n```css\n.vertical-text {\n  writing-mode: vertical-lr;\n}\n```"
+      },
+      {
+        "name": "Custom Scrollbar Styling",
+        "example": "Customize scrollbars in WebKit browsers.\n\n```css\n::-webkit-scrollbar {\n  width: 8px;\n}\n\n::-webkit-scrollbar-thumb {\n  background: #888;\n  border-radius: 4px;\n}\n```"
+      },
+      {
+        "name": "Image Rendering: Pixelated",
+        "example": "Ensure pixel art scales without smoothing.\n\n```css\n.pixel-art {\n  image-rendering: pixelated;\n}\n```"
+      },
+      {
+        "name": "Using CSS Color Function",
+        "example": "Mix colors using the experimental color-mix() function.\n\n```css\n.box {\n  background-color: color-mix(in srgb, red 50%, blue);\n}\n```"
+      },
+      {
+        "name": "CSS Math Functions: min() and max()",
+        "example": "Set dynamic sizes with min() and max().\n\n```css\n.box {\n  width: min(50%, 300px);\n  height: max(200px, 10vh);\n}\n```"
+      },
+      {
+        "name": "Logical Border Properties",
+        "example": "Use logical properties for borders in international layouts.\n\n```css\n.box {\n  border-block: 2px solid black;\n  border-inline: 1px dashed gray;\n}\n```"
+      },
+      {
+        "name": "CSS Shape Outside",
+        "example": "Wrap text around a non-rectangular element shape.\n\n```css\n.image {\n  float: left;\n  shape-outside: circle(50%);\n  clip-path: circle(50%);\n  width: 200px;\n  height: 200px;\n}\n```"
+      },
+      {
+        "name": "CSS Variable Inheritance",
+        "example": "Define a variable at the root and inherit it.\n\n```css\n:root {\n  --main-padding: 1rem;\n}\n\n.container {\n  padding: var(--main-padding);\n}\n```"
+      },
+      {
+        "name": "Hover Effect with Pseudo-Element",
+        "example": "Reveal an underline on hover using a pseudo-element.\n\n```css\n.link {\n  position: relative;\n}\n\n.link::after {\n  content: '';\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2px;\n  background: currentColor;\n  transform: scaleX(0);\n  transition: transform 0.3s ease;\n}\n\n.link:hover::after {\n  transform: scaleX(1);\n}\n```"
+      },
+      {
+        "name": "Responsive Custom Properties",
+        "example": "Change custom property values with media queries.\n\n```css\n:root {\n  --padding: 1rem;\n}\n\n@media (min-width: 768px) {\n  :root {\n    --padding: 2rem;\n  }\n}\n\n.box {\n  padding: var(--padding);\n}\n```"
+      },
+      {
+        "name": "Vertical-rl Writing Mode",
+        "example": "Display text vertically from right to left.\n\n```css\n.vertical-rl {\n  writing-mode: vertical-rl;\n}\n```"
+      },
+      {
+        "name": "Drop Shadow Filter",
+        "example": "Apply a drop-shadow filter to enhance images.\n\n```css\n.image {\n  filter: drop-shadow(2px 4px 6px black);\n}\n```"
+      },
+      {
+        "name": "Gradient Mask",
+        "example": "Use a gradient as a mask for creative effects.\n\n```css\n.mask {\n  mask-image: linear-gradient(to bottom, transparent, black);\n  -webkit-mask-image: linear-gradient(to bottom, transparent, black);\n}\n```"
+      },
+      {
+        "name": "Overscroll Behavior",
+        "example": "Prevent scroll chaining on touch devices.\n\n```css\n.container {\n  overscroll-behavior: contain;\n}\n```"
+      },
+      {
+        "name": "Pointer Events Control",
+        "example": "Disable pointer events on overlay elements.\n\n```css\n.overlay {\n  pointer-events: none;\n}\n```"
+      },
+      {
+        "name": "Text Overflow Ellipsis",
+        "example": "Truncate text with an ellipsis when it overflows.\n\n```css\n.truncate {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n```"
+      },
+      {
+        "name": "Line Clamping with -webkit-line-clamp",
+        "example": "Clamp text to a fixed number of lines.\n\n```css\n.clamp {\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 3;\n  overflow: hidden;\n}\n```"
+      },
+      {
+        "name": "Text Shadow for Depth",
+        "example": "Enhance text readability with a subtle shadow.\n\n```css\n.text {\n  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);\n}\n```"
+      },
+      {
+        "name": "Background Size: Cover",
+        "example": "Ensure the background covers the entire element.\n\n```css\n.bg-cover {\n  background-size: cover;\n}\n```"
+      },
+      {
+        "name": "CSS Accent Color for Form Controls",
+        "example": "Style checkboxes and radios with accent-color.\n\n```css\ninput, button {\n  accent-color: rebeccapurple;\n}\n```"
+      },
+      {
+        "name": "Safe Area Insets",
+        "example": "Respect device safe areas on modern devices.\n\n```css\n.safe {\n  padding-top: env(safe-area-inset-top);\n  padding-bottom: env(safe-area-inset-bottom);\n}\n```"
+      },
+      {
+        "name": "Grid Auto-Fit vs Auto-Fill",
+        "example": "Create responsive grids with auto-fit.\n\n```css\n.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));\n  gap: 1rem;\n}\n```"
+      },
+      {
+        "name": "Backdrop Filter for Blur",
+        "example": "Apply a blur effect to backgrounds.\n\n```css\n.modal {\n  backdrop-filter: blur(5px);\n  background: rgba(255, 255, 255, 0.5);\n}\n```"
+      },
+      {
+        "name": "Sticky Footer with Flexbox",
+        "example": "Keep the footer at the bottom using flexbox.\n\n```css\n.wrapper {\n  display: flex;\n  flex-direction: column;\n  min-height: 100vh;\n}\n\n.content {\n  flex: 1;\n}\n```"
+      },
+      {
+        "name": "Grid Row-gap and Column-gap",
+        "example": "Separate grid items using row-gap and column-gap.\n\n```css\n.grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  row-gap: 1rem;\n  column-gap: 2rem;\n}\n```"
+      },
+      {
+        "name": "Radial Gradient with Multiple Stops",
+        "example": "Create a complex background with radial gradients.\n\n```css\n.card {\n  background: radial-gradient(circle, #fff, #eee 50%, #ddd);\n}\n```"
+      },
+      {
+        "name": "Border Image",
+        "example": "Use an image to create a decorative border.\n\n```css\n.box {\n  border: 10px solid transparent;\n  border-image: url('border.png') 30 stretch;\n}\n```"
+      },
+      {
+        "name": "Transform-origin in Animations",
+        "example": "Set a custom pivot point for CSS animations.\n\n```css\n.spinner {\n  transform-origin: center;\n  animation: spin 1s linear infinite;\n}\n\n@keyframes spin {\n  to { transform: rotate(360deg); }\n}\n```"
+      },
+      {
+        "name": "Multiple Property Transitions",
+        "example": "Animate several properties simultaneously.\n\n```css\n.box {\n  transition: background-color 0.3s, transform 0.3s;\n}\n\n.box:hover {\n  background-color: #eee;\n  transform: scale(1.1);\n}\n```"
+      },
+      {
+        "name": "Chained Fallback for Variables",
+        "example": "Chain custom property fallbacks for resilience.\n\n```css\n.box {\n  color: var(--text-color, var(--default-text-color, black));\n}\n```"
+      },
+      {
+        "name": "Using var() in calc()",
+        "example": "Combine custom properties with calc() for dynamic spacing.\n\n```css\n:root {\n  --spacing: 10px;\n}\n\n.box {\n  margin: calc(var(--spacing) * 2);\n}\n```"
+      },
+      {
+        "name": "Custom List Style with Images",
+        "example": "Replace default bullets with custom images.\n\n```css\nul.custom-list {\n  list-style: none;\n}\n\nul.custom-list li {\n  background: url('bullet.png') no-repeat left center;\n  padding-left: 20px;\n}\n```"
+      },
+      {
+        "name": "Reset Styles with the all Property",
+        "example": "Reset all properties for an element.\n\n```css\n.reset {\n  all: unset;\n  display: block;\n}\n```"
+      },
+      {
+        "name": "Basic Transform Functions",
+        "example": "Combine translate, rotate, and scale transforms.\n\n```css\n.transform {\n  transform: translateX(20px) rotate(15deg) scale(1.2);\n}\n```"
+      },
+      {
+        "name": "Font Variant and Ligatures",
+        "example": "Enable discretionary ligatures for typography.\n\n```css\n.text {\n  font-variant-ligatures: discretionary-ligatures;\n}\n```"
+      },
+      {
+        "name": "Vertical Text for CJK",
+        "example": "Set up vertical text for East Asian languages.\n\n```css\n.vertical-cjk {\n  writing-mode: vertical-rl;\n  text-orientation: upright;\n}\n```"
+      },
+      {
+        "name": "Forced Colors Media Query",
+        "example": "Adapt styles for high contrast or forced color modes.\n\n```css\n@media (forced-colors: active) {\n  .btn {\n    background: ButtonFace;\n    color: ButtonText;\n  }\n}\n```"
+      },
+      {
+        "name": "Custom Cursor with Image",
+        "example": "Set a custom cursor using an image.\n\n```css\n.custom-cursor {\n  cursor: url('cursor.png'), auto;\n}\n```"
+      },
+      {
+        "name": "Overflow-wrap for Long Words",
+        "example": "Break long words to prevent layout overflow.\n\n```css\n.word-wrap {\n  overflow-wrap: break-word;\n}\n```"
+      },
+      {
+        "name": "Hyphenation for Text",
+        "example": "Enable automatic hyphenation for better text flow.\n\n```css\n.article {\n  hyphens: auto;\n}\n```"
+      },
+      {
+        "name": "Layered Backgrounds with Different Sizes",
+        "example": "Apply multiple backgrounds with distinct sizes.\n\n```css\n.layered {\n  background: url('pattern.png') 0 0 / 50px 50px,\n              linear-gradient(to right, #fff, #ccc);\n}\n```"
+      },
+      {
+        "name": "CSS Grid Fractional Units",
+        "example": "Use fractional units to create flexible grid columns.\n\n```css\n.grid {\n  display: grid;\n  grid-template-columns: 2fr 3fr;\n}\n```"
+      },
+      {
+        "name": "CSS Gradient Transition",
+        "example": "Animate a gradient background for a dynamic effect.\n\n```css\n.animated-gradient {\n  background: linear-gradient(90deg, red, blue);\n  background-size: 200%;\n  animation: gradientShift 5s infinite;\n}\n\n@keyframes gradientShift {\n  0% { background-position: 0%; }\n  100% { background-position: 100%; }\n}\n```"
+      },
+      {
+        "name": "CSS Background Blend Modes",
+        "example": "Blend multiple background layers using blend modes.\n\n```css\n.blend {\n  background: url('texture.png'), linear-gradient(rgba(255,0,0,0.5), rgba(0,0,255,0.5));\n  background-blend-mode: multiply;\n}\n```"
+      },
+      {
+        "name": "CSS Isolation Property",
+        "example": "Create a new stacking context to isolate elements.\n\n```css\n.isolated {\n  isolation: isolate;\n}\n```"
+      },
+      {
+        "name": "CSS Filter: Contrast",
+        "example": "Increase contrast on an element when hovered.\n\n```css\n.image:hover {\n  filter: contrast(150%);\n}\n```"
+      },
+      {
+        "name": "Transition Delay and Iteration Count",
+        "example": "Control the start delay and repeat count of an animation.\n\n```css\n.delayed {\n  animation: fadeIn 2s ease-in 1s 3;\n}\n\n@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n```"
+      }
+    ]
+  }
+  

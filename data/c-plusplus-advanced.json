@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "RAII and Smart Pointers",
+        "example": "**RAII and Smart Pointers**\n\nRAII ensures resources are acquired and released automatically.\n\n```cpp\n#include <memory>\n\nvoid useResource() {\n    std::unique_ptr<int> ptr(new int(42)); // auto-deletes resource\n}\n```\n"
+      },
+      {
+        "name": "Move Semantics",
+        "example": "**Move Semantics**\n\nImplement move constructor and move assignment to transfer resources.\n\n```cpp\n#include <utility>\n\nclass Buffer {\npublic:\n    Buffer(size_t size) : data(new int[size]), size(size) {}\n    ~Buffer() { delete[] data; }\n\n    // Move constructor\n    Buffer(Buffer&& other) noexcept : data(other.data), size(other.size) {\n        other.data = nullptr; // leave other in valid state\n        other.size = 0;\n    }\n\n    // Move assignment\n    Buffer& operator=(Buffer&& other) noexcept {\n        if (this != &other) {\n            delete[] data;\n            data = other.data;\n            size = other.size;\n            other.data = nullptr;\n            other.size = 0;\n        }\n        return *this;\n    }\n\nprivate:\n    int* data;\n    size_t size;\n};\n```\n"
+      },
+      {
+        "name": "Copy-and-Swap Idiom",
+        "example": "**Copy-and-Swap Idiom**\n\nProvides strong exception safety in assignment operators.\n\n```cpp\n#include <algorithm>\n\nclass Array {\npublic:\n    Array(size_t n) : size(n), data(new int[n]) {}\n    ~Array() { delete[] data; }\n\n    // Copy constructor\n    Array(const Array& other) : size(other.size), data(new int[other.size]) {\n        std::copy(other.data, other.data + other.size, data);\n    }\n\n    // Copy assignment via copy-and-swap\n    Array& operator=(Array other) {\n        swap(*this, other);\n        return *this;\n    }\n\n    friend void swap(Array& first, Array& second) noexcept {\n        std::swap(first.size, second.size);\n        std::swap(first.data, second.data);\n    }\n\nprivate:\n    size_t size;\n    int* data;\n};\n```\n"
+      },
+      {
+        "name": "Lambda Expressions",
+        "example": "**Lambda Expressions**\n\nInline, anonymous functions with capture lists.\n\n```cpp\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> nums = {1, 2, 3};\n    // Lambda to double each element\n    std::for_each(nums.begin(), nums.end(), [](int& n) { n *= 2; });\n}\n```\n"
+      },
+      {
+        "name": "auto and Type Deduction",
+        "example": "**auto and Type Deduction**\n\nSimplify type declarations and improve code readability.\n\n```cpp\n#include <vector>\n\nint main() {\n    auto numbers = std::vector<int>{1, 2, 3}; // deduced as std::vector<int>\n}\n```\n"
+      },
+      {
+        "name": "Range-based For Loops",
+        "example": "**Range-based For Loops**\n\nIterate over containers easily.\n\n```cpp\n#include <vector>\n\nint main() {\n    std::vector<int> values = {10, 20, 30};\n    for (auto val : values) { /* process val */ }\n}\n```\n"
+      },
+      {
+        "name": "Standard Algorithms",
+        "example": "**Standard Algorithms**\n\nUse algorithms for concise and expressive code.\n\n```cpp\n#include <algorithm>\n#include <vector>\n\nint main() {\n    std::vector<int> data = {3, 1, 4};\n    std::sort(data.begin(), data.end()); // sort ascending\n}\n```\n"
+      },
+      {
+        "name": "std::function and std::bind",
+        "example": "**std::function and std::bind**\n\nEncapsulate and manipulate callable objects.\n\n```cpp\n#include <functional>\n#include <iostream>\n\nint add(int a, int b) { return a + b; }\n\nint main() {\n    std::function<int(int,int)> func = add;\n    auto boundFunc = std::bind(add, 5, std::placeholders::_1);\n    // boundFunc(x) equals add(5, x)\n}\n```\n"
+      },
+      {
+        "name": "Custom Deleters with Smart Pointers",
+        "example": "**Custom Deleters with Smart Pointers**\n\nDefine custom cleanup logic for resource management.\n\n```cpp\n#include <memory>\n#include <cstdio>\n\nint main() {\n    // Use unique_ptr with a custom deleter for FILE*\n    std::unique_ptr<FILE, decltype(&fclose)> file(fopen(\"data.txt\", \"r\"), fclose);\n}\n```\n"
+      },
+      {
+        "name": "Variadic Templates",
+        "example": "**Variadic Templates**\n\nHandle functions with a variable number of arguments.\n\n```cpp\n#include <iostream>\n\ntemplate<typename... Args>\nvoid log(Args... args) {\n    // Unpack and process args (e.g., print)\n    (void)std::initializer_list<int>{ (std::cout << args << \" \", 0)... };\n}\n\nint main() {\n    log(\"Error:\", 404, \"Not Found\");\n}\n```\n"
+      },
+      {
+        "name": "Template Metaprogramming: Compile-time Factorial",
+        "example": "**Template Metaprogramming: Compile-time Factorial**\n\nCompute values at compile time using templates.\n\n```cpp\ntemplate<int N>\nstruct Factorial {\n    static const int value = N * Factorial<N - 1>::value;\n};\n\ntemplate<>\nstruct Factorial<0> {\n    static const int value = 1;\n};\n\n// Usage: Factorial<5>::value equals 120\n```\n"
+      },
+      {
+        "name": "SFINAE with std::enable_if",
+        "example": "**SFINAE with std::enable_if**\n\nEnable function overloads based on type traits.\n\n```cpp\n#include <type_traits>\n#include <iostream>\n\ntemplate<typename T>\ntypename std::enable_if<std::is_integral<T>::value, void>::type\nprocess(T value) {\n    // Process integral types\n}\n\ntemplate<typename T>\ntypename std::enable_if<!std::is_integral<T>::value, void>::type\nprocess(T value) {\n    // Process non-integral types\n}\n```\n"
+      },
+      {
+        "name": "C++ Concepts (C++20)",
+        "example": "**C++ Concepts (C++20)**\n\nConstrain templates with clear requirements.\n\n```cpp\n#include <concepts>\n\ntemplate<typename T>\nconcept Incrementable = requires(T t) {\n    { t++ } -> std::same_as<T>;\n};\n\ntemplate<Incrementable T>\nT increment(T value) {\n    return value + 1;\n}\n```\n"
+      },
+      {
+        "name": "Ranges (C++20)",
+        "example": "**Ranges (C++20)**\n\nSimplify iteration and transformation of data.\n\n```cpp\n#include <ranges>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> nums = {1, 2, 3, 4};\n    auto even = nums | std::ranges::views::filter([](int n) { return n % 2 == 0; });\n    // even now contains only even numbers\n}\n```\n"
+      },
+      {
+        "name": "Coroutines (C++20)",
+        "example": "**Coroutines (C++20)**\n\nEnable asynchronous programming with coroutines.\n\n```cpp\n#include <coroutine>\n#include <iostream>\n\nstruct Generator {\n    struct promise_type {\n        int current_value;\n        std::suspend_always yield_value(int value) {\n            current_value = value;\n            return {};\n        }\n        std::suspend_always initial_suspend() { return {}; }\n        std::suspend_always final_suspend() noexcept { return {}; }\n        Generator get_return_object() {\n            return Generator{std::coroutine_handle<promise_type>::from_promise(*this)};\n        }\n        void return_void() {}\n        void unhandled_exception() {}\n    };\n\n    std::coroutine_handle<promise_type> handle;\n    Generator(std::coroutine_handle<promise_type> h) : handle(h) {}\n    ~Generator() { if (handle) handle.destroy(); }\n};\n\nGenerator countToThree() {\n    co_yield 1;\n    co_yield 2;\n    co_yield 3;\n}\n```\n"
+      },
+      {
+        "name": "constexpr and Compile-time Computation",
+        "example": "**constexpr and Compile-time Computation**\n\nEvaluate functions at compile time for efficiency.\n\n```cpp\nconstexpr int square(int x) {\n    return x * x;\n}\n\nstatic_assert(square(5) == 25, \"Compile-time check\");\n```\n"
+      },
+      {
+        "name": "Perfect Forwarding",
+        "example": "**Perfect Forwarding**\n\nForward arguments preserving their value category.\n\n```cpp\n#include <utility>\n\ntemplate<typename T, typename... Args>\nT* create(Args&&... args) {\n    return new T(std::forward<Args>(args)...);\n}\n```\n"
+      },
+      {
+        "name": "CRTP (Curiously Recurring Template Pattern)",
+        "example": "**CRTP (Curiously Recurring Template Pattern)**\n\nAchieve static polymorphism without virtual functions.\n\n```cpp\ntemplate<typename Derived>\nclass Base {\npublic:\n    void interface() {\n        static_cast<Derived*>(this)->implementation();\n    }\n};\n\nclass Derived : public Base<Derived> {\npublic:\n    void implementation() {\n        // Derived-specific behavior\n    }\n};\n```\n"
+      },
+      {
+        "name": "Non-Virtual Interface (NVI) Pattern",
+        "example": "**Non-Virtual Interface (NVI) Pattern**\n\nSeparate interface from implementation for better control.\n\n```cpp\nclass Base {\npublic:\n    void request() {\n        // Pre/post-processing\n        implementation();\n    }\nprivate:\n    virtual void implementation() = 0;\n};\n\nclass Derived : public Base {\nprivate:\n    void implementation() override {\n        // Derived-specific code\n    }\n};\n```\n"
+      },
+      {
+        "name": "pImpl Idiom",
+        "example": "**pImpl Idiom**\n\nHide implementation details to reduce compile-time dependencies.\n\n```cpp\n#include <memory>\n\nclass Widget {\npublic:\n    Widget();\n    ~Widget();\n    void doSomething();\nprivate:\n    struct Impl;\n    std::unique_ptr<Impl> pImpl;\n};\n\n// In Widget.cpp, define struct Impl and methods.\n```\n"
+      },
+      {
+        "name": "Delegating Constructors",
+        "example": "**Delegating Constructors**\n\nReuse constructor logic to simplify initialization.\n\n```cpp\nclass Point {\npublic:\n    Point() : Point(0, 0) {} // delegates to two-parameter constructor\n    Point(int x, int y) : x(x), y(y) {}\nprivate:\n    int x, y;\n};\n```\n"
+      },
+      {
+        "name": "Uniform Initialization",
+        "example": "**Uniform Initialization**\n\nUse brace initialization for consistent object creation.\n\n```cpp\n#include <vector>\n\nint main() {\n    int numbers[]{1, 2, 3}; // array initialization\n    auto vec = std::vector<int>{4, 5, 6}; // vector initialization\n}\n```\n"
+      },
+      {
+        "name": "Scoped Enums",
+        "example": "**Scoped Enums**\n\nAvoid polluting the global namespace with strongly typed enums.\n\n```cpp\nenum class Color { Red, Green, Blue };\n\nColor c = Color::Red;\n```\n"
+      },
+      {
+        "name": "Explicit Constructors",
+        "example": "**Explicit Constructors**\n\nPrevent unintended implicit conversions.\n\n```cpp\nclass Angle {\npublic:\n    explicit Angle(double radians) : radians(radians) {}\nprivate:\n    double radians;\n};\n\nvoid process(Angle a);\n\nint main() {\n    process(Angle(3.14)); // must be explicit\n}\n```\n"
+      },
+      {
+        "name": "Overloading Operators",
+        "example": "**Overloading Operators**\n\nDefine intuitive operations for custom types.\n\n```cpp\nclass Complex {\npublic:\n    Complex(double r, double i) : real(r), imag(i) {}\n    Complex operator+(const Complex& other) const {\n        return Complex(real + other.real, imag + other.imag);\n    }\nprivate:\n    double real, imag;\n};\n```\n"
+      },
+      {
+        "name": "Exception Safety and RAII",
+        "example": "**Exception Safety and RAII**\n\nManage resources reliably even in exceptions.\n\n```cpp\n#include <memory>\n\nvoid process() {\n    auto resource = std::make_unique<int[]>(10); // auto-cleanup on exception\n    // Processing that may throw...\n}\n```\n"
+      },
+      {
+        "name": "Thread Safety with std::thread",
+        "example": "**Thread Safety with std::thread**\n\nSpawn and manage threads easily.\n\n```cpp\n#include <thread>\n\nvoid task() {\n    // Thread work\n}\n\nint main() {\n    std::thread t(task);\n    t.join(); // ensure thread completion\n}\n```\n"
+      },
+      {
+        "name": "Mutex and Lock Guards",
+        "example": "**Mutex and Lock Guards**\n\nProtect shared data using RAII locks.\n\n```cpp\n#include <mutex>\n\nstd::mutex mtx;\n\nvoid safeIncrement(int& counter) {\n    std::lock_guard<std::mutex> lock(mtx);\n    ++counter; // thread-safe increment\n}\n```\n"
+      },
+      {
+        "name": "std::async and Futures",
+        "example": "**std::async and Futures**\n\nRun tasks asynchronously and retrieve results.\n\n```cpp\n#include <future>\n#include <numeric>\n#include <vector>\n\nint main() {\n    std::vector<int> data = {1, 2, 3, 4};\n    auto futureSum = std::async(std::launch::async, [&data]() {\n        return std::accumulate(data.begin(), data.end(), 0);\n    });\n    // futureSum.get() returns the sum\n}\n```\n"
+      },
+      {
+        "name": "Atomic Operations",
+        "example": "**Atomic Operations**\n\nEnsure thread-safe modifications without locks.\n\n```cpp\n#include <atomic>\n\nstd::atomic<int> counter{0};\n\nvoid increment() {\n    counter++; // atomic increment\n}\n```\n"
+      },
+      {
+        "name": "Custom Allocators",
+        "example": "**Custom Allocators**\n\nTailor memory allocation strategies for containers.\n\n```cpp\n#include <memory>\n#include <vector>\n\n// Custom allocator stub (implementation omitted)\ntemplate<typename T>\nstruct MyAllocator {\n    using value_type = T;\n    MyAllocator() = default;\n    template<typename U> MyAllocator(const MyAllocator<U>&) {}\n    T* allocate(std::size_t n) { return static_cast<T*>(::operator new(n * sizeof(T))); }\n    void deallocate(T* p, std::size_t) { ::operator delete(p); }\n};\n\nint main() {\n    std::vector<int, MyAllocator<int>> vec;\n}\n```\n"
+      },
+      {
+        "name": "Memory Order in Atomics",
+        "example": "**Memory Order in Atomics**\n\nControl visibility and ordering in multi-threaded code.\n\n```cpp\n#include <atomic>\n\nstd::atomic<bool> flag{false};\n\nvoid producer() {\n    flag.store(true, std::memory_order_release);\n}\n\nvoid consumer() {\n    while (!flag.load(std::memory_order_acquire)) { /* spin-wait */ }\n}\n```\n"
+      },
+      {
+        "name": "Overriding and final in Inheritance",
+        "example": "**Overriding and final in Inheritance**\n\nEnsure correct overrides and prevent further overrides.\n\n```cpp\nclass Base {\npublic:\n    virtual void process() {}\n};\n\nclass Derived final : public Base {\npublic:\n    void process() override {\n        // Specialized processing\n    }\n};\n```\n"
+      },
+      {
+        "name": "Inline Functions and Constexpr",
+        "example": "**Inline Functions and Constexpr**\n\nSuggest inlining and compile-time evaluation where possible.\n\n```cpp\ninline constexpr int add(int a, int b) {\n    return a + b;\n}\n```\n"
+      },
+      {
+        "name": "Template Specialization",
+        "example": "**Template Specialization**\n\nCustomize template behavior for specific types.\n\n```cpp\ntemplate<typename T>\nstruct Traits;\n\ntemplate<>\nstruct Traits<int> {\n    static const char* name() { return \"int\"; }\n};\n\n// Traits<double> can be similarly specialized.\n```\n"
+      },
+      {
+        "name": "Tag Dispatching",
+        "example": "**Tag Dispatching**\n\nSelect function overloads using tag types.\n\n```cpp\n#include <type_traits>\n\nstruct InputTag {};\nstruct OutputTag {};\n\ntemplate<typename T>\nvoid process(T value, InputTag) {\n    // Process input types\n}\n\ntemplate<typename T>\nvoid process(T value, OutputTag) {\n    // Process output types\n}\n\nint main() {\n    process(42, InputTag{});\n}\n```\n"
+      },
+      {
+        "name": "Concept-based Overloading",
+        "example": "**Concept-based Overloading**\n\nOverload functions based on constraints using concepts.\n\n```cpp\n#include <concepts>\n#include <iostream>\n\ntemplate<typename T>\nconcept Numeric = std::is_arithmetic_v<T>;\n\nvoid compute(Numeric auto value) {\n    // Process numeric value\n}\n\nvoid compute(auto value) {\n    // Fallback for non-numeric types\n}\n```\n"
+      },
+      {
+        "name": "Policy-Based Design",
+        "example": "**Policy-Based Design**\n\nCustomize class behavior using template policies.\n\n```cpp\n#include <iostream>\n\ntemplate<typename LoggingPolicy>\nclass Processor : private LoggingPolicy {\npublic:\n    void run() {\n        this->log(\"Processing started\");\n        // Processing...\n        this->log(\"Processing finished\");\n    }\n};\n\nstruct ConsoleLogger {\n    void log(const char* msg) { std::cout << msg << \"\\n\"; }\n};\n\nint main() {\n    Processor<ConsoleLogger> proc;\n    proc.run();\n}\n```\n"
+      },
+      {
+        "name": "Observer Pattern",
+        "example": "**Observer Pattern**\n\nImplement a publish-subscribe model.\n\n```cpp\n#include <vector>\n#include <functional>\n\nclass Subject {\npublic:\n    void subscribe(std::function<void(int)> observer) {\n        observers.push_back(observer);\n    }\n    void notify(int value) {\n        for (auto& obs : observers) obs(value);\n    }\nprivate:\n    std::vector<std::function<void(int)>> observers;\n};\n```\n"
+      },
+      {
+        "name": "Copy Elision and RVO",
+        "example": "**Copy Elision and RVO**\n\nModern C++ guarantees optimization of temporary objects.\n\n```cpp\nclass Widget {\npublic:\n    Widget() {} // Constructor\n};\n\nWidget createWidget() {\n    return Widget(); // RVO may eliminate copies\n}\n```\n"
+      },
+      {
+        "name": "Lambda Captures and Mutability",
+        "example": "**Lambda Captures and Mutability**\n\nModify captured variables in lambdas with `mutable`.\n\n```cpp\n#include <iostream>\n\nint main() {\n    int value = 10;\n    auto lambda = [value]() mutable {\n        value += 5; // allowed due to mutable\n        return value;\n    };\n    lambda(); // original 'value' unchanged outside lambda\n}\n```\n"
+      },
+      {
+        "name": "Generic Lambdas (C++14)",
+        "example": "**Generic Lambdas (C++14)**\n\nWrite lambdas with auto parameters for flexibility.\n\n```cpp\n#include <iostream>\n\nint main() {\n    auto add = [](auto a, auto b) { return a + b; };\n    // 'add' works with different types\n}\n```\n"
+      },
+      {
+        "name": "Trailing Return Types",
+        "example": "**Trailing Return Types**\n\nClarify function return types when they depend on parameters.\n\n```cpp\ntemplate<typename T, typename U>\nauto multiply(T a, U b) -> decltype(a * b) {\n    return a * b;\n}\n```\n"
+      },
+      {
+        "name": "Base Class Constructor Delegation",
+        "example": "**Base Class Constructor Delegation**\n\nInvoke base class constructors in initializer lists.\n\n```cpp\nclass Base {\npublic:\n    Base(int data) : data(data) {}\nprivate:\n    int data;\n};\n\nclass Derived : public Base {\npublic:\n    Derived(int value) : Base(value) {} // delegates to Base constructor\n};\n```\n"
+      },
+      {
+        "name": "Inheritance with Virtual Functions and override",
+        "example": "**Inheritance with Virtual Functions and override**\n\nEnsure correct overriding with `override`.\n\n```cpp\nclass Animal {\npublic:\n    virtual void speak() {}\n};\n\nclass Dog : public Animal {\npublic:\n    void speak() override {\n        // Dog-specific speak\n    }\n};\n```\n"
+      },
+      {
+        "name": "noexcept Specifier",
+        "example": "**noexcept Specifier**\n\nMark functions that won't throw exceptions for optimization.\n\n```cpp\nvoid safeFunction() noexcept {\n    // Guaranteed not to throw\n}\n```\n"
+      },
+      {
+        "name": "Operator Overloading Best Practices",
+        "example": "**Operator Overloading Best Practices**\n\nImplement operators as non-member functions when possible.\n\n```cpp\nclass Vector {\npublic:\n    Vector(int x, int y) : x(x), y(y) {}\n    friend Vector operator+(const Vector& a, const Vector& b) {\n        return Vector(a.x + b.x, a.y + b.y);\n    }\nprivate:\n    int x, y;\n};\n```\n"
+      },
+      {
+        "name": "Avoiding Object Slicing",
+        "example": "**Avoiding Object Slicing**\n\nUse pointers or references to preserve polymorphic behavior.\n\n```cpp\nclass Base {\npublic:\n    virtual ~Base() = default;\n};\n\nclass Derived : public Base {\n    // Additional members\n};\n\nvoid process(const Base& b) {\n    // Polymorphic behavior retained\n}\n```\n"
+      },
+      {
+        "name": "Effective Use of Move Iterators",
+        "example": "**Effective Use of Move Iterators**\n\nMove elements efficiently between containers.\n\n```cpp\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> src = {1, 2, 3};\n    std::vector<int> dest;\n    dest.reserve(src.size());\n    std::move(src.begin(), src.end(), std::back_inserter(dest));\n}\n```\n"
+      },
+      {
+        "name": "Structured Bindings (C++17)",
+        "example": "**Structured Bindings (C++17)**\n\nDecompose objects into individual variables.\n\n```cpp\n#include <tuple>\n\nstd::tuple<int, double> getPair() {\n    return {1, 3.14};\n}\n\nint main() {\n    auto [id, value] = getPair();\n    // 'id' is int, 'value' is double\n}\n```\n"
+      },
+      {
+        "name": "Type Erasure with std::any",
+        "example": "**Type Erasure with std::any**\n\n`std::any` can hold any type, providing type-erased storage.\n\n```cpp\n#include <any>\n#include <string>\n\nint main() {\n    std::any a = 10;\n    a = std::string(\"Hello\");\n    // Retrieve the value with std::any_cast\n    auto str = std::any_cast<std::string>(a);\n}\n```\n"
+      },
+      {
+        "name": "Type-Safe Unions with std::variant",
+        "example": "**Type-Safe Unions with std::variant**\n\n`std::variant` holds one of several types safely.\n\n```cpp\n#include <variant>\n#include <string>\n\nint main() {\n    std::variant<int, std::string> var;\n    var = 42;\n    var = \"world\";\n    // Access the stored value\n    auto str = std::get<std::string>(var);\n}\n```\n"
+      },
+      {
+        "name": "Overloading operator<< for Streaming",
+        "example": "**Overloading operator<< for Streaming**\n\nImplement `operator<<` to stream custom types.\n\n```cpp\n#include <iostream>\n\nclass Point {\npublic:\n    int x, y;\n    Point(int x, int y) : x(x), y(y) {}\n};\n\nstd::ostream& operator<<(std::ostream& os, const Point& p) {\n    os << \"(\" << p.x << \", \" << p.y << \")\";\n    return os;\n}\n```\n"
+      },
+      {
+        "name": "Custom Hash Functions for Unordered Containers",
+        "example": "**Custom Hash Functions for Unordered Containers**\n\nDefine custom hash functions for user-defined types.\n\n```cpp\n#include <unordered_set>\n#include <string>\n\nstruct Person {\n    std::string name;\n    int age;\n    bool operator==(const Person& other) const {\n        return name == other.name && age == other.age;\n    }\n};\n\nstruct PersonHash {\n    std::size_t operator()(const Person& p) const {\n        return std::hash<std::string>()(p.name) ^ std::hash<int>()(p.age);\n    }\n};\n\nint main() {\n    std::unordered_set<Person, PersonHash> people;\n}\n```\n"
+      },
+      {
+        "name": "Lazy Initialization with std::optional",
+        "example": "**Lazy Initialization with std::optional**\n\nUse `std::optional` to delay expensive computations until needed.\n\n```cpp\n#include <optional>\n#include <string>\n\nstd::optional<std::string> computeValue() {\n    // Expensive computation\n    return \"result\";\n}\n\nint main() {\n    std::optional<std::string> value;\n    if (!value) {\n        value = computeValue();\n    }\n}\n```\n"
+      },
+      {
+        "name": "Double Dispatch with Visitor Pattern",
+        "example": "**Double Dispatch with Visitor Pattern**\n\nImplement double dispatch using the Visitor pattern.\n\n```cpp\n#include <iostream>\n\nclass Circle;\nclass Square;\n\nclass ShapeVisitor {\npublic:\n    virtual void visit(const Circle&) = 0;\n    virtual void visit(const Square&) = 0;\n};\n\nclass Shape {\npublic:\n    virtual void accept(ShapeVisitor& visitor) const = 0;\n};\n\nclass Circle : public Shape {\npublic:\n    void accept(ShapeVisitor& visitor) const override { visitor.visit(*this); }\n};\n\nclass Square : public Shape {\npublic:\n    void accept(ShapeVisitor& visitor) const override { visitor.visit(*this); }\n};\n```\n"
+      },
+      {
+        "name": "Empty Base Optimization (EBO)",
+        "example": "**Empty Base Optimization (EBO)**\n\nDerive from an empty class to avoid extra storage overhead.\n\n```cpp\nstruct Empty {};\n\ntemplate<typename T, typename E = Empty>\nclass Wrapper : private E {\n    T value;\npublic:\n    Wrapper(T v) : value(v) {}\n    T get() const { return value; }\n};\n```\n"
+      },
+      {
+        "name": "Meyers' Singleton",
+        "example": "**Meyers' Singleton**\n\nUse a local static variable for a thread-safe singleton.\n\n```cpp\nclass Singleton {\npublic:\n    static Singleton& instance() {\n        static Singleton inst;\n        return inst;\n    }\nprivate:\n    Singleton() {}\n    Singleton(const Singleton&) = delete;\n    Singleton& operator=(const Singleton&) = delete;\n};\n```\n"
+      },
+      {
+        "name": "Function Objects (Functors)",
+        "example": "**Function Objects (Functors)**\n\nCreate callable objects by overloading `operator()`.\n\n```cpp\n#include <iostream>\n\nstruct Multiply {\n    int factor;\n    Multiply(int f) : factor(f) {}\n    int operator()(int x) const { return x * factor; }\n};\n\nint main() {\n    Multiply timesTwo(2);\n    int result = timesTwo(5); // result is 10\n}\n```\n"
+      },
+      {
+        "name": "Compile-Time String Manipulation with constexpr",
+        "example": "**Compile-Time String Manipulation with constexpr**\n\nPerform string operations at compile time.\n\n```cpp\n#include <cstddef>\n\nconstexpr std::size_t strlen_constexpr(const char* str) {\n    std::size_t len = 0;\n    while (str[len] != '\\0') ++len;\n    return len;\n}\n\nstatic_assert(strlen_constexpr(\"hello\") == 5, \"\");\n```\n"
+      },
+      {
+        "name": "Type-Safe Bitmask Enum Operations",
+        "example": "**Type-Safe Bitmask Enum Operations**\n\nEnable bitwise operations for enum classes safely.\n\n```cpp\n#include <type_traits>\n\nenum class Permissions : unsigned {\n    Read = 1, Write = 2, Execute = 4\n};\n\nconstexpr Permissions operator|(Permissions a, Permissions b) {\n    return static_cast<Permissions>(\n        static_cast<std::underlying_type<Permissions>::type>(a) |\n        static_cast<std::underlying_type<Permissions>::type>(b));\n}\n```\n"
+      },
+      {
+        "name": "Using std::shared_mutex for Read-Write Lock",
+        "example": "**Using std::shared_mutex for Read-Write Lock**\n\nUtilize shared locks for concurrent read access.\n\n```cpp\n#include <shared_mutex>\n#include <vector>\n\nstd::vector<int> data;\nstd::shared_mutex mutex;\n\nvoid reader() {\n    std::shared_lock lock(mutex);\n    // Safely read from data\n}\n\nvoid writer() {\n    std::unique_lock lock(mutex);\n    data.push_back(42);\n}\n```\n"
+      },
+      {
+        "name": "Thread-Safe Queue with std::condition_variable",
+        "example": "**Thread-Safe Queue with std::condition_variable**\n\nImplement a basic thread-safe queue.\n\n```cpp\n#include <queue>\n#include <mutex>\n#include <condition_variable>\n\ntemplate<typename T>\nclass ThreadSafeQueue {\n    std::queue<T> queue;\n    std::mutex mtx;\n    std::condition_variable cv;\npublic:\n    void push(T value) {\n        {\n            std::lock_guard lock(mtx);\n            queue.push(std::move(value));\n        }\n        cv.notify_one();\n    }\n    T pop() {\n        std::unique_lock lock(mtx);\n        cv.wait(lock, [this]{ return !queue.empty(); });\n        T value = std::move(queue.front());\n        queue.pop();\n        return value;\n    }\n};\n```\n"
+      },
+      {
+        "name": "Using std::scoped_lock for Multiple Mutexes",
+        "example": "**Using std::scoped_lock for Multiple Mutexes**\n\nLock multiple mutexes safely to prevent deadlock.\n\n```cpp\n#include <mutex>\n\nstd::mutex m1, m2;\n\nvoid func() {\n    std::scoped_lock lock(m1, m2);\n    // Critical section accessing shared resources\n}\n```\n"
+      },
+      {
+        "name": "Creating Non-Copyable Classes",
+        "example": "**Creating Non-Copyable Classes**\n\nDelete copy operations to prevent copying.\n\n```cpp\nclass NonCopyable {\npublic:\n    NonCopyable() = default;\n    NonCopyable(const NonCopyable&) = delete;\n    NonCopyable& operator=(const NonCopyable&) = delete;\n};\n```\n"
+      },
+      {
+        "name": "Generic Factory Pattern with Templates",
+        "example": "**Generic Factory Pattern with Templates**\n\nCreate objects generically using a templated factory.\n\n```cpp\n#include <memory>\n\nclass Product {\npublic:\n    virtual ~Product() = default;\n};\n\nclass ConcreteProduct : public Product {};\n\ntemplate<typename T>\nstd::unique_ptr<Product> createProduct() {\n    return std::make_unique<T>();\n}\n\nint main() {\n    auto product = createProduct<ConcreteProduct>();\n}\n```\n"
+      },
+      {
+        "name": "CRTP for Static Interface Checking",
+        "example": "**CRTP for Static Interface Checking**\n\nEnforce interface implementation at compile time using CRTP.\n\n```cpp\ntemplate<typename Derived>\nclass Interface {\npublic:\n    void run() {\n        static_cast<Derived*>(this)->runImpl();\n    }\n};\n\nclass Concrete : public Interface<Concrete> {\npublic:\n    void runImpl() { /* implementation */ }\n};\n```\n"
+      },
+      {
+        "name": "Inline Variables (C++17)",
+        "example": "**Inline Variables (C++17)**\n\nDefine variables in headers without violating the ODR.\n\n```cpp\n// In a header file\nstruct Config {\n    static inline int value = 42;\n};\n```\n"
+      },
+      {
+        "name": "Using std::launder (C++17)",
+        "example": "**Using std::launder (C++17)**\n\nSafely access objects that have been relocated.\n\n```cpp\n#include <new>\n\nstruct A { int x; };\n\nint main() {\n    alignas(A) unsigned char buffer[sizeof(A)];\n    A* a = new(buffer) A{10};\n    a->~A();\n    new(buffer) A{20};\n    a = std::launder(reinterpret_cast<A*>(buffer));\n}\n```\n"
+      },
+      {
+        "name": "Aligned Memory Allocation",
+        "example": "**Aligned Memory Allocation**\n\nUse `alignas` to enforce alignment requirements.\n\n```cpp\n#include <iostream>\n\nstruct alignas(32) AlignedData {\n    int data[8];\n};\n\nint main() {\n    AlignedData ad;\n    // 'ad' is aligned on a 32-byte boundary\n}\n```\n"
+      },
+      {
+        "name": "Using std::bitset for Bit Manipulation",
+        "example": "**Using std::bitset for Bit Manipulation**\n\nManage fixed-size sequences of bits efficiently.\n\n```cpp\n#include <bitset>\n#include <iostream>\n\nint main() {\n    std::bitset<8> bits(\"10101010\");\n    // bits.count() returns the number of set bits\n}\n```\n"
+      },
+      {
+        "name": "Using std::optional for Optional Return Values",
+        "example": "**Using std::optional for Optional Return Values**\n\nReturn an optional value to indicate a missing result.\n\n```cpp\n#include <optional>\n\nstd::optional<int> find(int value) {\n    // Return a value if found, otherwise std::nullopt\n    return value > 0 ? std::optional<int>{value} : std::nullopt;\n}\n```\n"
+      },
+      {
+        "name": "Using std::filesystem for File Operations",
+        "example": "**Using std::filesystem for File Operations**\n\nPerform file system tasks using the standard library.\n\n```cpp\n#include <filesystem>\n#include <iostream>\n\nint main() {\n    for (const auto& entry : std::filesystem::directory_iterator(\".\")) {\n        // Process each file/directory\n    }\n}\n```\n"
+      },
+      {
+        "name": "Nested Exceptions",
+        "example": "**Nested Exceptions**\n\nCapture and rethrow exceptions with additional context.\n\n```cpp\n#include <exception>\n#include <iostream>\n\nvoid func() {\n    try {\n        throw std::runtime_error(\"Original error\");\n    } catch (...) {\n        std::throw_with_nested(std::runtime_error(\"Additional context\"));\n    }\n}\n```\n"
+      },
+      {
+        "name": "Customizing new and delete Operators",
+        "example": "**Customizing new and delete Operators**\n\nOverride memory allocation for a class.\n\n```cpp\n#include <cstdlib>\n\nclass CustomAlloc {\npublic:\n    void* operator new(std::size_t size) {\n        return std::malloc(size);\n    }\n    void operator delete(void* ptr) noexcept {\n        std::free(ptr);\n    }\n};\n```\n"
+      },
+      {
+        "name": "Memory Pool Allocator",
+        "example": "**Memory Pool Allocator**\n\nImplement a simple memory pool for efficient allocations.\n\n```cpp\n#include <cstddef>\n#include <vector>\n\nclass MemoryPool {\n    std::vector<char> pool;\n    std::size_t index = 0;\npublic:\n    MemoryPool(std::size_t size) : pool(size) {}\n    void* allocate(std::size_t size) {\n        void* ptr = pool.data() + index;\n        index += size;\n        return ptr;\n    }\n};\n```\n"
+      },
+      {
+        "name": "Unions vs. std::variant",
+        "example": "**Unions vs. std::variant**\n\n`std::variant` offers a type-safe alternative to traditional unions.\n\n```cpp\n#include <variant>\n#include <string>\n\n// Traditional union (unsafe)\nunion Data {\n    int i;\n    float f;\n};\n\n// Type-safe alternative\nstd::variant<int, float> safeData;\n```\n"
+      },
+      {
+        "name": "Using std::chrono for Timing",
+        "example": "**Using std::chrono for Timing**\n\nMeasure time intervals with high precision.\n\n```cpp\n#include <chrono>\n#include <thread>\n\nint main() {\n    auto start = std::chrono::high_resolution_clock::now();\n    std::this_thread::sleep_for(std::chrono::milliseconds(100));\n    auto end = std::chrono::high_resolution_clock::now();\n    // Duration in milliseconds\n    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();\n}\n```\n"
+      },
+      {
+        "name": "Simple State Machine",
+        "example": "**Simple State Machine**\n\nImplement a state machine using an enum and switch-case.\n\n```cpp\n#include <iostream>\n\nenum class State { Start, Process, End };\n\nvoid runStateMachine(State state) {\n    switch(state) {\n        case State::Start: /* initialize */ break;\n        case State::Process: /* process */ break;\n        case State::End: /* cleanup */ break;\n    }\n}\n```\n"
+      },
+      {
+        "name": "Using std::tuple and std::apply",
+        "example": "**Using std::tuple and std::apply**\n\nUnpack tuple elements into a function call.\n\n```cpp\n#include <tuple>\n#include <iostream>\n\nint add(int a, int b) { return a + b; }\n\nint main() {\n    auto tup = std::make_tuple(3, 4);\n    int sum = std::apply(add, tup);\n}\n```\n"
+      },
+      {
+        "name": "Partial Template Specialization for Classes",
+        "example": "**Partial Template Specialization for Classes**\n\nCustomize template behavior for specific type combinations.\n\n```cpp\ntemplate<typename T, typename U>\nstruct Pair {};\n\n// Specialization when both types are the same\ntemplate<typename T>\nstruct Pair<T, T> {\n    T first, second;\n};\n```\n"
+      },
+      {
+        "name": "Using std::initializer_list in Custom Types",
+        "example": "**Using std::initializer_list in Custom Types**\n\nAllow object initialization from a list of values.\n\n```cpp\n#include <initializer_list>\n#include <vector>\n\nclass Numbers {\n    std::vector<int> values;\npublic:\n    Numbers(std::initializer_list<int> init) : values(init) {}\n};\n```\n"
+      },
+      {
+        "name": "Lambda Recursion with std::function",
+        "example": "**Lambda Recursion with std::function**\n\nDefine recursive lambdas by using std::function.\n\n```cpp\n#include <functional>\n#include <iostream>\n\nint main() {\n    std::function<int(int)> factorial = [&](int n) {\n        return n <= 1 ? 1 : n * factorial(n - 1);\n    };\n    int fact = factorial(5); // 120\n}\n```\n"
+      },
+      {
+        "name": "Using std::synchronized_value (C++23)",
+        "example": "**Using std::synchronized_value (C++23)**\n\nWrap a value to provide thread-safe access (conceptual example).\n\n```cpp\n// Requires C++23 support\n#include <mutex>\n\n// Conceptual stub for synchronized_value\ntemplate<typename T>\nclass synchronized_value {\n    T value;\n    mutable std::mutex mtx;\npublic:\n    synchronized_value(T val) : value(val) {}\n    T get() const {\n        std::lock_guard lock(mtx);\n        return value;\n    }\n};\n```\n"
+      },
+      {
+        "name": "Heterogeneous Lookup in Associative Containers",
+        "example": "**Heterogeneous Lookup in Associative Containers**\n\nUse transparent comparators to enable flexible key lookups.\n\n```cpp\n#include <set>\n#include <string>\n\nstruct CaseInsensitiveCompare {\n    using is_transparent = void;\n    bool operator()(const std::string& a, const std::string& b) const {\n        // Simplified case-insensitive comparison (implementation omitted)\n        return a < b;\n    }\n};\n\nstd::set<std::string, CaseInsensitiveCompare> names;\n```\n"
+      },
+      {
+        "name": "Function Tracing with RAII",
+        "example": "**Function Tracing with RAII**\n\nAutomatically log function entry and exit using an RAII helper.\n\n```cpp\n#include <iostream>\n\nclass Trace {\npublic:\n    Trace(const char* name) : name(name) {\n        std::cout << \"Enter: \" << name << \"\\n\";\n    }\n    ~Trace() {\n        std::cout << \"Exit: \" << name << \"\\n\";\n    }\nprivate:\n    const char* name;\n};\n\nvoid func() {\n    Trace t(\"func\");\n    // Function body\n}\n```\n"
+      },
+      {
+        "name": "Lazy Evaluation with Proxy Objects",
+        "example": "**Lazy Evaluation with Proxy Objects**\n\nDelay computation until the value is actually needed.\n\n```cpp\n#include <functional>\n\ntemplate<typename T>\nclass Lazy {\n    std::function<T()> func;\n    mutable bool evaluated = false;\n    mutable T value;\npublic:\n    Lazy(std::function<T()> f) : func(f) {}\n    T get() const {\n        if (!evaluated) { value = func(); evaluated = true; }\n        return value;\n    }\n};\n```\n"
+      },
+      {
+        "name": "Expression Templates for DSL",
+        "example": "**Expression Templates for DSL**\n\nBuild domain-specific languages by delaying expression evaluation.\n\n```cpp\n#include <iostream>\n\n// Simplified expression template example\n\ntemplate<typename L, typename R>\nstruct Add {\n    L l;\n    R r;\n    Add(L l, R r) : l(l), r(r) {}\n    int eval() const { return l.eval() + r.eval(); }\n};\n\nstruct Literal {\n    int value;\n    Literal(int v) : value(v) {}\n    int eval() const { return value; }\n};\n\n// Overload + to construct an expression\ntemplate<typename L, typename R>\nAdd<L, R> operator+(const L& l, const R& r) {\n    return Add<L, R>(l, r);\n}\n\nint main() {\n    Literal a(3), b(4);\n    auto expr = a + b;\n    int result = expr.eval();\n}\n```\n"
+      },
+      {
+        "name": "Move-Only Lambda Captures",
+        "example": "**Move-Only Lambda Captures**\n\nCapture move-only types in lambdas using `std::move` in the capture list.\n\n```cpp\n#include <memory>\n#include <iostream>\n\nint main() {\n    auto ptr = std::make_unique<int>(10);\n    auto lambda = [p = std::move(ptr)]() {\n        // Use the move-only pointer 'p' inside the lambda\n    };\n    lambda();\n}\n```\n"
+      },
+      {
+        "name": "Scoped Thread Wrapper",
+        "example": "**Scoped Thread Wrapper**\n\nEnsure threads are joined automatically using RAII.\n\n```cpp\n#include <thread>\n#include <stdexcept>\n\nclass ScopedThread {\n    std::thread t;\npublic:\n    explicit ScopedThread(std::thread t) : t(std::move(t)) {\n        if (!this->t.joinable()) throw std::logic_error(\"No thread\");\n    }\n    ~ScopedThread() { t.join(); }\n    ScopedThread(const ScopedThread&) = delete;\n    ScopedThread& operator=(const ScopedThread&) = delete;\n};\n\nvoid func() {}\n\nint main() {\n    ScopedThread st(std::thread(func));\n}\n```\n"
+      },
+      {
+        "name": "Custom Iterator Implementation",
+        "example": "**Custom Iterator Implementation**\n\nImplement an iterator for a custom container.\n\n```cpp\n#include <iterator>\n#include <vector>\n\nclass Container {\n    std::vector<int> data;\npublic:\n    Container(std::initializer_list<int> il) : data(il) {}\n    using iterator = std::vector<int>::iterator;\n    iterator begin() { return data.begin(); }\n    iterator end() { return data.end(); }\n};\n```\n"
+      },
+      {
+        "name": "Iterator Categories and std::iterator_traits",
+        "example": "**Iterator Categories and std::iterator_traits**\n\nLeverage iterator traits to write generic algorithms.\n\n```cpp\n#include <iterator>\n#include <type_traits>\n\ntemplate<typename Iterator>\nvoid process(Iterator it) {\n    using Category = typename std::iterator_traits<Iterator>::iterator_category;\n    static_assert(std::is_base_of<std::input_iterator_tag, Category>::value, \"Requires input iterator\");\n}\n```\n"
+      },
+      {
+        "name": "Using std::transform_reduce",
+        "example": "**Using std::transform_reduce (C++17)**\n\nCombine transformation and reduction in one algorithm call.\n\n```cpp\n#include <numeric>\n#include <vector>\n#include <execution>\n\nint main() {\n    std::vector<int> vec = {1, 2, 3, 4};\n    int result = std::transform_reduce(std::execution::par,\n                                        vec.begin(), vec.end(),\n                                        0,\n                                        std::plus<>(),\n                                        [](int x) { return x * x; });\n}\n```\n"
+      },
+      {
+        "name": "Parallel Algorithms (C++17)",
+        "example": "**Parallel Algorithms (C++17)**\n\nUtilize parallel execution policies to speed up algorithms.\n\n```cpp\n#include <algorithm>\n#include <vector>\n#include <execution>\n\nint main() {\n    std::vector<int> data = {5, 3, 1, 4, 2};\n    std::sort(std::execution::par, data.begin(), data.end());\n}\n```\n"
+      },
+      {
+        "name": "Generic Code with Concepts and Auto Return Types",
+        "example": "**Generic Code with Concepts and Auto Return Types**\n\nDefine functions with constraints using C++20 concepts.\n\n```cpp\n#include <concepts>\n\ntemplate<typename T>\nconcept Addable = requires(T a, T b) {\n    { a + b } -> std::convertible_to<T>;\n};\n\nauto add(Addable auto a, Addable auto b) {\n    return a + b;\n}\n```\n"
+      },
+      {
+        "name": "Using std::span (C++20)",
+        "example": "**Using std::span (C++20)**\n\nProvide a non-owning view over contiguous data.\n\n```cpp\n#include <span>\n#include <vector>\n\nvoid process(std::span<int> data) {\n    // Process data without copying\n}\n\nint main() {\n    std::vector<int> vec = {1, 2, 3};\n    process(vec);\n}\n```\n"
+      },
+      {
+        "name": "Using std::array with constexpr",
+        "example": "**Using std::array with constexpr**\n\nInitialize fixed-size arrays at compile time.\n\n```cpp\n#include <array>\n\nconstexpr std::array<int, 3> arr = {1, 2, 3};\n```\n"
+      },
+      {
+        "name": "Using std::reference_wrapper for Reference Semantics",
+        "example": "**Using std::reference_wrapper for Reference Semantics**\n\nStore references in standard containers using std::ref.\n\n```cpp\n#include <functional>\n#include <vector>\n\nint main() {\n    int value = 42;\n    std::vector<std::reference_wrapper<int>> refs;\n    refs.push_back(std::ref(value));\n}\n```\n"
+      },
+      {
+        "name": "Implementing a Move-Only Type",
+        "example": "**Implementing a Move-Only Type**\n\nDesign a class that can only be moved, not copied.\n\n```cpp\nclass MoveOnly {\npublic:\n    MoveOnly() = default;\n    MoveOnly(const MoveOnly&) = delete;\n    MoveOnly& operator=(const MoveOnly&) = delete;\n    MoveOnly(MoveOnly&&) = default;\n    MoveOnly& operator=(MoveOnly&&) = default;\n};\n```\n"
+      },
+      {
+        "name": "Custom Deleters for std::shared_ptr",
+        "example": "**Custom Deleters for std::shared_ptr**\n\nDefine custom cleanup logic for shared pointers.\n\n```cpp\n#include <memory>\n#include <cstdio>\n\nstruct FileDeleter {\n    void operator()(FILE* file) const {\n        if (file) fclose(file);\n    }\n};\n\nint main() {\n    std::shared_ptr<FILE> file(fopen(\"example.txt\", \"r\"), FileDeleter());\n}\n```\n"
+      }
+    ]
+  }
+  

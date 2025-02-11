@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Lifetimes Basics",
+        "example": "Lifetimes annotate references to tie them to a scope.\n\n```rust\n// Returns the longest of two string slices\nfn longest<'a>(x: &'a str, y: &'a str) -> &'a str {\n    if x.len() > y.len() { x } else { y }\n}\n```"
+      },
+      {
+        "name": "Advanced Lifetime Annotations",
+        "example": "Multiple lifetimes allow complex relationships between references.\n\n```rust\nstruct Book<'a> {\n    title: &'a str,\n    author: &'a str,\n}\n\n// Function with separate lifetimes\nfn get_author<'a, 'b>(book: &'a Book<'b>) -> &'b str {\n    book.author\n}\n```"
+      },
+      {
+        "name": "Borrow Checker Insights",
+        "example": "Rust's borrow checker prevents data races at compile time.\n\n```rust\nfn main() {\n    let mut data = vec![1, 2, 3];\n    let r1 = &data;\n    // let r2 = &mut data; // Error: cannot borrow as mutable while immutable borrow exists\n}\n```"
+      },
+      {
+        "name": "Ownership and Moves",
+        "example": "Ownership is transferred on assignment.\n\n```rust\nfn main() {\n    let s = String::from(\"hello\");\n    let t = s; // s is moved to t\n    // s is no longer valid here\n}\n```"
+      },
+      {
+        "name": "Mutable Borrowing",
+        "example": "Mutable references allow in-place modifications.\n\n```rust\nfn main() {\n    let mut num = 10;\n    {\n        let r = &mut num; // exclusive borrow\n        *r += 5;\n    }\n    // num can be used again\n}\n```"
+      },
+      {
+        "name": "Slices Usage",
+        "example": "Slices let you work with subsets of collections.\n\n```rust\nfn main() {\n    let arr = [1, 2, 3, 4, 5];\n    let slice = &arr[1..4]; // elements 2, 3, 4\n}\n```"
+      },
+      {
+        "name": "Structs with Lifetimes",
+        "example": "Structs can hold references with explicit lifetimes.\n\n```rust\nstruct Person<'a> {\n    name: &'a str,\n}\n\nfn main() {\n    let name = String::from(\"Alice\");\n    let person = Person { name: &name };\n}\n```"
+      },
+      {
+        "name": "Basic Trait Implementation",
+        "example": "Traits define shared behavior.\n\n```rust\ntrait Speak {\n    fn speak(&self) -> &str;\n}\n\nstruct Dog;\n\nimpl Speak for Dog {\n    fn speak(&self) -> &str { \"Woof\" }\n}\n```"
+      },
+      {
+        "name": "Trait Bounds in Generics",
+        "example": "Enforce behavior with trait bounds.\n\n```rust\nfn shout<T: Speak>(creature: &T) -> String {\n    creature.speak().to_uppercase()\n}\n```"
+      },
+      {
+        "name": "Associated Types in Traits",
+        "example": "Associated types can simplify generics.\n\n```rust\ntrait MyIterator {\n    type Item;\n    fn next(&mut self) -> Option<Self::Item>;\n}\n// Implementations define the Item type\n```"
+      },
+      {
+        "name": "PhantomData Usage",
+        "example": "PhantomData marks unused type parameters for variance.\n\n```rust\nuse std::marker::PhantomData;\n\nstruct MyContainer<T> {\n    _marker: PhantomData<T>,\n}\n```"
+      },
+      {
+        "name": "Enums and Pattern Matching",
+        "example": "Enums with match statements provide type-safe variants.\n\n```rust\nenum Status {\n    Success,\n    Error(u32),\n}\n\nfn check(status: Status) {\n    match status {\n        Status::Success => { /* handle success */ },\n        Status::Error(code) => { /* handle error with code */ },\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced Pattern Matching",
+        "example": "Match multiple patterns and bind variables.\n\n```rust\nenum Message {\n    Quit,\n    Echo(String),\n    Move { x: i32, y: i32 },\n}\n\nfn process(msg: Message) {\n    match msg {\n        Message::Echo(text) | Message::Quit => { /* common handling */ },\n        Message::Move { x, y } => { /* process movement */ },\n    }\n}\n```"
+      },
+      {
+        "name": "Option and Result Handling",
+        "example": "Use Option and Result for error handling.\n\n```rust\nfn get_value(opt: Option<i32>) -> i32 {\n    opt.unwrap_or(0) // Returns 0 if None\n}\n```"
+      },
+      {
+        "name": "Custom Error Types",
+        "example": "Define custom error types for precise error handling.\n\n```rust\n#[derive(Debug)]\nenum MyError {\n    NotFound,\n    InvalidInput,\n}\n\nfn do_something() -> Result<(), MyError> {\n    Err(MyError::NotFound)\n}\n```"
+      },
+      {
+        "name": "Using the ? Operator",
+        "example": "The ? operator propagates errors.\n\n```rust\nfn read_file() -> std::io::Result<String> {\n    let content = std::fs::read_to_string(\"file.txt\")?;\n    Ok(content)\n}\n```"
+      },
+      {
+        "name": "Smart Pointers: Box",
+        "example": "Box allocates data on the heap.\n\n```rust\nfn main() {\n    let b = Box::new(5);\n    // b is allocated on the heap\n}\n```"
+      },
+      {
+        "name": "Smart Pointers: Rc and Arc",
+        "example": "Rc and Arc enable shared ownership in single-threaded and multi-threaded contexts.\n\n```rust\nuse std::rc::Rc;\n\nlet rc_val = Rc::new(10);\n// For multi-threaded scenarios, use std::sync::Arc\n```"
+      },
+      {
+        "name": "Interior Mutability with RefCell",
+        "example": "RefCell allows mutation in an immutable context.\n\n```rust\nuse std::cell::RefCell;\n\nlet data = RefCell::new(5);\n*data.borrow_mut() += 1; // Mutates at runtime\n```"
+      },
+      {
+        "name": "Concurrency with Mutex",
+        "example": "Mutex provides safe concurrent access.\n\n```rust\nuse std::sync::Mutex;\n\nlet counter = Mutex::new(0);\n{\n    let mut num = counter.lock().unwrap();\n    *num += 1;\n}\n```"
+      },
+      {
+        "name": "Atomic Types",
+        "example": "Atomic types provide lock-free thread-safe operations.\n\n```rust\nuse std::sync::atomic::{AtomicUsize, Ordering};\n\nlet count = AtomicUsize::new(0);\ncount.fetch_add(1, Ordering::SeqCst);\n```"
+      },
+      {
+        "name": "Channels for Communication",
+        "example": "Channels enable message passing between threads.\n\n```rust\nuse std::sync::mpsc::channel;\n\nlet (tx, rx) = channel();\n// tx.send(message).unwrap();\n```"
+      },
+      {
+        "name": "Thread Spawning",
+        "example": "Spawn threads and join handles to wait for completion.\n\n```rust\nuse std::thread;\n\nlet handle = thread::spawn(|| {\n    // Thread work\n});\nhandle.join().unwrap();\n```"
+      },
+      {
+        "name": "Closures and Capturing",
+        "example": "Closures capture their environment by reference or by value.\n\n```rust\nlet x = 10;\nlet add = |y| x + y; // Captures x by reference\n```"
+      },
+      {
+        "name": "Iterator Combinators",
+        "example": "Use iterator methods for concise data processing.\n\n```rust\nlet nums = vec![1, 2, 3];\nlet squares: Vec<_> = nums.iter().map(|x| x * x).collect();\n```"
+      },
+      {
+        "name": "Custom Iterator Implementation",
+        "example": "Implement the Iterator trait for custom types.\n\n```rust\nstruct Counter { count: u32 }\n\nimpl Counter {\n    fn new() -> Self { Self { count: 0 } }\n}\n\nimpl Iterator for Counter {\n    type Item = u32;\n    fn next(&mut self) -> Option<Self::Item> {\n        self.count += 1;\n        if self.count < 6 { Some(self.count) } else { None }\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced Iterator Techniques",
+        "example": "Chain combinators for complex iteration.\n\n```rust\nlet iter = (1..10)\n    .filter(|x| x % 2 == 0)\n    .map(|x| x * 2);\n```"
+      },
+      {
+        "name": "Functional Programming with Closures",
+        "example": "Higher-order functions simplify operations.\n\n```rust\nfn apply<F>(f: F, x: i32) -> i32 where F: Fn(i32) -> i32 {\n    f(x)\n}\n```"
+      },
+      {
+        "name": "Async/Await Basics",
+        "example": "Async functions return futures and can be awaited.\n\n```rust\nasync fn fetch_data() -> u32 {\n    42\n}\n// Use .await in an async context\n```"
+      },
+      {
+        "name": "Combining Futures",
+        "example": "Join multiple async tasks.\n\n```rust\nuse futures::join;\n\nasync fn task1() -> u32 { 1 }\nasync fn task2() -> u32 { 2 }\n\nasync fn combined() {\n    let (a, b) = join!(task1(), task2());\n    // a = 1, b = 2\n}\n```"
+      },
+      {
+        "name": "Pinning and Unpin",
+        "example": "Pin prevents data from being moved.\n\n```rust\nuse std::pin::Pin;\n\nfn pinned_example(mut data: String) {\n    let _pinned: Pin<&mut String> = Pin::new(&mut data);\n    // Data cannot be moved behind this reference\n}\n```"
+      },
+      {
+        "name": "Unsafe Code Basics",
+        "example": "Unsafe blocks allow operations that bypass borrow checking.\n\n```rust\nfn unsafe_example() {\n    let mut num = 5;\n    let r1 = &num as *const i32;\n    let r2 = &mut num as *mut i32;\n    unsafe {\n        // Dereference raw pointers safely\n        let _val = *r1;\n        *r2 = 10; // Modify value through raw pointer\n    }\n}\n```"
+      },
+      {
+        "name": "Deref and DerefMut Traits",
+        "example": "Implement Deref for smart pointer behavior.\n\n```rust\nuse std::ops::{Deref, DerefMut};\n\nstruct MyBox<T>(T);\n\nimpl<T> Deref for MyBox<T> {\n    type Target = T;\n    fn deref(&self) -> &Self::Target { &self.0 }\n}\n\nimpl<T> DerefMut for MyBox<T> {\n    fn deref_mut(&mut self) -> &mut Self::Target { &mut self.0 }\n}\n```"
+      },
+      {
+        "name": "Drop Trait and RAII",
+        "example": "Implement Drop to run code on scope exit.\n\n```rust\nstruct Resource;\n\nimpl Drop for Resource {\n    fn drop(&mut self) {\n        // Clean up resources here\n    }\n}\n\nfn main() {\n    let _res = Resource;\n    // _res is dropped at the end of scope\n}\n```"
+      },
+      {
+        "name": "Custom Smart Pointer",
+        "example": "Wrap data with custom behavior.\n\n```rust\nstruct CustomBox<T>(T);\n\nimpl<T> CustomBox<T> {\n    fn new(x: T) -> Self { CustomBox(x) }\n}\n```"
+      },
+      {
+        "name": "Interior Mutability with Cell",
+        "example": "Cell enables interior mutability for Copy types.\n\n```rust\nuse std::cell::Cell;\n\nlet num = Cell::new(5);\nnum.set(10); // Mutate even in an immutable binding\n```"
+      },
+      {
+        "name": "Macro Rules Basics",
+        "example": "Define simple macros with macro_rules!.\n\n```rust\nmacro_rules! create_function {\n    ($name:ident) => {\n        fn $name() { /* function body */ }\n    };\n}\n\ncreate_function!(foo);\n```"
+      },
+      {
+        "name": "Declarative Macros with Patterns",
+        "example": "Macros can match complex patterns.\n\n```rust\nmacro_rules! vec_of_strings {\n    ($($x:expr),*) => {\n        vec![$($x.to_string()),*]\n    };\n}\n\nlet v = vec_of_strings![\"a\", \"b\", \"c\"];\n```"
+      },
+      {
+        "name": "Procedural Macros (Derive)",
+        "example": "Procedural macros generate code at compile time.\n\n```rust\n// In a proc-macro crate:\n// #[proc_macro_derive(Hello)]\n// pub fn hello_derive(input: TokenStream) -> TokenStream { /* ... */ }\n\n// Usage:\n// #[derive(Hello)]\n// struct MyStruct;\n```"
+      },
+      {
+        "name": "Const Generics",
+        "example": "Use const generics to parameterize types by constants.\n\n```rust\nstruct ArrayWrapper<T, const N: usize> {\n    data: [T; N],\n}\n```"
+      },
+      {
+        "name": "Trait Objects and Dynamic Dispatch",
+        "example": "Trait objects enable runtime polymorphism.\n\n```rust\ntrait Draw { fn draw(&self); }\n\nfn render(obj: &dyn Draw) {\n    obj.draw();\n}\n```"
+      },
+      {
+        "name": "Object Safety",
+        "example": "Ensure traits are object-safe to use as trait objects.\n\n```rust\ntrait ObjectSafe {\n    fn do_something(&self);\n}\n// Methods must not use generic type parameters\n```"
+      },
+      {
+        "name": "Specialization (Nightly Feature)",
+        "example": "Specialization allows default implementations for traits. (Requires nightly)\n\n```rust\n#![feature(specialization)]\n\ntrait MyTrait { fn foo(&self) -> u32 { 0 } }\n\nimpl<T> MyTrait for T {}\n\n// Specialized implementation\nimpl MyTrait for i32 {\n    fn foo(&self) -> u32 { 42 }\n}\n```"
+      },
+      {
+        "name": "Newtype Pattern",
+        "example": "Wrap a type to enforce invariants.\n\n```rust\nstruct Millimeters(u32);\n\nimpl Millimeters {\n    fn new(val: u32) -> Self { Millimeters(val) }\n}\n```"
+      },
+      {
+        "name": "Builder Pattern",
+        "example": "Use builder pattern for flexible struct construction.\n\n```rust\nstruct Config {\n    verbose: bool,\n    size: u32,\n}\n\nstruct ConfigBuilder {\n    verbose: bool,\n    size: u32,\n}\n\nimpl ConfigBuilder {\n    fn new() -> Self { Self { verbose: false, size: 0 } }\n    fn verbose(mut self, flag: bool) -> Self { self.verbose = flag; self }\n    fn size(mut self, size: u32) -> Self { self.size = size; self }\n    fn build(self) -> Config { Config { verbose: self.verbose, size: self.size } }\n}\n```"
+      },
+      {
+        "name": "Domain Specific Languages with Macros",
+        "example": "Create mini DSLs using macros.\n\n```rust\nmacro_rules! sql {\n    ($query:expr) => {\n        $query // In practice, parse and validate SQL\n    };\n}\n\nlet query = sql!(\"SELECT * FROM users;\");\n```"
+      },
+      {
+        "name": "Custom Derive Macros",
+        "example": "Extend derive functionality with procedural macros.\n\n```rust\n// In a proc-macro crate:\n// #[proc_macro_derive(MyTrait)]\n// pub fn my_trait_derive(input: TokenStream) -> TokenStream { /* ... */ }\n\n// Usage:\n// #[derive(MyTrait)]\n// struct Example;\n```"
+      },
+      {
+        "name": "FFI Basics",
+        "example": "Interoperate with C code using FFI.\n\n```rust\nextern \"C\" {\n    fn abs(input: i32) -> i32;\n}\n\nunsafe {\n    let _ = abs(-3);\n}\n```"
+      },
+      {
+        "name": "Unsafe Abstractions",
+        "example": "Wrap unsafe code in safe abstractions.\n\n```rust\nfn safe_wrapper(slice: &mut [i32]) {\n    unsafe {\n        let ptr = slice.as_mut_ptr();\n        // Perform unchecked operations safely\n    }\n}\n```"
+      },
+      {
+        "name": "Testing and Benchmarks",
+        "example": "Write tests using attributes.\n\n```rust\n#[cfg(test)]\nmod tests {\n    #[test]\n    fn test_add() {\n        assert_eq!(2 + 2, 4);\n    }\n\n    // Benchmark tests can be added with #[bench] (requires test crate)\n}\n```"
+      },
+      {
+        "name": "Advanced Pattern Matching with Bindings",
+        "example": "Use pattern matching with bindings and guards.\n\n```rust\nfn classify(num: i32) -> &'static str {\n    match num {\n        n if n < 0 => \"negative\",\n        0 => \"zero\",\n        n if n > 0 => \"positive\",\n        _ => unreachable!(),\n    }\n}\n```"
+      },
+      {
+        "name": "Associated Constants in Traits",
+        "example": "Traits can have associated constants to provide shared values.\n\n```rust\ntrait Circle {\n    const PI: f64 = 3.14159;\n    fn area(&self) -> f64;\n}\n\nstruct MyCircle { radius: f64 }\n\nimpl Circle for MyCircle {\n    fn area(&self) -> f64 {\n        Self::PI * self.radius * self.radius\n    }\n}\n```"
+      },
+      {
+        "name": "Default Generic Type Parameters in Traits",
+        "example": "Default generic parameters simplify trait implementations.\n\n```rust\ntrait Summarizable<T = i32> {\n    fn summary(&self) -> T;\n}\n\nstruct Number(i32);\n\nimpl Summarizable for Number {\n    fn summary(&self) -> i32 { self.0 }\n}\n```"
+      },
+      {
+        "name": "Blanket Implementations",
+        "example": "Implement a trait for all types that implement another trait.\n\n```rust\ntrait ToJson {\n    fn to_json(&self) -> String;\n}\n\nimpl<T: serde::Serialize> ToJson for T {\n    fn to_json(&self) -> String {\n        serde_json::to_string(self).unwrap()\n    }\n}\n```"
+      },
+      {
+        "name": "Trait Upcasting",
+        "example": "Upcast a concrete type to a trait object.\n\n```rust\ntrait Animal { fn speak(&self); }\n\nstruct Cat;\n\nimpl Animal for Cat {\n    fn speak(&self) { /* meow */ }\n}\n\nfn animal_sound(animal: &dyn Animal) {\n    animal.speak();\n}\n\nlet kitty = Cat;\nanimal_sound(&kitty);\n```"
+      },
+      {
+        "name": "Arc<Mutex<T>> for Concurrency",
+        "example": "Combine Arc and Mutex to share mutable state across threads.\n\n```rust\nuse std::sync::{Arc, Mutex};\nuse std::thread;\n\nlet counter = Arc::new(Mutex::new(0));\nlet mut handles = vec![];\n\nfor _ in 0..5 {\n    let counter = Arc::clone(&counter);\n    let handle = thread::spawn(move || {\n        let mut num = counter.lock().unwrap();\n        *num += 1;\n    });\n    handles.push(handle);\n}\n\nfor handle in handles { handle.join().unwrap(); }\n```"
+      },
+      {
+        "name": "Rc<RefCell<T>> for Shared Mutability",
+        "example": "Use Rc and RefCell to enable multiple owners with interior mutability.\n\n```rust\nuse std::rc::Rc;\nuse std::cell::RefCell;\n\nlet data = Rc::new(RefCell::new(5));\nlet data2 = Rc::clone(&data);\n*data2.borrow_mut() += 10;\n```"
+      },
+      {
+        "name": "Asynchronous Channels",
+        "example": "Use async channels to communicate between asynchronous tasks.\n\n```rust\nuse async_std::channel;\n\nasync fn async_channel_example() {\n    let (sender, receiver) = channel::unbounded::<i32>();\n    async_std::task::spawn(async move {\n        sender.send(42).await.unwrap();\n    });\n    let value = receiver.recv().await.unwrap();\n}\n```"
+      },
+      {
+        "name": "Async Streams",
+        "example": "Create an asynchronous stream using async generators.\n\n```rust\nuse async_stream::stream;\n\nfn numbers() -> impl futures::Stream<Item = i32> {\n    stream! {\n        for i in 0..5 {\n            yield i;\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Error Handling with map_err",
+        "example": "Convert errors using map_err in Result for custom error messages.\n\n```rust\nfn parse_number(s: &str) -> Result<i32, String> {\n    s.parse::<i32>().map_err(|_| \"Parse error\".to_string())\n}\n```"
+      },
+      {
+        "name": "Using OnceCell for Lazy Initialization",
+        "example": "Initialize a value only once using OnceCell.\n\n```rust\nuse once_cell::sync::OnceCell;\n\nstatic CONFIG: OnceCell<String> = OnceCell::new();\n\nfn get_config() -> &'static str {\n    CONFIG.get_or_init(|| \"config value\".to_string())\n}\n```"
+      },
+      {
+        "name": "Macros for Generating Tests",
+        "example": "Use macros to reduce repetitive test code.\n\n```rust\nmacro_rules! generate_test {\n    ($name:ident, $input:expr, $expected:expr) => {\n        #[test]\n        fn $name() {\n            assert_eq!($input, $expected);\n        }\n    };\n}\n\ngenerate_test!(test_add, 2 + 2, 4);\n```"
+      },
+      {
+        "name": "FFI with Callbacks",
+        "example": "Define an extern callback function for FFI interoperability.\n\n```rust\n#[no_mangle]\npub extern \"C\" fn callback_wrapper(x: i32) -> i32 {\n    // Call a Rust function as a callback\n    rust_callback(x)\n}\n\nfn rust_callback(x: i32) -> i32 { x * 2 }\n```"
+      },
+      {
+        "name": "Module Organization",
+        "example": "Organize code into modules and submodules for clarity.\n\n```rust\nmod utils {\n    pub mod math {\n        pub fn add(a: i32, b: i32) -> i32 { a + b }\n    }\n}\n\n// Usage:\n// let sum = utils::math::add(2, 3);\n```"
+      },
+      {
+        "name": "Using Clippy for Linting",
+        "example": "Annotate code to enable Clippy lints for code quality.\n\n```rust\n#![warn(clippy::all)]\n\nfn example() {\n    let _ = vec![1, 2, 3]; // Clippy will check for inefficiencies\n}\n```"
+      },
+      {
+        "name": "Implementing a Custom Iterator Adapter",
+        "example": "Create a custom adapter by implementing the Iterator trait.\n\n```rust\nstruct SkipFirst<I> { iter: I }\n\nimpl<I: Iterator> Iterator for SkipFirst<I> {\n    type Item = I::Item;\n    fn next(&mut self) -> Option<Self::Item> {\n        self.iter.next()?; // Skip the first element\n        self.iter.next()\n    }\n}\n\n// Usage:\n// let mut adapter = SkipFirst { iter: vec![1,2,3].into_iter() };\n```"
+      },
+      {
+        "name": "Move Closures",
+        "example": "Use move closures to capture variables by value.\n\n```rust\nlet data = vec![1, 2, 3];\nlet consume = move || data;\n// 'data' is moved into the closure\n```"
+      },
+      {
+        "name": "Static vs Dynamic Dispatch",
+        "example": "Compare compile-time (static) and runtime (dynamic) dispatch.\n\n```rust\ntrait Greet { fn greet(&self); }\n\nstruct Person;\n\nimpl Greet for Person {\n    fn greet(&self) { /* implementation */ }\n}\n\n// Static dispatch\nfn say_hello<T: Greet>(g: T) { g.greet(); }\n\n// Dynamic dispatch\nfn say_hello_dyn(g: &dyn Greet) { g.greet(); }\n```"
+      },
+      {
+        "name": "Safe String Slicing",
+        "example": "Slice strings safely by checking character boundaries.\n\n```rust\nfn safe_slice(s: &str, start: usize, end: usize) -> Option<&str> {\n    if s.is_char_boundary(start) && s.is_char_boundary(end) {\n        Some(&s[start..end])\n    } else {\n        None\n    }\n}\n```"
+      },
+      {
+        "name": "Using Cow for Borrowing or Owning",
+        "example": "Cow (Clone on Write) allows efficient borrowing and conversion to owned data.\n\n```rust\nuse std::borrow::Cow;\n\nfn process<'a>(input: &'a str) -> Cow<'a, str> {\n    if input.contains(\"error\") {\n        Cow::Owned(input.replace(\"error\", \"warning\"))\n    } else {\n        Cow::Borrowed(input)\n    }\n}\n```"
+      },
+      {
+        "name": "Using Range and Iterator",
+        "example": "Iterate over a range of numbers concisely.\n\n```rust\nfor i in 1..=5 {\n    // 'i' goes from 1 to 5 inclusive\n}\n```"
+      },
+      {
+        "name": "RefCell Borrow and BorrowMut",
+        "example": "Demonstrate multiple immutable borrows and one mutable borrow using RefCell.\n\n```rust\nuse std::cell::RefCell;\n\nlet cell = RefCell::new(10);\n{\n    let borrow1 = cell.borrow();\n    let borrow2 = cell.borrow();\n    // Both 'borrow1' and 'borrow2' coexist\n}\n{\n    let mut borrow_mut = cell.borrow_mut();\n    *borrow_mut += 5;\n}\n```"
+      },
+      {
+        "name": "Implementing Drop for Cleanup",
+        "example": "Clean up resources when an object goes out of scope by implementing Drop.\n\n```rust\nstruct Logger;\n\nimpl Drop for Logger {\n    fn drop(&mut self) {\n        // Log resource cleanup here\n    }\n}\n\nfn use_logger() {\n    let _log = Logger;\n}\n```"
+      },
+      {
+        "name": "Using std::mem::replace",
+        "example": "Replace a value in a mutable reference while retrieving the old value.\n\n```rust\nlet mut s = String::from(\"old\");\nlet old = std::mem::replace(&mut s, String::from(\"new\"));\n// 'old' is \"old\", 's' is now \"new\"\n```"
+      },
+      {
+        "name": "Using std::mem::take",
+        "example": "Take a value out of a mutable reference, leaving its default value behind.\n\n```rust\nlet mut s = Some(5);\nlet value = std::mem::take(&mut s);\n// 's' becomes None, 'value' is Some(5)\n```"
+      },
+      {
+        "name": "MaybeUninit for Uninitialized Memory",
+        "example": "Safely work with uninitialized memory using MaybeUninit.\n\n```rust\nuse std::mem::MaybeUninit;\n\nlet mut uninit: MaybeUninit<u32> = MaybeUninit::uninit();\nunsafe {\n    uninit.as_mut_ptr().write(42);\n    let num = uninit.assume_init();\n    // 'num' is 42\n}\n```"
+      },
+      {
+        "name": "Zero-Cost Abstractions",
+        "example": "Demonstrate that Rust abstractions compile down to efficient code.\n\n```rust\nfn add<T: std::ops::Add<Output = T>>(a: T, b: T) -> T { a + b }\n// The compiler inlines and optimizes this function\n```"
+      },
+      {
+        "name": "Zero-Overhead Async",
+        "example": "Async functions in Rust are transformed into efficient state machines.\n\n```rust\nasync fn compute() -> u32 { 100 }\n// 'compute' incurs minimal runtime overhead\n```"
+      },
+      {
+        "name": "Pin in Self-Referential Structs",
+        "example": "Use Pin to prevent moving a self-referential structure.\n\n```rust\nuse std::pin::Pin;\n\nstruct SelfRef {\n    data: String,\n    slice: *const str,\n}\n\nimpl SelfRef {\n    fn new(txt: String) -> Pin<Box<Self>> {\n        let mut boxed = Box::pin(SelfRef { data: txt, slice: std::ptr::null() });\n        let slice = &boxed.data[..] as *const str;\n        unsafe { Pin::as_mut(&mut boxed).get_unchecked_mut().slice = slice; }\n        boxed\n    }\n}\n```"
+      },
+      {
+        "name": "Customizing Panic Hooks",
+        "example": "Set a custom panic hook to control panic behavior and logging.\n\n```rust\nuse std::panic;\n\nfn main() {\n    panic::set_hook(Box::new(|info| {\n        // Custom logging for panic information\n    }));\n    // Code that may panic\n}\n```"
+      },
+      {
+        "name": "Using std::sync::Once",
+        "example": "Ensure code runs only once using the Once synchronization primitive.\n\n```rust\nuse std::sync::Once;\n\nstatic INIT: Once = Once::new();\n\nfn initialize() {\n    INIT.call_once(|| {\n        // One-time initialization code\n    });\n}\n```"
+      },
+      {
+        "name": "Implementing Debug Trait Manually",
+        "example": "Customize Debug output by manually implementing the Debug trait.\n\n```rust\nstruct Point { x: i32, y: i32 }\n\nimpl std::fmt::Debug for Point {\n    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {\n        write!(f, \"Point({},{})\", self.x, self.y)\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced Trait Object Conversion",
+        "example": "Convert between trait objects safely (upcasting) for flexible API design.\n\n```rust\ntrait Base { fn base_method(&self); }\n\nfn use_base(obj: &dyn Base) {\n    obj.base_method();\n}\n\n// Convert a concrete type to a trait object for upcasting\n```"
+      },
+      {
+        "name": "Using the dyn Keyword",
+        "example": "Explicitly declare trait objects using the 'dyn' keyword.\n\n```rust\ntrait Drawable { fn draw(&self); }\n\nfn render(drawable: &dyn Drawable) {\n    drawable.draw();\n}\n```"
+      },
+      {
+        "name": "Overlapping Trait Implementations and Orphan Rule",
+        "example": "Rust prevents conflicting implementations via the orphan rule.\n\n```rust\n// You can only implement external traits for types if one is local.\n// This avoids overlapping implementations.\n```"
+      },
+      {
+        "name": "Const Functions",
+        "example": "Define functions that can be evaluated at compile time using 'const'.\n\n```rust\nconst fn square(x: i32) -> i32 { x * x }\n\nconst VALUE: i32 = square(4);\n```"
+      },
+      {
+        "name": "Pattern Guards in Match",
+        "example": "Use guard conditions in match arms for more precise matching.\n\n```rust\nfn classify(n: i32) -> &'static str {\n    match n {\n        x if x % 2 == 0 => \"even\",\n        _ => \"odd\",\n    }\n}\n```"
+      },
+      {
+        "name": "Option Flattening",
+        "example": "Flatten nested Option types into a single Option.\n\n```rust\nlet nested = Some(Some(5));\nlet flat = nested.flatten();\n// 'flat' is Some(5)\n```"
+      },
+      {
+        "name": "Result Combinators with and_then",
+        "example": "Chain computations that return Results using combinators.\n\n```rust\nfn parse_and_double(s: &str) -> Result<i32, ()> {\n    s.parse::<i32>().map(|n| n * 2).map_err(|_| ())\n}\n```"
+      },
+      {
+        "name": "Re-exporting Modules",
+        "example": "Expose internal modules through a public API using re-exports.\n\n```rust\nmod internal {\n    pub fn helper() {}\n}\n\npub use internal::helper;\n```"
+      },
+      {
+        "name": "Macro to Generate Enums",
+        "example": "Generate repetitive enum variants using a macro.\n\n```rust\nmacro_rules! define_status {\n    ($($name:ident),*) => {\n        enum Status { $($name),* }\n    };\n}\n\ndefine_status!(Ok, Error, Unknown);\n```"
+      },
+      {
+        "name": "Custom Allocator API (Nightly)",
+        "example": "Define a custom allocator using Rust's allocator API (requires nightly).\n\n```rust\n#![feature(allocator_api)]\nuse std::alloc::{GlobalAlloc, Layout, System};\n\nstruct MyAlloc;\n\nunsafe impl GlobalAlloc for MyAlloc {\n    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {\n        System.alloc(layout)\n    }\n    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {\n        System.dealloc(ptr, layout)\n    }\n}\n\n#[global_allocator]\nstatic A: MyAlloc = MyAlloc;\n```"
+      },
+      {
+        "name": "Non-lexical Lifetimes (NLL)",
+        "example": "Demonstrate the flexibility of non-lexical lifetimes in Rust.\n\n```rust\nfn main() {\n    let mut s = String::from(\"hello\");\n    let r = &s;\n    println!(\"{}\", r);\n    s.push_str(\" world\"); // NLL allows this as 'r' is no longer used\n}\n```"
+      },
+      {
+        "name": "Lifetime Elision Rules",
+        "example": "Show how Rust infers lifetimes in simple cases without explicit annotations.\n\n```rust\nfn first_word(s: &str) -> &str {\n    s.split_whitespace().next().unwrap_or(\"\")\n}\n```"
+      },
+      {
+        "name": "Functional Style with Iterators",
+        "example": "Chain iterator adapters for expressive, functional-style code.\n\n```rust\nlet result: Vec<_> = (0..10)\n    .filter(|&x| x % 2 == 0)\n    .map(|x| x * 10)\n    .collect();\n```"
+      },
+      {
+        "name": "Thread Pools with Rayon",
+        "example": "Use the Rayon crate for parallel iteration and computation.\n\n```rust\nuse rayon::prelude::*;\n\nlet v: Vec<i32> = (0..100).collect();\nlet sum: i32 = v.par_iter().sum();\n```"
+      },
+      {
+        "name": "Atomic Operations with Ordering",
+        "example": "Use specific memory orderings with atomic types for thread-safe operations.\n\n```rust\nuse std::sync::atomic::{AtomicBool, Ordering};\n\nlet flag = AtomicBool::new(false);\nflag.store(true, Ordering::Release);\nlet _ = flag.load(Ordering::Acquire);\n```"
+      },
+      {
+        "name": "Custom Collection with FromIterator",
+        "example": "Implement FromIterator for a custom collection type.\n\n```rust\nstruct MyCollection(Vec<i32>);\n\nimpl FromIterator<i32> for MyCollection {\n    fn from_iter<T: IntoIterator<Item = i32>>(iter: T) -> Self {\n        MyCollection(iter.into_iter().collect())\n    }\n}\n```"
+      },
+      {
+        "name": "Implementing Borrow Trait",
+        "example": "Allow a custom type to be borrowed as another type by implementing Borrow.\n\n```rust\nuse std::borrow::Borrow;\n\nstruct Wrapper(String);\n\nimpl Borrow<str> for Wrapper {\n    fn borrow(&self) -> &str { &self.0 }\n}\n```"
+      },
+      {
+        "name": "Using UnsafeCell",
+        "example": "Use UnsafeCell for low-level interior mutability in unsafe code.\n\n```rust\nuse std::cell::UnsafeCell;\n\nstruct MyCell<T> { value: UnsafeCell<T> }\n\nimpl<T> MyCell<T> {\n    fn new(val: T) -> Self { MyCell { value: UnsafeCell::new(val) } }\n    unsafe fn get(&self) -> &T { &*self.value.get() }\n    unsafe fn get_mut(&self) -> &mut T { &mut *self.value.get() }\n}\n```"
+      }
+    ]
+  }
+  

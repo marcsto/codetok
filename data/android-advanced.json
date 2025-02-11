@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Advanced Coroutines: Scope and Dispatchers",
+        "example": "Coroutines allow asynchronous programming. Different dispatchers manage threads.\n\n```kotlin\nimport kotlinx.coroutines.*\n\nfun main() {\n    // Launch on Main dispatcher for UI tasks\n    CoroutineScope(Dispatchers.Main).launch {\n        // UI work here\n    }\n\n    // Launch on IO dispatcher for background tasks\n    CoroutineScope(Dispatchers.IO).launch {\n        // Network or disk operations\n    }\n}\n```"
+      },
+      {
+        "name": "Kotlin Flow for Reactive Streams",
+        "example": "Flow provides asynchronous stream processing.\n\n```kotlin\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.runBlocking\n\nfun simpleFlow(): Flow<Int> = flow {\n    for (i in 1..3) {\n        emit(i) // Emit values\n    }\n}\n\nfun main() = runBlocking {\n    simpleFlow().collect { value ->\n        // Process each emitted value\n    }\n}\n```"
+      },
+      {
+        "name": "LiveData vs StateFlow for UI State",
+        "example": "StateFlow offers a modern alternative to LiveData with Kotlin coroutines.\n\n```kotlin\nimport androidx.lifecycle.ViewModel\nimport kotlinx.coroutines.flow.MutableStateFlow\nimport kotlinx.coroutines.flow.StateFlow\n\nclass MyViewModel : ViewModel() {\n    private val _state = MutableStateFlow(\"Initial\")\n    val state: StateFlow<String> = _state\n\n    fun updateState(newState: String) {\n        _state.value = newState\n    }\n}\n```"
+      },
+      {
+        "name": "Using ViewModel for Lifecycle-Aware Data",
+        "example": "ViewModel preserves data during configuration changes.\n\n```kotlin\nimport androidx.lifecycle.LiveData\nimport androidx.lifecycle.MutableLiveData\nimport androidx.lifecycle.ViewModel\n\nclass MainViewModel : ViewModel() {\n    private val _data = MutableLiveData<String>()\n    val data: LiveData<String> get() = _data\n\n    fun loadData() {\n        _data.value = \"Loaded Data\"\n    }\n}\n```"
+      },
+      {
+        "name": "Dependency Injection with Hilt",
+        "example": "Hilt simplifies dependency injection in Android projects.\n\n```kotlin\nimport dagger.hilt.android.HiltAndroidApp\nimport android.app.Application\n\n@HiltAndroidApp\nclass MyApplication : Application() {\n    // Application-level DI setup\n}\n```"
+      },
+      {
+        "name": "Dependency Injection with Dagger",
+        "example": "Dagger provides compile-time dependency injection using annotations.\n\n```kotlin\nimport javax.inject.Inject\n\nclass Engine @Inject constructor() {\n    // Engine dependencies\n}\n\nclass Car @Inject constructor(val engine: Engine) {\n    // Car depends on Engine\n}\n```"
+      },
+      {
+        "name": "Retrofit with Coroutines",
+        "example": "Retrofit supports suspend functions for clean asynchronous network calls.\n\n```kotlin\nimport retrofit2.http.GET\n\ninterface ApiService {\n    @GET(\"/users\")\n    suspend fun getUsers(): List<User>\n}\n\n// Assume User is a defined data class.\n```"
+      },
+      {
+        "name": "Retrofit Error Handling with Kotlin",
+        "example": "Handle network errors gracefully using try-catch within suspend functions.\n\n```kotlin\nimport retrofit2.HttpException\n\nsuspend fun fetchUsers(api: ApiService) {\n    try {\n        val users = api.getUsers()\n        // Process users\n    } catch (e: HttpException) {\n        // Handle HTTP error\n    } catch (e: Exception) {\n        // Handle other errors\n    }\n}\n```"
+      },
+      {
+        "name": "Clean Architecture: Use Case and Repository",
+        "example": "Separate business logic from data sources using use cases and repositories.\n\n```kotlin\n// Repository interface\ninterface UserRepository {\n    suspend fun getUser(id: String): User\n}\n\n// Use Case implementation\nclass GetUserUseCase(private val repository: UserRepository) {\n    suspend operator fun invoke(id: String): User = repository.getUser(id)\n}\n```"
+      },
+      {
+        "name": "Repository Pattern Example",
+        "example": "Abstract data sources behind a repository to isolate data logic.\n\n```kotlin\nclass UserRepositoryImpl(private val apiService: ApiService) : UserRepository {\n    override suspend fun getUser(id: String): User {\n        // Fetch user from remote source\n        return apiService.getUsers().first { it.id == id }\n    }\n}\n```"
+      },
+      {
+        "name": "Room Database with Coroutines",
+        "example": "Room supports suspend functions to simplify database operations.\n\n```kotlin\nimport androidx.room.*\n\n@Entity\ndata class User(\n    @PrimaryKey val id: String,\n    val name: String\n)\n\n@Dao\ninterface UserDao {\n    @Query(\"SELECT * FROM User WHERE id = :id\")\n    suspend fun getUserById(id: String): User\n\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\n    suspend fun insertUser(user: User)\n}\n```"
+      },
+      {
+        "name": "Paging Library: Basic Setup",
+        "example": "Use PagingSource to load data in pages for RecyclerView.\n\n```kotlin\nimport androidx.paging.PagingSource\n\nclass UserPagingSource(private val apiService: ApiService) : PagingSource<Int, User>() {\n    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {\n        val page = params.key ?: 1\n        val response = apiService.getUsersPage(page) // Paged API call\n        return LoadResult.Page(\n            data = response.users,\n            prevKey = if (page == 1) null else page - 1,\n            nextKey = if (response.users.isEmpty()) null else page + 1\n        )\n    }\n}\n```"
+      },
+      {
+        "name": "Navigation Component with Safe Args",
+        "example": "Safe Args enforce type-safe argument passing between destinations.\n\n```kotlin\n// In navigation graph XML, define arguments for a destination.\n// Use generated Directions classes:\nval action = HomeFragmentDirections.actionHomeToDetail(userId = \"123\")\nnavController.navigate(action)\n```"
+      },
+      {
+        "name": "Data Binding and View Binding",
+        "example": "View Binding reduces boilerplate without the need for findViewById.\n\n```kotlin\n// Enable view binding in build.gradle\nclass MainActivity : AppCompatActivity() {\n    private lateinit var binding: ActivityMainBinding\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        binding = ActivityMainBinding.inflate(layoutInflater)\n        setContentView(binding.root)\n        // Access views via binding\n    }\n}\n```"
+      },
+      {
+        "name": "Kotlin Sealed Classes for UI State",
+        "example": "Sealed classes represent a fixed set of UI states for better type-safety.\n\n```kotlin\nsealed class UiState {\n    object Loading : UiState()\n    data class Success(val data: List<String>) : UiState()\n    data class Error(val message: String) : UiState()\n}\n```"
+      },
+      {
+        "name": "State Management with MVI Architecture",
+        "example": "MVI enforces unidirectional data flow for predictable UI states.\n\n```kotlin\n// Intent\nsealed class UserIntent {\n    object LoadUsers : UserIntent()\n}\n\n// State\ndata class UserState(val users: List<User> = emptyList(), val isLoading: Boolean = false)\n\n// ViewModel\nclass UserViewModel : ViewModel() {\n    private val _state = MutableStateFlow(UserState())\n    val state: StateFlow<UserState> get() = _state\n\n    fun processIntent(intent: UserIntent) {\n        // Process intent and update state\n    }\n}\n```"
+      },
+      {
+        "name": "Modularization: Feature Modules",
+        "example": "Organize your project into feature modules to improve scalability.\n\n```gradle\n// In settings.gradle:\ninclude(\":app\", \":feature:login\", \":feature:dashboard\")\n```"
+      },
+      {
+        "name": "Multi-module Gradle Build Best Practices",
+        "example": "Extract common dependencies and configurations into shared modules.\n\n```gradle\n// In a shared build.gradle file for common settings:\ndependencies {\n    implementation 'androidx.core:core-ktx:1.9.0'\n}\n```"
+      },
+      {
+        "name": "Unit Testing with JUnit and Mockito",
+        "example": "Test your business logic by mocking dependencies with Mockito.\n\n```kotlin\nimport kotlinx.coroutines.runBlocking\nimport org.junit.Test\nimport org.mockito.Mockito.*\n\nclass UserRepositoryTest {\n    private val apiService = mock(ApiService::class.java)\n    private val repository = UserRepositoryImpl(apiService)\n\n    @Test\n    fun testGetUser() = runBlocking {\n        // Define behavior and assertions\n    }\n}\n```"
+      },
+      {
+        "name": "Instrumented Testing with Espresso",
+        "example": "Espresso tests simulate user interactions on real devices.\n\n```kotlin\nimport androidx.test.ext.junit.runners.AndroidJUnit4\nimport androidx.test.rule.ActivityTestRule\nimport org.junit.Rule\nimport org.junit.Test\nimport org.junit.runner.RunWith\n\n@RunWith(AndroidJUnit4::class)\nclass MainActivityTest {\n    @Rule @JvmField\n    val activityRule = ActivityTestRule(MainActivity::class.java)\n\n    @Test\n    fun testButtonClick() {\n        // Simulate button click and assert UI changes\n        onView(withId(R.id.button)).perform(click())\n    }\n}\n```"
+      },
+      {
+        "name": "UI Testing with Jetpack Compose",
+        "example": "Compose provides its own testing APIs for declarative UIs.\n\n```kotlin\n@get:Rule\nval composeTestRule = createComposeRule()\n\n@Test\nfun testGreeting() {\n    composeTestRule.setContent { Greeting(\"Android\") }\n    composeTestRule.onNodeWithText(\"Hello Android\").assertExists()\n}\n```"
+      },
+      {
+        "name": "Kotlin Extension Functions",
+        "example": "Extensions add new functionality to existing classes without inheritance.\n\n```kotlin\nfun String.capitalizeFirst(): String = this.replaceFirstChar { it.uppercase() }\n\n// Usage:\nval text = \"hello\".capitalizeFirst() // \"Hello\"\n```"
+      },
+      {
+        "name": "Kotlin Higher-Order Functions and Lambdas",
+        "example": "Pass functions as parameters to create flexible APIs.\n\n```kotlin\nfun operate(x: Int, y: Int, op: (Int, Int) -> Int): Int = op(x, y)\n\n// Usage:\nval sum = operate(3, 4) { a, b -> a + b } // Returns 7\n```"
+      },
+      {
+        "name": "Delegated Properties in Kotlin",
+        "example": "Use delegates like lazy for efficient and deferred initialization.\n\n```kotlin\nval heavyResource by lazy {\n    createHeavyResource() // Expensive initialization\n}\n\n// heavyResource is initialized only on first access\n```"
+      },
+      {
+        "name": "Advanced RecyclerView: DiffUtil Usage",
+        "example": "DiffUtil efficiently updates RecyclerView items by calculating differences.\n\n```kotlin\nclass UserDiffCallback : DiffUtil.ItemCallback<User>() {\n    override fun areItemsTheSame(oldItem: User, newItem: User) = oldItem.id == newItem.id\n    override fun areContentsTheSame(oldItem: User, newItem: User) = oldItem == newItem\n}\n```"
+      },
+      {
+        "name": "Custom Views and Drawing",
+        "example": "Extend View and override onDraw to create custom UI components.\n\n```kotlin\nclass MyCustomView(context: Context) : View(context) {\n    override fun onDraw(canvas: Canvas) {\n        super.onDraw(canvas)\n        // Custom drawing code\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced ConstraintLayout: Guidelines and Barriers",
+        "example": "Use guidelines and barriers in XML to create complex responsive layouts.\n\n```xml\n<androidx.constraintlayout.widget.ConstraintLayout\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\">\n\n    <androidx.constraintlayout.widget.Guideline\n        android:id=\"@+id/guideline\"\n        app:layout_constraintGuide_percent=\"0.5\"\n        android:orientation=\"vertical\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"/>\n\n    <!-- Other views anchored to the guideline -->\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n```"
+      },
+      {
+        "name": "Animations: Shared Element Transitions",
+        "example": "Implement smooth transitions between activities with shared elements.\n\n```kotlin\n// In Activity A:\nval options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageView, \"sharedImage\")\nstartActivity(intent, options.toBundle())\n```"
+      },
+      {
+        "name": "Handling Configuration Changes",
+        "example": "Preserve UI state across configuration changes using onSaveInstanceState.\n\n```kotlin\noverride fun onSaveInstanceState(outState: Bundle) {\n    super.onSaveInstanceState(outState)\n    outState.putString(\"KEY_DATA\", data)\n}\n\noverride fun onCreate(savedInstanceState: Bundle?) {\n    super.onCreate(savedInstanceState)\n    data = savedInstanceState?.getString(\"KEY_DATA\") ?: \"default\"\n}\n```"
+      },
+      {
+        "name": "Multi-threading with Executors and ThreadPool",
+        "example": "Manage background tasks with an ExecutorService for efficient threading.\n\n```kotlin\nimport java.util.concurrent.Executors\n\nval executor = Executors.newFixedThreadPool(4)\nexecutor.execute {\n    // Perform background work\n}\nexecutor.shutdown()\n```"
+      },
+      {
+        "name": "Kotlin Coroutines: async and await",
+        "example": "Perform parallel tasks using async/await for concurrent operations.\n\n```kotlin\nimport kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val deferred1 = async { task1() }\n    val deferred2 = async { task2() }\n    // Await both results concurrently\n    val result = deferred1.await() + deferred2.await()\n}\n\nsuspend fun task1(): Int { return 1 }\n\nsuspend fun task2(): Int { return 2 }\n```"
+      },
+      {
+        "name": "Network Connectivity Handling",
+        "example": "Monitor network state using ConnectivityManager.\n\n```kotlin\nval connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager\nval network = connectivityManager.activeNetwork\n// Check network capabilities as needed\n```"
+      },
+      {
+        "name": "Security: Data Encryption with Android Keystore",
+        "example": "Secure sensitive data by leveraging the Android Keystore system.\n\n```kotlin\n// Retrieve the Keystore instance\nval keyStore = KeyStore.getInstance(\"AndroidKeyStore\")\nkeyStore.load(null)\n// Use Cipher with a stored key for encryption/decryption\n```"
+      },
+      {
+        "name": "Performance Optimization: Using LeakCanary",
+        "example": "Integrate LeakCanary to automatically detect memory leaks in your app.\n\n```kotlin\n// In your Application class:\nif (LeakCanary.isInAnalyzerProcess(this)) return\nLeakCanary.install(this)\n```"
+      },
+      {
+        "name": "Modular Architecture: Feature Modules Implementation",
+        "example": "Break your app into independent feature modules for better scalability.\n\n```gradle\n// In settings.gradle\ninclude(\":app\", \":feature:profile\", \":feature:settings\")\n```"
+      },
+      {
+        "name": "WorkManager for Background Tasks",
+        "example": "Schedule deferrable, guaranteed background work using WorkManager.\n\n```kotlin\nclass MyWorker(context: Context, params: WorkerParameters) : Worker(context, params) {\n    override fun doWork(): Result {\n        // Perform background task\n        return Result.success()\n    }\n}\n\n// Enqueue the work\nWorkManager.getInstance(context)\n    .enqueue(OneTimeWorkRequest.from(MyWorker::class.java))\n```"
+      },
+      {
+        "name": "Using Notification Channels",
+        "example": "Create notification channels for Android O and above for better control.\n\n```kotlin\nif (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {\n    val channel = NotificationChannel(\n        \"channel_id\",\n        \"Channel Name\",\n        NotificationManager.IMPORTANCE_DEFAULT\n    )\n    val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager\n    manager.createNotificationChannel(channel)\n}\n```"
+      },
+      {
+        "name": "Implementing In-App Updates",
+        "example": "Leverage the Play Core library to implement in-app updates.\n\n```kotlin\n// Pseudo-code example:\nAppUpdateManagerFactory.create(context)\n    .appUpdateInfo\n    .addOnSuccessListener { info ->\n        if (info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {\n            // Start the update flow\n        }\n    }\n```"
+      },
+      {
+        "name": "Handling Deep Links and App Links",
+        "example": "Configure your manifest to handle deep links and direct users to specific content.\n\n```xml\n<intent-filter>\n    <action android:name=\"android.intent.action.VIEW\" />\n    <category android:name=\"android.intent.category.DEFAULT\" />\n    <category android:name=\"android.intent.category.BROWSABLE\" />\n    <data android:scheme=\"https\" android:host=\"www.example.com\" />\n</intent-filter>\n```"
+      },
+      {
+        "name": "Advanced Theming with Material Design",
+        "example": "Customize your app's appearance using Material Components themes.\n\n```xml\n<style name=\"AppTheme\" parent=\"Theme.MaterialComponents.DayNight.DarkActionBar\">\n    <!-- Customize color attributes -->\n    <item name=\"colorPrimary\">@color/primary</item>\n</style>\n```"
+      },
+      {
+        "name": "Kotlin Sealed Interfaces (Advanced)",
+        "example": "Sealed interfaces allow a restricted hierarchy for better type control.\n\n```kotlin\nsealed interface Result\n\ndata class Success(val data: String) : Result\nobject Failure : Result\n```"
+      },
+      {
+        "name": "Debugging with Timber Logging",
+        "example": "Timber simplifies logging with tree planting and flexible APIs.\n\n```kotlin\nTimber.plant(Timber.DebugTree())\n\n// Log a debug message\nTimber.d(\"Debug message\")\n```"
+      },
+      {
+        "name": "Jetpack Compose Basics",
+        "example": "Compose uses composable functions to build UIs declaratively.\n\n```kotlin\n@Composable\nfun Greeting(name: String) {\n    Text(text = \"Hello $name\")\n}\n\n// Usage within setContent:\nsetContent {\n    Greeting(\"Android\")\n}\n```"
+      },
+      {
+        "name": "Advanced Compose: State Hoisting",
+        "example": "State hoisting improves composability and testability in Compose.\n\n```kotlin\n@Composable\nfun Counter(count: Int, onIncrement: () -> Unit) {\n    Button(onClick = onIncrement) {\n        Text(text = \"Count: $count\")\n    }\n}\n\n@Composable\nfun CounterScreen() {\n    var count by remember { mutableStateOf(0) }\n    Counter(count = count, onIncrement = { count++ })\n}\n```"
+      },
+      {
+        "name": "Interoperability: Calling Java from Kotlin",
+        "example": "Kotlin seamlessly interoperates with existing Java code.\n\n```kotlin\n// Java class example (assume in Java file):\n// public class JavaUtil {\n//     public static String getGreeting() { return \"Hello from Java\"; }\n// }\n\n// Kotlin usage:\nval greeting = JavaUtil.getGreeting()\n```"
+      },
+      {
+        "name": "Functional Programming in Kotlin: Immutability",
+        "example": "Favor immutable data structures to prevent side effects.\n\n```kotlin\nval numbers = listOf(1, 2, 3)\nval doubled = numbers.map { it * 2 }\n```"
+      },
+      {
+        "name": "Coroutines Exception Handling with CoroutineExceptionHandler",
+        "example": "Handle exceptions in coroutines globally using CoroutineExceptionHandler.\n\n```kotlin\nval handler = CoroutineExceptionHandler { _, exception ->\n    // Handle exception\n}\n\nCoroutineScope(Dispatchers.Main + handler).launch {\n    // Coroutine work that may throw an exception\n}\n```"
+      },
+      {
+        "name": "Lifecycle-Aware Components in Activity",
+        "example": "Observe lifecycle events by adding LifecycleObservers to your Activity.\n\n```kotlin\nclass MyObserver : LifecycleObserver {\n    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)\n    fun onResume() {\n        // Handle resume event\n    }\n}\n\n// In Activity:\nlifecycle.addObserver(MyObserver())\n```"
+      },
+      {
+        "name": "Custom Annotations and KAPT",
+        "example": "Define custom annotations and process them with KAPT for code generation.\n\n```kotlin\n@Target(AnnotationTarget.FUNCTION)\n@Retention(AnnotationRetention.RUNTIME)\nannotation class LogExecution\n\n// Apply the annotation:\n@LogExecution\nfun performTask() { /* ... */ }\n```"
+      },
+      {
+        "name": "Optimizing App Startup with Lazy Initialization",
+        "example": "Delay heavy initializations using Kotlin's lazy properties to improve startup time.\n\n```kotlin\nval heavyResource by lazy {\n    createHeavyResource() // Expensive initialization\n}\n```"
+      },
+      {
+        "name": "Jetpack Compose: Animated Visibility",
+        "example": "Jetpack Compose provides AnimatedVisibility to animate the appearance and disappearance of UI elements.\n\n```kotlin\n@Composable\nfun AnimatedBox(visible: Boolean) {\n    AnimatedVisibility(visible = visible) {\n        Box(modifier = Modifier.size(100.dp).background(Color.Blue))\n    }\n}\n```"
+      },
+      {
+        "name": "Jetpack Compose: LazyColumn for Lists",
+        "example": "Display scrollable lists efficiently with LazyColumn.\n\n```kotlin\n@Composable\nfun UserList(users: List<String>) {\n    LazyColumn {\n        items(users) { user ->\n            Text(text = user)\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Jetpack Compose: Scaffold Layout",
+        "example": "Use Scaffold to structure your app with top bars, bottom bars, and floating actions.\n\n```kotlin\n@Composable\nfun MainScaffold() {\n    Scaffold(\n        topBar = { TopAppBar(title = { Text(\"Home\") }) },\n        content = { padding ->\n            Box(modifier = Modifier.padding(padding)) {\n                Text(text = \"Content goes here\")\n            }\n        }\n    )\n}\n```"
+      },
+      {
+        "name": "Jetpack Compose: Navigation",
+        "example": "Implement navigation in Compose using NavHost and composable destinations.\n\n```kotlin\n@Composable\nfun NavGraph(startDestination: String = \"home\") {\n    val navController = rememberNavController()\n    NavHost(navController = navController, startDestination = startDestination) {\n        composable(\"home\") { /* Home Screen */ }\n        composable(\"detail\") { /* Detail Screen */ }\n    }\n}\n```"
+      },
+      {
+        "name": "Jetpack Compose: Material Theme Customization",
+        "example": "Customize the Material theme to match your app's branding.\n\n```kotlin\n@Composable\nfun MyTheme(content: @Composable () -> Unit) {\n    MaterialTheme(\n        colors = lightColors(primary = Color.Magenta),\n        typography = Typography(),\n        shapes = Shapes(),\n        content = content\n    )\n}\n```"
+      },
+      {
+        "name": "Android App Bundles and Dynamic Features",
+        "example": "Reduce app size by modularizing features with dynamic feature modules.\n\n```gradle\n// In your base module's build.gradle\nandroid {\n    dynamicFeatures = [\":feature_login\", \":feature_dashboard\"]\n}\n```"
+      },
+      {
+        "name": "Firebase Integration with Firestore",
+        "example": "Integrate Firestore to store and retrieve cloud-based data.\n\n```kotlin\nval db = FirebaseFirestore.getInstance()\ndb.collection(\"users\")\n    .get()\n    .addOnSuccessListener { documents ->\n        // Process retrieved documents\n    }\n    .addOnFailureListener { exception ->\n        // Handle errors\n    }\n```"
+      },
+      {
+        "name": "Firebase Cloud Messaging Setup",
+        "example": "Set up Firebase Cloud Messaging to send push notifications.\n\n```kotlin\nFirebaseMessaging.getInstance().token.addOnCompleteListener { task ->\n    if (task.isSuccessful) {\n        val token = task.result\n        // Use token for push notifications\n    }\n}\n```"
+      },
+      {
+        "name": "Using Kotlin Multiplatform Mobile (KMM)",
+        "example": "Share code between Android and iOS using expect/actual declarations.\n\n```kotlin\n// Common module\nexpect fun getPlatformName(): String\n\n// Android implementation\nactual fun getPlatformName(): String = \"Android\"\n```"
+      },
+      {
+        "name": "Advanced Fragment Management with Child Fragments",
+        "example": "Manage nested fragments using childFragmentManager for better modularity.\n\n```kotlin\nclass ParentFragment : Fragment() {\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\n        childFragmentManager.beginTransaction()\n            .replace(R.id.child_container, ChildFragment())\n            .commit()\n    }\n}\n```"
+      },
+      {
+        "name": "Handling Multi-window Mode",
+        "example": "Support multi-window mode by overriding onMultiWindowModeChanged.\n\n```kotlin\noverride fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean) {\n    super.onMultiWindowModeChanged(isInMultiWindowMode)\n    // Adjust your UI for multi-window mode\n}\n```"
+      },
+      {
+        "name": "Performance: Profiling with Android Profiler",
+        "example": "Use Android Studio's Android Profiler to monitor CPU, memory, and network usage.\n\n```kotlin\n// Launch the profiler from Android Studio to capture performance metrics.\n```"
+      },
+      {
+        "name": "ProGuard and R8: Code Shrinking",
+        "example": "Configure ProGuard rules to shrink and obfuscate your app's code.\n\n```proguard\n-keep class com.example.MyClass { *; }\n-dontwarn com.example.**\n```"
+      },
+      {
+        "name": "Custom RecyclerView Item Animations",
+        "example": "Apply custom animations to RecyclerView items for enhanced UX.\n\n```kotlin\nclass SlideInItemAnimator : DefaultItemAnimator() {\n    override fun animateAdd(holder: RecyclerView.ViewHolder): Boolean {\n        // Implement custom add animation\n        return super.animateAdd(holder)\n    }\n}\n\n// Set animator: recyclerView.itemAnimator = SlideInItemAnimator()\n```"
+      },
+      {
+        "name": "Using DataStore for Preferences",
+        "example": "Replace SharedPreferences with DataStore for type safety and coroutine support.\n\n```kotlin\nval Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = \"settings\")\n// Use dataStore with coroutines to read/write preferences.\n```"
+      },
+      {
+        "name": "Using Proto DataStore",
+        "example": "Persist strongly typed data using Proto DataStore with a defined schema.\n\n```kotlin\n// Define your proto schema and serializer, then:\nval Context.protoDataStore: DataStore<MyProto> by dataStore(\n    fileName = \"settings.pb\",\n    serializer = MyProtoSerializer\n)\n```"
+      },
+      {
+        "name": "Android's BiometricPrompt API",
+        "example": "Implement biometric authentication using the BiometricPrompt API.\n\n```kotlin\nval biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {\n    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {\n        // Authentication successful\n    }\n})\n\nbiometricPrompt.authenticate(promptInfo)\n```"
+      },
+      {
+        "name": "Implementing a Custom LayoutManager for RecyclerView",
+        "example": "Create a custom LayoutManager to control the layout of RecyclerView items.\n\n```kotlin\nclass CustomLayoutManager : RecyclerView.LayoutManager() {\n    override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {\n        return RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)\n    }\n    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {\n        // Implement custom layout logic\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced WebView Handling",
+        "example": "Configure WebView settings for performance and security enhancements.\n\n```kotlin\nwebView.settings.apply {\n    javaScriptEnabled = true\n    domStorageEnabled = true\n    // Additional settings as needed\n}\n```"
+      },
+      {
+        "name": "Accessibility: Content Descriptions",
+        "example": "Improve accessibility by providing content descriptions for UI elements.\n\n```xml\n<ImageView\n    android:layout_width=\"wrap_content\"\n    android:layout_height=\"wrap_content\"\n    android:src=\"@drawable/profile_pic\"\n    android:contentDescription=\"Profile picture\" />\n```"
+      },
+      {
+        "name": "Material Design: Bottom Navigation",
+        "example": "Implement bottom navigation using Material Components.\n\n```xml\n<com.google.android.material.bottomnavigation.BottomNavigationView\n    android:id=\"@+id/bottom_navigation\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"wrap_content\"\n    app:menu=\"@menu/bottom_nav_menu\" />\n```"
+      },
+      {
+        "name": "Material Design: Collapsing Toolbar",
+        "example": "Create a collapsing toolbar layout for dynamic app bars.\n\n```xml\n<androidx.coordinatorlayout.widget.CoordinatorLayout\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\">\n\n    <com.google.android.material.appbar.CollapsingToolbarLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"200dp\"\n        app:layout_scrollFlags=\"scroll|exitUntilCollapsed\">\n        <!-- Toolbar content -->\n    </com.google.android.material.appbar.CollapsingToolbarLayout>\n\n</androidx.coordinatorlayout.widget.CoordinatorLayout>\n```"
+      },
+      {
+        "name": "Advanced App Widgets",
+        "example": "Build home screen widgets using RemoteViews for dynamic content.\n\n```kotlin\nclass MyAppWidgetProvider : AppWidgetProvider() {\n    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {\n        // Update widget UI\n    }\n}\n```"
+      },
+      {
+        "name": "Slicing: Using App Slices",
+        "example": "Provide contextual content via App Slices to enhance search results and recommendations.\n\n```kotlin\nclass MySliceProvider : SliceProvider() {\n    override fun onBindSlice(sliceUri: Uri): Slice? {\n        // Build and return a slice for the given URI\n        return null\n    }\n}\n```"
+      },
+      {
+        "name": "Handling App Lifecycle with ProcessLifecycleOwner",
+        "example": "Observe the overall app lifecycle using ProcessLifecycleOwner.\n\n```kotlin\nProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleObserver {\n    @OnLifecycleEvent(Lifecycle.Event.ON_START)\n    fun onEnterForeground() {\n        // App entered foreground\n    }\n})\n```"
+      },
+      {
+        "name": "Integrating Crashlytics",
+        "example": "Set up Firebase Crashlytics to automatically report app crashes.\n\n```kotlin\n// In Application.onCreate()\nFirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)\n```"
+      },
+      {
+        "name": "Google Analytics for Firebase",
+        "example": "Log user behavior events with Firebase Analytics.\n\n```kotlin\nval analytics = FirebaseAnalytics.getInstance(context)\nanalytics.logEvent(\"event_name\", Bundle().apply { \n    putString(\"key\", \"value\") \n})\n```"
+      },
+      {
+        "name": "Optimizing Battery Usage: Doze Mode and App Standby",
+        "example": "Design your app to work efficiently with Android's battery optimization features.\n\n```kotlin\n// Request an exemption from battery optimizations if necessary\nval intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {\n    data = Uri.parse(\"package:\" + context.packageName)\n}\ncontext.startActivity(intent)\n```"
+      },
+      {
+        "name": "Network Security Config",
+        "example": "Define network security policies using an XML configuration.\n\n```xml\n<network-security-config>\n    <domain-config cleartextTrafficPermitted=\"false\">\n        <domain includeSubdomains=\"true\">example.com</domain>\n    </domain-config>\n</network-security-config>\n```"
+      },
+      {
+        "name": "Kotlin Coroutines: Flow Operators",
+        "example": "Transform and filter data streams using Flow operators like map and filter.\n\n```kotlin\nflowOf(1, 2, 3)\n    .filter { it % 2 != 0 }\n    .map { it * 2 }\n    .collect { value -> \n        // Process each transformed value\n    }\n```"
+      },
+      {
+        "name": "Implementing a Custom ViewGroup",
+        "example": "Create a custom container by extending ViewGroup to control child layout.\n\n```kotlin\nclass CustomLayout(context: Context) : ViewGroup(context) {\n    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {\n        // Position child views manually\n    }\n    override fun generateLayoutParams(attrs: AttributeSet?) = MarginLayoutParams(context, attrs)\n}\n```"
+      },
+      {
+        "name": "Creating a Singleton in Kotlin",
+        "example": "Utilize Kotlin's object declaration to create a thread-safe singleton.\n\n```kotlin\nobject DataManager {\n    var data: String = \"\"\n    fun loadData() {\n        // Load data logic\n    }\n}\n```"
+      },
+      {
+        "name": "Android's WorkManager: Periodic Work",
+        "example": "Schedule periodic background tasks using WorkManager.\n\n```kotlin\nval periodicWorkRequest = PeriodicWorkRequestBuilder<MyWorker>(12, TimeUnit.HOURS)\n    .build()\nWorkManager.getInstance(context).enqueue(periodicWorkRequest)\n```"
+      },
+      {
+        "name": "Notification: BigTextStyle",
+        "example": "Display expanded notifications using BigTextStyle for lengthy content.\n\n```kotlin\nval notification = NotificationCompat.Builder(context, \"channel_id\")\n    .setStyle(NotificationCompat.BigTextStyle().bigText(\"Here is a longer notification text that expands.\"))\n    .build()\n```"
+      },
+      {
+        "name": "Implementing a Custom Notification Layout",
+        "example": "Design custom notifications using RemoteViews for unique layouts.\n\n```kotlin\nval remoteViews = RemoteViews(context.packageName, R.layout.custom_notification)\nval notification = NotificationCompat.Builder(context, \"channel_id\")\n    .setCustomContentView(remoteViews)\n    .build()\n```"
+      },
+      {
+        "name": "ExoPlayer Integration",
+        "example": "Integrate ExoPlayer for advanced media playback capabilities.\n\n```kotlin\nval player = SimpleExoPlayer.Builder(context).build()\nplayer.setMediaItem(MediaItem.fromUri(\"http://example.com/video.mp4\"))\nplayer.prepare()\n// Attach player to a PlayerView in your layout\n```"
+      },
+      {
+        "name": "Customizing RecyclerView ItemDecoration",
+        "example": "Create custom dividers or offsets by implementing RecyclerView.ItemDecoration.\n\n```kotlin\nclass DividerDecoration(context: Context) : RecyclerView.ItemDecoration() {\n    private val divider = ContextCompat.getDrawable(context, R.drawable.divider)\n    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {\n        // Draw divider between items\n    }\n}\n// Add decoration: recyclerView.addItemDecoration(DividerDecoration(context))\n```"
+      },
+      {
+        "name": "Using ConstraintSet in ConstraintLayout",
+        "example": "Dynamically update constraints at runtime with ConstraintSet.\n\n```kotlin\nval constraintSet = ConstraintSet()\nconstraintSet.clone(constraintLayout)\nconstraintSet.connect(R.id.view1, ConstraintSet.TOP, R.id.view2, ConstraintSet.BOTTOM)\nconstraintSet.applyTo(constraintLayout)\n```"
+      },
+      {
+        "name": "Dynamic Permissions Request",
+        "example": "Request runtime permissions dynamically for sensitive features.\n\n```kotlin\nif (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {\n    ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA), 100)\n}\n```"
+      },
+      {
+        "name": "Using Activity Result API",
+        "example": "Replace deprecated startActivityForResult with the Activity Result API.\n\n```kotlin\nval getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->\n    // Handle the returned URI\n}\ngetContent.launch(\"image/*\")\n```"
+      },
+      {
+        "name": "Handling Complex Animations with MotionLayout",
+        "example": "Create intricate animations and transitions using MotionLayout.\n\n```xml\n<MotionLayout\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:motion=\"http://schemas.android.com/apk/res-auto\"\n    android:id=\"@+id/motionLayout\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    motion:layoutDescription=\"@xml/scene\">\n    <!-- Animated UI components go here -->\n</MotionLayout>\n```"
+      },
+      {
+        "name": "Using Lottie for Animations",
+        "example": "Integrate Lottie to display rich animations from JSON files.\n\n```kotlin\nval lottieView = LottieAnimationView(context)\nlottieView.setAnimation(\"animation.json\")\nlottieView.playAnimation()\n```"
+      },
+      {
+        "name": "Android Shared Element Transitions with Fragment",
+        "example": "Implement shared element transitions between fragments for smooth navigation.\n\n```kotlin\nfragmentManager.beginTransaction()\n    .addSharedElement(imageView, \"shared_element\")\n    .replace(R.id.container, DetailFragment())\n    .commit()\n```"
+      },
+      {
+        "name": "Implementing In-App Billing",
+        "example": "Set up in-app purchases using the Google Play Billing Library.\n\n```kotlin\nval billingClient = BillingClient.newBuilder(context)\n    .setListener { billingResult, purchases ->\n        // Handle purchase updates\n    }\n    .enablePendingPurchases()\n    .build()\n```"
+      },
+      {
+        "name": "Using Retrofit with OkHttp Interceptors",
+        "example": "Intercept and modify network calls with OkHttp interceptors for logging or authentication.\n\n```kotlin\nval interceptor = HttpLoggingInterceptor().apply { \n    level = HttpLoggingInterceptor.Level.BODY \n}\nval client = OkHttpClient.Builder()\n    .addInterceptor(interceptor)\n    .build()\n\nval retrofit = Retrofit.Builder()\n    .baseUrl(\"https://api.example.com\")\n    .client(client)\n    .build()\n```"
+      },
+      {
+        "name": "Caching Network Responses with OkHttp",
+        "example": "Implement response caching with OkHttp to reduce network usage.\n\n```kotlin\nval cacheSize = 10 * 1024 * 1024L // 10 MB\nval cache = Cache(context.cacheDir, cacheSize)\nval client = OkHttpClient.Builder()\n    .cache(cache)\n    .build()\n```"
+      },
+      {
+        "name": "Using Koin for Dependency Injection",
+        "example": "Leverage Koin for lightweight dependency injection in your Android project.\n\n```kotlin\n// Define a module\nval appModule = module {\n    single { Repository() }\n    viewModel { MainViewModel(get()) }\n}\n\n// Start Koin in Application.onCreate()\nstartKoin {\n    modules(appModule)\n}\n```"
+      },
+      {
+        "name": "Implementing a Command Pattern in Android",
+        "example": "Encapsulate actions as objects to support undo/redo functionality.\n\n```kotlin\ninterface Command {\n    fun execute()\n}\n\nclass SaveCommand(private val editor: Editor) : Command {\n    override fun execute() { editor.save() }\n}\n\n// Store command objects for history management\n```"
+      },
+      {
+        "name": "Utilizing Coroutines Channels for Communication",
+        "example": "Use channels to send and receive data between coroutines.\n\n```kotlin\nval channel = Channel<Int>()\n\nlaunch {\n    channel.send(1)\n}\n\nlaunch {\n    val value = channel.receive()\n    // Process the received value\n}\n```"
+      },
+      {
+        "name": "Modularization: Dynamic Feature Modules in Play Store",
+        "example": "Enable on-demand delivery of features using dynamic feature modules.\n\n```gradle\n// In your base module's build.gradle\nandroid {\n    dynamicFeatures = [\":feature_extra\"]\n}\n\n// At runtime, request installation using the Play Core library.\n```"
+      }
+    ]
+  }
+  

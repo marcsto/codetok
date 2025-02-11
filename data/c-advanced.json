@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Function Pointers",
+        "example": "Using function pointers to select functions dynamically.\n\n```c\n#include <stdio.h>\n\nint add(int a, int b) { return a + b; }\n\nint main() {\n    int (*func)(int, int) = add; // assign pointer\n    int result = func(2, 3); // result is 5\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Callback Functions",
+        "example": "Passing function pointers as callbacks for flexible design.\n\n```c\n#include <stdio.h>\n\nvoid callback(int value) {\n    // process value\n}\n\nvoid process(void (*cb)(int)) {\n    cb(10); // invoke callback\n}\n\nint main() {\n    process(callback);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Dynamic Memory Allocation",
+        "example": "Using malloc and free for dynamic memory allocation.\n\n```c\n#include <stdlib.h>\n\nint main() {\n    int *arr = (int*)malloc(5 * sizeof(int)); // allocate memory\n    // use array...\n    free(arr); // free memory\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Pointer Arithmetic",
+        "example": "Perform arithmetic on pointers to traverse arrays.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int nums[] = {1, 2, 3, 4};\n    int *ptr = nums;\n    int second = *(ptr + 1); // equals 2\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Array of Function Pointers",
+        "example": "Store multiple function pointers in an array for different operations.\n\n```c\n#include <stdio.h>\n\nint add(int a, int b) { return a + b; }\nint subtract(int a, int b) { return a - b; }\n\nint main() {\n    int (*ops[2])(int, int) = { add, subtract };\n    int sum = ops[0](5, 3);    // 8\n    int diff = ops[1](5, 3);   // 2\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Structs and Pointers",
+        "example": "Accessing struct members via pointers.\n\n```c\n#include <stdio.h>\n\ntypedef struct {\n    int x;\n    int y;\n} Point;\n\nint main() {\n    Point p = {10, 20};\n    Point *ptr = &p;\n    int xVal = ptr->x; // 10\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Linked List Implementation",
+        "example": "A basic singly-linked list node structure.\n\n```c\n#include <stdlib.h>\n\ntypedef struct Node {\n    int data;\n    struct Node *next;\n} Node;\n\nint main() {\n    Node *head = malloc(sizeof(Node)); // allocate head\n    head->data = 1;\n    head->next = NULL;\n    free(head);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Memory Leak Prevention",
+        "example": "Always free allocated memory to prevent leaks.\n\n```c\n#include <stdlib.h>\n\nint main() {\n    int *ptr = malloc(sizeof(int) * 10); // allocate\n    // ... use ptr\n    free(ptr); // free memory\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Const Correctness",
+        "example": "Use 'const' to protect data from modification.\n\n```c\n#include <stdio.h>\n\nvoid printMessage(const char *msg) {\n    // msg is read-only\n}\n\nint main() {\n    printMessage(\"Hello, World!\");\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Volatile Keyword",
+        "example": "Use volatile for variables modified outside normal flow.\n\n```c\n#include <stdio.h>\n\nint main() {\n    volatile int flag = 0; // may be modified externally\n    // flag could be changed by hardware or signal\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Inline Functions",
+        "example": "Suggest inlining functions to reduce function call overhead.\n\n```c\n#include <stdio.h>\n\ninline int square(int x) {\n    return x * x;\n}\n\nint main() {\n    int s = square(5); // 25\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Macros vs. Inline Functions",
+        "example": "Prefer inline functions over macros for type safety.\n\n```c\n#include <stdio.h>\n\n#define SQUARE_MACRO(x) ((x) * (x))\n\ninline int square_func(int x) {\n    return x * x;\n}\n\nint main() {\n    int a = SQUARE_MACRO(5);\n    int b = square_func(5);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Conditional Compilation",
+        "example": "Use preprocessor directives to compile code selectively.\n\n```c\n#include <stdio.h>\n\n#define DEBUG 1\n\nint main() {\n#ifdef DEBUG\n    // Debug-specific code\n    printf(\"Debug mode\\n\");\n#endif\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Variadic Functions",
+        "example": "Implement functions with variable argument lists.\n\n```c\n#include <stdio.h>\n#include <stdarg.h>\n\nvoid simplePrint(const char *fmt, ...) {\n    va_list args;\n    va_start(args, fmt);\n    vprintf(fmt, args);\n    va_end(args);\n}\n\nint main() {\n    simplePrint(\"Value: %d\\n\", 42);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "setjmp and longjmp",
+        "example": "Use setjmp/longjmp for non-local jumps in error handling.\n\n```c\n#include <stdio.h>\n#include <setjmp.h>\n\njmp_buf buf;\n\nvoid errorHandler() {\n    longjmp(buf, 1); // jump back\n}\n\nint main() {\n    if (setjmp(buf)) {\n        // Error occurred\n        return 1;\n    }\n    errorHandler();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Bitwise Operations",
+        "example": "Manipulate bits using bitwise operators.\n\n```c\n#include <stdio.h>\n\nint main() {\n    unsigned int flags = 0x0;\n    flags |= 0x1;   // set bit 0\n    flags &= ~0x1;  // clear bit 0\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Enums for Readability",
+        "example": "Use enums for named constants.\n\n```c\n#include <stdio.h>\n\ntypedef enum { RED, GREEN, BLUE } Color;\n\nint main() {\n    Color c = GREEN; // c is 1\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Unions for Memory Efficiency",
+        "example": "Store different types in the same memory space.\n\n```c\n#include <stdio.h>\n\ntypedef union {\n    int i;\n    float f;\n} Number;\n\nint main() {\n    Number num;\n    num.i = 10;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Typedef for Simplification",
+        "example": "Simplify complex type declarations using typedef.\n\n```c\n#include <stdio.h>\n\ntypedef unsigned long ulong;\n\nint main() {\n    ulong value = 100UL;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Deep Copy of Structs",
+        "example": "Implement deep copying for structs with dynamic memory.\n\n```c\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n    char *data;\n} Buffer;\n\nBuffer* deepCopy(const Buffer *src) {\n    Buffer *copy = malloc(sizeof(Buffer));\n    copy->data = strdup(src->data); // copy string\n    return copy;\n}\n\nint main() {\n    Buffer buf = { \"Hello\" };\n    Buffer *copy = deepCopy(&buf);\n    free(copy->data);\n    free(copy);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "RAII-like Resource Management",
+        "example": "Manage resources carefully in C using cleanup patterns.\n\n```c\n#include <stdlib.h>\n\ntypedef struct {\n    int *data;\n} Resource;\n\nResource* createResource() {\n    Resource *r = malloc(sizeof(Resource));\n    r->data = malloc(sizeof(int) * 10);\n    return r;\n}\n\nvoid freeResource(Resource *r) {\n    free(r->data);\n    free(r);\n}\n\nint main() {\n    Resource *res = createResource();\n    freeResource(res);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Opaque Pointers",
+        "example": "Encapsulate implementation details using opaque pointers.\n\n```c\n/* In header file (module.h) */\n\ntypedef struct Module Module;\nModule* createModule();\nvoid destroyModule(Module* m);\n\n/* In source file (module.c) */\n#include \"module.h\"\n#include <stdlib.h>\n\nstruct Module {\n    int secret;\n};\n\nModule* createModule() {\n    Module *m = malloc(sizeof(Module));\n    m->secret = 42;\n    return m;\n}\n\nvoid destroyModule(Module* m) {\n    free(m);\n}\n```"
+      },
+      {
+        "name": "Function-like Macro Pitfalls",
+        "example": "Be cautious with macros to avoid unexpected behavior.\n\n```c\n#include <stdio.h>\n\n#define SQUARE(x) ((x) * (x))\n\nint main() {\n    int a = 5;\n    int result = SQUARE(a + 1); // expands to ((a + 1) * (a + 1))\n    return 0;\n}\n```"
+      },
+      {
+        "name": "GCC Attributes",
+        "example": "Use GCC attributes for optimization and warnings.\n\n```c\n#include <stdio.h>\n\n__attribute__((deprecated)) void oldFunction() {\n    // deprecated function\n}\n\nint main() {\n    // oldFunction(); // would trigger a warning\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Tail Recursion",
+        "example": "Implement tail recursion for optimized recursion.\n\n```c\n#include <stdio.h>\n\nint tailRec(int n, int acc) {\n    if(n == 0) return acc;\n    return tailRec(n - 1, acc + n);\n}\n\nint main() {\n    int sum = tailRec(5, 0); // sum is 15\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Simple Recursion",
+        "example": "A basic recursive function example.\n\n```c\n#include <stdio.h>\n\nint factorial(int n) {\n    if(n <= 1) return 1;\n    return n * factorial(n - 1);\n}\n\nint main() {\n    int fact = factorial(5); // 120\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Static Functions",
+        "example": "Limit function scope to the file using static.\n\n```c\n#include <stdio.h>\n\nstatic void helper() {\n    // internal function\n}\n\nint main() {\n    helper();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Memory Alignment and Packing",
+        "example": "Control struct padding and alignment.\n\n```c\n#include <stdio.h>\n\n#pragma pack(1) // pack struct\n\ntypedef struct {\n    char a;\n    int b;\n} PackedStruct;\n\n#pragma pack() // reset packing\n\nint main() {\n    PackedStruct ps;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Signal Handling",
+        "example": "Handle signals like SIGINT using signal().\n\n```c\n#include <signal.h>\n#include <stdio.h>\n\nvoid handler(int signum) {\n    // handle signal\n}\n\nint main() {\n    signal(SIGINT, handler); // register handler\n    while(1) {} // loop indefinitely\n    return 0;\n}\n```"
+      },
+      {
+        "name": "POSIX Threads",
+        "example": "Create threads using pthreads.\n\n```c\n#include <pthread.h>\n#include <stdio.h>\n\nvoid* threadFunc(void* arg) {\n    // thread work\n    return NULL;\n}\n\nint main() {\n    pthread_t thread;\n    pthread_create(&thread, NULL, threadFunc, NULL);\n    pthread_join(thread, NULL);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Mutex Locking",
+        "example": "Protect shared data with mutexes in multithreading.\n\n```c\n#include <pthread.h>\n\nint shared = 0;\npthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;\n\nvoid* safeIncrement(void* arg) {\n    pthread_mutex_lock(&lock);\n    shared++;\n    pthread_mutex_unlock(&lock);\n    return NULL;\n}\n\nint main() {\n    pthread_t t1, t2;\n    pthread_create(&t1, NULL, safeIncrement, NULL);\n    pthread_create(&t2, NULL, safeIncrement, NULL);\n    pthread_join(t1, NULL);\n    pthread_join(t2, NULL);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Atomic Operations (C11)",
+        "example": "Use stdatomic for lock-free programming.\n\n```c\n#include <stdatomic.h>\n#include <stdio.h>\n\nint main() {\n    atomic_int count = 0;\n    atomic_fetch_add(&count, 1); // increment atomically\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Thread-local Storage",
+        "example": "Declare variables with thread-local storage.\n\n```c\n#include <stdio.h>\n\n_Thread_local int tls = 0; // C11 thread-local storage\n\nint main() {\n    tls = 5;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Non-blocking I/O",
+        "example": "Set file descriptors to non-blocking mode.\n\n```c\n#include <fcntl.h>\n#include <unistd.h>\n\nint main() {\n    int fd = 0; // STDIN\n    int flags = fcntl(fd, F_GETFL, 0);\n    fcntl(fd, F_SETFL, flags | O_NONBLOCK);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Simple Socket Client",
+        "example": "Create a basic TCP client socket.\n\n```c\n#include <sys/socket.h>\n#include <netinet/in.h>\n#include <arpa/inet.h>\n\nint main() {\n    int sock = socket(AF_INET, SOCK_STREAM, 0);\n    struct sockaddr_in addr = {0};\n    addr.sin_family = AF_INET;\n    addr.sin_port = htons(8080);\n    // Set addr.sin_addr using inet_addr(\"127.0.0.1\")\n    // connect(sock, (struct sockaddr*)&addr, sizeof(addr));\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Endianness Check",
+        "example": "Determine system endianness.\n\n```c\n#include <stdio.h>\n\nint main() {\n    unsigned int num = 1;\n    char *ptr = (char*)&num;\n    // If *ptr is 1, the system is little endian\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Union Type Punning",
+        "example": "Use a union to reinterpret data.\n\n```c\n#include <stdio.h>\n\ntypedef union {\n    float f;\n    unsigned int i;\n} FloatInt;\n\nint main() {\n    FloatInt fi;\n    fi.f = 3.14f; // reinterpret float bits as int\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Safe String Copy",
+        "example": "Use strncpy to avoid buffer overflow.\n\n```c\n#include <string.h>\n#include <stdio.h>\n\nint main() {\n    char dest[10];\n    strncpy(dest, \"HelloWorld\", sizeof(dest) - 1);\n    dest[9] = '\\0';\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Buffer Overflow Awareness",
+        "example": "Be mindful of buffer sizes to avoid overflows.\n\n```c\n#include <string.h>\n\nint main() {\n    char buffer[5];\n    // Use strncpy instead of strcpy to prevent overflow\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Error Handling with errno",
+        "example": "Check errno for system call errors.\n\n```c\n#include <errno.h>\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    // simulate an error\n    errno = 2; // e.g., ENOENT\n    // check errno if needed\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Memory-mapped I/O",
+        "example": "Map a file into memory using mmap.\n\n```c\n#include <sys/mman.h>\n#include <fcntl.h>\n#include <unistd.h>\n\nint main() {\n    int fd = open(\"file.txt\", O_RDONLY);\n    // map first 100 bytes\n    void *map = mmap(NULL, 100, PROT_READ, MAP_PRIVATE, fd, 0);\n    munmap(map, 100);\n    close(fd);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Finite State Machine",
+        "example": "Implement a simple state machine.\n\n```c\n#include <stdio.h>\n\ntypedef enum { STATE_INIT, STATE_RUN, STATE_STOP } State;\n\nint main() {\n    State s = STATE_INIT;\n    // Transition state\n    s = STATE_RUN;\n    s = STATE_STOP;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Event Loop",
+        "example": "Create a basic event loop for handling events.\n\n```c\n#include <stdbool.h>\n\nint main() {\n    bool running = true;\n    while(running) {\n        // process events\n        running = false; // exit loop\n    }\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Simulated Exception Handling",
+        "example": "Use goto for error cleanup.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int error = 0;\n    if(error) goto cleanup;\n    // normal execution\n\ncleanup:\n    // perform cleanup\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Simple Hash Table",
+        "example": "Implement a basic hash table structure.\n\n```c\n#include <stdlib.h>\n\ntypedef struct Entry {\n    int key;\n    int value;\n    struct Entry *next;\n} Entry;\n\n#define TABLE_SIZE 10\nEntry* hashTable[TABLE_SIZE] = {0};\n\nint hash(int key) { \n    return key % TABLE_SIZE; \n}\n\nint main() {\n    // insert and search logic here\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Dynamic Library Loading",
+        "example": "Load a library at runtime using dlopen and dlsym.\n\n```c\n#include <dlfcn.h>\n\nint main() {\n    void *handle = dlopen(\"libm.so\", RTLD_LAZY);\n    // Retrieve symbol: dlsym(handle, \"cos\")\n    dlclose(handle);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Function Overloading via Macros",
+        "example": "Simulate function overloading using macros.\n\n```c\n#include <stdio.h>\n\n#define max(a, b) ((a) > (b) ? (a) : (b))\n\nint main() {\n    int m = max(3, 7);\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Compiler Warnings",
+        "example": "Enable warnings to catch potential issues during compilation.\n\n```c\n// Compile with -Wall flag\nint main() {\n    int unused;\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Inline Assembly",
+        "example": "Embed assembly code within C using the asm keyword.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int a = 10, b = 20, sum;\n    __asm__(\"addl %%ebx, %%eax\" : \"=a\"(sum) : \"a\"(a), \"b\"(b));\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Modular Programming",
+        "example": "Organize code into separate header and source files for maintainability.\n\n```c\n/* module.h */\n#ifndef MODULE_H\n#define MODULE_H\n\nvoid moduleFunction();\n\n#endif\n\n/* module.c */\n#include \"module.h\"\n#include <stdio.h>\n\nvoid moduleFunction() {\n    // implementation\n}\n\n/* main.c */\n#include \"module.h\"\n\nint main() {\n    moduleFunction();\n    return 0;\n}\n```"
+      },
+      {
+        "name": "Restrict Keyword",
+        "example": "Using the `restrict` keyword to optimize pointer aliasing.\n\n```c\nvoid add_arrays(int *restrict a, int *restrict b, int *restrict result, int n) {\n    for (int i = 0; i < n; i++) {\n        result[i] = a[i] + b[i];\n    }\n}\n\nint main() {\n    int a[5] = {1,2,3,4,5}, b[5] = {5,4,3,2,1}, res[5];\n    add_arrays(a, b, res, 5);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Static Assertions",
+        "example": "Ensure compile-time conditions using `_Static_assert`.\n\n```c\n#include <assert.h>\n\n_Static_assert(sizeof(int) == 4, \"Expected 4-byte int\");\n\nint main() {\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Flexible Array Members",
+        "example": "Define structs with flexible array members for variable-length data.\n\n```c\n#include <stdlib.h>\n#include <string.h>\n\nstruct FlexArray {\n    size_t size;\n    int data[]; // flexible array member\n};\n\nint main() {\n    size_t n = 5;\n    struct FlexArray *fa = malloc(sizeof(struct FlexArray) + n * sizeof(int));\n    fa->size = n;\n    memcpy(fa->data, (int[]){1,2,3,4,5}, n * sizeof(int));\n    free(fa);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Double Linked List Implementation",
+        "example": "A simple doubly-linked list node structure.\n\n```c\n#include <stdlib.h>\n\ntypedef struct DNode {\n    int data;\n    struct DNode *prev, *next;\n} DNode;\n\nint main() {\n    DNode *head = malloc(sizeof(DNode));\n    head->data = 10;\n    head->prev = head->next = NULL;\n    // Additional nodes and linking logic would go here\n    free(head);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Circular Buffer",
+        "example": "Implement a basic circular buffer for fixed-size FIFO storage.\n\n```c\n#include <stdlib.h>\n#include <stdbool.h>\n\ntypedef struct {\n    int *buffer;\n    size_t head, tail, max;\n    bool full;\n} CircularBuffer;\n\nint main() {\n    CircularBuffer cb;\n    cb.max = 5;\n    cb.buffer = malloc(cb.max * sizeof(int));\n    cb.head = cb.tail = 0;\n    cb.full = false;\n    // Enqueue and dequeue functions would be implemented here\n    free(cb.buffer);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Binary Search Tree",
+        "example": "Insert nodes into a simple binary search tree (BST).\n\n```c\n#include <stdlib.h>\n\ntypedef struct BST {\n    int key;\n    struct BST *left, *right;\n} BST;\n\nBST* insert(BST *root, int key) {\n    if (!root) {\n        root = malloc(sizeof(BST));\n        root->key = key;\n        root->left = root->right = NULL;\n        return root;\n    }\n    if (key < root->key)\n        root->left = insert(root->left, key);\n    else\n        root->right = insert(root->right, key);\n    return root;\n}\n\nint main() {\n    BST *root = NULL;\n    root = insert(root, 10);\n    root = insert(root, 5);\n    root = insert(root, 15);\n    // Tree cleanup omitted for brevity\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Variadic Macros",
+        "example": "Use variadic macros to create flexible logging functions.\n\n```c\n#include <stdio.h>\n\n#define LOG(fmt, ...) \\\n    fprintf(stderr, \"LOG: \" fmt \"\\n\", __VA_ARGS__)\n\nint main() {\n    LOG(\"Value: %d\", 42);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Custom Memory Allocator",
+        "example": "Wrap `malloc` and `free` to implement a custom memory allocator.\n\n```c\n#include <stdlib.h>\n\nvoid* my_malloc(size_t size) {\n    // Custom logic can be added here\n    return malloc(size);\n}\n\nvoid my_free(void *ptr) {\n    free(ptr);\n}\n\nint main() {\n    int *data = my_malloc(10 * sizeof(int));\n    my_free(data);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "POSIX Aligned Memory Allocation",
+        "example": "Allocate memory aligned to a specific boundary using `posix_memalign`.\n\n```c\n#include <stdlib.h>\n\nint main() {\n    void *ptr;\n    // Allocate 1024 bytes aligned to a 64-byte boundary\n    posix_memalign(&ptr, 64, 1024);\n    free(ptr);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Doxygen Documentation",
+        "example": "Annotate code with Doxygen comments for automatic documentation generation.\n\n```c\n/**\n * @brief Adds two integers.\n *\n * @param a First integer.\n * @param b Second integer.\n * @return Sum of a and b.\n */\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Condition Variables",
+        "example": "Synchronize threads using pthread condition variables.\n\n```c\n#include <pthread.h>\n#include <stdbool.h>\n\npthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;\npthread_cond_t cond = PTHREAD_COND_INITIALIZER;\nbool ready = false;\n\nvoid* thread_func(void *arg) {\n    pthread_mutex_lock(&lock);\n    while (!ready) {\n        pthread_cond_wait(&cond, &lock);\n    }\n    pthread_mutex_unlock(&lock);\n    return NULL;\n}\n\nint main() {\n    pthread_t thread;\n    pthread_create(&thread, NULL, thread_func, NULL);\n    pthread_mutex_lock(&lock);\n    ready = true;\n    pthread_cond_signal(&cond);\n    pthread_mutex_unlock(&lock);\n    pthread_join(thread, NULL);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Barrier Synchronization",
+        "example": "Synchronize multiple threads using `pthread_barrier_t`.\n\n```c\n#include <pthread.h>\n\n#define THREAD_COUNT 4\npthread_barrier_t barrier;\n\nvoid* worker(void *arg) {\n    // Perform work here\n    pthread_barrier_wait(&barrier);\n    // Continue after all threads reach the barrier\n    return NULL;\n}\n\nint main() {\n    pthread_t threads[THREAD_COUNT];\n    pthread_barrier_init(&barrier, NULL, THREAD_COUNT);\n    for (int i = 0; i < THREAD_COUNT; i++) {\n        pthread_create(&threads[i], NULL, worker, NULL);\n    }\n    for (int i = 0; i < THREAD_COUNT; i++) {\n        pthread_join(threads[i], NULL);\n    }\n    pthread_barrier_destroy(&barrier);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Recursive Mutex",
+        "example": "Use a recursive mutex to allow the same thread to acquire a lock multiple times.\n\n```c\n#include <pthread.h>\n\nint main() {\n    pthread_mutex_t mutex;\n    pthread_mutexattr_t attr;\n    pthread_mutexattr_init(&attr);\n    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);\n    pthread_mutex_init(&mutex, &attr);\n\n    pthread_mutex_lock(&mutex);\n    pthread_mutex_lock(&mutex);\n    pthread_mutex_unlock(&mutex);\n    pthread_mutex_unlock(&mutex);\n\n    pthread_mutex_destroy(&mutex);\n    pthread_mutexattr_destroy(&attr);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Shared Memory IPC",
+        "example": "Use POSIX shared memory for inter-process communication.\n\n```c\n#include <fcntl.h>\n#include <sys/mman.h>\n#include <unistd.h>\n\nint main() {\n    int fd = shm_open(\"/myshm\", O_CREAT | O_RDWR, 0666);\n    ftruncate(fd, 1024);\n    void *ptr = mmap(0, 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);\n    // Use shared memory\n    munmap(ptr, 1024);\n    close(fd);\n    shm_unlink(\"/myshm\");\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "POSIX Semaphores",
+        "example": "Use POSIX semaphores to synchronize processes.\n\n```c\n#include <semaphore.h>\n#include <pthread.h>\n\nsem_t sem;\n\nint main() {\n    sem_init(&sem, 0, 1);\n    // Use sem_wait(&sem) and sem_post(&sem) to protect critical sections\n    sem_destroy(&sem);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Signal-safe Non-local Exit",
+        "example": "Use `sigsetjmp` and `siglongjmp` for safe non-local exits in signal handlers.\n\n```c\n#include <setjmp.h>\n#include <signal.h>\n\nsigjmp_buf jump_buffer;\n\nvoid handler(int signum) {\n    siglongjmp(jump_buffer, 1);\n}\n\nint main() {\n    signal(SIGINT, handler);\n    if (sigsetjmp(jump_buffer, 1) != 0) {\n        // Returned via siglongjmp\n        return 0;\n    }\n    // Normal execution loop\n    while (1) {}\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Simple Logger",
+        "example": "Implement a basic logger using variadic functions.\n\n```c\n#include <stdio.h>\n#include <stdarg.h>\n\nvoid log_msg(const char *fmt, ...) {\n    va_list args;\n    va_start(args, fmt);\n    vfprintf(stderr, fmt, args);\n    va_end(args);\n}\n\nint main() {\n    log_msg(\"Error code: %d\\n\", 404);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Dynamic Array (Vector)",
+        "example": "Implement a simple dynamic array that resizes as needed.\n\n```c\n#include <stdlib.h>\n\ntypedef struct {\n    int *data;\n    size_t size, capacity;\n} Vector;\n\nvoid vector_init(Vector *v) {\n    v->size = 0;\n    v->capacity = 4;\n    v->data = malloc(v->capacity * sizeof(int));\n}\n\nvoid vector_push(Vector *v, int value) {\n    if (v->size == v->capacity) {\n        v->capacity *= 2;\n        v->data = realloc(v->data, v->capacity * sizeof(int));\n    }\n    v->data[v->size++] = value;\n}\n\nint main() {\n    Vector v;\n    vector_init(&v);\n    vector_push(&v, 10);\n    free(v.data);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Heap Sort Algorithm",
+        "example": "Sort an array using the heap sort algorithm.\n\n```c\n#include <stdio.h>\n\nvoid heapify(int arr[], int n, int i) {\n    int largest = i, l = 2 * i + 1, r = 2 * i + 2;\n    if (l < n && arr[l] > arr[largest]) largest = l;\n    if (r < n && arr[r] > arr[largest]) largest = r;\n    if (largest != i) {\n        int temp = arr[i]; arr[i] = arr[largest]; arr[largest] = temp;\n        heapify(arr, n, largest);\n    }\n}\n\nvoid heapSort(int arr[], int n) {\n    for (int i = n / 2 - 1; i >= 0; i--)\n        heapify(arr, n, i);\n    for (int i = n - 1; i > 0; i--) {\n        int temp = arr[0]; arr[0] = arr[i]; arr[i] = temp;\n        heapify(arr, i, 0);\n    }\n}\n\nint main() {\n    int arr[] = {4, 10, 3, 5, 1};\n    heapSort(arr, 5);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Quicksort Implementation",
+        "example": "Implement a basic quicksort algorithm.\n\n```c\n#include <stdio.h>\n\nvoid quicksort(int arr[], int low, int high) {\n    if (low < high) {\n        int pivot = arr[high], i = low - 1;\n        for (int j = low; j < high; j++) {\n            if (arr[j] < pivot) {\n                i++;\n                int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;\n            }\n        }\n        int temp = arr[i + 1]; arr[i + 1] = arr[high]; arr[high] = temp;\n        int pi = i + 1;\n        quicksort(arr, low, pi - 1);\n        quicksort(arr, pi + 1, high);\n    }\n}\n\nint main() {\n    int arr[] = {10, 7, 8, 9, 1, 5};\n    quicksort(arr, 0, 5);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Memory Pool",
+        "example": "Create a simple memory pool for fixed-size block allocations.\n\n```c\n#include <stdlib.h>\n\ntypedef struct Pool {\n    void *memory;\n    size_t block_size;\n    size_t block_count;\n    char *free_list;\n} Pool;\n\n// Allocation and free functions would manage blocks here\nint main() {\n    Pool pool;\n    pool.block_size = 32;\n    pool.block_count = 100;\n    pool.memory = malloc(pool.block_size * pool.block_count);\n    // Initialize free_list and manage pool...\n    free(pool.memory);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Hash Map with Separate Chaining",
+        "example": "A basic hash map implementation using linked lists for collision resolution.\n\n```c\n#include <stdlib.h>\n\n#define TABLE_SIZE 10\n\ntypedef struct Entry {\n    int key;\n    int value;\n    struct Entry *next;\n} Entry;\n\nEntry* table[TABLE_SIZE] = {0};\n\nint hash(int key) {\n    return key % TABLE_SIZE;\n}\n\nint main() {\n    // Insert and search functions would be implemented here\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Simple Bloom Filter",
+        "example": "Implement a minimal bloom filter using a bit array.\n\n```c\n#include <stdlib.h>\n#include <string.h>\n\n#define FILTER_SIZE 128\n\ntypedef struct {\n    unsigned char bits[FILTER_SIZE];\n} BloomFilter;\n\nvoid bloom_add(BloomFilter *bf, int hash) {\n    bf->bits[hash % FILTER_SIZE] = 1;\n}\n\nint bloom_check(BloomFilter *bf, int hash) {\n    return bf->bits[hash % FILTER_SIZE];\n}\n\nint main() {\n    BloomFilter bf;\n    memset(&bf, 0, sizeof(bf));\n    bloom_add(&bf, 42);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Thread Pool",
+        "example": "Outline a basic thread pool structure for managing worker threads.\n\n```c\n#include <pthread.h>\n#include <stdlib.h>\n\ntypedef struct {\n    pthread_t *threads;\n    int thread_count;\n    // Task queue and synchronization primitives would be defined here\n} ThreadPool;\n\nint main() {\n    ThreadPool pool;\n    pool.thread_count = 4;\n    pool.threads = malloc(pool.thread_count * sizeof(pthread_t));\n    // Initialize threads and assign tasks\n    free(pool.threads);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Observer Pattern",
+        "example": "Implement a basic observer pattern with function pointers.\n\n```c\n#include <stdio.h>\n\ntypedef void (*Observer)(int);\n\n#define MAX_OBSERVERS 10\nObserver observers[MAX_OBSERVERS];\nint observer_count = 0;\n\nvoid register_observer(Observer obs) {\n    if (observer_count < MAX_OBSERVERS)\n        observers[observer_count++] = obs;\n}\n\nvoid notify_observers(int event) {\n    for (int i = 0; i < observer_count; i++) {\n        observers[i](event);\n    }\n}\n\nint main() {\n    // Observers would be registered and notified\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "State Pattern",
+        "example": "Use function pointers to implement the state pattern.\n\n```c\n#include <stdio.h>\n\ntypedef struct State State;\nstruct State {\n    void (*handle)(State*);\n};\n\nvoid stateA_handle(State *s) {\n    // Behavior for state A\n}\n\nint main() {\n    State s;\n    s.handle = stateA_handle;\n    s.handle(&s);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Plugin System",
+        "example": "Load plugins dynamically using `dlopen` and function pointers.\n\n```c\n#include <dlfcn.h>\n\nint main() {\n    void *handle = dlopen(\"./plugin.so\", RTLD_LAZY);\n    // Retrieve function pointers with dlsym and use them\n    dlclose(handle);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Simulated Reflection",
+        "example": "Use macros to simulate reflection by stringifying identifiers.\n\n```c\n#include <stdio.h>\n\n#define FIELD(name) #name\n\nint main() {\n    const char *fieldName = FIELD(age); // expands to \"age\"\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Bit Fields in Structs",
+        "example": "Optimize memory usage using bit fields.\n\n```c\n#include <stdio.h>\n\nstruct Flags {\n    unsigned int a : 1;\n    unsigned int b : 1;\n    unsigned int c : 1;\n};\n\nint main() {\n    struct Flags f = {1, 0, 1};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Union and Struct Combination",
+        "example": "Combine unions and structs for type punning and memory sharing.\n\n```c\n#include <stdio.h>\n\ntypedef union {\n    struct { unsigned char a, b, c, d; } bytes;\n    unsigned int value;\n} Data;\n\nint main() {\n    Data d;\n    d.value = 0x01020304;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Variadic Macros Example",
+        "example": "Create macros that accept a variable number of arguments.\n\n```c\n#include <stdio.h>\n\n#define DEBUG_PRINT(fmt, ...) \\\n    fprintf(stderr, \"DEBUG: \" fmt \"\\n\", __VA_ARGS__)\n\nint main() {\n    DEBUG_PRINT(\"x = %d\", 10);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Safe Free Macro",
+        "example": "Define a macro to free a pointer and set it to NULL.\n\n```c\n#include <stdlib.h>\n\n#define SAFE_FREE(p) do { free(p); p = NULL; } while (0)\n\nint main() {\n    int *data = malloc(10 * sizeof(int));\n    SAFE_FREE(data);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Loop Unrolling",
+        "example": "Manually unroll loops to improve performance in critical sections.\n\n```c\n#include <stdio.h>\n\nvoid process(int *data, int n) {\n    int i = 0;\n    for (; i < n - 3; i += 4) {\n        data[i] *= 2;\n        data[i + 1] *= 2;\n        data[i + 2] *= 2;\n        data[i + 3] *= 2;\n    }\n    for (; i < n; i++) {\n        data[i] *= 2;\n    }\n}\n\nint main() {\n    int arr[8] = {1,2,3,4,5,6,7,8};\n    process(arr, 8);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Branch Prediction Hints",
+        "example": "Guide the compiler's branch prediction using `__builtin_expect`.\n\n```c\n#include <stdio.h>\n\nint main() {\n    int error = 0;\n    if (__builtin_expect(error, 0)) {\n        // Unlikely error handling\n    }\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Cache Line Padding",
+        "example": "Prevent false sharing by aligning data to cache line boundaries.\n\n```c\n#include <stdalign.h>\n\ntypedef struct {\n    alignas(64) int counter;\n} PaddedCounter;\n\nint main() {\n    PaddedCounter pc = {0};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Memory-mapped Registers",
+        "example": "Access hardware registers directly in embedded systems.\n\n```c\n#define REG_ADDRESS ((volatile unsigned int*)0x40000000)\n\nint main() {\n    unsigned int value = *REG_ADDRESS; // Read register\n    *REG_ADDRESS = value | 0x1; // Set bit 0\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "POSIX Timers",
+        "example": "Create high-resolution timers using `timer_create`.\n\n```c\n#include <time.h>\n\nint main() {\n    timer_t timerid;\n    struct sigevent sev = {0};\n    sev.sigev_notify = SIGEV_NONE;\n    timer_create(CLOCK_REALTIME, &sev, &timerid);\n    // Use timer_settime() to start the timer\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Signal-safe Functions",
+        "example": "Know which functions are async-signal-safe to use in signal handlers.\n\n```c\n// Only async-signal-safe functions are safe in signal handlers.\n// For example: write, _exit, and signal itself.\nint main() {\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Atomic Compare-and-Swap",
+        "example": "Use atomic operations for lock-free programming with C11 atomics.\n\n```c\n#include <stdatomic.h>\n\nint main() {\n    atomic_int value = 0;\n    int expected = 0;\n    atomic_compare_exchange_strong(&value, &expected, 1);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "pthread_once Initialization",
+        "example": "Ensure one-time initialization with `pthread_once`.\n\n```c\n#include <pthread.h>\n\npthread_once_t once = PTHREAD_ONCE_INIT;\n\nvoid init_function() {\n    // Initialization code\n}\n\nvoid* thread_func(void *arg) {\n    pthread_once(&once, init_function);\n    return NULL;\n}\n\nint main() {\n    pthread_t t1, t2;\n    pthread_create(&t1, NULL, thread_func, NULL);\n    pthread_create(&t2, NULL, thread_func, NULL);\n    pthread_join(t1, NULL);\n    pthread_join(t2, NULL);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Function Tracing with __FUNCTION__",
+        "example": "Use built-in macros to trace function calls.\n\n```c\n#include <stdio.h>\n\nvoid trace() {\n    printf(\"Entered function: %s\\n\", __FUNCTION__);\n}\n\nint main() {\n    trace();\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Bitmask Flags in Enums",
+        "example": "Define and combine flags using bitmask enums.\n\n```c\n#include <stdio.h>\n\ntypedef enum {\n    FLAG_READ  = 1 << 0,\n    FLAG_WRITE = 1 << 1,\n    FLAG_EXEC  = 1 << 2\n} Permissions;\n\nint main() {\n    int perms = FLAG_READ | FLAG_WRITE;\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Error Handling with goto",
+        "example": "Use `goto` for structured error cleanup in resource management.\n\n```c\n#include <stdlib.h>\n\nint main() {\n    int *data = malloc(10 * sizeof(int));\n    if (!data) goto fail;\n    // Use data\n\nfail:\n    free(data);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "DLL Interface Design",
+        "example": "Design a plugin interface using function pointers across dynamic libraries.\n\n```c\n/* plugin.h */\n\ntypedef struct {\n    void (*init)();\n    void (*execute)();\n} Plugin;\n\n/* main.c */\n#include \"plugin.h\"\n\nint main() {\n    // Load plugin and call its functions\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Object-Oriented Programming in C",
+        "example": "Simulate OOP using structs and function pointers for methods.\n\n```c\n#include <stdio.h>\n\ntypedef struct {\n    void (*speak)(void *);\n} Animal;\n\nvoid dogSpeak(void *self) {\n    printf(\"Woof!\\n\");\n}\n\nint main() {\n    Animal dog = { dogSpeak };\n    dog.speak(&dog);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Simulated Inheritance",
+        "example": "Achieve inheritance by embedding a base struct within a derived struct.\n\n```c\n#include <stdio.h>\n\ntypedef struct {\n    int base_value;\n} Base;\n\ntypedef struct {\n    Base base;\n    int derived_value;\n} Derived;\n\nint main() {\n    Derived d = { {10}, 20 };\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Type-safe Generic Data Structures",
+        "example": "Use macros to create generic, type-safe containers.\n\n```c\n#include <stdlib.h>\n\n#define DECLARE_VECTOR(type) \\\n    typedef struct { \\\n        type *data; \\\n        size_t size, capacity; \\\n    } Vector_##type;\n\nDECLARE_VECTOR(int)\n\nint main() {\n    Vector_int vec = {NULL, 0, 0};\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Memory Sanitization",
+        "example": "Zero out sensitive memory before freeing it.\n\n```c\n#include <string.h>\n#include <stdlib.h>\n\nint main() {\n    char *secret = malloc(100);\n    strcpy(secret, \"Sensitive Data\");\n    memset(secret, 0, 100);\n    free(secret);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Thread Cancellation",
+        "example": "Cancel threads safely using `pthread_cancel`.\n\n```c\n#include <pthread.h>\n#include <stdio.h>\n\nvoid* worker(void *arg) {\n    while (1) { /* Work loop */ }\n    return NULL;\n}\n\nint main() {\n    pthread_t t;\n    pthread_create(&t, NULL, worker, NULL);\n    pthread_cancel(t);\n    pthread_join(t, NULL);\n    return 0;\n}\n```\n"
+      },
+      {
+        "name": "Custom Assert Macro",
+        "example": "Define a custom assert macro that logs detailed error information.\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\n#define MY_ASSERT(expr) \\\n    if (!(expr)) { \\\n        fprintf(stderr, \"Assertion failed: %s, function %s, line %d\\n\", \\\n                #expr, __FUNCTION__, __LINE__); \\\n        abort(); \\\n    }\n\nint main() {\n    MY_ASSERT(1 == 1);\n    return 0;\n}\n```\n"
+      }
+    ]
+  }
+  

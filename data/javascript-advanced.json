@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Template Literals and String Interpolation",
+        "example": "Template literals allow embedding expressions in strings using backticks.\n\n```js\nconst user = 'Alice';\nconst greeting = `Hello, ${user}!`;\n// greeting: \"Hello, Alice!\"\n```"
+      },
+      {
+        "name": "Destructuring Assignment",
+        "example": "Extract values from arrays or objects into distinct variables.\n\n```js\n// Object destructuring\nconst person = { name: 'Bob', age: 30 };\nconst { name, age } = person;\n\n// Array destructuring\nconst arr = [1, 2, 3];\nconst [first, second] = arr;\n```"
+      },
+      {
+        "name": "Spread Operator",
+        "example": "Copy or combine arrays and objects using the spread operator.\n\n```js\n// Arrays\nconst arr1 = [1, 2];\nconst arr2 = [...arr1, 3, 4];\n\n// Objects\nconst obj1 = { a: 1, b: 2 };\nconst obj2 = { ...obj1, c: 3 };\n```"
+      },
+      {
+        "name": "Rest Parameters",
+        "example": "Gather remaining function arguments into an array.\n\n```js\nfunction sum(...numbers) {\n  return numbers.reduce((acc, n) => acc + n, 0);\n}\n// Usage: sum(1, 2, 3)\n```"
+      },
+      {
+        "name": "Default Parameters",
+        "example": "Assign default values to function parameters.\n\n```js\nfunction greet(name = 'Guest') {\n  return `Hello, ${name}!`;\n}\n```"
+      },
+      {
+        "name": "Higher-Order Functions",
+        "example": "Functions that take other functions as arguments or return them.\n\n```js\nconst numbers = [1, 2, 3];\nconst doubled = numbers.map(n => n * 2); // map accepts a function\n```"
+      },
+      {
+        "name": "Closures",
+        "example": "Functions that retain access to their lexical scope.\n\n```js\nfunction counter() {\n  let count = 0;\n  return () => ++count; // retains 'count' variable\n}\nconst increment = counter();\n```"
+      },
+      {
+        "name": "Immediately Invoked Function Expressions (IIFE)",
+        "example": "Functions that run as soon as they are defined.\n\n```js\n(function() {\n  const message = 'IIFE executed';\n  // Code runs immediately\n})();\n```"
+      },
+      {
+        "name": "Module Pattern (Revealing Module Pattern)",
+        "example": "Encapsulate private data and expose public methods.\n\n```js\nconst module = (function() {\n  let privateVar = 0;\n  function privateFunc() {\n    privateVar++;\n  }\n  return {\n    increment: privateFunc,\n    getValue: () => privateVar\n  };\n})();\n```"
+      },
+      {
+        "name": "ES6 Modules (import/export)",
+        "example": "Separate code into modules using export and import statements.\n\n```js\n// In math.js\nexport const add = (a, b) => a + b;\n\n// In main.js\n// import { add } from './math.js';\n```"
+      },
+      {
+        "name": "Object Literals and Shorthand Syntax",
+        "example": "Use shorthand to define object properties when variable names match.\n\n```js\nconst name = 'Charlie';\nconst age = 25;\nconst person = { name, age };\n```"
+      },
+      {
+        "name": "Computed Property Names",
+        "example": "Dynamically define object property names using expressions.\n\n```js\nconst prop = 'score';\nconst player = {\n  [prop]: 100\n};\n```"
+      },
+      {
+        "name": "Class Syntax and Inheritance",
+        "example": "Define classes and extend them using ES6 syntax.\n\n```js\nclass Animal {\n  constructor(name) {\n    this.name = name;\n  }\n  speak() {\n    // Generic sound\n  }\n}\n\nclass Dog extends Animal {\n  speak() {\n    // Overridden method\n  }\n}\n```"
+      },
+      {
+        "name": "Getters and Setters in Classes",
+        "example": "Encapsulate property access with getter and setter methods.\n\n```js\nclass Rectangle {\n  constructor(width, height) {\n    this.width = width;\n    this.height = height;\n  }\n  get area() {\n    return this.width * this.height;\n  }\n  set area(value) {\n    // Adjust width based on new area (example logic)\n    this.width = value / this.height;\n  }\n}\n```"
+      },
+      {
+        "name": "Static Methods in Classes",
+        "example": "Define methods on the class itself rather than on instances.\n\n```js\nclass MathUtil {\n  static square(x) {\n    return x * x;\n  }\n}\n```"
+      },
+      {
+        "name": "Promises for Asynchronous Code",
+        "example": "Manage asynchronous operations with Promises.\n\n```js\nconst fetchData = () => {\n  return new Promise((resolve, reject) => {\n    // Simulate async operation\n    setTimeout(() => resolve('Data loaded'), 1000);\n  });\n};\n```"
+      },
+      {
+        "name": "Async/Await Syntax",
+        "example": "Write asynchronous code that looks synchronous.\n\n```js\nasync function loadData() {\n  const data = await fetchData();\n  // Use data after the promise resolves\n}\n```"
+      },
+      {
+        "name": "Error Handling with try/catch",
+        "example": "Gracefully handle errors in your code.\n\n```js\ntry {\n  // Code that might fail\n  throw new Error('Oops');\n} catch (error) {\n  // Handle error\n}\n```"
+      },
+      {
+        "name": "Debouncing",
+        "example": "Limit the rate at which a function is executed.\n\n```js\nfunction debounce(func, delay) {\n  let timeout;\n  return function(...args) {\n    clearTimeout(timeout);\n    timeout = setTimeout(() => func.apply(this, args), delay);\n  };\n}\n```"
+      },
+      {
+        "name": "Throttling",
+        "example": "Ensure a function is called at most once in a specified time.\n\n```js\nfunction throttle(func, limit) {\n  let inThrottle;\n  return function(...args) {\n    if (!inThrottle) {\n      func.apply(this, args);\n      inThrottle = true;\n      setTimeout(() => inThrottle = false, limit);\n    }\n  };\n}\n```"
+      },
+      {
+        "name": "Currying Functions",
+        "example": "Transform a function with multiple arguments into a series of functions.\n\n```js\nconst multiply = a => b => a * b;\nconst double = multiply(2); // double(5) returns 10\n```"
+      },
+      {
+        "name": "Function Composition",
+        "example": "Combine multiple functions into a single function.\n\n```js\nconst compose = (f, g) => x => f(g(x));\nconst addOne = x => x + 1;\nconst square = x => x * x;\nconst addOneThenSquare = compose(square, addOne);\n```"
+      },
+      {
+        "name": "Partial Application",
+        "example": "Pre-fill some arguments of a function to create a new function.\n\n```js\nfunction partial(fn, ...presetArgs) {\n  return (...laterArgs) => fn(...presetArgs, ...laterArgs);\n}\nconst add = (a, b) => a + b;\nconst addFive = partial(add, 5);\n```"
+      },
+      {
+        "name": "Recursion and Tail Recursion",
+        "example": "Solve problems by having functions call themselves; tail recursion optimizes calls.\n\n```js\n// Standard recursion\nfunction factorial(n) {\n  if (n === 0) return 1;\n  return n * factorial(n - 1);\n}\n\n// Tail recursion (conceptual, as JS may not optimize it)\nfunction tailFactorial(n, acc = 1) {\n  if (n === 0) return acc;\n  return tailFactorial(n - 1, n * acc);\n}\n```"
+      },
+      {
+        "name": "Generators",
+        "example": "Functions that can pause and resume their execution.\n\n```js\nfunction* idGenerator() {\n  let id = 0;\n  while (true) {\n    yield id++;\n  }\n}\nconst gen = idGenerator();\n```"
+      },
+      {
+        "name": "Iterators and Iterable Protocol",
+        "example": "Customize object iteration using the Symbol.iterator method.\n\n```js\nconst iterable = {\n  [Symbol.iterator]() {\n    let count = 0;\n    return {\n      next() {\n        return count < 3 ? { value: count++, done: false } : { done: true };\n      }\n    };\n  }\n};\n```"
+      },
+      {
+        "name": "Symbol for Unique Keys",
+        "example": "Use Symbols to create unique, non-enumerable object keys.\n\n```js\nconst uniqueKey = Symbol('unique');\nconst obj = {\n  [uniqueKey]: 'secret'\n};\n```"
+      },
+      {
+        "name": "WeakMap and WeakSet",
+        "example": "Store objects weakly to allow garbage collection.\n\n```js\nconst wm = new WeakMap();\nlet objKey = {};\nwm.set(objKey, 'value');\n\n// WeakSet example\nconst ws = new WeakSet();\nws.add(objKey);\n```"
+      },
+      {
+        "name": "Proxy for Object Traps",
+        "example": "Intercept and redefine fundamental operations for objects.\n\n```js\nconst target = { name: 'Dave' };\nconst proxy = new Proxy(target, {\n  get(obj, prop) {\n    return prop in obj ? obj[prop] : 'default';\n  }\n});\n```"
+      },
+      {
+        "name": "Reflect API",
+        "example": "Perform common object operations in a functional style.\n\n```js\nconst obj = { a: 1 };\nReflect.set(obj, 'b', 2); // Similar to obj.b = 2\nconst hasA = Reflect.has(obj, 'a'); // true\n```"
+      },
+      {
+        "name": "Event Loop and Microtasks",
+        "example": "Understand execution order between synchronous code and microtasks.\n\n```js\nconsole.log('Start');\nPromise.resolve().then(() => console.log('Microtask'));\n// Output order: 'Start', then 'Microtask'\n```"
+      },
+      {
+        "name": "Dynamic Import",
+        "example": "Load modules dynamically at runtime.\n\n```js\n// Dynamically import a module\n// import('./module.js').then(module => {\n//   module.doSomething();\n// });\n```"
+      },
+      {
+        "name": "Optional Chaining",
+        "example": "Safely access nested object properties without errors.\n\n```js\nconst user = { profile: { email: 'a@b.com' } };\nconst email = user.profile?.email; // Returns email or undefined if missing\n```"
+      },
+      {
+        "name": "Nullish Coalescing Operator",
+        "example": "Provide a fallback value for null or undefined (but not falsy) values.\n\n```js\nconst input = 0;\nconst result = input ?? 42; // result is 0 because 0 is not null/undefined\n```"
+      },
+      {
+        "name": "Map and Set Collections",
+        "example": "Use Map and Set for efficient key-value storage and unique collections.\n\n```js\nconst map = new Map();\nmap.set('a', 1);\n\nconst set = new Set([1, 2, 3]);\n```"
+      },
+      {
+        "name": "Nested Destructuring",
+        "example": "Extract values from nested objects.\n\n```js\nconst data = { user: { name: 'Eva', age: 28 } };\nconst { user: { name, age } } = data;\n```"
+      },
+      {
+        "name": "Deep Cloning Objects",
+        "example": "Clone objects deeply using JSON methods (with limitations).\n\n```js\nconst original = { a: 1, nested: { b: 2 } };\nconst clone = JSON.parse(JSON.stringify(original));\n// Note: Does not clone functions or handle special types.\n```"
+      },
+      {
+        "name": "Custom Errors (Extending Error)",
+        "example": "Create custom error types by extending the built-in Error class.\n\n```js\nclass ValidationError extends Error {\n  constructor(message) {\n    super(message);\n    this.name = 'ValidationError';\n  }\n}\n```"
+      },
+      {
+        "name": "Memoization",
+        "example": "Cache function results to optimize performance for expensive operations.\n\n```js\nfunction memoize(fn) {\n  const cache = new Map();\n  return function(...args) {\n    const key = JSON.stringify(args);\n    if (cache.has(key)) return cache.get(key);\n    const result = fn(...args);\n    cache.set(key, result);\n    return result;\n  };\n}\n```"
+      },
+      {
+        "name": "Chaining Array Methods",
+        "example": "Combine array methods for concise and readable transformations.\n\n```js\nconst result = [1, 2, 3, 4]\n  .filter(n => n % 2 === 0) // Filter even numbers\n  .map(n => n * 2);         // Double them\n```"
+      },
+      {
+        "name": "Using Array.from and Spread in Arrays",
+        "example": "Convert iterables to arrays using Array.from or spread syntax.\n\n```js\nconst str = 'hello';\nconst chars = Array.from(str); // or [...str]\n```"
+      },
+      {
+        "name": "Regular Expressions",
+        "example": "Pattern matching using regex for string validation and search.\n\n```js\nconst regex = /\\d+/;\nconst match = '123abc'.match(regex);\n// match: ['123']\n```"
+      },
+      {
+        "name": "Internationalization with Intl API",
+        "example": "Format numbers, dates, and strings according to locale conventions.\n\n```js\nconst number = 1234567.89;\nconst formatted = new Intl.NumberFormat('de-DE').format(number);\n// formatted: \"1.234.567,89\" for German locale\n```"
+      },
+      {
+        "name": "BigInt for Large Numbers",
+        "example": "Handle integers larger than Number.MAX_SAFE_INTEGER with BigInt.\n\n```js\nconst big = BigInt(123456789012345678901234567890);\nconst anotherBig = 123456789012345678901234567890n;\n```"
+      },
+      {
+        "name": "Custom Iteration with Symbol.iterator",
+        "example": "Implement custom iteration behavior using Symbol.iterator.\n\n```js\nconst customIterable = {\n  data: [10, 20, 30],\n  [Symbol.iterator]() {\n    let index = 0;\n    const data = this.data;\n    return {\n      next() {\n        return index < data.length ? { value: data[index++], done: false } : { done: true };\n      }\n    };\n  }\n};\n```"
+      },
+      {
+        "name": "Asynchronous Iteration (for-await-of)",
+        "example": "Iterate over async data streams with for-await-of loops.\n\n```js\nasync function processStream(stream) {\n  for await (const chunk of stream) {\n    // Process each async chunk\n  }\n}\n// 'stream' must be an async iterable\n```"
+      },
+      {
+        "name": "Promise.all and Promise.race",
+        "example": "Handle multiple Promises concurrently with all or race strategies.\n\n```js\nconst p1 = Promise.resolve(1);\nconst p2 = Promise.resolve(2);\n\nPromise.all([p1, p2]).then(values => {\n  // values: [1, 2]\n});\n\nPromise.race([p1, p2]).then(value => {\n  // value: 1 (first resolved)\n});\n```"
+      },
+      {
+        "name": "Binding Function Context with bind, call, apply",
+        "example": "Control the 'this' context when invoking functions.\n\n```js\nfunction greet() {\n  return `Hello, ${this.name}`;\n}\n\nconst person = { name: 'Frank' };\nconst greetFrank = greet.bind(person);\n// greet.call(person);\n// greet.apply(person);\n```"
+      },
+      {
+        "name": "Custom Event Emitters (Pub/Sub Pattern)",
+        "example": "Implement a simple publish/subscribe pattern for event handling.\n\n```js\nclass EventEmitter {\n  constructor() {\n    this.events = {};\n  }\n  on(event, listener) {\n    (this.events[event] = this.events[event] || []).push(listener);\n  }\n  emit(event, ...args) {\n    (this.events[event] || []).forEach(fn => fn(...args));\n  }\n}\n\nconst emitter = new EventEmitter();\n// emitter.on('data', (msg) => { ... });\n// emitter.emit('data', 'Hello World');\n```"
+      },
+      {
+        "name": "Async Generators",
+        "example": "Async generators allow asynchronous iteration with `for await...of`.\n\n```js\nasync function* asyncCounter() {\n  let i = 0;\n  while (i < 3) {\n    await new Promise(resolve => setTimeout(resolve, 100)); // simulate delay\n    yield i++;\n  }\n}\n\n(async () => {\n  for await (const num of asyncCounter()) {\n    // num: 0, 1, 2\n  }\n})();\n```"
+      },
+      {
+        "name": "Web Workers for Parallel Processing",
+        "example": "Offload heavy computations to a separate thread using Web Workers.\n\n```js\n// main.js\nconst worker = new Worker('worker.js');\nworker.postMessage('start');\n\n// worker.js\n// self.onmessage = function(e) {\n//   // Perform heavy computation\n//   self.postMessage('done');\n// };\n```"
+      },
+      {
+        "name": "Service Workers for Offline Caching",
+        "example": "Register a service worker to cache assets and enable offline functionality.\n\n```js\n// In main.js\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('/sw.js');\n}\n\n// In sw.js\nself.addEventListener('install', event => {\n  event.waitUntil(\n    caches.open('v1').then(cache => cache.addAll(['/', '/style.css']))\n  );\n});\n```"
+      },
+      {
+        "name": "Using AbortController to Cancel Fetch Requests",
+        "example": "Cancel a fetch request by using an AbortController.\n\n```js\nconst controller = new AbortController();\nconst signal = controller.signal;\n\nfetch('/api/data', { signal })\n  .then(res => res.json())\n  .catch(err => {\n    // Handle abort error\n  });\n\ncontroller.abort(); // Cancel the request\n```"
+      },
+      {
+        "name": "Decorator Pattern in JavaScript",
+        "example": "Enhance class methods with additional behavior using decorators (simulated).\n\n```js\nfunction logDecorator(method) {\n  return function(...args) {\n    console.log('Calling method with', args);\n    return method.apply(this, args);\n  };\n}\n\nclass Example {\n  constructor(value) {\n    this.value = value;\n  }\n  method(x) {\n    return this.value + x;\n  }\n}\n\n// Apply the decorator manually\nExample.prototype.method = logDecorator(Example.prototype.method);\n```"
+      },
+      {
+        "name": "Mixins in JavaScript",
+        "example": "Mix additional behavior into classes by merging objects.\n\n```js\nconst canEat = {\n  eat() { /* eating behavior */ }\n};\n\nconst canWalk = {\n  walk() { /* walking behavior */ }\n};\n\nclass Person {}\nObject.assign(Person.prototype, canEat, canWalk);\n```"
+      },
+      {
+        "name": "Deep Freezing Objects",
+        "example": "Recursively freeze an object to make it fully immutable.\n\n```js\nfunction deepFreeze(obj) {\n  Object.keys(obj).forEach(prop => {\n    if (typeof obj[prop] === 'object' && obj[prop] !== null) {\n      deepFreeze(obj[prop]);\n    }\n  });\n  return Object.freeze(obj);\n}\n\nconst obj = { a: { b: 2 } };\ndeepFreeze(obj);\n```"
+      },
+      {
+        "name": "Object.seal vs Object.freeze",
+        "example": "Use seal to prevent adding/removing properties and freeze to also block modifications.\n\n```js\nconst sealed = Object.seal({ a: 1 });\nconst frozen = Object.freeze({ a: 1 });\n\n// sealed.a = 2; // Allowed modification\n// frozen.a = 2; // Fails silently or throws in strict mode\n```"
+      },
+      {
+        "name": "Event Delegation in the DOM",
+        "example": "Attach a single event listener to a parent element to handle events for its children.\n\n```js\ndocument.getElementById('parent').addEventListener('click', event => {\n  if (event.target.matches('.child')) {\n    // Handle click on child element\n  }\n});\n```"
+      },
+      {
+        "name": "Custom DOM Events",
+        "example": "Create and dispatch a custom event with additional data.\n\n```js\nconst event = new CustomEvent('myEvent', { detail: { key: 'value' } });\ndocument.dispatchEvent(event);\n\n// Listen for the event\n// document.addEventListener('myEvent', e => { ... });\n```"
+      },
+      {
+        "name": "Pure Functions in Functional Programming",
+        "example": "Write functions that always produce the same output for the same input and have no side effects.\n\n```js\nconst add = (a, b) => a + b;\n// Pure: no side effects and consistent output\n```"
+      },
+      {
+        "name": "Immutable Data Patterns",
+        "example": "Update objects without mutation using the spread operator.\n\n```js\nconst state = { count: 0 };\nconst newState = { ...state, count: state.count + 1 };\n```"
+      },
+      {
+        "name": "Using Bitwise Operators for Flags",
+        "example": "Manage multiple boolean flags within a single number.\n\n```js\nconst FLAG_A = 1; // 001\nconst FLAG_B = 2; // 010\nconst FLAG_C = 4; // 100\nlet flags = FLAG_A | FLAG_C; // Set A and C\n\n// Check if FLAG_A is set\nconst hasFlagA = (flags & FLAG_A) === FLAG_A;\n```"
+      },
+      {
+        "name": "Proxy for Property Validation",
+        "example": "Use a Proxy to enforce type or value restrictions on object properties.\n\n```js\nconst person = { age: 0 };\nconst validator = {\n  set(obj, prop, value) {\n    if (prop === 'age' && typeof value !== 'number') {\n      throw new TypeError('Age must be a number');\n    }\n    obj[prop] = value;\n    return true;\n  }\n};\nconst proxyPerson = new Proxy(person, validator);\n```"
+      },
+      {
+        "name": "Symbol.toPrimitive for Type Conversion",
+        "example": "Customize how an object converts to a primitive value.\n\n```js\nclass Temperature {\n  constructor(celsius) {\n    this.celsius = celsius;\n  }\n  [Symbol.toPrimitive](hint) {\n    if (hint === 'number') return this.celsius;\n    return `${this.celsius}°C`;\n  }\n}\n```"
+      },
+      {
+        "name": "Using Reflect.construct for Dynamic Instantiation",
+        "example": "Create an instance of a class dynamically using Reflect.construct.\n\n```js\nclass Animal {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst animal = Reflect.construct(Animal, ['Lion']);\n// animal.name is 'Lion'\n```"
+      },
+      {
+        "name": "Async IIFE (Immediately Invoked Async Function Expression)",
+        "example": "Execute asynchronous code immediately using an async IIFE.\n\n```js\n(async () => {\n  const data = await Promise.resolve('Async data');\n  // data: 'Async data'\n})();\n```"
+      },
+      {
+        "name": "Memoization with WeakMap for Object Keys",
+        "example": "Cache function results keyed by objects using a WeakMap for memory efficiency.\n\n```js\nfunction memoize(fn) {\n  const cache = new WeakMap();\n  return function(obj) {\n    if (cache.has(obj)) return cache.get(obj);\n    const result = fn(obj);\n    cache.set(obj, result);\n    return result;\n  };\n}\n```"
+      },
+      {
+        "name": "Using Reflect.apply to Call Functions",
+        "example": "Invoke a function with a specific `this` context and arguments using Reflect.apply.\n\n```js\nfunction sum(a, b) {\n  return a + b;\n}\nconst result = Reflect.apply(sum, null, [5, 7]);\n// result: 12\n```"
+      },
+      {
+        "name": "Iterator Helpers (Custom Map/Filter on Iterators)",
+        "example": "Create custom iterator helpers to transform iterator values.\n\n```js\nfunction* map(iterator, fn) {\n  for (const value of iterator) {\n    yield fn(value);\n  }\n}\n\nconst nums = [1, 2, 3][Symbol.iterator]();\nconst doubled = map(nums, n => n * 2);\n// Use for...of to iterate over 'doubled'\n```"
+      },
+      {
+        "name": "Proxy to Observe Object Mutations",
+        "example": "Log changes to object properties by intercepting assignments with a Proxy.\n\n```js\nconst obj = {};\nconst observer = new Proxy(obj, {\n  set(target, prop, value) {\n    console.log(`Set ${prop} to ${value}`);\n    target[prop] = value;\n    return true;\n  }\n});\n\nobserver.a = 10; // Logs the change\n```"
+      },
+      {
+        "name": "Lazy Evaluation Pattern",
+        "example": "Delay the computation of a value until it is actually needed using a getter.\n\n```js\nconst lazy = {\n  get expensive() {\n    // Compute once on first access\n    return (this._expensive = 42);\n  }\n};\n```"
+      },
+      {
+        "name": "Memoized Recursive Functions",
+        "example": "Optimize recursive functions by caching previously computed results.\n\n```js\nconst fib = (n, memo = {}) => {\n  if (n in memo) return memo[n];\n  if (n < 2) return n;\n  memo[n] = fib(n - 1, memo) + fib(n - 2, memo);\n  return memo[n];\n};\n```"
+      },
+      {
+        "name": "Event Bubbling vs Capturing in the DOM",
+        "example": "Control the phase of event propagation using the capture option.\n\n```js\ndocument.addEventListener('click', () => {\n  // Capturing phase if { capture: true }\n}, { capture: true });\n```"
+      },
+      {
+        "name": "DOM Parsing with DOMParser",
+        "example": "Convert an HTML string into a document using DOMParser.\n\n```js\nconst parser = new DOMParser();\nconst doc = parser.parseFromString('<div>Test</div>', 'text/html');\n// doc.body.firstChild is the <div> element\n```"
+      },
+      {
+        "name": "Custom HTML Elements (Web Components)",
+        "example": "Define a custom element using the Custom Elements API.\n\n```js\nclass MyElement extends HTMLElement {\n  connectedCallback() {\n    this.innerHTML = 'Hello, Web Component!';\n  }\n}\n\ncustomElements.define('my-element', MyElement);\n```"
+      },
+      {
+        "name": "Shadow DOM Basics",
+        "example": "Encapsulate DOM and styles by attaching a shadow root to an element.\n\n```js\nconst host = document.createElement('div');\nconst shadow = host.attachShadow({ mode: 'open' });\nshadow.innerHTML = '<p>Shadow content</p>';\n```"
+      },
+      {
+        "name": "Customizing JSON.stringify with toJSON",
+        "example": "Override the default JSON serialization by defining a toJSON method.\n\n```js\nconst obj = {\n  data: 123,\n  toJSON() {\n    return { data: this.data };\n  }\n};\n```"
+      },
+      {
+        "name": "Symbol.hasInstance to Customize instanceof",
+        "example": "Override the behavior of the instanceof operator using Symbol.hasInstance.\n\n```js\nclass MyClass {\n  static [Symbol.hasInstance](instance) {\n    return false; // Custom logic\n  }\n}\n\nconst result = {} instanceof MyClass; // false\n```"
+      },
+      {
+        "name": "Symbol.species for Derived Classes",
+        "example": "Control the constructor used for derived objects in class inheritance.\n\n```js\nclass MyArray extends Array {\n  static get [Symbol.species]() {\n    return Array;\n  }\n}\n\nconst arr = new MyArray(1, 2, 3).map(x => x * 2);\n// 'arr' is a standard Array\n```"
+      },
+      {
+        "name": "Using WeakRef for Optional Memory Management",
+        "example": "Hold a weak reference to an object, allowing it to be garbage-collected.\n\n```js\nlet obj = { data: 'value' };\nconst weakRef = new WeakRef(obj);\nobj = null; // 'obj' is now eligible for garbage collection\n```"
+      },
+      {
+        "name": "FinalizationRegistry for Cleanup",
+        "example": "Register a cleanup callback to run after an object is garbage-collected.\n\n```js\nconst registry = new FinalizationRegistry(heldValue => {\n  // Cleanup logic using heldValue\n});\n\nlet obj2 = {};\nregistry.register(obj2, 'resource');\n// Later, when obj2 is unreachable, the cleanup callback is invoked\n```"
+      },
+      {
+        "name": "Concurrency with the Web Locks API",
+        "example": "Acquire a lock to manage concurrent access to a shared resource (experimental).\n\n```js\nif ('navigator' in window && navigator.locks) {\n  navigator.locks.request('my-resource', async lock => {\n    // Code with exclusive access\n  });\n}\n```"
+      },
+      {
+        "name": "Intl.DateTimeFormat for Date Formatting",
+        "example": "Format dates according to locale-specific conventions using Intl.DateTimeFormat.\n\n```js\nconst date = new Date();\nconst formatted = new Intl.DateTimeFormat('en-US').format(date);\n// 'formatted' is a locale-formatted date string\n```"
+      },
+      {
+        "name": "Structured Clone Algorithm with structuredClone",
+        "example": "Deep clone objects, including complex types, using the structuredClone function.\n\n```js\nconst original = { a: 1, date: new Date() };\nconst clone = structuredClone(original);\n// 'clone' is a deep copy of 'original'\n```"
+      },
+      {
+        "name": "Using Proxy for Auto-binding Methods",
+        "example": "Automatically bind class methods to their instance using a Proxy.\n\n```js\nfunction autoBind(instance) {\n  return new Proxy(instance, {\n    get(target, prop, receiver) {\n      const value = Reflect.get(target, prop, receiver);\n      return typeof value === 'function' ? value.bind(target) : value;\n    }\n  });\n}\n\nclass Greeter {\n  constructor(name) {\n    this.name = name;\n    return autoBind(this);\n  }\n  greet() {\n    return `Hello, ${this.name}`;\n  }\n}\n```"
+      },
+      {
+        "name": "Point-Free Style in Functional Programming",
+        "example": "Write functions without explicitly mentioning their arguments.\n\n```js\nconst add = a => b => a + b;\nconst increment = add(1); // Point-free usage\n```"
+      },
+      {
+        "name": "Dynamic Module Loading with Webpack Magic Comments",
+        "example": "Use dynamic import with Webpack magic comments to enable code splitting.\n\n```js\nimport(/* webpackChunkName: 'moduleA' */ './moduleA')\n  .then(module => {\n    // Use the dynamically loaded module\n  });\n```"
+      },
+      {
+        "name": "Fluent API Design and Method Chaining",
+        "example": "Design classes that support chaining methods for a fluent interface.\n\n```js\nclass Chain {\n  constructor(value = 0) {\n    this.value = value;\n  }\n  add(n) {\n    this.value += n;\n    return this;\n  }\n  subtract(n) {\n    this.value -= n;\n    return this;\n  }\n}\n\nconst result = new Chain(5).add(3).subtract(2).value; // result: 6\n```"
+      },
+      {
+        "name": "Building a Simple Virtual DOM",
+        "example": "Represent DOM elements as plain objects for efficient diffing and updates.\n\n```js\nconst vNode = (tag, props, children) => ({ tag, props, children });\nconst tree = vNode('div', { id: 'app' }, [\n  vNode('h1', {}, ['Hello'])\n]);\n```"
+      },
+      {
+        "name": "Using MutationObserver for DOM Changes",
+        "example": "Observe changes to the DOM and react accordingly with MutationObserver.\n\n```js\nconst observer = new MutationObserver(mutations => {\n  mutations.forEach(mutation => {\n    // Process each mutation\n  });\n});\n\nobserver.observe(document.body, { childList: true, subtree: true });\n```"
+      },
+      {
+        "name": "Debounce with Immediate Execution Option",
+        "example": "Trigger a function immediately and then debounce subsequent calls.\n\n```js\nfunction debounce(func, delay, immediate = false) {\n  let timeout;\n  return function(...args) {\n    const callNow = immediate && !timeout;\n    clearTimeout(timeout);\n    timeout = setTimeout(() => timeout = null, delay);\n    if (callNow) func.apply(this, args);\n  };\n}\n```"
+      },
+      {
+        "name": "Throttling with Trailing and Leading Options",
+        "example": "Throttle function execution with control over leading and trailing calls.\n\n```js\nfunction throttle(func, limit, options = {}) {\n  let lastCall = 0, timeout;\n  return function(...args) {\n    const now = Date.now();\n    const remaining = limit - (now - lastCall);\n    if (remaining <= 0) {\n      clearTimeout(timeout);\n      lastCall = now;\n      func.apply(this, args);\n    } else if (options.trailing && !timeout) {\n      timeout = setTimeout(() => {\n        lastCall = Date.now();\n        func.apply(this, args);\n        timeout = null;\n      }, remaining);\n    }\n  };\n}\n```"
+      },
+      {
+        "name": "Recursive Descent Parsing Example",
+        "example": "Implement a simple parser for arithmetic expressions using recursive descent.\n\n```js\nfunction parseExpression(expr) {\n  let index = 0;\n  function parseNumber() {\n    let start = index;\n    while (/\\d/.test(expr[index])) index++;\n    return Number(expr.slice(start, index));\n  }\n  function parse() {\n    let left = parseNumber();\n    while (expr[index] === '+') {\n      index++; // Skip '+'\n      left += parseNumber();\n    }\n    return left;\n  }\n  return parse();\n}\n\nconst result = parseExpression(\"2+3+4\"); // result: 9\n```"
+      },
+      {
+        "name": "Error Propagation in Promises",
+        "example": "Chain promises to ensure errors propagate through the promise chain.\n\n```js\nPromise.resolve()\n  .then(() => { throw new Error('Failure'); })\n  .catch(err => {\n    // Catch error from the previous then\n  });\n```"
+      },
+      {
+        "name": "Chaining Asynchronous Operations with async/await",
+        "example": "Execute asynchronous operations sequentially using async/await.\n\n```js\nasync function processData() {\n  const data1 = await Promise.resolve(1);\n  const data2 = await Promise.resolve(data1 + 1);\n  // data2: 2\n}\n```"
+      },
+      {
+        "name": "Polling with setInterval and Async Functions",
+        "example": "Periodically poll an API using async functions with setInterval.\n\n```js\nconst poll = async () => {\n  // Fetch or process data\n};\n\nconst intervalId = setInterval(poll, 5000);\n// Use clearInterval(intervalId) to stop polling\n```"
+      },
+      {
+        "name": "Custom Iterator for Fibonacci Sequence",
+        "example": "Create a custom iterator that generates Fibonacci numbers indefinitely.\n\n```js\nconst fibonacci = {\n  [Symbol.iterator]() {\n    let [prev, curr] = [0, 1];\n    return {\n      next() {\n        [prev, curr] = [curr, prev + curr];\n        return { value: prev, done: false };\n      }\n    };\n  }\n};\n```"
+      },
+      {
+        "name": "Proxy for Array Index Validation",
+        "example": "Ensure only valid array indices are set using a Proxy.\n\n```js\nconst arr = [];\nconst proxyArr = new Proxy(arr, {\n  set(target, prop, value) {\n    if (!Number.isInteger(+prop) || +prop < 0) {\n      throw new Error('Invalid index');\n    }\n    target[prop] = value;\n    return true;\n  }\n});\n```"
+      },
+      {
+        "name": "Global Error Handling with window.onerror",
+        "example": "Catch uncaught errors globally in the browser using window.onerror.\n\n```js\nwindow.onerror = function(message, source, lineno, colno, error) {\n  // Log or handle the error globally\n  return true; // Prevent default error logging\n};\n```"
+      },
+      {
+        "name": "Interfacing with WebAssembly",
+        "example": "Load and run a WebAssembly module from JavaScript.\n\n```js\n(async () => {\n  const response = await fetch('module.wasm');\n  const { instance } = await WebAssembly.instantiateStreaming(response);\n  // Assume the module exports an 'add' function\n  const sum = instance.exports.add(3, 4);\n  // sum is expected to be 7\n})();\n```"
+      }
+    ]
+  }
+  

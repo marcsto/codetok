@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Combine Basics: Publisher and Subscriber",
+        "example": "Using Combine's Just publisher to emit a single value and subscribing.\n\n```swift\nimport Combine\n\nlet publisher = Just(\"Hello Combine\")\nlet subscriber = publisher.sink { value in\n    // Received value: \"Hello Combine\"\n}\n```"
+      },
+      {
+        "name": "Combine: Custom Subscriber Implementation",
+        "example": "Create a custom subscriber by conforming to the Subscriber protocol.\n\n```swift\nimport Combine\n\nclass CustomSubscriber: Subscriber {\n    typealias Input = Int\n    typealias Failure = Never\n    \n    func receive(subscription: Subscription) {\n        subscription.request(.max(2))\n    }\n    \n    func receive(_ input: Int) -> Subscribers.Demand {\n        // Process input\n        return .none\n    }\n    \n    func receive(completion: Subscribers.Completion<Never>) {\n        // Completion handling\n    }\n}\n\nlet publisher = [1, 2, 3].publisher\nlet subscriber = CustomSubscriber()\npublisher.subscribe(subscriber)\n```"
+      },
+      {
+        "name": "Combine: Using PassthroughSubject",
+        "example": "Create a PassthroughSubject to emit values dynamically.\n\n```swift\nimport Combine\n\nlet subject = PassthroughSubject<String, Never>()\nlet cancellable = subject.sink { value in\n    // Received value\n}\n\nsubject.send(\"Test\")\n// subject.send(completion: .finished)\n```"
+      },
+      {
+        "name": "Combine: Using CurrentValueSubject",
+        "example": "Use CurrentValueSubject to hold and emit the latest value.\n\n```swift\nimport Combine\n\nlet subject = CurrentValueSubject<Int, Never>(0)\nlet cancellable = subject.sink { value in\n    // Received value\n}\n\nsubject.value = 10\n```"
+      },
+      {
+        "name": "Advanced Codable: Custom Decoding",
+        "example": "Implement custom decoding logic with a custom initializer.\n\n```swift\nstruct Person: Decodable {\n    let name: String\n    let age: Int\n    \n    enum CodingKeys: String, CodingKey { case name, age }\n    \n    init(from decoder: Decoder) throws {\n        let container = try decoder.container(keyedBy: CodingKeys.self)\n        name = try container.decode(String.self, forKey: .name)\n        age = try container.decodeIfPresent(Int.self, forKey: .age) ?? 0\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced Codable: Custom Encoding",
+        "example": "Customize encoding by implementing the encode(to:) method.\n\n```swift\nstruct Person: Encodable {\n    let firstName: String\n    let lastName: String\n    \n    enum CodingKeys: String, CodingKey { case fullName }\n    \n    func encode(to encoder: Encoder) throws {\n        var container = encoder.container(keyedBy: CodingKeys.self)\n        try container.encode(\"\\(firstName) \\(lastName)\", forKey: .fullName)\n    }\n}\n```"
+      },
+      {
+        "name": "Dynamic Member Lookup",
+        "example": "Use @dynamicMemberLookup to forward member access to a dictionary.\n\n```swift\n@dynamicMemberLookup\nstruct DynamicDictionary {\n    var data: [String: String]\n    \n    subscript(dynamicMember member: String) -> String? {\n        return data[member]\n    }\n}\n\nlet dyn = DynamicDictionary(data: [\"key\": \"value\"])\n// dyn.key returns \"value\"\n```"
+      },
+      {
+        "name": "Operator Overloading for Custom DSL",
+        "example": "Define a custom operator to simplify domain-specific expressions.\n\n```swift\ninfix operator ~~ : AdditionPrecedence\n\nfunc ~~ (lhs: String, rhs: String) -> String {\n    return \"\\(lhs) \\(rhs)\"\n}\n\n// \"Hello\" ~~ \"World\" returns \"Hello World\"\n```"
+      },
+      {
+        "name": "Memoization in Swift",
+        "example": "Memoize a recursive function to cache expensive computations.\n\n```swift\nfunc memoize<T: Hashable, U>(_ body: @escaping ((T) -> U, T) -> U) -> (T) -> U {\n    var cache = [T: U]()\n    var f: ((T) -> U)!\n    f = { x in\n        if let value = cache[x] { return value }\n        let result = body(f, x)\n        cache[x] = result\n        return result\n    }\n    return f\n}\n\nlet fib = memoize { fib, n in n < 2 ? n : fib(n - 1) + fib(n - 2) }\n```"
+      },
+      {
+        "name": "Advanced Generics with Where Clauses",
+        "example": "Constrain generic types using where clauses for flexibility.\n\n```swift\nfunc findIndex<T>(of value: T, in array: [T]) -> Int? where T: Equatable {\n    for (index, element) in array.enumerated() {\n        if element == value { return index }\n    }\n    return nil\n}\n```"
+      },
+      {
+        "name": "Self Requirements in Protocols",
+        "example": "Use Self to enforce that conforming types return their own type.\n\n```swift\nprotocol Copying {\n    func copy() -> Self\n}\n\nstruct Document: Copying {\n    var content: String\n    func copy() -> Document {\n        return Document(content: content)\n    }\n}\n```"
+      },
+      {
+        "name": "Erasing Types with AnyHashable",
+        "example": "Store heterogeneous hashable values in a type-erased container.\n\n```swift\nlet intValue: AnyHashable = 42\nlet stringValue: AnyHashable = \"Swift\"\nlet items: [AnyHashable] = [intValue, stringValue]\n```"
+      },
+      {
+        "name": "Recursive Enum for Expression Trees",
+        "example": "Model arithmetic expressions using an indirect recursive enum.\n\n```swift\nindirect enum Expression {\n    case number(Int)\n    case addition(Expression, Expression)\n}\n\nlet sum = Expression.addition(.number(1), .number(2))\n// Represents 1 + 2\n```"
+      },
+      {
+        "name": "Custom Collection: Creating a Range Collection",
+        "example": "Implement a custom collection by conforming to the Collection protocol.\n\n```swift\nstruct RangeCollection: Collection {\n    let range: ClosedRange<Int>\n    \n    var startIndex: Int { range.lowerBound }\n    var endIndex: Int { range.upperBound + 1 }\n    \n    subscript(position: Int) -> Int {\n        return position\n    }\n    \n    func index(after i: Int) -> Int {\n        return i + 1\n    }\n}\n\nlet collection = RangeCollection(range: 1...5)\n```"
+      },
+      {
+        "name": "Lazy Sequences",
+        "example": "Utilize lazy evaluation to defer computations until needed.\n\n```swift\nlet numbers = [1, 2, 3, 4, 5]\nlet lazySquares = numbers.lazy.map { $0 * $0 }\n// Evaluated lazily when iterated\n```"
+      },
+      {
+        "name": "Function Currying in Swift",
+        "example": "Simulate currying by returning a function from a function.\n\n```swift\nfunc multiply(_ a: Int) -> (Int) -> Int {\n    return { b in a * b }\n}\n\nlet double = multiply(2)\n// double(3) returns 6\n```"
+      },
+      {
+        "name": "Fluent Interface Pattern",
+        "example": "Chain method calls to build configurations in a fluent style.\n\n```swift\nclass QueryBuilder {\n    private var query = \"\"\n    \n    func select(_ fields: String) -> Self {\n        query += \"SELECT \\(fields) \"\n        return self\n    }\n    \n    func from(_ table: String) -> Self {\n        query += \"FROM \\(table) \"\n        return self\n    }\n    \n    func build() -> String {\n        return query.trimmingCharacters(in: .whitespaces)\n    }\n}\n\nlet query = QueryBuilder().select(\"*\").from(\"Users\").build()\n// query: \"SELECT * FROM Users\"\n```"
+      },
+      {
+        "name": "Immutable Data Structures",
+        "example": "Use structs with let properties to enforce immutability.\n\n```swift\nstruct Point {\n    let x: Int\n    let y: Int\n}\n\nlet p = Point(x: 0, y: 0)\n// p is immutable\n```"
+      },
+      {
+        "name": "Result Builders: Basic HTML DSL",
+        "example": "Leverage result builders to create a simple HTML DSL.\n\n```swift\n@resultBuilder\nstruct HTMLBuilder {\n    static func buildBlock(_ components: String...) -> String {\n        return components.joined(separator: \"\\n\")\n    }\n}\n\nfunc html(@HTMLBuilder content: () -> String) -> String {\n    return \"<html>\\n\\(content())\\n</html>\"\n}\n\nlet page = html {\n    \"<body>Content</body>\"\n}\n// page contains HTML structure\n```"
+      },
+      {
+        "name": "Implementing Your Own Result Builder",
+        "example": "Create a custom result builder to build arrays.\n\n```swift\n@resultBuilder\nstruct ArrayBuilder {\n    static func buildBlock<T>(_ components: T...) -> [T] {\n        return components\n    }\n}\n\nfunc buildArray<T>(@ArrayBuilder builder: () -> [T]) -> [T] {\n    return builder()\n}\n\nlet numbers = buildArray {\n    1\n    2\n    3\n}\n// numbers is [1, 2, 3]\n```"
+      },
+      {
+        "name": "Generic Constraints with Protocol Composition",
+        "example": "Combine multiple protocols in generic constraints using protocol composition.\n\n```swift\nprotocol Readable { func read() }\nprotocol Writable { func write() }\n\nfunc process<T: Readable & Writable>(item: T) {\n    // Process item that is both Readable and Writable\n}\n```"
+      },
+      {
+        "name": "UnsafeMutablePointer: Basic Usage",
+        "example": "Work with raw memory by using an unsafe mutable pointer.\n\n```swift\nvar number = 10\nwithUnsafeMutablePointer(to: &number) { pointer in\n    pointer.pointee = 20 // Modify value through pointer\n}\n```"
+      },
+      {
+        "name": "UnsafeBufferPointer: Accessing Memory",
+        "example": "Access an array's memory using UnsafeBufferPointer.\n\n```swift\nlet array = [1, 2, 3]\narray.withUnsafeBufferPointer { buffer in\n    for element in buffer {\n        // Process each element\n        _ = element\n    }\n}\n```"
+      },
+      {
+        "name": "Thread-Safe Singleton Pattern",
+        "example": "Implement a singleton to ensure a single instance is used.\n\n```swift\nclass Singleton {\n    static let shared = Singleton()\n    private init() {} // Prevent external initialization\n}\n```"
+      },
+      {
+        "name": "DispatchQueue with QoS",
+        "example": "Create a dispatch queue with a specified quality of service.\n\n```swift\nlet backgroundQueue = DispatchQueue(label: \"com.example.bg\", qos: .background)\nbackgroundQueue.async {\n    // Perform background work\n}\n```"
+      },
+      {
+        "name": "CustomStringConvertible Implementation",
+        "example": "Implement CustomStringConvertible for user-friendly descriptions.\n\n```swift\nstruct User: CustomStringConvertible {\n    let name: String\n    var description: String {\n        return \"User: \\(name)\"\n    }\n}\n```"
+      },
+      {
+        "name": "Custom DebugStringConvertible",
+        "example": "Provide a detailed debug description by conforming to CustomDebugStringConvertible.\n\n```swift\nstruct DebugUser: CustomDebugStringConvertible {\n    let name: String\n    var debugDescription: String {\n        return \"DebugUser(name: \\(name))\"\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Iterator and Sequence",
+        "example": "Implement a custom iterator by conforming to Sequence and IteratorProtocol.\n\n```swift\nstruct Countdown: Sequence, IteratorProtocol {\n    var count: Int\n    mutating func next() -> Int? {\n        if count <= 0 { return nil }\n        defer { count -= 1 }\n        return count\n    }\n}\n\nfor number in Countdown(count: 3) {\n    // Iterates: 3, 2, 1\n    _ = number\n}\n```"
+      },
+      {
+        "name": "Conditional Conformance",
+        "example": "Extend types to conditionally conform to protocols.\n\n```swift\nextension Array: Equatable where Element: Equatable {}\n// Array is Equatable only when its elements are Equatable\n```"
+      },
+      {
+        "name": "Nested Types in Swift",
+        "example": "Define types within other types to organize code.\n\n```swift\nstruct Outer {\n    struct Inner {\n        let value: Int\n    }\n}\n\nlet inner = Outer.Inner(value: 10)\n```"
+      },
+      {
+        "name": "Generic Enum with Constraints",
+        "example": "Define a generic enum with constraints using where clauses.\n\n```swift\nenum ResultEnum<T> where T: Equatable {\n    case success(T)\n    case failure(String)\n}\n```"
+      },
+      {
+        "name": "Advanced Pattern Matching with Tuples",
+        "example": "Use tuple pattern matching to destructure values in switch cases.\n\n```swift\nlet pair = (status: 200, message: \"OK\")\nswitch pair {\ncase (200, let msg):\n    // Successful response with msg\n    _ = msg\ndefault:\n    break\n}\n```"
+      },
+      {
+        "name": "Generic Struct with Constraints",
+        "example": "Define a generic struct constrained to comparable elements.\n\n```swift\nstruct Pair<T: Comparable> {\n    let first: T\n    let second: T\n    var sorted: (T, T) {\n        return first < second ? (first, second) : (second, first)\n    }\n}\n```"
+      },
+      {
+        "name": "Type-Safe Wrappers (Newtype Pattern)",
+        "example": "Create a new type to enforce type safety over primitive types.\n\n```swift\nstruct UserID {\n    let value: Int\n}\n\nlet userID = UserID(value: 42)\n// Prevents mixing with other Ints\n```"
+      },
+      {
+        "name": "Partial Application using Closures",
+        "example": "Simulate partial application by returning a closure with fixed parameters.\n\n```swift\nfunc add(_ a: Int, _ b: Int) -> Int { a + b }\nlet addFive = { (b: Int) in add(5, b) }\n// addFive(3) returns 8\n```"
+      },
+      {
+        "name": "Memoizing Expensive Computations",
+        "example": "Cache results of expensive computations to improve performance.\n\n```swift\nclass ExpensiveCalculator {\n    private var cache = [Int: Int]()\n    func compute(_ x: Int) -> Int {\n        if let cached = cache[x] { return cached }\n        let result = x * x // Expensive computation\n        cache[x] = result\n        return result\n    }\n}\n```"
+      },
+      {
+        "name": "Error Handling with Result Chaining",
+        "example": "Chain transformations on a Result to handle success cases gracefully.\n\n```swift\nfunc fetchData() -> Result<String, Error> {\n    // Simulate success\n    return .success(\"Data\")\n}\n\nlet result = fetchData().map { $0.uppercased() }\n// Transforms result on success\n```"
+      },
+      {
+        "name": "NSRegularExpression in Swift",
+        "example": "Utilize NSRegularExpression for pattern matching in strings.\n\n```swift\nimport Foundation\n\nlet pattern = \"\\\\d+\"\nif let regex = try? NSRegularExpression(pattern: pattern) {\n    let matches = regex.matches(in: \"123 abc\", range: NSRange(location: 0, length: 7))\n    // Process matches\n}\n```"
+      },
+      {
+        "name": "Advanced Property Observers",
+        "example": "React to property changes using willSet and didSet observers.\n\n```swift\nclass ObservableValue {\n    var value: Int = 0 {\n        willSet { /* before change */ }\n        didSet { /* after change */ }\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Lazy Sequence",
+        "example": "Implement a custom lazy sequence by conforming to Sequence and IteratorProtocol.\n\n```swift\nstruct LazySequence: Sequence, IteratorProtocol {\n    var current = 0\n    mutating func next() -> Int? {\n        guard current < 5 else { return nil }\n        defer { current += 1 }\n        return current\n    }\n}\n\nlet lazySeq = LazySequence()\n// Iterates from 0 to 4\n```"
+      },
+      {
+        "name": "DispatchGroup for Synchronization",
+        "example": "Synchronize asynchronous tasks using DispatchGroup.\n\n```swift\nlet group = DispatchGroup()\nlet queue = DispatchQueue.global()\n\ngroup.enter()\nqueue.async {\n    // Task 1\n    group.leave()\n}\n\ngroup.enter()\nqueue.async {\n    // Task 2\n    group.leave()\n}\n\ngroup.notify(queue: .main) {\n    // All tasks complete\n}\n```"
+      },
+      {
+        "name": "CombineLatest in Combine",
+        "example": "Combine multiple publishers and receive their latest values together.\n\n```swift\nimport Combine\n\nlet pub1 = [1, 2, 3].publisher\nlet pub2 = [\"A\", \"B\", \"C\"].publisher\n\nlet combined = pub1.combineLatest(pub2)\nlet cancellable = combined.sink { value1, value2 in\n    // Combined values: (Int, String)\n}\n```"
+      },
+      {
+        "name": "Interoperability with Objective-C using @objcMembers",
+        "example": "Expose Swift classes to Objective-C by using the @objcMembers attribute.\n\n```swift\n@objcMembers\nclass ObjCCompatible: NSObject {\n    var name: String\n    init(name: String) { self.name = name }\n}\n```"
+      },
+      {
+        "name": "Capture List Best Practices",
+        "example": "Avoid retain cycles in closures by using a capture list.\n\n```swift\nclass Downloader {\n    var completion: (() -> Void)?\n    func startDownload() {\n        DispatchQueue.global().async { [weak self] in\n            // Use self? to avoid retain cycle\n            self?.completion?()\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Operator Precedence Group",
+        "example": "Define a custom operator with a specific precedence group for clarity.\n\n```swift\nprecedencegroup ExponentiationPrecedence {\n    higherThan: MultiplicationPrecedence\n}\n\ninfix operator ^^ : ExponentiationPrecedence\n\nfunc ^^ (base: Double, power: Double) -> Double {\n    return pow(base, power)\n}\n\n// 2.0 ^^ 3.0 returns 8.0\n```"
+      },
+      {
+        "name": "Final Classes for Performance",
+        "example": "Mark classes as final to enable static dispatch and improve performance.\n\n```swift\nfinal class FinalLogger {\n    func log(_ message: String) {\n        // Logging logic\n    }\n}\n```"
+      },
+      {
+        "name": "Using DispatchSemaphore for Concurrency Control",
+        "example": "Control access to a critical section using DispatchSemaphore.\n\n```swift\nlet semaphore = DispatchSemaphore(value: 1)\nDispatchQueue.global().async {\n    semaphore.wait()\n    // Critical section\n    semaphore.signal()\n}\n```"
+      },
+      {
+        "name": "Using @frozen for Enums",
+        "example": "Annotate enums with @frozen to guarantee a fixed layout for optimization.\n\n```swift\n@frozen\nenum Direction {\n    case north, south, east, west\n}\n// Ensures fixed layout for optimization\n```"
+      },
+      {
+        "name": "Using os_signpost for Performance Metrics",
+        "example": "Leverage os_signpost to measure performance of code intervals.\n\n```swift\nimport os.signpost\n\nlet log = OSLog(subsystem: \"com.example.app\", category: \"performance\")\nlet signposter = OSSignposter(log: log)\nlet interval = signposter.beginInterval(\"Operation\")\n// Perform operation\nsignposter.endInterval(\"Operation\", interval: interval)\n```"
+      },
+      {
+        "name": "Implementing a Custom Logging System with Protocols",
+        "example": "Define a Logger protocol and provide multiple implementations.\n\n```swift\nprotocol Logger {\n    func log(_ message: String)\n}\n\nstruct ConsoleLogger: Logger {\n    func log(_ message: String) {\n        // Log to console\n    }\n}\n\nstruct FileLogger: Logger {\n    func log(_ message: String) {\n        // Log to file\n    }\n}\n\nfunc performLogging(logger: Logger) {\n    logger.log(\"Logging message\")\n}\n\nperformLogging(logger: ConsoleLogger())\n```"
+      },
+      {
+        "name": "Using withUnsafeContinuation",
+        "example": "Bridge callback-based APIs to async/await using withUnsafeContinuation.\n\n```swift\nfunc fetchData() async -> String {\n    await withUnsafeContinuation { continuation in\n        // Simulate a callback\n        continuation.resume(returning: \"Data\")\n    }\n}\n```"
+      },
+      {
+        "name": "Using withCheckedThrowingContinuation",
+        "example": "Bridge throwing callback APIs to async/await with error propagation.\n\n```swift\nfunc loadData() async throws -> String {\n    try await withCheckedThrowingContinuation { continuation in\n        let success = true\n        if success {\n            continuation.resume(returning: \"Loaded Data\")\n        } else {\n            continuation.resume(throwing: URLError(.badServerResponse))\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Using @MainActor Attribute in Functions",
+        "example": "Ensure UI updates or main-thread work by marking functions with @MainActor.\n\n```swift\n@MainActor\nfunc updateUI() {\n    // UI updates on main thread\n}\n```"
+      },
+      {
+        "name": "Using Nonisolated Methods in Actors",
+        "example": "Expose methods on actors that don't require isolation using nonisolated.\n\n```swift\nactor DataStore {\n    nonisolated func staticInfo() -> String {\n        // Accessible without actor isolation\n        return \"Static Info\"\n    }\n}\n```"
+      },
+      {
+        "name": "Using AsyncStream for Asynchronous Sequences",
+        "example": "Generate async sequences with AsyncStream for incremental data.\n\n```swift\nfunc numbersAsync() -> AsyncStream<Int> {\n    AsyncStream { continuation in\n        for i in 1...5 {\n            continuation.yield(i)\n        }\n        continuation.finish()\n    }\n}\n```"
+      },
+      {
+        "name": "Using TaskGroup for Concurrent Processing",
+        "example": "Launch concurrent tasks and collect their results with TaskGroup.\n\n```swift\nfunc processTasks() async -> [Int] {\n    await withTaskGroup(of: Int.self) { group in\n        for i in 1...3 {\n            group.addTask { i * 2 }\n        }\n        var results: [Int] = []\n        for await result in group {\n            results.append(result)\n        }\n        return results\n    }\n}\n```"
+      },
+      {
+        "name": "Structured Concurrency with async/await",
+        "example": "Run multiple async operations concurrently using async let bindings.\n\n```swift\nfunc performConcurrentOperations() async {\n    async let first = fetchData()\n    async let second = loadData()\n    let _ = await (first, second) // Both operations run concurrently\n}\n```"
+      },
+      {
+        "name": "Custom Comparable Implementation with Generics",
+        "example": "Implement Comparable for a generic wrapper type.\n\n```swift\nstruct Wrapper<T: Comparable>: Comparable {\n    let value: T\n    static func < (lhs: Wrapper<T>, rhs: Wrapper<T>) -> Bool {\n        return lhs.value < rhs.value\n    }\n}\n```"
+      },
+      {
+        "name": "Using flatMap in Combine for Asynchronous Chaining",
+        "example": "Chain asynchronous operations with flatMap in a Combine pipeline.\n\n```swift\nimport Combine\n\nlet publisher = Just(5)\n    .flatMap { value in\n        Just(value * 2)\n    }\n    .sink { _ in\n        // Process doubled value\n    }\n```"
+      },
+      {
+        "name": "Combine: switchToLatest Usage",
+        "example": "Switch to the most recent publisher using switchToLatest in Combine.\n\n```swift\nimport Combine\n\nlet subject1 = PassthroughSubject<Int, Never>()\nlet subject2 = PassthroughSubject<Int, Never>()\nlet outer = PassthroughSubject<PassthroughSubject<Int, Never>, Never>()\n\nlet cancellable = outer.switchToLatest().sink { value in\n    // Process latest value\n}\n\nouter.send(subject1)\nsubject1.send(10)\nouter.send(subject2)\nsubject2.send(20)\n```"
+      },
+      {
+        "name": "Combine: Buffering Values",
+        "example": "Buffer incoming values from a publisher before processing them.\n\n```swift\nimport Combine\n\nlet numbers = [1, 2, 3, 4, 5].publisher\nlet cancellable = numbers\n    .buffer(size: 3, prefetch: .byRequest, whenFull: .dropOldest)\n    .sink { _ in\n        // Buffered output\n    }\n```"
+      },
+      {
+        "name": "Creating a Custom Combine Publisher",
+        "example": "Build your own publisher by conforming to the Publisher protocol.\n\n```swift\nimport Combine\n\nstruct MyPublisher: Publisher {\n    typealias Output = String\n    typealias Failure = Never\n    \n    func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, String == S.Input {\n        subscriber.receive(\"Custom Publisher\")\n        subscriber.receive(completion: .finished)\n    }\n}\n```"
+      },
+      {
+        "name": "Creating a Custom Combine Subscriber",
+        "example": "Implement a custom subscriber that controls demand in Combine.\n\n```swift\nimport Combine\n\nclass CustomSink: Subscriber {\n    typealias Input = Int\n    typealias Failure = Never\n    \n    func receive(subscription: Subscription) {\n        subscription.request(.max(1))\n    }\n    \n    func receive(_ input: Int) -> Subscribers.Demand {\n        // Process input\n        return .none\n    }\n    \n    func receive(completion: Subscribers.Completion<Never>) { }\n}\n```"
+      },
+      {
+        "name": "SwiftUI: Custom ViewModifier",
+        "example": "Encapsulate styling logic in a custom ViewModifier for reuse.\n\n```swift\nimport SwiftUI\n\nstruct HighlightModifier: ViewModifier {\n    func body(content: Content) -> some View {\n        content\n            .padding()\n            .background(Color.yellow)\n    }\n}\n\nextension View {\n    func highlighted() -> some View {\n        self.modifier(HighlightModifier())\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI: Using Environment Values",
+        "example": "Access system-wide values with the @Environment property wrapper in SwiftUI.\n\n```swift\nimport SwiftUI\n\nstruct ContentView: View {\n    @Environment(\\.colorScheme) var colorScheme\n    var body: some View {\n        Text(\"Current scheme: \\(colorScheme == .dark ? \"Dark\" : \"Light\")\")\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI: Implicit Animations",
+        "example": "Animate state changes implicitly using withAnimation in SwiftUI.\n\n```swift\nimport SwiftUI\n\nstruct AnimatedView: View {\n    @State private var scale: CGFloat = 1.0\n    var body: some View {\n        Circle()\n            .scaleEffect(scale)\n            .onTapGesture {\n                withAnimation {\n                    scale = scale == 1.0 ? 1.5 : 1.0\n                }\n            }\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI: Using @State and @Binding",
+        "example": "Manage local state and pass it down to child views with @Binding.\n\n```swift\nimport SwiftUI\n\nstruct ParentView: View {\n    @State private var text = \"Hello\"\n    var body: some View {\n        ChildView(text: $text)\n    }\n}\n\nstruct ChildView: View {\n    @Binding var text: String\n    var body: some View {\n        TextField(\"Enter text\", text: $text)\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI: Using PreferenceKey for Custom Layout",
+        "example": "Communicate layout values up the view hierarchy using PreferenceKey.\n\n```swift\nimport SwiftUI\n\nstruct SizePreferenceKey: PreferenceKey {\n    static var defaultValue: CGSize = .zero\n    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {\n        value = nextValue()\n    }\n}\n\nstruct SizeReader: View {\n    var body: some View {\n        Text(\"Measure me\")\n            .background(\n                GeometryReader { geometry in\n                    Color.clear.preference(key: SizePreferenceKey.self, value: geometry.size)\n                }\n            )\n    }\n}\n```"
+      },
+      {
+        "name": "SwiftUI: Creating a Custom Container View",
+        "example": "Design a custom container view to manage child layouts in SwiftUI.\n\n```swift\nimport SwiftUI\n\nstruct CustomStack<Content: View>: View {\n    let content: () -> Content\n    var body: some View {\n        VStack(alignment: .leading) {\n            content()\n        }\n    }\n}\n```"
+      },
+      {
+        "name": "Memory Management: Using Unmanaged for Bridging",
+        "example": "Bridge Core Foundation types to Swift using Unmanaged.\n\n```swift\nimport Foundation\n\nfunc bridgeExample(_ cfObject: CFString) {\n    let unmanaged = Unmanaged.passRetained(cfObject)\n    let swiftString = unmanaged.takeRetainedValue() as String\n    // Use swiftString\n}\n```"
+      },
+      {
+        "name": "Using UnsafeRawPointer for Low-Level Access",
+        "example": "Access raw memory with UnsafeRawPointer for low-level operations.\n\n```swift\nlet value = 42\nwithUnsafePointer(to: value) { ptr in\n    let raw = UnsafeRawPointer(ptr)\n    // Inspect raw memory if needed\n}\n```"
+      },
+      {
+        "name": "Bridging CFTypes to Swift Types",
+        "example": "Convert Core Foundation types to their Swift equivalents safely.\n\n```swift\nimport CoreFoundation\n\nlet cfNumber: CFNumber = 42 as CFNumber\nlet nsNumber = cfNumber as NSNumber\n```"
+      },
+      {
+        "name": "Protocol Extensions with Associated Types",
+        "example": "Provide default implementations in protocols that use associated types.\n\n```swift\nprotocol Identifiable {\n    associatedtype ID: Hashable\n    var id: ID { get }\n}\n\nextension Identifiable {\n    func isEqual(to other: Self) -> Bool {\n        return id == other.id\n    }\n}\n```"
+      },
+      {
+        "name": "Advanced Property Wrappers: Composing Wrappers",
+        "example": "Compose property wrappers to layer behaviors on properties.\n\n```swift\n@propertyWrapper\nstruct Logged<Value> {\n    private var value: Value\n    var wrappedValue: Value {\n        get { value }\n        set {\n            // Log change\n            value = newValue\n        }\n    }\n    init(wrappedValue: Value) {\n        self.value = wrappedValue\n    }\n}\n\nstruct Settings {\n    @Logged var volume: Int = 50\n}\n```"
+      },
+      {
+        "name": "Using Static Properties for Shared Configuration",
+        "example": "Hold shared configuration or constants using static properties.\n\n```swift\nstruct AppConfig {\n    static let apiEndpoint = \"https://api.example.com\"\n}\n```"
+      },
+      {
+        "name": "Implementing a Thread-Safe Cache with DispatchQueue",
+        "example": "Synchronize cache access using a serial DispatchQueue for thread safety.\n\n```swift\nclass Cache<Key: Hashable, Value> {\n    private var store: [Key: Value] = [:]\n    private let queue = DispatchQueue(label: \"cache.queue\")\n    \n    func set(_ value: Value, for key: Key) {\n        queue.sync { store[key] = value }\n    }\n    \n    func get(for key: Key) -> Value? {\n        queue.sync { store[key] }\n    }\n}\n```"
+      },
+      {
+        "name": "Using NSCache for Caching Expensive Resources",
+        "example": "Utilize NSCache to automatically manage cached objects in memory.\n\n```swift\nimport Foundation\n\nlet cache = NSCache<NSString, AnyObject>()\ncache.setObject(\"CachedValue\" as NSString, forKey: \"key\")\n```"
+      },
+      {
+        "name": "Observing NotificationCenter Using Combine",
+        "example": "Subscribe to system notifications using Combine's NotificationCenter publisher.\n\n```swift\nimport Combine\nimport Foundation\n\nlet cancellable = NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)\n    .sink { _ in\n        // Handle notification\n    }\n```"
+      },
+      {
+        "name": "KVO in Swift with NSKeyValueObservation",
+        "example": "Observe property changes using KVO and NSKeyValueObservation.\n\n```swift\nimport Foundation\n\nclass ObservableObject: NSObject {\n    @objc dynamic var value: Int = 0\n}\n\nlet object = ObservableObject()\nlet observation = object.observe(\\ObservableObject.value, options: [.new]) { obj, change in\n    // React to value change\n}\n```"
+      },
+      {
+        "name": "Using the zip Function for Parallel Sequence Processing",
+        "example": "Combine two sequences element-wise using zip.\n\n```swift\nlet numbers = [1, 2, 3]\nlet letters = [\"a\", \"b\", \"c\"]\n\nlet zipped = zip(numbers, letters)\nfor (number, letter) in zipped {\n    // Process pair (number, letter)\n}\n```"
+      },
+      {
+        "name": "Advanced Sorting Using Closure Comparators",
+        "example": "Sort collections with custom criteria using closure comparators.\n\n```swift\nlet names = [\"Alice\", \"Bob\", \"Charlie\"]\nlet sortedNames = names.sorted { $0.count < $1.count }\n```"
+      },
+      {
+        "name": "Working with DispatchWorkItem for Cancellable Tasks",
+        "example": "Create a DispatchWorkItem to allow cancellation of scheduled tasks.\n\n```swift\nlet workItem = DispatchWorkItem {\n    // Task code\n}\nDispatchQueue.global().asyncAfter(deadline: .now() + 2, execute: workItem)\n// Cancel if needed: workItem.cancel()\n```"
+      },
+      {
+        "name": "Using DispatchSource for Monitoring File Descriptors",
+        "example": "Monitor file descriptor events with DispatchSource for low-level I/O.\n\n```swift\nimport Dispatch\n\nlet fd = open(\"/dev/null\", O_RDONLY)\nlet source = DispatchSource.makeReadSource(fileDescriptor: fd, queue: .global())\nsource.setEventHandler {\n    // File descriptor ready for reading\n}\nsource.resume()\n// Remember to close(fd) when done.\n```"
+      },
+      {
+        "name": "Synchronizing Access with NSLock",
+        "example": "Protect shared resources using NSLock for thread synchronization.\n\n```swift\nimport Foundation\n\nlet lock = NSLock()\nvar sharedCounter = 0\n\nlock.lock()\nsharedCounter += 1\nlock.unlock()\n```"
+      },
+      {
+        "name": "Using OperationQueue for Concurrent Operations",
+        "example": "Manage concurrent operations using OperationQueue for task scheduling.\n\n```swift\nimport Foundation\n\nlet queue = OperationQueue()\nqueue.addOperation {\n    // Perform concurrent operation\n}\n```"
+      },
+      {
+        "name": "Implementing Custom Deinit Logging for Debugging",
+        "example": "Log deinitialization to track object lifecycles during debugging.\n\n```swift\nclass DebugObject {\n    deinit {\n        // Log deallocation\n    }\n}\n```"
+      },
+      {
+        "name": "Handling JSON Parsing Errors with Decodable",
+        "example": "Implement error handling during JSON decoding to catch parsing issues.\n\n```swift\nstruct Response: Decodable {\n    let id: Int\n    let name: String\n}\n\ndo {\n    let _ = try JSONDecoder().decode(Response.self, from: Data())\n} catch {\n    // Handle JSON parsing error\n}\n```"
+      },
+      {
+        "name": "Advanced Date Formatting with DateFormatter",
+        "example": "Customize date formatting using DateFormatter for localization.\n\n```swift\nimport Foundation\n\nlet formatter = DateFormatter()\nformatter.dateFormat = \"yyyy-MM-dd\"\nlet dateString = formatter.string(from: Date())\n```"
+      },
+      {
+        "name": "Working with Unicode and Extended Grapheme Clusters",
+        "example": "Handle complex Unicode strings by counting grapheme clusters.\n\n```swift\nlet emoji = \"👨‍👩‍👧‍👦\"\nlet count = emoji.count // Counts extended grapheme clusters\n```"
+      },
+      {
+        "name": "Localization Best Practices using NSLocalizedString",
+        "example": "Localize strings using NSLocalizedString for internationalization.\n\n```swift\nlet greeting = NSLocalizedString(\"HelloKey\", comment: \"Greeting\")\n```"
+      },
+      {
+        "name": "Implementing Observer Pattern Using Closures",
+        "example": "Create a simple observer pattern by registering closure-based callbacks.\n\n```swift\nclass Observable<T> {\n    var observers: [(T) -> Void] = []\n    var value: T {\n        didSet { observers.forEach { $0(value) } }\n    }\n    init(value: T) { self.value = value }\n    func bind(_ observer: @escaping (T) -> Void) {\n        observers.append(observer)\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Runtime Assertions with precondition",
+        "example": "Enforce invariants using precondition to catch programming errors early.\n\n```swift\nfunc divide(_ a: Int, by b: Int) -> Int {\n    precondition(b != 0, \"Divider must not be zero\")\n    return a / b\n}\n```"
+      },
+      {
+        "name": "Using Task.sleep for Delaying Asynchronous Code",
+        "example": "Pause execution in async functions using Task.sleep.\n\n```swift\nfunc delayExample() async {\n    try? await Task.sleep(nanoseconds: 1_000_000_000)\n    // Continue after a 1-second delay\n}\n```"
+      },
+      {
+        "name": "Using DispatchSource Timers for Scheduling Tasks",
+        "example": "Schedule repeating tasks with DispatchSource timers.\n\n```swift\nimport Dispatch\n\nlet timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())\n\ntimer.schedule(deadline: .now(), repeating: 5)\ntimer.setEventHandler {\n    // Timer fired every 5 seconds\n}\ntimer.resume()\n```"
+      },
+      {
+        "name": "Using async/await in Unit Tests with XCTest",
+        "example": "Write asynchronous unit tests using async/await in XCTest.\n\n```swift\nimport XCTest\n\nclass AsyncTests: XCTestCase {\n    func testAsyncOperation() async {\n        let result = await fetchData()\n        // Assert result as needed\n    }\n}\n```"
+      },
+      {
+        "name": "Custom Result Type Transformation with flatMap",
+        "example": "Transform a Result using flatMap to chain operations while handling errors.\n\n```swift\nlet result: Result<Int, Error> = .success(10)\nlet transformed = result.flatMap { value in\n    return .success(value * 2)\n}\n```"
+      },
+      {
+        "name": "Error Propagation in Async Functions",
+        "example": "Use throws in async functions to propagate errors naturally.\n\n```swift\nfunc asyncErrorProne() async throws -> String {\n    throw URLError(.badServerResponse)\n}\n```"
+      },
+      {
+        "name": "Generic Function for Parsing XML",
+        "example": "Define a generic function to parse XML data (conceptual example).\n\n```swift\nfunc parseXML<T: Decodable>(data: Data) throws -> T {\n    // Use XMLParser or custom logic here\n    throw NSError(domain: \"XMLParsing\", code: 1, userInfo: nil)\n}\n```"
+      },
+      {
+        "name": "Custom Operator for Merging Optionals",
+        "example": "Define an operator that returns the first non-nil optional.\n\n```swift\ninfix operator ???\n\nfunc ???<T>(lhs: T?, rhs: @autoclosure () -> T?) -> T? {\n    return lhs ?? rhs()\n}\n\nlet merged = nil ??? \"Fallback\"\n// merged is \"Fallback\"\n```"
+      },
+      {
+        "name": "Implementing an Asynchronous Retry Mechanism",
+        "example": "Retry an async operation recursively until success or retries are exhausted.\n\n```swift\nfunc retry<T>(maxRetries: Int, task: @escaping () async throws -> T) async throws -> T {\n    do {\n        return try await task()\n    } catch {\n        if maxRetries > 0 {\n            return try await retry(maxRetries: maxRetries - 1, task: task)\n        } else {\n            throw error\n        }\n    }\n}\n```"
+      }
+    ]
+  }
+  

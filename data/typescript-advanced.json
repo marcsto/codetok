@@ -1,0 +1,405 @@
+{
+    "examples": [
+      {
+        "name": "Generics with Functions",
+        "example": "Generics allow functions to be type‐safe.\n\n```ts\nfunction identity<T>(arg: T): T {\n  return arg; // Returns the same type as argument\n}\n\n// Usage: identity<number>(5) or identity('hello')\n```"
+      },
+      {
+        "name": "Generics with Classes",
+        "example": "Generic classes can work with multiple types.\n\n```ts\nclass Box<T> {\n  content: T;\n  constructor(value: T) {\n    this.content = value;\n  }\n}\n\n// Create a Box for a string\nconst stringBox = new Box<string>('hello');\n```"
+      },
+      {
+        "name": "Generic Constraints",
+        "example": "Constraining generics ensures required properties exist.\n\n```ts\ninterface Lengthwise {\n  length: number;\n}\n\nfunction logLength<T extends Lengthwise>(arg: T): T {\n  console.log(arg.length); // Access length property\n  return arg;\n}\n```"
+      },
+      {
+        "name": "Default Generic Parameters",
+        "example": "Default generic types simplify function calls.\n\n```ts\nfunction createArray<T = number>(length: number, value: T): T[] {\n  return Array(length).fill(value);\n}\n\n// Defaults T to number if not specified\nconst numbers = createArray(3, 0);\n```"
+      },
+      {
+        "name": "Conditional Types",
+        "example": "Conditional types choose types based on conditions.\n\n```ts\ntype IsString<T> = T extends string ? true : false;\n\n// IsString<'hello'> resolves to true\n// IsString<42> resolves to false\n```"
+      },
+      {
+        "name": "Mapped Types",
+        "example": "Mapped types transform each property of a type.\n\n```ts\ntype Readonly<T> = { readonly [P in keyof T]: T[P] };\n\ninterface Person {\n  name: string;\n  age: number;\n}\n\n// All properties of Person become readonly\n```"
+      },
+      {
+        "name": "Key Remapping in Mapped Types",
+        "example": "Remap keys using advanced mapped types.\n\n```ts\ntype CapitalizedKeys<T> = {\n  [K in keyof T as Capitalize<string & K>]: T[K]\n};\n\ninterface options {\n  verbose: boolean;\n}\n\n// Results in { Verbose: boolean }\n```"
+      },
+      {
+        "name": "Type Guards",
+        "example": "Type guards narrow types at runtime.\n\n```ts\nfunction isNumber(value: any): value is number {\n  return typeof value === 'number';\n}\n\n// if (isNumber(x)) { x is treated as a number }\n```"
+      },
+      {
+        "name": "Discriminated Unions",
+        "example": "Discriminated unions simplify type‐safe conditionals.\n\n```ts\ninterface Square {\n  kind: 'square';\n  size: number;\n}\n\ninterface Circle {\n  kind: 'circle';\n  radius: number;\n}\n\ntype Shape = Square | Circle;\n\nfunction area(shape: Shape): number {\n  if (shape.kind === 'square') {\n    return shape.size * shape.size;\n  } else {\n    return Math.PI * shape.radius ** 2;\n  }\n}\n```"
+      },
+      {
+        "name": "Exhaustiveness Checking",
+        "example": "Use 'never' to ensure all cases are handled.\n\n```ts\nfunction assertNever(x: never): never {\n  throw new Error('Unexpected object: ' + x);\n}\n\nfunction processShape(shape: Shape) {\n  switch (shape.kind) {\n    case 'square':\n      // process square\n      break;\n    case 'circle':\n      // process circle\n      break;\n    default:\n      assertNever(shape); // Compile-time error if a case is missed\n  }\n}\n```"
+      },
+      {
+        "name": "Utility Types: Partial",
+        "example": "Partial makes all properties optional.\n\n```ts\ninterface Person {\n  name: string;\n  age: number;\n}\n\ntype PartialPerson = Partial<Person>;\n// All properties in PartialPerson are optional\n```"
+      },
+      {
+        "name": "Utility Types: Readonly",
+        "example": "Readonly prevents modification of properties.\n\n```ts\ninterface Config {\n  apiUrl: string;\n}\n\nconst config: Readonly<Config> = { apiUrl: 'https://api.example.com' };\n// config.apiUrl cannot be changed\n```"
+      },
+      {
+        "name": "Utility Types: Record",
+        "example": "Record creates a type with specified keys and values.\n\n```ts\ntype UserRoles = Record<string, string>;\n\nconst roles: UserRoles = {\n  admin: 'Administrator',\n  user: 'Regular User'\n};\n```"
+      },
+      {
+        "name": "Utility Types: Pick",
+        "example": "Pick selects specific properties from a type.\n\n```ts\ninterface Person {\n  name: string;\n  age: number;\n  email: string;\n}\n\ntype ContactInfo = Pick<Person, 'name' | 'email'>;\n```"
+      },
+      {
+        "name": "Utility Types: Omit",
+        "example": "Omit excludes specified properties from a type.\n\n```ts\ninterface Person {\n  name: string;\n  age: number;\n  email: string;\n}\n\ntype WithoutAge = Omit<Person, 'age'>;\n```"
+      },
+      {
+        "name": "Index Signatures",
+        "example": "Index signatures allow dynamic property names.\n\n```ts\ninterface Dictionary {\n  [key: string]: number;\n}\n\nconst scores: Dictionary = { alice: 10, bob: 12 };\n```"
+      },
+      {
+        "name": "Function Overloads",
+        "example": "Overloads define multiple function signatures.\n\n```ts\nfunction combine(x: number, y: number): number;\nfunction combine(x: string, y: string): string;\nfunction combine(x: any, y: any) {\n  return x + y; // Works for both numbers and strings\n}\n```"
+      },
+      {
+        "name": "Intersection Types",
+        "example": "Intersection types combine multiple types.\n\n```ts\ntype A = { a: number };\ntype B = { b: string };\ntype Combined = A & B;\n\nconst obj: Combined = { a: 5, b: 'text' };\n```"
+      },
+      {
+        "name": "Template Literal Types",
+        "example": "Template literal types build string types dynamically.\n\n```ts\ntype Greeting<T extends string> = `Hello, ${T}`;\n\n// Greeting<'World'> resolves to 'Hello, World'\n```"
+      },
+      {
+        "name": "Recursive Types",
+        "example": "Recursive types define structures with self-references.\n\n```ts\ntype NestedArray<T> = T | NestedArray<T>[];\n\n// NestedArray<number> can be a number or an array of numbers recursively\n```"
+      },
+      {
+        "name": "Tuple Types with Rest Elements",
+        "example": "Tuples can combine fixed and variable parts.\n\n```ts\ntype TupleWithRest = [number, ...string[]];\n\n// Example: [1, 'a', 'b']\n```"
+      },
+      {
+        "name": "Variadic Tuple Types",
+        "example": "Variadic tuples capture a variable number of arguments.\n\n```ts\nfunction tuple<T extends any[]>(...args: T): T {\n  return args;\n}\n\n// Returns a tuple with the provided arguments\n```"
+      },
+      {
+        "name": "Type Inference with Generics",
+        "example": "TypeScript infers generic types from usage.\n\n```ts\nfunction wrap<T>(value: T): { value: T } {\n  return { value };\n}\n\nconst wrapped = wrap(123); // T is inferred as number\n```"
+      },
+      {
+        "name": "Infer in Conditional Types",
+        "example": "Use 'infer' to extract types within conditional types.\n\n```ts\ntype ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;\n\n// ReturnType<typeof func> gives the return type of func\n```"
+      },
+      {
+        "name": "Polymorphic 'this' Types",
+        "example": "Methods can return 'this' to enable fluent APIs.\n\n```ts\nclass Calculator {\n  value = 0;\n  add(n: number): this {\n    this.value += n;\n    return this;\n  }\n  subtract(n: number): this {\n    this.value -= n;\n    return this;\n  }\n}\n\n// Enables chaining: new Calculator().add(5).subtract(2)\n```"
+      },
+      {
+        "name": "Class Decorators",
+        "example": "Decorators modify or enhance classes at design time.\n\n```ts\nfunction sealed(constructor: Function) {\n  Object.seal(constructor);\n  Object.seal(constructor.prototype);\n}\n\n@sealed\nclass Greeter {\n  greeting: string;\n  constructor(message: string) {\n    this.greeting = message;\n  }\n}\n```"
+      },
+      {
+        "name": "Method Decorators",
+        "example": "Method decorators can modify method behavior.\n\n```ts\nfunction log(target: any, propertyName: string, descriptor: PropertyDescriptor) {\n  const original = descriptor.value;\n  descriptor.value = function(...args: any[]) {\n    // Log method call\n    return original.apply(this, args);\n  };\n}\n\nclass Example {\n  @log\n  doSomething() {}\n}\n```"
+      },
+      {
+        "name": "Property Decorators",
+        "example": "Property decorators can modify property behavior.\n\n```ts\nfunction readonly(target: any, propertyKey: string) {\n  Object.defineProperty(target, propertyKey, { writable: false });\n}\n\nclass Person {\n  @readonly\n  name: string = 'Alice';\n}\n```"
+      },
+      {
+        "name": "Accessor Decorators",
+        "example": "Accessor decorators modify getters and setters.\n\n```ts\nfunction configurable(value: boolean) {\n  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {\n    descriptor.configurable = value;\n  };\n}\n\nclass Example {\n  private _value: number = 0;\n  @configurable(false)\n  get value() {\n    return this._value;\n  }\n}\n```"
+      },
+      {
+        "name": "Parameter Decorators",
+        "example": "Parameter decorators provide metadata about parameters.\n\n```ts\nfunction logParameter(target: Object, propertyKey: string | symbol, parameterIndex: number) {\n  // Log parameter index or perform validation\n}\n\nclass Demo {\n  method(@logParameter param: string) {}\n}\n```"
+      },
+      {
+        "name": "Module Augmentation",
+        "example": "Extend external module declarations for added functionality.\n\n```ts\ndeclare module 'lodash' {\n  interface LoDashStatic {\n    myMethod(): void;\n  }\n}\n\n// Now _.myMethod() is recognized by TypeScript\n```"
+      },
+      {
+        "name": "Declaration Merging",
+        "example": "Multiple declarations merge into a single type.\n\n```ts\ninterface User {\n  name: string;\n}\n\ninterface User {\n  age: number;\n}\n\n// User now has both 'name' and 'age'\n```"
+      },
+      {
+        "name": "Nominal Typing with Branded Types",
+        "example": "Branded types simulate nominal typing.\n\n```ts\ntype USD = number & { readonly brand: unique symbol };\n\nfunction createUSD(n: number): USD {\n  return n as USD;\n}\n\n// Prevents accidental mixing with plain numbers\n```"
+      },
+      {
+        "name": "Exact Types Simulation",
+        "example": "Simulate exact type matching with generic constraints.\n\n```ts\ntype Exact<T, U extends T> = T;\n\n// Use Exact to enforce matching type shapes\n```"
+      },
+      {
+        "name": "ReadonlyArray and Tuples",
+        "example": "Readonly arrays and tuples prevent modifications.\n\n```ts\nconst arr: ReadonlyArray<number> = [1, 2, 3];\nconst tup: readonly [string, number] = ['id', 42];\n```"
+      },
+      {
+        "name": "Immutable Patterns with Readonly",
+        "example": "Use readonly to enforce immutability in objects.\n\n```ts\ninterface Config {\n  readonly apiKey: string;\n}\n\nconst config: Config = { apiKey: 'secret' };\n// config.apiKey cannot be reassigned\n```"
+      },
+      {
+        "name": "Advanced Error Handling with never",
+        "example": "Functions that never return can signal unrecoverable errors.\n\n```ts\nfunction fail(message: string): never {\n  throw new Error(message);\n}\n\n// Used in exhaustive checks and error scenarios\n```"
+      },
+      {
+        "name": "Type-safe Event Emitters",
+        "example": "Define events and payloads for safer event handling.\n\n```ts\ninterface Events {\n  login: { user: string };\n  logout: undefined;\n}\n\nclass EventEmitter {\n  on<K extends keyof Events>(event: K, listener: (payload: Events[K]) => void) {\n    // Attach listener\n  }\n}\n```"
+      },
+      {
+        "name": "Fluent Interfaces",
+        "example": "Chain methods for cleaner and more readable APIs.\n\n```ts\nclass QueryBuilder {\n  private query = '';\n  select(fields: string[]): this {\n    this.query += `SELECT ${fields.join(', ')}`;\n    return this;\n  }\n  from(table: string): this {\n    this.query += ` FROM ${table}`;\n    return this;\n  }\n  build(): string {\n    return this.query;\n  }\n}\n\n// Example: new QueryBuilder().select(['id']).from('users').build();\n```"
+      },
+      {
+        "name": "Mixin Pattern",
+        "example": "Combine behaviors from multiple classes using mixins.\n\n```ts\nfunction Timestamped<T extends new (...args: any[]) => {}>(Base: T) {\n  return class extends Base {\n    timestamp = Date.now();\n  };\n}\n\nclass BaseClass {}\nconst TimestampedClass = Timestamped(BaseClass);\n```"
+      },
+      {
+        "name": "Abstract Classes with Generics",
+        "example": "Abstract classes can serve as blueprints for derived classes.\n\n```ts\nabstract class Repository<T> {\n  abstract getById(id: number): T;\n}\n\nclass UserRepository extends Repository<{ name: string }> {\n  getById(id: number) {\n    return { name: 'User' };\n  }\n}\n```"
+      },
+      {
+        "name": "Lazy Evaluation with Generators",
+        "example": "Generators yield values on demand for efficient iteration.\n\n```ts\nfunction* range(start: number, end: number): Generator<number> {\n  for (let i = start; i < end; i++) {\n    yield i;\n  }\n}\n\n// Use 'for...of' to iterate over the yielded values\n```"
+      },
+      {
+        "name": "Advanced Type Aliases",
+        "example": "Combine multiple types into flexible aliases.\n\n```ts\ntype ID = string | number;\n\ntype Response<T> = {\n  data: T;\n  error?: string;\n};\n```"
+      },
+      {
+        "name": "Conditional Return Types",
+        "example": "Function return types can depend on input types.\n\n```ts\nfunction formatValue<T extends string | number>(value: T): T extends number ? string : T {\n  return (typeof value === 'number' ? value.toFixed(2) : value) as any;\n}\n\n// Number input returns a formatted string, string input is returned as-is\n```"
+      },
+      {
+        "name": "Overloaded Constructors",
+        "example": "Define multiple constructor signatures for flexible instantiation.\n\n```ts\nclass Point {\n  x: number;\n  y: number;\n  constructor(x: number, y: number);\n  constructor(coords: { x: number; y: number });\n  constructor(a: number | { x: number; y: number }, b?: number) {\n    if (typeof a === 'number' && b !== undefined) {\n      this.x = a;\n      this.y = b;\n    } else {\n      this.x = a.x;\n      this.y = a.y;\n    }\n  }\n}\n```"
+      },
+      {
+        "name": "This Parameter in Functions",
+        "example": "Specify the 'this' parameter for type safety in functions.\n\n```ts\ninterface Counter {\n  count: number;\n  increment(this: Counter, n: number): number;\n}\n\nconst counter: Counter = {\n  count: 0,\n  increment(n) {\n    this.count += n;\n    return this.count;\n  }\n};\n```"
+      },
+      {
+        "name": "Higher Order Functions",
+        "example": "Functions that take or return other functions enhance modularity.\n\n```ts\nfunction mapArray<T, U>(arr: T[], fn: (item: T) => U): U[] {\n  return arr.map(fn);\n}\n\n// Applies the function 'fn' to each element in 'arr'\n```"
+      },
+      {
+        "name": "Safe Navigation with Optional Chaining",
+        "example": "Optional chaining safely accesses nested properties.\n\n```ts\ninterface User {\n  address?: {\n    street?: string;\n  };\n}\n\nconst user: User = {};\nconst street = user.address?.street;\n```"
+      },
+      {
+        "name": "Nullish Coalescing Operator",
+        "example": "Provides default values when dealing with null or undefined.\n\n```ts\nconst input: string | null = null;\nconst value = input ?? 'default';\n// 'value' becomes 'default'\n```"
+      },
+      {
+        "name": "Advanced Type Assertions",
+        "example": "Type assertions override inferred types for more precise control.\n\n```ts\nconst element = document.getElementById('my-element') as HTMLDivElement | null;\nif (element) {\n  // 'element' is safely treated as an HTMLDivElement\n}\n```"
+      },
+      {
+        "name": "Utility Types: Exclude",
+        "example": "Exclude removes types from a union.\n\n```ts\ntype Letters = 'a' | 'b' | 'c';\ntype ExcludingA = Exclude<Letters, 'a'>; // 'b' | 'c'\n```"
+      },
+      {
+        "name": "Utility Types: Extract",
+        "example": "Extract picks types from a union.\n\n```ts\ntype Mixed = string | number | boolean;\ntype OnlyString = Extract<Mixed, string>; // string\n```"
+      },
+      {
+        "name": "Utility Types: NonNullable",
+        "example": "NonNullable removes null and undefined from a type.\n\n```ts\ntype MaybeString = string | null | undefined;\ntype StringOnly = NonNullable<MaybeString>; // string\n```"
+      },
+      {
+        "name": "Utility Types: Parameters",
+        "example": "Extract function parameter types using Parameters.\n\n```ts\nfunction concat(a: string, b: string): string {\n  return a + b;\n}\n\ntype ConcatParams = Parameters<typeof concat>; // [string, string]\n```"
+      },
+      {
+        "name": "Utility Types: InstanceType",
+        "example": "InstanceType gets the instance type from a constructor function.\n\n```ts\nclass Person {\n  name: string;\n  constructor(name: string) { this.name = name; }\n}\n\ntype PersonInstance = InstanceType<typeof Person>;\n```"
+      },
+      {
+        "name": "Symbol and Symbol.iterator",
+        "example": "Symbols create unique keys; Symbol.iterator makes objects iterable.\n\n```ts\nconst sym = Symbol('unique');\n\nconst iterable = {\n  [Symbol.iterator]() {\n    let count = 0;\n    return {\n      next() {\n        return count < 3 ? { value: count++, done: false } : { value: count, done: true };\n      }\n    };\n  }\n};\n```"
+      },
+      {
+        "name": "Advanced Enum Usage",
+        "example": "Enums can use computed values and support reverse mappings.\n\n```ts\nenum FileAccess {\n  None = 0,\n  Read = 1 << 1,\n  Write = 1 << 2,\n  ReadWrite = Read | Write\n}\n\n// Reverse mapping: FileAccess[2] returns 'Write'\n```"
+      },
+      {
+        "name": "String Literal Types for Action Creators",
+        "example": "Define actions with literal types for stronger type safety.\n\n```ts\ntype Action =\n  | { type: 'INCREMENT'; amount: number }\n  | { type: 'DECREMENT'; amount: number };\n\nfunction reducer(state: number, action: Action): number {\n  switch (action.type) {\n    case 'INCREMENT':\n      return state + action.amount;\n    case 'DECREMENT':\n      return state - action.amount;\n  }\n}\n```"
+      },
+      {
+        "name": "Recursive Conditional Types",
+        "example": "Conditional types can be recursive to flatten nested arrays.\n\n```ts\ntype Flatten<T> = T extends (infer U)[] ? Flatten<U> : T;\n\n// Flatten<number[][]> resolves to number\n```"
+      },
+      {
+        "name": "Utility Types: Awaited",
+        "example": "Awaited unwraps the resolved type of a Promise.\n\n```ts\ntype Response = Promise<string>;\ntype Unwrapped = Awaited<Response>; // string\n```"
+      },
+      {
+        "name": "Type Narrowing with 'in' Operator",
+        "example": "Use the 'in' operator to narrow object types.\n\n```ts\ninterface Cat { meow: () => void; }\ninterface Dog { bark: () => void; }\n\nfunction speak(animal: Cat | Dog) {\n  if ('meow' in animal) {\n    animal.meow();\n  } else {\n    animal.bark();\n  }\n}\n```"
+      },
+      {
+        "name": "Using keyof with Generics",
+        "example": "Leverage keyof to create type-safe property accessors.\n\n```ts\nfunction getProp<T, K extends keyof T>(obj: T, key: K): T[K] {\n  return obj[key];\n}\n\nconst person = { name: 'Alice', age: 30 };\n// getProp(person, 'name') returns a string\n```"
+      },
+      {
+        "name": "Extracting Async Return Types",
+        "example": "Infer the resolved value type of an async function.\n\n```ts\nasync function fetchData(): Promise<{ data: string }> {\n  return { data: 'info' };\n}\n\ntype DataType = Awaited<ReturnType<typeof fetchData>>; // { data: string }\n```"
+      },
+      {
+        "name": "Type-Safe Redux Reducer Pattern",
+        "example": "Use discriminated unions for a type-safe reducer.\n\n```ts\ntype State = { count: number };\n\ntype Action =\n  | { type: 'increment'; payload: number }\n  | { type: 'decrement'; payload: number };\n\nfunction reducer(state: State, action: Action): State {\n  switch (action.type) {\n    case 'increment':\n      return { count: state.count + action.payload };\n    case 'decrement':\n      return { count: state.count - action.payload };\n  }\n}\n```"
+      },
+      {
+        "name": "Simulating Partial Application",
+        "example": "Return a function with preset arguments to simulate currying.\n\n```ts\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n\nfunction partialAdd(a: number) {\n  return (b: number) => add(a, b);\n}\n\nconst addFive = partialAdd(5);\n```"
+      },
+      {
+        "name": "Inferring Tuple Types with 'as const'",
+        "example": "Use 'as const' to infer literal types in a tuple.\n\n```ts\nconst directions = ['up', 'down', 'left', 'right'] as const;\n\ntype Direction = typeof directions[number]; // 'up' | 'down' | 'left' | 'right'\n```"
+      },
+      {
+        "name": "Working with 'unknown' Type",
+        "example": "The unknown type forces explicit type checks.\n\n```ts\nfunction process(value: unknown) {\n  if (typeof value === 'string') {\n    // value is string here\n  }\n}\n```"
+      },
+      {
+        "name": "Custom Type Guards with unknown",
+        "example": "Define a type guard to refine unknown types.\n\n```ts\nfunction isString(value: unknown): value is string {\n  return typeof value === 'string';\n}\n\n// Usage: if (isString(x)) { ... }\n```"
+      },
+      {
+        "name": "Intersection vs. Union in Function Params",
+        "example": "Intersections require all properties; unions allow any of them.\n\n```ts\ntype A = { a: number };\ntype B = { b: string };\n\nfunction handle(value: A & B) { /* requires both a and b */ }\nfunction process(value: A | B) { /* accepts either a or b */ }\n```"
+      },
+      {
+        "name": "Using 'satisfies' Operator",
+        "example": "The 'satisfies' operator checks that an object meets a type without excess properties.\n\n```ts\nconst config = {\n  host: 'localhost',\n  port: 8080\n} satisfies { host: string; port: number };\n```"
+      },
+      {
+        "name": "Symbol Keyed Properties in Interfaces",
+        "example": "Use symbols as keys to create unique properties in interfaces.\n\n```ts\nconst secret = Symbol('secret');\n\ninterface Vault {\n  [secret]: string;\n}\n\nconst myVault: Vault = { [secret]: 'hidden' };\n```"
+      },
+      {
+        "name": "Template Literal Types with Unions",
+        "example": "Combine string literal unions to create new types.\n\n```ts\ntype Sizes = 'small' | 'medium' | 'large';\ntype PrefixedSizes = `size-${Sizes}`; // 'size-small' | 'size-medium' | 'size-large'\n```"
+      },
+      {
+        "name": "Refining Overloads with Literal Types",
+        "example": "Use literal types to refine overloaded function signatures.\n\n```ts\nfunction process(input: 'start'): void;\nfunction process(input: 'stop'): void;\nfunction process(input: string) { /* implementation */ }\n```"
+      },
+      {
+        "name": "Conditional Types for Mapping Function Signatures",
+        "example": "Transform function signatures using conditional types.\n\n```ts\ntype ReturnTypeOrNever<T> = T extends (...args: any[]) => infer R ? R : never;\n```"
+      },
+      {
+        "name": "Utility Types: ThisType",
+        "example": "ThisType helps to create fluent APIs by typing the 'this' context.\n\n```ts\ninterface ObjectDescriptor<D, M> {\n  data?: D;\n  methods?: M & ThisType<D & M>;\n}\n```"
+      },
+      {
+        "name": "Declaration Merging for Functions",
+        "example": "Merge a function with a namespace to add static properties.\n\n```ts\nfunction build(name: string) { /*...*/ }\n\nnamespace build {\n  export const version = '1.0';\n}\n\n// Access via build.version\n```"
+      },
+      {
+        "name": "Augmenting Global Interfaces",
+        "example": "Extend global interfaces to add custom properties.\n\n```ts\ndeclare global {\n  interface Window {\n    myGlobal: string;\n  }\n}\n\nwindow.myGlobal = 'value';\n```"
+      },
+      {
+        "name": "Type-Safe Promise.all",
+        "example": "Preserve tuple types when using Promise.all.\n\n```ts\nconst promises = [Promise.resolve(1), Promise.resolve('a')];\nconst results = Promise.all(promises);\n// Type is Promise<[number, string]>\n```"
+      },
+      {
+        "name": "Deep Readonly Type",
+        "example": "Recursively mark an object and its properties as readonly.\n\n```ts\ntype DeepReadonly<T> = {\n  readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K]\n};\n\ninterface Config { nested: { value: number } }\nconst cfg: DeepReadonly<Config> = { nested: { value: 42 } };\n```"
+      },
+      {
+        "name": "Deep Partial Type",
+        "example": "Recursively make all properties of an object optional.\n\n```ts\ntype DeepPartial<T> = {\n  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]\n};\n\ninterface Settings { nested: { enabled: boolean } }\nconst settings: DeepPartial<Settings> = { nested: {} };\n```"
+      },
+      {
+        "name": "Type-Safe Observer Pattern",
+        "example": "Implement an observer pattern with strong typing.\n\n```ts\ninterface Observer<T> { update: (data: T) => void; }\n\nclass Subject<T> {\n  private observers: Observer<T>[] = [];\n  subscribe(observer: Observer<T>) { this.observers.push(observer); }\n  notify(data: T) { this.observers.forEach(obs => obs.update(data)); }\n}\n```"
+      },
+      {
+        "name": "Chaining Async Calls with Inference",
+        "example": "Chain asynchronous calls while preserving return types.\n\n```ts\nasync function first(): Promise<number> { return 1; }\nasync function second(num: number): Promise<string> { return num.toString(); }\n\nasync function chain() {\n  const num = await first();\n  const str = await second(num);\n  return str; // inferred as string\n}\n```"
+      },
+      {
+        "name": "Type-Level Computation: Add Numbers",
+        "example": "Perform compile-time addition using recursive types.\n\n```ts\ntype Add<A extends number, B extends number> = [...Array<A>, ...Array<B>]['length'];\n\ntype Sum = Add<3, 4>; // 7\n```"
+      },
+      {
+        "name": "Type-Level String Manipulation",
+        "example": "Manipulate string literal types using template literals.\n\n```ts\ntype PrefixHello<T extends string> = `Hello, ${T}`;\n\ntype Greeting = PrefixHello<'World'>; // 'Hello, World'\n```"
+      },
+      {
+        "name": "Type-Level JSON Parsing",
+        "example": "Simulate JSON value types at the type level (limited use case).\n\n```ts\ntype JSONValue = string | number | boolean | null | JSONValue[] | { [key: string]: JSONValue };\n```"
+      },
+      {
+        "name": "Branded Types for IDs",
+        "example": "Create branded types to avoid mixing similar primitives.\n\n```ts\ntype UserID = number & { readonly brand: unique symbol };\n\nfunction createUserID(id: number): UserID { return id as UserID; }\n```"
+      },
+      {
+        "name": "Generic Event Emitter Implementation",
+        "example": "Define a generic event emitter with type-safe events.\n\n```ts\ninterface EventMap { [event: string]: any; }\n\nclass TypedEmitter<Events extends EventMap> {\n  private listeners: { [K in keyof Events]?: ((payload: Events[K]) => void)[] } = {};\n  on<K extends keyof Events>(event: K, listener: (payload: Events[K]) => void) {\n    (this.listeners[event] ||= []).push(listener);\n  }\n}\n```"
+      },
+      {
+        "name": "Variadic Tuple Types in Currying",
+        "example": "Type curried functions using variadic tuple types.\n\n```ts\nfunction curry<T extends any[], R>(fn: (...args: T) => R) {\n  return (...args: T) => fn(...args);\n}\n\n// Type inference preserves tuple types\n```"
+      },
+      {
+        "name": "Simulated Overloading with Union Types",
+        "example": "Use union types to simulate function overloading.\n\n```ts\nfunction combine(input: number | string): number | string {\n  if (typeof input === 'number') return input + 1;\n  return input + '!';\n}\n```"
+      },
+      {
+        "name": "Filtering Union Types with Conditional Types",
+        "example": "Filter a union type using conditional types.\n\n```ts\ntype OnlyNumbers<T> = T extends number ? T : never;\n\ntype NumbersOnly = OnlyNumbers<string | number | boolean>; // number\n```"
+      },
+      {
+        "name": "Merging Function Overloads with Intersections",
+        "example": "Combine multiple function types using intersection types.\n\n```ts\ntype FuncA = (a: number) => void;\ntype FuncB = (b: string) => void;\n\ntype CombinedFunc = FuncA & FuncB;\n\nconst fn: CombinedFunc = (arg: any) => { /* implementation */ };\n```"
+      },
+      {
+        "name": "Mapped Tuple Types for Type Inference",
+        "example": "Apply mapped types to tuples to transform element types.\n\n```ts\ntype ToArray<T extends any[]> = { [K in keyof T]: T[K][] };\n\ntype NumbersAndStrings = ToArray<[number, string]>; // [number[], string[]]\n```"
+      },
+      {
+        "name": "Template Literal Union Types",
+        "example": "Create unions of template literal types for dynamic keys.\n\n```ts\ntype EventType = 'click' | 'hover';\ntype UIEvent = `on${Capitalize<EventType>}`; // 'onClick' | 'onHover'\n```"
+      },
+      {
+        "name": "Complex Conditional Types for API Responses",
+        "example": "Differentiate API responses using conditional types.\n\n```ts\ntype ApiResponse<T> = T extends { error: any } ? never : T;\n```"
+      },
+      {
+        "name": "Recursive Type Aliases with Nested Objects",
+        "example": "Define types that recursively reference themselves.\n\n```ts\ntype NestedObject = { value: number; child?: NestedObject };\n```"
+      },
+      {
+        "name": "Deep Merge Types Using Conditional Types",
+        "example": "Merge two types recursively with conditional and mapped types.\n\n```ts\ntype DeepMerge<A, B> = {\n  [K in keyof A | keyof B]: K extends keyof B\n    ? K extends keyof A\n      ? DeepMerge<A[K], B[K]>\n      : B[K]\n    : A[K]\n};\n```"
+      },
+      {
+        "name": "Advanced Discriminated Unions with Nested Patterns",
+        "example": "Handle nested discriminated unions for complex type narrowing.\n\n```ts\ntype NestedShape =\n  | { kind: 'circle'; data: { radius: number } }\n  | { kind: 'rectangle'; data: { width: number; height: number } };\n\nfunction area(shape: NestedShape): number {\n  switch (shape.kind) {\n    case 'circle': return Math.PI * shape.data.radius ** 2;\n    case 'rectangle': return shape.data.width * shape.data.height;\n  }\n}\n```"
+      },
+      {
+        "name": "Using Namespaces for Module Organization",
+        "example": "Group related code together using namespaces.\n\n```ts\nnamespace Utility {\n  export function log(message: string) { console.log(message); }\n}\n\nUtility.log('Hello');\n```"
+      },
+      {
+        "name": "Ambient Declarations for Third-Party Libraries",
+        "example": "Provide type declarations for modules without types.\n\n```ts\ndeclare module 'legacy-lib' {\n  export function legacyFunction(): void;\n}\n```"
+      },
+      {
+        "name": "Leveraging 'satisfies' Operator for Object Literals",
+        "example": "Use 'satisfies' to ensure an object meets a specified type.\n\n```ts\ninterface Config { host: string; port: number; }\n\nconst config = {\n  host: 'localhost',\n  port: 3000\n} satisfies Config;\n```"
+      }
+    ]
+  }
+  
